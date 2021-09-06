@@ -2,19 +2,20 @@
 
 ```npm install```
 
-\n
-Save this package globally \n
 
-```npm install -g ./ ```  \n
+Save this package globally   
+
+```npm install -g ./ ```    
 
 #theme
-``` salla theme start ``` \n
-``` salla theme auth ``` \n
-``` salla theme watch ``` \n
-``` salla theme push ``` \n
-``` salla theme publish ``` \n
+``` salla theme start ```  
+``` salla theme auth ```  
+``` salla theme watch ```  
+``` salla theme push ```  
+``` salla theme publish ```  
 
+    
 #app
-``` salla app create ``` \n
+``` salla app create ```   
 
 
