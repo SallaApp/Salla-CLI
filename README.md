@@ -7,7 +7,7 @@ Save this package globally
 
 ```npm install -g ./ ```    
 
-#theme
+# theme
 ``` salla theme start ```  
 ``` salla theme auth ```  
 ``` salla theme watch ```  
@@ -15,7 +15,7 @@ Save this package globally
 ``` salla theme publish ```  
 
     
-#app
+# app
 ``` salla app create ```   
 
 
