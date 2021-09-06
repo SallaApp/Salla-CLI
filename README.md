@@ -1,5 +1,8 @@
 # Local
-npm install
 
-save the package globaly
-npm install -g ./
+```npm install```
+
+
+Save this package globally
+```npm install -g ./ ```
+
