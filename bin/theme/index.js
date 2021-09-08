@@ -1,9 +1,12 @@
 
 const commander = require("commander");
 const program = new commander.Command();
+const { checkNodeVersion, printCliResultErrorAndExit } = require('../../lib/cliCommon');
+
 
 module.exports = function themeCommands() {
-    const start = require("../../lib/theme/start");
+    const SallaThemeStart = require("../../lib/theme/start");
+   
     const auth = require("../../lib/theme/auth");
     const push = require("../../lib/theme/push");
     const publish = require("../../lib/theme/publish");
@@ -16,10 +19,12 @@ module.exports = function themeCommands() {
     // $ salla theme s
     _theme
         .command("start")
-        .alias("s") // alternative sub-command is `al`
+        .alias("s")
         .description("Start new salla theme")
         .action(function () {
-            start();
+            
+            checkNodeVersion()
+            new SallaThemeStart().run({}).catch(printCliResultErrorAndExit);
         });
 
     // $ salla theme auth

@@ -1,17 +1,25 @@
 {
-    "name": "salla",
-    "version": "0.0.1",
-    "preferGlobal": true,
-    "bin": {
-        "salla": "bin/index.js"
-    },
-    "scripts": {
-        "start": "node bin/index.js"
-    },
-    "dependencies": {
-        "colors": "^1.4.0",
-        "commander": "^8.1.0",
-        "inquirer": "^5.2.0",
-        "pad": "^2.3.0"
-    }
+  "name": "salla",
+  "version": "0.0.1",
+  "preferGlobal": true,
+  "engines": {
+    "node": "^10 || ^12 || ^14"
+  },
+  "bin": {
+    "salla": "bin/index.js"
+  },
+  "scripts": {
+    "start": "node bin/index.js"
+  },
+  "dependencies": {
+    "cli-progress": "^3.9.0",
+    "colors": "^1.4.0",
+    "commander": "^8.1.0",
+    "inquirer": "^5.2.0",
+    "jsonlint": "^1.6.3",
+    "pad": "^2.3.0",
+    "recursive-readdir": "^2.2.2",
+    "semver": "^7.3.5",
+    "simple-git": "^2.45.1"
+  }
 }
