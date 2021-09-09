@@ -7,7 +7,7 @@ const { checkNodeVersion, printCliResultErrorAndExit } = require('../../lib/cliC
 module.exports = function themeCommands() {
     const SallaThemeStart = require("../../lib/theme/start");
    
-    const auth = require("../../lib/theme/auth");
+    const SallaThemeAuth = require("../../lib/theme/auth");
     const push = require("../../lib/theme/push");
     const publish = require("../../lib/theme/publish");
     const watch = require("../../lib/theme/watch");
@@ -22,7 +22,6 @@ module.exports = function themeCommands() {
         .alias("s")
         .description("Start new salla theme")
         .action(function () {
-            
             checkNodeVersion()
             new SallaThemeStart().run({}).catch(printCliResultErrorAndExit);
         });
@@ -34,7 +33,7 @@ module.exports = function themeCommands() {
         .alias("a")
         .description("Check if the Salla access token exists")
         .action(function () {
-            auth();
+            new SallaThemeAuth().run({}).catch(printCliResultErrorAndExit);
         });
 
     // $ salla theme watch
