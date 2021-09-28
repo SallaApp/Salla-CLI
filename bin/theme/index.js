@@ -6,11 +6,11 @@ const { checkNodeVersion, printCliResultErrorAndExit } = require('../../lib/cliC
 
 module.exports = function themeCommands() {
     const SallaThemeStart = require("../../lib/theme/start");
-   
     const SallaThemeAuth = require("../../lib/theme/auth");
+    const SallaThemeWatch = require("../../lib/theme/watch");
+
     const push = require("../../lib/theme/push");
     const publish = require("../../lib/theme/publish");
-    const watch = require("../../lib/theme/watch");
     /*******************************************/
 
     const _theme = program.command("theme");
@@ -37,13 +37,14 @@ module.exports = function themeCommands() {
         });
 
     // $ salla theme watch
-    // $ salla theme p
+    // $ salla theme w
     _theme
         .command("watch")
         .alias("w")
+        .option('-s,--skip-start', 'skip start')
         .description("Watch Salla theme")
-        .action(function () {
-            watch();
+        .action((options) => {
+            new SallaThemeWatch().run(options).catch(printCliResultErrorAndExit);
         });
 
     // $ salla theme publish
@@ -61,8 +62,13 @@ module.exports = function themeCommands() {
     _theme
         .command("push")
         .description("Push Salla theme")
-        .action(function () {
-            push();
+        .option('-s,--soft', 'soft pushing')
+        .action((options, command) => {
+            if (options.soft) {
+                console.error('Called %s with options %o', command.name(), options);
+            }
+     
+           push();
         });
     return _theme;
 }

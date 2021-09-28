@@ -12,10 +12,12 @@
     "start": "node bin/index.js"
   },
   "dependencies": {
+    "chokidar": "^3.5.2",
     "cli-progress": "^3.9.0",
     "colors": "^1.4.0",
     "commander": "^8.1.0",
     "express": "^4.17.1",
+    "html-webpack-plugin": "^5.3.2",
     "inquirer": "^5.2.0",
     "jsonlint": "^1.6.3",
     "open": "^8.2.1",
@@ -25,5 +27,11 @@
     "simple-git": "^2.45.1",
     "ws": "^8.2.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "html-loader": "^2.1.2",
+    "twig-loader": "^0.5.5",
+    "webpack": "^5.52.1",
+    "webpack-dev-server": "^4.2.1",
+    "webpack-watch-files-plugin": "^1.1.0"
+  }
 }
