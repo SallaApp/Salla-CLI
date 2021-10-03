@@ -5,9 +5,9 @@ const { checkNodeVersion, printCliResultErrorAndExit } = require('../../lib/cliC
 
 
 module.exports = function themeCommands() {
-    const SallaThemeStart = require("../../lib/theme/start");
-    const SallaThemeAuth = require("../../lib/theme/auth");
-    const SallaThemeWatch = require("../../lib/theme/watch");
+    const ThemeStart = require("../../lib/theme/start");
+    const ThemeAuth = require("../../lib/theme/auth");
+    const ThemeWatch = require("../../lib/theme/watch");
 
     const push = require("../../lib/theme/push");
     const publish = require("../../lib/theme/publish");
@@ -23,7 +23,7 @@ module.exports = function themeCommands() {
         .description("Start new salla theme")
         .action(function () {
             checkNodeVersion()
-            new SallaThemeStart().run({}).catch(printCliResultErrorAndExit);
+            new ThemeStart().run({}).catch(printCliResultErrorAndExit);
         });
 
     // $ salla theme auth
@@ -33,7 +33,7 @@ module.exports = function themeCommands() {
         .alias("a")
         .description("Check if the Salla access token exists")
         .action(function () {
-            new SallaThemeAuth().run({}).catch(printCliResultErrorAndExit);
+            new ThemeAuth().run({}).catch(printCliResultErrorAndExit);
         });
 
     // $ salla theme watch
@@ -44,7 +44,7 @@ module.exports = function themeCommands() {
         .option('-s,--skip-start', 'skip start')
         .description("Watch Salla theme")
         .action((options) => {
-            new SallaThemeWatch().run(options).catch(printCliResultErrorAndExit);
+            new ThemeWatch().run(options).catch(printCliResultErrorAndExit);
         });
 
     // $ salla theme publish
