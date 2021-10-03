@@ -12,6 +12,8 @@
     "start": "node bin/index.js"
   },
   "dependencies": {
+    "async": "^3.2.1",
+    "child_process": "^1.0.2",
     "chokidar": "^3.5.2",
     "cli-progress": "^3.9.0",
     "colors": "^1.4.0",
