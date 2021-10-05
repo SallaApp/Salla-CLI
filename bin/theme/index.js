@@ -8,8 +8,7 @@ module.exports = function themeCommands() {
     const ThemeStart = require("../../lib/theme/start");
     const ThemeAuth = require("../../lib/theme/auth");
     const ThemeWatch = require("../../lib/theme/watch");
-
-    const push = require("../../lib/theme/push");
+    const ThemePush = require("../../lib/theme/push");
     const publish = require("../../lib/theme/publish");
     /*******************************************/
 
@@ -63,12 +62,9 @@ module.exports = function themeCommands() {
         .command("push")
         .description("Push Salla theme")
         .option('-s,--soft', 'soft pushing')
-        .action((options, command) => {
-            if (options.soft) {
-                console.error('Called %s with options %o', command.name(), options);
-            }
-     
-           push();
+        .action((options) => {
+            new ThemePush().run(options).catch(printCliResultErrorAndExit);
         });
+
     return _theme;
 }

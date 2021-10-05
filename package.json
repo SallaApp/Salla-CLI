@@ -9,6 +9,7 @@
     "start": "node bin/index.js"
   },
   "dependencies": {
+    "@octokit/rest": "^18.11.4",
     "async": "^3.2.1",
     "child_process": "^1.0.2",
     "chokidar": "^3.5.2",
