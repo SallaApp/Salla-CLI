@@ -41,6 +41,7 @@ module.exports = function themeCommands() {
         .command("watch")
         .alias("w")
         .option('-s,--skip-start', 'skip start')
+        .option('-s,--test', 'just test')
         .description("Watch Salla theme")
         .action((options) => {
             new ThemeWatch().run(options).catch(printCliResultErrorAndExit);
