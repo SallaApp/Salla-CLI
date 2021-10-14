@@ -29,6 +29,7 @@
     "recursive-readdir": "^2.2.2",
     "semver": "^7.3.5",
     "simple-git": "^2.45.1",
+    "web-dev-server": "^3.0.22",
     "ws": "^8.2.2"
   },
   "devDependencies": {
