@@ -2,6 +2,9 @@
 
 //this to avoid local https errors, it cause problems locally
 require('https').globalAgent.options.rejectUnauthorized = false;
+
+require('../constants');
+
 const commander = require("commander");
 const program = new commander.Command();
 
