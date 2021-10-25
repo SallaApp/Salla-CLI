@@ -6,6 +6,7 @@ const {checkNodeVersion, printCliResultErrorAndExit} = require('../../lib/cliCom
 module.exports = function themeCommands() {
     const Start = require("../../lib/theme/start");
     const Auth = require("../../lib/theme/auth");
+    const Serve = require("../../lib/theme/serve");
     const Watch = require("../../lib/theme/watch");
     const Sync = require("../../lib/theme/sync");
     const Push = require("../../lib/theme/push");
@@ -32,6 +33,12 @@ module.exports = function themeCommands() {
         .action((options) => new Auth().run(options).catch(printCliResultErrorAndExit));
 
     themeCommand
+        .command("serve", {hidden: true})
+        .description("Create loacl sever")
+        .option('-p,--port <port>', 'assets port')
+        .action((options) => new Serve().run(options).catch(printCliResultErrorAndExit));
+
+    themeCommand
         .command("sync")
         .requiredOption('-f,--file <file_path>', 'File Path')
         .requiredOption('-t,--theme_id <theme_id>', 'Theme Id')
@@ -41,6 +48,7 @@ module.exports = function themeCommands() {
     themeCommand
         .command("watch")
         .alias("w")
+        .option('-p,--port <port>', 'assets port')
         .option('-s,--skip-start', 'skip start')
         .description("Watch Salla theme")
         .action(options => new Watch().run(options).catch(printCliResultErrorAndExit));
