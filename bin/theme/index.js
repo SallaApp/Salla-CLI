@@ -18,6 +18,7 @@ module.exports = function themeCommands() {
     themeCommand
         .command("start")
         .alias("s")
+        .option('-n,--name', 'theme name')
         .description("Start new salla theme")
         .action(function () {
             checkNodeVersion()
@@ -65,7 +66,7 @@ module.exports = function themeCommands() {
         .command("publish")
         .alias("p")
         .description("publish Salla theme")
-        .action(() => new publish().run(options).catch(printCliResultErrorAndExit));
+        .action((options) => new publish().run(options).catch(printCliResultErrorAndExit));
 
     return themeCommand;
 }
