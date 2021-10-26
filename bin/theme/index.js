@@ -60,6 +60,8 @@ module.exports = function themeCommands() {
         .option('-f,--force', 'Force push all files, not only twig files.')
         .option('-t,--token <github_token>', 'Github token')
         .option('-n,--name <github_name>', 'Github user name')
+        .option('-i,--minor', 'Is release minor')
+        .option('-m,--message <message>', 'commit message')
         .action((options) => new Push().run(options).catch(printCliResultErrorAndExit));
 
     themeCommand
