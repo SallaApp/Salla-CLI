@@ -1,6 +1,6 @@
 const commander = require("commander");
 const program = new commander.Command();
-const {checkNodeVersion, printCliResultErrorAndExit} = require('../../lib/cliCommon');
+const {printCliResultErrorAndExit} = require('../../lib/cliCommon');
 
 
 module.exports = function themeCommands() {
@@ -18,12 +18,9 @@ module.exports = function themeCommands() {
     themeCommand
         .command("start")
         .alias("s")
-        .option('-n,--name', 'theme name')
+        .option('-n,--name <theme_name>', 'Theme name')
         .description("Start new salla theme")
-        .action(function () {
-            checkNodeVersion()
-            new Start().run({}).catch(printCliResultErrorAndExit);
-        });
+        .action(options => new Start(options, 'start').run().catch(printCliResultErrorAndExit));
 
 
     themeCommand
@@ -31,20 +28,21 @@ module.exports = function themeCommands() {
         .alias("a")
         .description("Check if the tokens existed and valid")
         .option('-f,--force', 'Force get new tokens')
-        .action((options) => new Auth().run(options).catch(printCliResultErrorAndExit));
+        .option('-p,--port <port>', 'Authentication socket port')
+        .action(options => new Auth(options, 'auth').run().catch(printCliResultErrorAndExit));
 
     themeCommand
         .command("serve", {hidden: true})
-        .description("Create loacl sever")
-        .option('-p,--port <port>', 'assets port')
-        .action((options) => new Serve().run(options).catch(printCliResultErrorAndExit));
+        .description("Create Local sever")
+        .option('-p,--port <port>', 'Assets port')
+        .action((options) => new Serve(options, 'serve').run().catch(printCliResultErrorAndExit));
 
     themeCommand
-        .command("sync")
+        .command("sync", {hidden: true})
         .requiredOption('-f,--file <file_path>', 'File Path')
         .requiredOption('-t,--theme_id <theme_id>', 'Theme Id')
         .description("Upload modified file for testing theme.")
-        .action(options => new Sync().run(options).catch(printCliResultErrorAndExit));
+        .action(options => new Sync(options, 'sync').run().catch(printCliResultErrorAndExit));
 
     themeCommand
         .command("watch")
@@ -52,7 +50,7 @@ module.exports = function themeCommands() {
         .option('-p,--port <port>', 'assets port')
         .option('-s,--skip-start', 'skip start')
         .description("Watch Salla theme")
-        .action(options => new Watch().run(options).catch(printCliResultErrorAndExit));
+        .action(options => new Watch(options, 'watch').run().catch(printCliResultErrorAndExit));
 
     themeCommand
         .command("push")
@@ -62,13 +60,13 @@ module.exports = function themeCommands() {
         .option('-n,--name <github_name>', 'Github user name')
         .option('-i,--minor', 'Is release minor')
         .option('-m,--message <message>', 'commit message')
-        .action((options) => new Push().run(options).catch(printCliResultErrorAndExit));
+        .action(options => new Push(options, 'push').run().catch(printCliResultErrorAndExit));
 
     themeCommand
         .command("publish")
         .alias("p")
         .description("publish Salla theme")
-        .action((options) => new publish().run(options).catch(printCliResultErrorAndExit));
+        .action(options => new publish(options, 'publish').run().catch(printCliResultErrorAndExit));
 
     return themeCommand;
 }
