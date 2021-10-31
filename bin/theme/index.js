@@ -18,7 +18,7 @@ module.exports = function themeCommands() {
     themeCommand
         .command("start")
         .alias("s")
-        .option('-n,--name <theme_name>', 'Theme name')
+       //.option('-n,--name <theme_name>', 'Theme name')
         .description("Start new salla theme")
         .action(options => new Start(options, 'start').run().catch(printCliResultErrorAndExit));
 
