@@ -14,8 +14,6 @@
     "async": "^3.2.1",
     "axios": "^0.22.0",
     "child_process": "^1.0.2",
-    "chokidar": "^3.5.2",
-    "cli-progress": "^3.9.0",
     "colors": "^1.4.0",
     "command-exists": "^1.2.9",
     "commander": "^8.1.0",
@@ -24,21 +22,11 @@
     "fs-extra": "^10.0.0",
     "inquirer": "^5.2.0",
     "jsonlint": "^1.6.3",
-    "multicast-dns-service-types": "^1.1.0",
-    "npm": "^7.24.1",
     "open": "^8.2.1",
-    "pad": "^2.3.0",
-    "recursive-readdir": "^2.2.2",
     "semver": "^7.3.5",
     "simple-git": "^2.45.1",
     "web-dev-server": "^3.0.22",
     "ws": "^8.2.2"
   },
-  "devDependencies": {
-    "html-loader": "^2.1.2",
-    "twig-loader": "^0.5.5",
-    "webpack": "^5.52.1",
-    "webpack-dev-server": "^4.2.1",
-    "webpack-watch-files-plugin": "^1.1.0"
-  }
+  "devDependencies": {}
 }
