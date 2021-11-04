@@ -2,6 +2,7 @@ global.BASE_PATH = process.cwd();
 global.NODE_ENGINES = "^10 || ^12 || ^14";
 global.CLI_CONFIG_DIR = require("os").homedir() + "/.salla";
 global.CLI_CONFIG_FILE = require("path").join(CLI_CONFIG_DIR, "config.json");
+global.BASE_URL = "";
 try {
     global.BASE_URL = require(CLI_CONFIG_FILE).BASE_URL;
 } catch (e) {
