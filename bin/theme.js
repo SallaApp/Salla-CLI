@@ -24,7 +24,7 @@ module.exports = function themeCommands() {
 
 
     themeCommand
-        .command("auth", {hidden: true})
+        .command("auth")
         .alias("a")
         .description("Check if the tokens existed and valid")
         .option('-f,--force', 'Force get new tokens')
@@ -32,7 +32,7 @@ module.exports = function themeCommands() {
         .action(options => new Auth(options, 'auth').run().catch(printCliResultErrorAndExit));
 
     themeCommand
-        .command("serve", {hidden: true})
+        .command("serve")
         .description("Create Local sever")
         .option('-p,--port <port>', 'Assets port')
         .action((options) => new Serve(options, 'serve').run().catch(printCliResultErrorAndExit));
