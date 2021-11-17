@@ -1,16 +1,16 @@
 const commander = require("commander");
 const program = new commander.Command();
-const {printCliResultErrorAndExit} = require('../lib/cliCommon');
+const {printCliResultErrorAndExit} = require('../src/cliCommon');
 
 
 module.exports = function themeCommands() {
-    const Start = require("../lib/theme/start");
-    const Auth = require("../lib/theme/auth");
-    const Serve = require("../lib/theme/serve");
-    const Watch = require("../lib/theme/watch");
-    const Sync = require("../lib/theme/sync");
-    const Push = require("../lib/theme/push");
-    const publish = require("../lib/theme/publish");
+    const Start = require("../src/theme/start");
+    const Auth = require("../src/theme/auth");
+    const Serve = require("../src/theme/serve");
+    const Watch = require("../src/theme/watch");
+    const Sync = require("../src/theme/sync");
+    const Push = require("../src/theme/push");
+    const publish = require("../src/theme/publish");
     /*******************************************/
 
     const themeCommand = program.command("theme");

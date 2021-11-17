@@ -3,7 +3,7 @@ const {Octokit} = require("@octokit/rest");
 const fetch = require("node-fetch");
 const AdmZip = require("adm-zip");
 
-const {checkNodeVersion} = require('../../lib/cliCommon');
+const {checkNodeVersion} = require('../cliCommon');
 
 /**
  * @property {StartOptions} options

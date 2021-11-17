@@ -1,7 +1,7 @@
 const commander = require("commander");
 
 module.exports = function DevCommands() {
-    const Dev = require("../lib/dev");
+    const Dev = require("../src/dev");
 
     return (new commander.Command()).command("dev", {hidden: true})
         .option('-b,--base <working_base>', 'Changing the base url for all endpoints.')

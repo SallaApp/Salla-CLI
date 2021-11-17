@@ -4,7 +4,7 @@
 require('https').globalAgent.options.rejectUnauthorized = false;
 
 require('../constants');
-const Dev = require('../lib/dev');
+const Dev = require('../src/dev');
 const commander = require("commander");
 const program = new commander.Command();
 program.version('0.0.2');

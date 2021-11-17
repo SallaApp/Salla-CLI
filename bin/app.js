@@ -4,7 +4,7 @@ const commander = require("commander");
 const program = new commander.Command();
 
 module.exports = function appCommands() {
-    const create = require("../lib/app/create");
+    const create = require("../src/app/create");
     /*******************************************/
     const _app = program.command("app");
     // $ salla app create

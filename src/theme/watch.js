@@ -1,6 +1,7 @@
 const BaseClass = require('./utils/BaseClass');
 const {exec, execSync} = require('child_process')
 const commandExists = require('command-exists');
+const stream = require('stream');
 
 /**
  * @property {WatchOptions} options
@@ -59,10 +60,10 @@ class Watch extends BaseClass {
         let serve = exec(`salla theme serve --port=${assetsPort}`, {cwd: BASE_PATH});
         serve.stdout.on('data', data => {
             this.log(data = data.replace("\n", ''));
-            if (data.toLowerCase().includes('error')) {
+            if (data.toLowerCase().includes('Error')) {
                 return this.isNotReadyGoOut = true;
             }
-            if (data.includes('Server is running.')) {
+            if (data.includes('Local server is running')) {
                 this.readyToReturn = true;
             }
         });
@@ -71,7 +72,6 @@ class Watch extends BaseClass {
         }
         response.preview_url += "&assets_url=http://localhost:" + assetsPort;
         this.success("Preview Url:", response.preview_url)
-        await this.openBrowser(response.preview_url);
 
 
         // check if watch defined in package.json
@@ -85,9 +85,26 @@ class Watch extends BaseClass {
             return null;
         }
 
+        await this.openBrowser(response.preview_url);
+
         packageManager += packageManager === 'npm' ? ' run' : '';
         this.log(`  running '${packageManager} watch'...`.green);
         this.runSysCommand(packageManager + ' watch');
+        //
+        // var spawn = require('child_process').spawn;
+        // var browserOpened = false;
+        // var watch = spawn(packageManager, ['watch'], { stdio: [process.stdin, process.stdout, 'pipe'] });
+        // var customStream = new stream.Writable();
+        // customStream._write = function (data, ...argv) {
+        //     console.log('your notation');
+        //     process.stderr._write(data, ...argv);
+        //     if (data.includes('compiled successfully in') && !browserOpened) {
+        //         browserOpened = true;
+        //         this.openBrowser(response.preview_url);
+        //     }
+        // };
+        // watch.stderr.pipe(customStream);
+
         //let npmWatch = exec(packageManager + ' watch'); //don't run it sync to avoid server stop serving
         //npmWatch.stdout.on('data', data => console.log(data));
     }
