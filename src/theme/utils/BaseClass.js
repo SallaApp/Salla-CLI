@@ -162,7 +162,7 @@ class BaseClass {
   //for testing proposes
   authHeader() {
     return {
-      authorization: "token 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",
+      authorization: "token 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",
     };
   }
 
