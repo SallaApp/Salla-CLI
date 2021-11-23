@@ -3,17 +3,34 @@
   "version": "0.0.1",
   "preferGlobal": true,
   "bin": {
-    "salla": "bin/index.js"
+    "salla": "dist/run.js"
   },
   "scripts": {
-    "start": "node bin/index.js"
+    "start": "node bin/index.js",
+    "build": "npx pkg package.json --compress Brotli"
   },
+  "pkg": {
+    "scripts": "bin/index.js",
+    "targets": [
+      "latest-linux",
+      "latest-macos",
+      "latest-win"
+    ],
+    "outputPath": "dist"
+  },
+  "files": [
+    "dist/"
+  ],
   "dependencies": {
+    "shelljs": "^0.8.4"
+  },
+  "devDependencies": {
     "@octokit/rest": "^18.11.4",
     "adm-zip": "^0.5.9",
     "async": "^3.2.2",
     "axios": "^0.22.0",
     "child_process": "^1.0.2",
+    "chokidar": "~3.5.2",
     "colors": "^1.4.0",
     "command-exists": "^1.2.9",
     "commander": "^8.3.0",
@@ -32,7 +49,6 @@
     "serve-static": "^1.14.1",
     "simple-git": "^2.47.0",
     "web-dev-server": "^3.0.22",
-    "ws": "^8.2.3",
-    "chokidar": "~3.5.2"
+    "ws": "^8.2.3"
   }
 }

@@ -19,3 +19,11 @@ Save this package globally
 ``` salla app create ```   
 
 
+## Build
+
+- install pkg
+```
+npm install -g pkg
+```
+- run `npm run build`
+- publish `npm publish --access private`
