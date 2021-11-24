@@ -1,0 +1,14 @@
+{% extends 'layout.html' %} {% block content %}
+
+<div>
+  <div>Token:</div>
+  <div>
+    New Access Token Token:
+    <span style="font-weight: bold">{{token.accessToken}}</span>
+  </div>
+  <div>
+    New Refresh Token :
+    <span style="font-weight: bold">{{token.newRefreshToken}}</span>
+  </div>
+</div>
+{% endblock %}

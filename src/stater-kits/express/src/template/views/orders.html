@@ -1,0 +1,23 @@
+{% extends 'layout.html' %} {% block content %}
+
+<div>
+  <div>Orders:</div>
+
+  {% for order in orders %}
+  <div>ID : <span style="font-weight: bold">{{order.reference_id}}</span></div>
+  <div>
+    total :
+    <span style="font-weight: bold"
+      >{{order.total.amount}} {{order.total.currency}}</span
+    >
+  </div>
+  <div>
+    status : <span style="font-weight: bold">{{order.status.name}}</span>
+  </div>
+  <div>Items :</div>
+  {% for item in order.items %}
+  <div>Name : <span style="font-weight: bold">{{item.name}}</span></div>
+  <div>Quantity : <span style="font-weight: bold">{{item.quantity}}</span></div>
+  ============= {% endfor %} {% endfor %}
+</div>
+{% endblock %}

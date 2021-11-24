@@ -1,0 +1,27 @@
+
+if (
+  // if not found then create new user
+  !(await SallaORM.Sequelize.User.findOne({ where: { email: data.email } }))
+) {
+  let user = await SallaORM.Sequelize.User.create({
+    username: data.name,
+    email: data.email,
+    email_verified_at: getUnixTimestamp(),
+    verified_at: getUnixTimestamp(),
+    password: "",
+    remember_token: "",
+  });
+
+  SallaORM.Sequelize.OauthTokens.create({
+    user_id: data.id,
+    merchant: data.store.id,
+    access_token: accessToken,
+    expires_in: expires_in,
+    refresh_token: refreshToken,
+  })
+    .then((data) => {})
+    .catch((err) => {
+      console.log("error inserting oath toekn", err);
+    });
+
+}

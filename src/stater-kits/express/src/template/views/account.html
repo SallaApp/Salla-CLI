@@ -1,0 +1,22 @@
+{% extends 'layout.html' %} {% block content %}
+
+<p>
+  <div> User's Data:</div>
+  <div>
+    <span>Name : <span style="font-weight:bold">{{user.name}}</span></span>
+  </div>
+  <div>
+    <span>ID : <span style="font-weight:bold">{{user.id}}</span></span>
+  </div>
+  <div>
+    <span>Email : <span style="font-weight:bold">{{user.email}}</span></span>
+  </div>
+  <div>
+    <span>Mobile : <span style="font-weight:bold">{{user.mobile}}</span></span>
+  </div>
+  <div>
+    <span>Store Name : <span style="font-weight:bold">{{user.store.name}}</span></span>
+  </div>
+
+</p>
+{% endblock %}

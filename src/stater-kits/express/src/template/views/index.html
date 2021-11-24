@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+{% block content %} {% if not isLogin %}
+<h2> Welcome to your Salla Awesome App </h2>
+<p><a href="/oauth/redirect">Install App In Your Store</a></p>
+{% else %}
+<h2> Welcome , <span style="font-weight: bold">{{ user.name }}</span>.</h2>
+<p> Email : <span style="font-weight: bold">{{ user.email }}</span></p>
+<p>
+  <div>Store Avatar:</div>
+  <img src="{{user.store.avatar}}" width="100" />
+</p>
+{% endif %} {% endblock %}

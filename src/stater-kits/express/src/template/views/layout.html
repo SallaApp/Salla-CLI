@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Passport-Salla Example</title>
+  </head>
+
+  <body>
+    {% if not isLogin %}
+    <p>
+      <a href="/">Home</a> |
+      <a href="/login">Install Salla App</a>
+    </p>
+    {% else %}
+    <p>
+      <a href="/">Home</a> | <a href="/orders">Orders</a> |
+      <a href="/customers">Customers</a> | <a href="/account">Account</a> |
+      <a href="/refreshToken">Refresh Token</a> |
+      <a href="/logout">Logout</a>
+    </p>
+    {% endif %} {% block content %}{% endblock %}
+  </body>
+</html>

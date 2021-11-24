@@ -1,0 +1,17 @@
+{% extends 'layout.html' %} {% block content %}
+
+<div>
+  <div>Customers:</div>
+
+  {% for customer in customers %}
+  <div>
+    Name :
+    <span style="font-weight: bold"
+      >{{customer.first_name}} {{customer.last_name}}</span
+    >
+  </div>
+  <div>Mobile : <span style="font-weight: bold">{{customer.mobile}}</span></div>
+  <div>Email : <span style="font-weight: bold">{{customer.email}}</span></div>
+  {% endfor %}
+</div>
+{% endblock %}
