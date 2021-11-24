@@ -1,5 +1,7 @@
 const fs = require("fs-extra");
 const messageFactory = require("../../helpers/message");
+const dotenv = require("dotenv");
+
 class Command {
   _message = "Creating .env file .";
   _running = false;
@@ -19,20 +21,22 @@ class Command {
     return new Promise((resolve, reject) => {
       this._running = true;
 
+      let outputEnv = "";
+      const ENV_FILE_OBJ = {
+        CLIENT_ID: app_client_id,
+        CLIENT_SECRET: app_client_secret,
+        AUTH_MODE: auth_mode,
+        WEBHOOK_SECRET: webhook_secret,
+        DATABASE_PASSWORD: "",
+        DATABASE_USERNAME: "",
+        DATABASE_SERVER: "",
+        SALLA_AUTHORIZATION_MODE: auth_mode,
+      };
+      for (let e in ENV_FILE_OBJ) {
+        outputEnv += `${e}=${ENV_FILE_OBJ[e]}\n`;
+      }
       try {
-        fs.writeFileSync(
-          `${app_path}/.env`,
-          `
-CLIENT_ID=${app_client_id}
-CLIENT_SECRET=${app_client_secret}
-AUTH_MODE=${auth_mode}
-WEBHOOK_SECRET=${webhook_secret}
-DATABASE_PASSWORD=
-DATABASE_USERNAME=
-DATABASE_SERVER=
-SALLA_AUTHORIZATION_MODE=${auth_mode}
-      `
-        );
+        fs.writeFileSync(`${app_path}/.env`, outputEnv);
 
         this._messages_output.push(
           messageFactory.createMessage(

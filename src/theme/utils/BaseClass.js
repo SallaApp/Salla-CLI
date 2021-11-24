@@ -17,7 +17,7 @@
 /** @typedef {AuthOptions|PublishOptions|PushOptions|ServeOptions|StartOptions|SyncOptions|WatchOptions|{}} ThemeCommandsOptions */
 require("colors");
 const SallaApi = require("../../api/SallaApi");
-const {execSync} = require("child_process");
+const { execSync } = require("child_process");
 
 /**
  * @property {ThemeCommandsOptions} options
@@ -175,7 +175,7 @@ class BaseClass {
     return execSync(command, { stdio: "inherit", cwd: BASE_PATH });
   }
 
- async openBrowser(url) {
+  async openBrowser(url) {
     return await require("open")(url);
   }
 

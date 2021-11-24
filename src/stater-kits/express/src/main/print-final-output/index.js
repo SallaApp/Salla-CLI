@@ -11,7 +11,7 @@ module.exports = ({ msgs, app_name }) => {
   console.log("                    ");
   console.log(
     clc.greenBright(
-      `                    [✓] cd ${app_name} && npm install && npm run start-app                    `
+      `                    ~# cd ${app_name} && npm install && npm run start-app                    `
     )
   );
   console.log("                    ");

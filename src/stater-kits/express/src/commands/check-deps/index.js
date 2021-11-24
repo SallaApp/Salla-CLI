@@ -7,7 +7,7 @@ class Command {
   isRunning() {
     return this._running;
   }
-  _commands = ["node", "npm" /*, "ngrok"*/];
+  _commands = ["node", "npm"];
   _messages_output = [];
   start() {
     return new Promise((resolve, reject) => {

@@ -36,9 +36,6 @@ class Command {
         this.packages.push(["typeorm", "0.2.41"]);
         this.packages.push(["mysql2", "^2.3.3"]);
       }
-      if (auth_mode == "easy") {
-        this.packages.push(["ngrok", "^4.2.2"]);
-      }
       try {
         exec("npm init -y", { cwd: app_path + "/" }, (err, stdout, stderr) => {
           if (err) {

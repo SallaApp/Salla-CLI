@@ -3,11 +3,13 @@
   "version": "0.0.1",
   "preferGlobal": true,
   "bin": {
-    "salla": "dist/run.js"
+    "salla": "bin/index.js"
   },
   "scripts": {
     "start": "node bin/index.js",
-    "build": "npx pkg package.json --compress Brotli"
+    "build": "npx pkg package.json --compress Brotli",
+    "dev-install-g": "npm install && npm install -g ./",
+    "dev-uninstall-g": "npm uninstall -g @salla.sa/cli"
   },
   "pkg": {
     "scripts": "bin/index.js",
@@ -22,16 +24,21 @@
     "dist/"
   ],
   "dependencies": {
+    "chalk": "^4.1.2",
+    "cli-select": "^1.1.2",
+    "dotenv": "^10.0.0",
     "shelljs": "^0.8.4"
   },
   "devDependencies": {
     "@octokit/rest": "^18.11.4",
     "adm-zip": "^0.5.9",
+    "asciiart-logo": "^0.2.6",
     "async": "^3.2.2",
     "axios": "^0.22.0",
     "child_process": "^1.0.2",
     "chokidar": "~3.5.2",
-    "colors": "^1.4.0",
+    "cli-color": "^2.0.1",
+    "cli-progress": "^3.9.1",
     "command-exists": "^1.2.9",
     "commander": "^8.3.0",
     "express": "^4.17.1",
@@ -39,11 +46,16 @@
     "finalhandler": "^1.1.2",
     "form-data": "^4.0.0",
     "fs-extra": "^10.0.0",
+    "i": "^0.3.7",
     "inquirer": "^5.2.0",
     "jsonlint": "^1.6.3",
     "minimist": "^1.2.5",
+    "npm": "^8.1.4",
     "open": "^8.4.0",
     "parseurl": "^1.3.3",
+    "readline": "^1.3.0",
+    "readline-sync": "^1.4.10",
+    "replace-in-file": "^6.3.2",
     "semver": "^7.3.5",
     "serve-index": "^1.9.1",
     "serve-static": "^1.14.1",

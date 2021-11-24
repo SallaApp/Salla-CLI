@@ -6,7 +6,7 @@ const path = require("path");
 const app_name = process.argv[2];
 const webhook = process.argv[3];
 if (!app_name) {
-  console.log(clc.red("[✕]  Please enter your project name . "));
+  console.log(clc.red("[x]  Please enter your project name . "));
   console.log("                    ");
   console.log(
     clc.blueBright(
@@ -16,7 +16,7 @@ if (!app_name) {
   exit(0);
 }
 if (!webhook) {
-  console.log(clc.red("[✕]  Please enter the webhook you want to create "));
+  console.log(clc.red("[x]  Please enter the webhook you want to create "));
   console.log("                    ");
   console.log(
     clc.blueBright(
@@ -36,7 +36,7 @@ if (!webhook) {
         path.resolve(`./${app_name}/Actions/${folder}/${webhook_file}.js`)
       )
     ) {
-      console.log(clc.red("[✕]  Webhook already exists "));
+      console.log(clc.red("[x]  Webhook already exists "));
       exit(0);
     }
     let webhook_template = fs
@@ -49,17 +49,17 @@ if (!webhook) {
     );
     console.log(
       clc.greenBright(
-        `[✓] webhook created successfully  ${path.resolve(
+        `[ok] webhook created successfully  ${path.resolve(
           `./${app_name}/Actions/${folder}/${webhook_file}.js`
         )}      `
       )
     );
   } catch (err) {
-    console.log(clc.red("[✕]  Error when creating webhook", err));
+    console.log(clc.red("[x]  Error when creating webhook", err));
   }
 })();
 
 process.on("unhandledRejection", function (err) {
   console.log("                    ");
-  console.log(clc.red("[✕]  Error! while creating your webhook . "), err);
+  console.log(clc.red("[x]  Error! while creating your webhook . "), err);
 });
