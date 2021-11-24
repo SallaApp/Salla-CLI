@@ -8,10 +8,11 @@ class Executor {
     webhook_secret,
     database_orm,
     progressBar,
+    app_path,
   }) {
     this.src = src;
     this.app_name = app_name;
-    this.app_path = `${process.cwd()}/${app_name}`;
+    this.app_path = app_path;
     this.app_client_id = app_client_id;
     this.app_client_secret = app_client_secret;
     this.auth_mode = auth_mode;

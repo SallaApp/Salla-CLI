@@ -9,23 +9,15 @@ const commander = require("commander");
 const program = new commander.Command();
 program.version("0.0.2");
 
-program.addHelpText(
-  "before",
-  `
-  _____       _ _          _____ _      _____ 
- / ____|     | | |        / ____| |    |_   _|
-| (___   __ _| | | __ _  | |    | |      | |  
- \\___ \\ / _\` | | |/ _\` | | |    | |      | |  
- ____) | (_| | | | (_| | | |____| |____ _| |_ 
-|_____/ \\__,_|_|_|\\__,_|  \\_____|______|_____|
-`.green
-);
+require("../src/helpers/print-head")(program);
 
 const themeCommands = require("./theme");
 const appCommands = require("./app");
+const loginCommands = require("./login");
 const devCommands = require("./dev");
 
 program.addCommand(themeCommands());
 program.addCommand(appCommands());
+program.addCommand(loginCommands());
 program.addCommand(devCommands());
 program.parse(process.argv);

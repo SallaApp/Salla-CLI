@@ -33,6 +33,7 @@ class Command {
 
         this._running = false;
       } catch (err) {
+        console.log("err", err);
         this._messages_output.push(
           messageFactory.createMessage(`Error ${this._message}!`, "err")
         );

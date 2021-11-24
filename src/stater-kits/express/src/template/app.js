@@ -6,7 +6,7 @@ const passport = require("passport");
 const consolidate = require("consolidate");
 const getUnixTimestamp = require("./helpers/getUnixTimestamp");
 const bodyParser = require("body-parser");
-const port = 8081;
+const port = process.argv[2] || 8081;
 console.log("Output URLs:");
 //"{%EASY_MODE_CODE%}"
 

@@ -3,9 +3,11 @@ const DATABASE_ORM = ["Sequelize", "Mongoose", "TypeORM"];
 const fs = require("fs");
 const { exit } = require("process");
 const clc = require("cli-color");
-
+const generateRandomName = require("../../helpers/generateRandom");
+const getInput = require("../../helpers/getInput");
 module.exports.inputs = (options) => {
-  const app_name = options.name;
+  const app_name = options.name || "SallaAwesomeApp-" + generateRandomName(5);
+
   if (!app_name) {
     console.log(
       clc.blueBright(`  [!] Useing : npm run create-project YOUR_APP_NAME `)
@@ -21,24 +23,28 @@ module.exports.inputs = (options) => {
     );
     exit(0);
   }
-  if (fs.existsSync(`./${app_name}`)) {
+  if (fs.existsSync(`${options.HOME_DIR_PROJECTS}/${app_name}`)) {
     console.log(
       clc.redBright(
-        `[x] App name "${app_name}" already exists! ..  exiting setup .`
+        `[x] App name "${options.HOME_DIR_PROJECTS}${app_name}" already exists! ..  exiting setup .`
       )
     );
     exit(0);
   }
+  let app_client_id = "";
+  let app_client_secret = "";
+  let webhook_secret = "";
 
-  console.log("                    ");
-  const app_client_id = readlineSync.question("App Client ID: ");
-  console.log("                    ");
-  const app_client_secret = readlineSync.question("App Client Secret: ");
-  console.log("                    ");
-  const auth_mode = readlineSync.question("Authorization Mode: ");
-  console.log("                    ");
-  const webhook_secret = readlineSync.question("App Webhook Secret: ");
-  console.log("                    ");
+  if (options.mode !== "easy") {
+    app_client_id = getInput("App Client ID: ");
+    app_client_secret = getInput("App Client Secret: ");
+    webhook_secret = getInput("App Webhook Secret: ");
+  } else {
+    app_client_id = options.app_client_id || "";
+    app_client_secret = options.app_client_secret || "";
+    webhook_secret = options.webhook_secret || "";
+  }
+
   const database_orm =
     DATABASE_ORM[readlineSync.keyInSelect(DATABASE_ORM, "App Database ORM: ")];
   console.log("                    ");
@@ -46,7 +52,7 @@ module.exports.inputs = (options) => {
     app_name,
     app_client_id,
     app_client_secret,
-    auth_mode,
+    auth_mode: options.mode,
     webhook_secret,
     database_orm,
   };

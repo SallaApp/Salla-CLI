@@ -27,6 +27,7 @@
     "chalk": "^4.1.2",
     "cli-select": "^1.1.2",
     "dotenv": "^10.0.0",
+    "ngrok": "^4.2.2",
     "shelljs": "^0.8.4"
   },
   "devDependencies": {
