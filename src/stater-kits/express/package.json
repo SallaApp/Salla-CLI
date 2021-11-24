@@ -2,9 +2,9 @@
   "name": "express-starter-kit",
   "description": "salla express starter kit",
   "version": "1.0.0",
-  "main": "setup.js",
+  "main": "index.js",
   "scripts": {
-    "create-project": "node setup.js",
+    "create-project": "node index.js",
     "create-webhook": "node ./src/main/create-webhook"
   },
   "dependencies": {
