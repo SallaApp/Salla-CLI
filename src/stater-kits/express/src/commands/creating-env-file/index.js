@@ -1,5 +1,5 @@
 const fs = require("fs-extra");
-const messageFactory = require("../../helpers/message");
+const messageFactory = require("../../../../../helpers/message");
 const dotenv = require("dotenv");
 
 class Command {

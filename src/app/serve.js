@@ -1,9 +1,13 @@
-const cliSelect = require("cli-select");
 const commandExistsSync = require("command-exists").sync;
 const { exec, spawn } = require("child_process");
 const ngrok = require("ngrok");
+const fs = require("fs");
+const {
+  createMessage,
+  printMessage,
+  printMessages,
+} = require("../helpers/message");
 
-// export function to Salla-cli
 module.exports = async function (options) {
   // steps to create an app
   /*
@@ -18,24 +22,40 @@ module.exports = async function (options) {
   */
   // check if ngrok is installed
   if (!commandExistsSync("ngrok")) {
-    console.log("Installing ngrok library ... please wait! ...");
-
+    printMessage(
+      createMessage(
+        "Installing ngrok library ... please wait! it's one time install ...",
+        "info"
+      )
+    );
     exec("npm install -g ngrok", (err, stdout, stderr) => {});
   }
-  let framework = await cliSelect({
-    values: ["express", "laravel"],
-  });
 
-  framework = framework.value;
-  if (framework === "express") {
-    console.log("starting express project here with port ", options.port);
-    console.log("starting ngrok connect ...");
+  // auto detect the project type
+  const appPath = process.cwd();
+  let files = fs.readdirSync(`${appPath}`);
+  if (files.includes("package.json")) {
+    printMessages([
+      createMessage(
+        `Starting express project here with PORT:${options.port || 8081} ... `,
+        "info"
+      ),
+      createMessage("Starting ngrok connect ...", "info"),
+    ]);
+
     const url = await ngrok.connect();
-    console.log("Remote URL : ", url);
+
+    printMessage(createMessage(`Remote URL :${url} `, "succ"));
     process.exit(0);
-  } else if (type === "laravel") {
-    console.log("starting laravel project here ");
+  } else if (files.includes("composer")) {
+    printMessage(createMessage(`Starting laravel project here `, "info"));
   } else {
-    console.log("Invalid app type!! , please select express or laravel");
+    printMessage(
+      createMessage(
+        "This is not a laravel or expressjs project! exiting ...",
+        "err"
+      )
+    );
+    process.exit(0);
   }
 };

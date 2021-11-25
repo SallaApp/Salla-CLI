@@ -1,5 +1,5 @@
 const fs = require("fs-extra");
-const messageFactory = require("../../helpers/message");
+const messageFactory = require("../../../../../helpers/message");
 const replace = require("replace-in-file");
 class Command {
   _message = "Setup Project mode .";

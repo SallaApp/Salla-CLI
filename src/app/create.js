@@ -1,4 +1,5 @@
 const API = require("../auth/utils/api");
+const { createMessage, printMessage } = require("../helpers/message");
 const InputSelector = require("../helpers/cli-selector");
 // export function to Salla-cli
 module.exports = async function (options) {
@@ -51,7 +52,12 @@ module.exports = async function (options) {
   } else if (type === "laravel") {
     require("../stater-kits/laravel");
   } else {
-    console.log("Invalid app type!! , please enter -t (express or laravel)");
+    printMessage(
+      createMessage(
+        "Framework not supported, please enter -t (express or laravel)",
+        "err"
+      )
+    );
   }
 
   return;

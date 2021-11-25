@@ -1,6 +1,6 @@
 const commandExistsSync = require("command-exists").sync;
 
-const messageFactory = require("../../helpers/message");
+const messageFactory = require("../../../../../helpers/message");
 class Command {
   _message = "Checking project required dependencies";
   _running = false;

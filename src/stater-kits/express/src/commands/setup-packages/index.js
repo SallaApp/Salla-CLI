@@ -1,5 +1,5 @@
 const fs = require("fs-extra");
-const messageFactory = require("../../helpers/message");
+const messageFactory = require("../../../../../helpers/message");
 const exec = require("child_process").exec;
 class Command {
   _message = "Creating Package.json ";

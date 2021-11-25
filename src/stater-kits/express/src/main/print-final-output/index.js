@@ -1,5 +1,5 @@
 const clc = require("cli-color");
-const messageFactory = require("../../helpers/message");
+const messageFactory = require("../../../../../helpers/message");
 module.exports = ({ msgs, app_name, app_path }) => {
   console.log("                    ");
   // print other messages from commands
@@ -11,7 +11,7 @@ module.exports = ({ msgs, app_name, app_path }) => {
   console.log("                    ");
   console.log(
     clc.greenBright(
-      `                    ~# cd ${app_path} && npm install && npm run start-app                    `
+      `                    ~# cd ${app_name} && npm install && npm run start-app                    `
     )
   );
   console.log("                    ");

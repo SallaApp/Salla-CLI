@@ -1,5 +1,5 @@
 const fs = require("fs-extra");
-const messageFactory = require("../../helpers/message");
+const messageFactory = require("../../../../../helpers/message");
 class Command {
   _message = "Copying main files and folders to new project";
   _running = false;

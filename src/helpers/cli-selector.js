@@ -1,8 +1,9 @@
 const cliSelect = require("cli-select");
 const chalk = require("chalk");
-module.exports = (title, ary) => {
+module.exports = async (title, ary) => {
+  console.log("                    ");
   console.log(title);
-  return cliSelect({
+  let val = await cliSelect({
     values: ary,
     valueRenderer: (value, selected) => {
       if (selected) {
@@ -11,4 +12,6 @@ module.exports = (title, ary) => {
       return value;
     },
   });
+  console.log(val.value);
+  return val;
 };

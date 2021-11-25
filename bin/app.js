@@ -18,7 +18,6 @@ module.exports = function appCommands() {
   _app
     .command("serve")
     .alias("s")
-    .requiredOption("-n, --name <name>", "name of project ")
     .option("-p, --port <name>", "port to listen to ")
     .action(require("../src/app/serve"));
 

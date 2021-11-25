@@ -3,9 +3,11 @@ const DATABASE_ORM = ["Sequelize", "Mongoose", "TypeORM"];
 const fs = require("fs");
 const { exit } = require("process");
 const clc = require("cli-color");
-const generateRandomName = require("../../helpers/generateRandom");
-const getInput = require("../../helpers/getInput");
-module.exports.inputs = (options) => {
+
+const generateRandomName = require("../../../../../helpers/generateRandom");
+const getInput = require("../../../../../helpers/getInput");
+const InputSelector = require("../../../../../helpers/cli-selector");
+module.exports.inputs = async (options) => {
   const app_name = options.name || "SallaAwesomeApp-" + generateRandomName(5);
 
   if (!app_name) {
@@ -45,9 +47,9 @@ module.exports.inputs = (options) => {
     webhook_secret = options.webhook_secret || "";
   }
 
-  const database_orm =
-    DATABASE_ORM[readlineSync.keyInSelect(DATABASE_ORM, "App Database ORM: ")];
-  console.log("                    ");
+  const database_orm = (await InputSelector("App Database ORM: ", DATABASE_ORM))
+    .value;
+
   return {
     app_name,
     app_client_id,

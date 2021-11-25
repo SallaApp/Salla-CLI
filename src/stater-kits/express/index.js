@@ -1,20 +1,18 @@
+// import deps
 const cliProgress = require("cli-progress");
 const fs = require("fs");
-const { exit } = require("process");
 const clc = require("cli-color");
-const SRC_TEMPLATE = __dirname + "/src/template";
-const Executor = require("./src/main/create-project");
-require("./src/main/print-salla-head-text");
-const homedir = require("./src/helpers/home.dir");
-const HOME_DIR_PROJECTS = homedir() + "/SallaApps/";
-const DATABASE_ORM = ["Sequelize", "Mongoose", "TypeORM"];
-const readlineSync = require("readline-sync");
+const InputSelector = require("../../helpers/cli-selector");
+const { printMessages, longLine } = require("../../helpers/message");
 
-if (!fs.existsSync(HOME_DIR_PROJECTS)) {
-  fs.mkdirSync(HOME_DIR_PROJECTS);
-}
-const { printMessages } = require("./src/helpers/message");
-const longLine = () => console.log("                    ");
+// import EpxressJS commands Executor
+const Executor = require("./src/main/create-project");
+
+// set constants for the project
+const SRC_TEMPLATE = __dirname + "/src/template";
+const HOME_DIR_PROJECTS = process.cwd() + "/";
+const DATABASE_ORM = ["Sequelize", "Mongoose", "TypeORM"];
+
 // create a new progress bar instance and use shades_classic theme
 const progressBar = new cliProgress.SingleBar(
   {
@@ -23,23 +21,18 @@ const progressBar = new cliProgress.SingleBar(
   cliProgress.Presets.shades_grey
 );
 
-process.on("unhandledRejection", function (err) {
-  longLine();
-  printMessages(err);
-  longLine();
-  console.log(
-    clc.redBright("[x]  Error! while creating your project .  "),
-    err
-  );
-  exit(0);
-});
-
-// todo :: run the create express project
-module.exports.expressAppCreateor = (options) => {
+// export the module
+module.exports.expressAppCreateor = async (options) => {
   let inputs = {};
   let database_orm = "";
-  if (options.app_name == "Create New App ?") {
-    inputs = require("./src/main/user-inputs").inputs({
+
+  // print salla head text
+  require("../../helpers/print-head")(null);
+
+  // check if the name of the project is provided
+  if (options.app_name.indexOf("Create New App") > -1) {
+    // if new project we ask for client_id,client_seceret etc ...
+    inputs = await require("./src/main/user-inputs").inputs({
       ...options,
       HOME_DIR_PROJECTS,
     });
@@ -50,14 +43,13 @@ module.exports.expressAppCreateor = (options) => {
           `[x] App name "${HOME_DIR_PROJECTS}${options.app_name}" already exists! ..  exiting setup .`
         )
       );
-      exit(0);
+      process.exit(0);
     }
-    database_orm =
-      DATABASE_ORM[
-        readlineSync.keyInSelect(DATABASE_ORM, "App Database ORM: ")
-      ];
-  }
 
+    database_orm = (await InputSelector("App Database ORM: ", DATABASE_ORM))
+      .value;
+  }
+  // set inputs and parameters before exeute the creation process
   Executor.setPrameters({
     progressBar,
     src: `${SRC_TEMPLATE}`,
@@ -65,6 +57,8 @@ module.exports.expressAppCreateor = (options) => {
     ...inputs,
     app_path: HOME_DIR_PROJECTS + (inputs.app_name || options.app_name),
   });
+
+  // start executing the process
   Executor.execute()
     .then((msgs) => {
       require("./src/main/print-final-output")({
@@ -81,3 +75,15 @@ module.exports.expressAppCreateor = (options) => {
       console.log(clc.redBright("[x]  Error! while creating your project . "));
     });
 };
+
+// If Error occurs while creating the project
+process.on("unhandledRejection", function (err) {
+  longLine();
+  printMessages(err);
+  longLine();
+  console.log(
+    clc.redBright("[x]  Error! while creating your project .  "),
+    err
+  );
+  process.exit(0);
+});

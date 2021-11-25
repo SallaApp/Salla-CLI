@@ -1,39 +1,37 @@
-const fs = require("fs");
-const homedir = require("../../helpers/home.dir");
+const fs = require("fs-extra");
+
 module.exports = class AuthManager {
   // we save everything as json object
 
-  _TOKENS_FILE_NAME = ".salla.secrets";
   _TOKENS_FILE_PATH = "";
   constructor() {
-    this._TOKENS_FILE_PATH = homedir() + "/" + this._TOKENS_FILE_NAME;
-    if (!fs.existsSync(this._TOKENS_FILE_PATH)) {
-      fs.writeFileSync(this._TOKENS_FILE_PATH, "{}");
-    }
+    this._TOKENS_FILE_PATH = global.CLI_CONFIG_FILE;
   }
 
   // save key
   saveToken = (key, value) => {
     let tokens = this.getTokens();
-    fs.writeFileSync(
-      this._TOKENS_FILE_PATH,
-      JSON.stringify({ ...tokens, [key]: value })
-    );
+
+    fs.writeJSONSync(this._TOKENS_FILE_PATH, { ...tokens, [key]: value });
   };
   // get key
   getTokens = (key = null) => {
-    let tokens = fs.readFileSync(this._TOKENS_FILE_PATH);
-    tokens = JSON.parse(tokens);
-    if (key) {
-      return tokens[key];
-    } else {
-      return tokens;
+    try {
+      let tokens = fs.readJSONSync(this._TOKENS_FILE_PATH);
+      if (key) {
+        return tokens[key];
+      } else {
+        return tokens;
+      }
+    } catch (err) {
+      console.log("ERROR READING TOKENS FROM ", this._TOKENS_FILE_PATH, err);
+      return {};
     }
   };
   // delete key
   delete = (key) => {
     let tokens = this.getTokens();
     delete tokens[key];
-    fs.writeFileSync(this._TOKENS_FILE_PATH, JSON.stringify({ ...tokens }));
+    fs.writeJSONSync(this._TOKENS_FILE_PATH, { ...tokens });
   };
 };
