@@ -3,10 +3,7 @@
   "description": "salla express starter kit",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "create-project": "node index.js",
-    "create-webhook": "node ./src/main/create-webhook"
-  },
+  "scripts": {},
   "dependencies": {},
   "repository": {
     "type": "git",

@@ -1,6 +1,7 @@
 const API = require("../auth/utils/api");
 const { createMessage, printMessage } = require("../helpers/message");
 const InputSelector = require("../helpers/cli-selector");
+const { expressAppCreateor } = require("../stater-kits/express");
 // export function to Salla-cli
 module.exports = async function (options) {
   // steps to create an app
@@ -35,14 +36,14 @@ module.exports = async function (options) {
 
   if (type === "express") {
     if (mode === "easy") {
-      require("../stater-kits/express").expressAppCreateor({
+      expressAppCreateor({
         type,
         mode,
         ...options,
         app_name: app,
       });
     } else {
-      require("../stater-kits/express").expressAppCreateor({
+      expressAppCreateor({
         type,
         mode,
         ...options,

@@ -7,7 +7,7 @@ const {
   printMessage,
   printMessages,
 } = require("../helpers/message");
-
+const checkFolder = require("../helpers/check-folder");
 module.exports = async function (options) {
   // steps to create an app
   /*
@@ -32,9 +32,8 @@ module.exports = async function (options) {
   }
 
   // auto detect the project type
-  const appPath = process.cwd();
-  let files = fs.readdirSync(`${appPath}`);
-  if (files.includes("package.json")) {
+
+  if (checkFolder("") == "express") {
     printMessages([
       createMessage(
         `Starting express project here with PORT:${options.port || 8081} ... `,
@@ -47,7 +46,7 @@ module.exports = async function (options) {
 
     printMessage(createMessage(`Remote URL :${url} `, "succ"));
     process.exit(0);
-  } else if (files.includes("composer")) {
+  } else if (checkFolder() == "composer") {
     printMessage(createMessage(`Starting laravel project here `, "info"));
   } else {
     printMessage(
