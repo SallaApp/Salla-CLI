@@ -1,65 +1,122 @@
-class Executor {
-  setPrameters({
-    src,
-    app_name,
-    app_client_id,
-    app_client_secret,
-    auth_mode,
-    webhook_secret,
-    database_orm,
-    progressBar,
-    app_path,
-  }) {
-    this.src = src;
-    this.app_name = app_name;
-    this.app_path = app_path;
-    this.app_client_id = app_client_id;
-    this.app_client_secret = app_client_secret;
-    this.auth_mode = auth_mode;
-    this.webhook_secret = webhook_secret;
-    this.database_orm = database_orm;
-    this.progressBar = progressBar;
-  }
+const exectoterClass = require("../../../../../helpers/executor");
+const fs = require("fs");
+module.exports = function (args) {
+  const executor = new exectoterClass(args.progressBar);
+  return executor.run([
+    {
+      cmd: "check",
+      name: "node",
+      version: "10.x.x",
+      msg: "Checking Node Version",
+    },
+    {
+      cmd: "check",
+      name: "npm",
+      version: "6.x.x",
+      msg: "Checking NPM Version",
+    },
+    { cmd: "makedir", path: args.app_path, msg: "Making Project Folder" },
 
-  execute() {
-    return new Promise(async (resolve, reject) => {
-      const ExcutingSteps = [
-        //
-        new (require("../../commands/check-deps"))(),
-        new (require("../../commands/copy-template"))(),
-        new (require("../../commands/creating-env-file"))(),
-        new (require("../../commands/setup-packages"))(),
-        new (require("../../commands/setup-ORM"))(),
-        new (require("../../commands/project-mode"))(),
-      ];
-      const messages = [];
+    {
+      cmd: "copyMulti",
+      files: [".gitignore", "views", "helpers", "Actions", "database"],
+      src: `${args.src}`,
+      dest: `${args.app_path}`,
+      msg: "Copying main files and folders to new project",
+    },
+    {
+      cmd: "create",
 
-      this.progressBar.start(ExcutingSteps.length, 0);
-      try {
-        for (let i = 0; i < ExcutingSteps.length; i++) {
-          messages.push(
-            await ExcutingSteps[i].start({
-              app_path: this.app_path,
-              src: this.src,
-              app_name: this.app_name,
-              app_client_id: this.app_client_id,
-              app_client_secret: this.app_client_secret,
-              auth_mode: this.auth_mode,
-              webhook_secret: this.webhook_secret,
-              database_orm: this.database_orm,
-              progressBar: this.progressBar,
-            })
-          );
-          this.progressBar.update(i + 1, {
-            process: ExcutingSteps[i]._message,
-          });
-        }
-        resolve(messages);
-      } catch (err) {
-        reject([messages, ...err]);
-      }
-      this.progressBar.stop();
-    });
+      path: `${args.app_path}/.env`,
+      content: generateEnv(args),
+      msg: "Creating .env file",
+    },
+    {
+      cmd: "copy",
+      src: `${args.src}/ORMs/${args.database_orm}`,
+      dest: `${args.app_path}/database/${args.database_orm}`,
+      msg: "Setup Preferred ORM Files .",
+    },
+    {
+      cmd: "copy",
+      src: `${args.src}/app.${args.database_orm}.js`,
+      dest: `${args.app_path}/app.js`,
+      msg: "Setup Preferred ORM app.js .",
+    },
+    {
+      cmd: "exec",
+      command: "npm init -y",
+      path: `${args.app_path}`,
+      msg: "Initilize Project with NPM",
+    },
+    {
+      cmd: "create",
+      content: () => {
+        return getPakcagejson(args);
+      },
+      path: `${args.app_path}/package.json`,
+      msg: "Initilize Project with NPM",
+    },
+    {
+      cmd: "exec",
+      command: "npm install",
+      path: `${args.app_path}`,
+      msg: "Installing Project Deps with NPM",
+    },
+  ]);
+};
+
+function generateEnv(args) {
+  let outputEnv = "";
+  const envOjb = {
+    CLIENT_ID: args.app_client_id,
+    CLIENT_SECRET: args.app_client_secret,
+    AUTH_MODE: args.auth_mode,
+    WEBHOOK_SECRET: args.webhook_secret,
+    DATABASE_PASSWORD: "",
+    DATABASE_USERNAME: "",
+    DATABASE_SERVER: "",
+    SALLA_AUTHORIZATION_MODE: args.auth_mode,
+  };
+  for (let e in envOjb) {
+    outputEnv += `${e}=${envOjb[e]}\n`;
   }
+  return outputEnv;
 }
-module.exports = new Executor();
+function getPakcagejson(args) {
+  const packageJSON = JSON.parse(
+    fs.readFileSync(`${args.app_path}/package.json`)
+  );
+  let packages = [
+    ["@salla.sa/passport-strategy", "^1.0.2"],
+    ["@salla.sa/webhooks-actions", "^1.0.0"],
+    ["body-parser", "^1.19.0"],
+    ["consolidate", "^0.15.0"],
+    ["dotenv", "^8.2.0"],
+    ["express", "^4.17.1"],
+    ["express-session", "^1.15.6"],
+    ["nunjucks", "^3.2.1"],
+    ["passport", "^0.1.0"],
+  ];
+  if (args.database_orm == "Sequelize") {
+    packages.push(["sequelize", "^6.12.0-alpha.1"]);
+    packages.push(["mysql2", "^2.3.3"]);
+  }
+  if (args.database_orm == "Mongoose") {
+    packages.push(["mongoose", "6.0.13"]);
+    packages.push(["validator", "^10.0.0"]);
+  }
+  if (args.database_orm == "TypeORM") {
+    packages.push(["typeorm", "0.2.41"]);
+    packages.push(["mysql2", "^2.3.3"]);
+  }
+
+  packageJSON.scripts = { "start-app": "node app.js" };
+  packageJSON.description =
+    "New Awesome Application using Salla API and NodeJS";
+  packageJSON.dependencies = packages.reduce(
+    (a, v) => ({ ...a, [v[0]]: v[1] }),
+    {}
+  );
+  return JSON.stringify(packageJSON, null, 2);
+}

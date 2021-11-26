@@ -20,14 +20,13 @@ const progressBar = new cliProgress.SingleBar(
   },
   cliProgress.Presets.shades_grey
 );
+// print salla head text
+require("../../helpers/print-head")(null);
 
 // export the module
 module.exports.expressAppCreateor = async (options) => {
   let inputs = {};
   let database_orm = "";
-
-  // print salla head text
-  require("../../helpers/print-head")(null);
 
   // check if the name of the project is provided
   if (options.app_name.indexOf("Create New App") > -1) {
@@ -49,17 +48,15 @@ module.exports.expressAppCreateor = async (options) => {
     database_orm = (await InputSelector("App Database ORM: ", DATABASE_ORM))
       .value;
   }
-  // set inputs and parameters before exeute the creation process
-  Executor.setPrameters({
+
+  // start executing the process
+  Executor({
     progressBar,
     src: `${SRC_TEMPLATE}`,
     database_orm,
     ...inputs,
     app_path: HOME_DIR_PROJECTS + (inputs.app_name || options.app_name),
-  });
-
-  // start executing the process
-  Executor.execute()
+  })
     .then((msgs) => {
       require("./src/main/print-final-output")({
         msgs: msgs || [],

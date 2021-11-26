@@ -7,12 +7,10 @@ const consolidate = require("consolidate");
 const getUnixTimestamp = require("./helpers/getUnixTimestamp");
 const bodyParser = require("body-parser");
 const port = process.argv[2] || 8081;
-console.log("Output URLs:");
-//"{%EASY_MODE_CODE%}"
 
 // Import Salla APIs
 const SallaAPIFactory = require("@salla.sa/passport-strategy");
-const SallaORM = require("./database/%{ORM_SELECTED}");
+const SallaORM = require("./database/Mongoose");
 const SallaWebhook = require("@salla.sa/webhooks-actions");
 
 /*
@@ -46,8 +44,23 @@ const SallaAPI = new SallaAPIFactory({
 
 // set Listner on auth success
 SallaAPI.onAuth(async (accessToken, refreshToken, expires_in, data) => {
-  // examples of database
-  "%{DATABASE_ORM_CODE_HERE}";
+  let userObj = new SallaORM.Mongoose.userModel({
+    username: data.name,
+    email: data.email,
+    email_verified_at: getUnixTimestamp(),
+    verified_at: getUnixTimestamp(),
+    password: "",
+    remember_token: "",
+  });
+  let oauthobj = new SallaORM.Mongoose.oauthTokenModel({
+    user: userObj._id,
+    merchant: data.store.id,
+    access_token: accessToken,
+    expires_in: expires_in,
+    refresh_token: refreshToken,
+  });
+  userObj.save();
+  oauthobj.save();
 });
 
 //   Passport session setup.
@@ -187,6 +200,7 @@ app.get("/logout", function (req, res) {
 });
 
 app.listen(port, function () {
+  console.log("Output URLs:");
   console.log("    =>    Local App Url", `http://localhost:${port}`);
   console.log("    =>    Webhook Url:", `http://localhost:${port}/webhook`);
   console.log(
