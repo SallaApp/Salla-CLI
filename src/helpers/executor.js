@@ -4,13 +4,20 @@ const fs = require("fs-extra");
 const messageFactory = require("../helpers/message");
 const replace = require("replace-in-file");
 const { execSync } = require("child_process");
-
+const cliProgress = require("cli-progress");
+// create a new progress bar instance and use shades_classic theme
+const progressBar = new cliProgress.SingleBar(
+  {
+    format: " {process} [{bar}] {percentage}% | ETA: {eta}s | {value}/{total}",
+  },
+  cliProgress.Presets.shades_grey
+);
 /*
   [*] This class is used to execute commands and orgnize output messages
 
   example : 
       ** check node version 
-        const executor = new Executor(progressBar)
+        const executor = new Executor()
         executor.run([
           {
             cmd: "check",
@@ -31,10 +38,8 @@ const { execSync } = require("child_process");
   
 */
 module.exports = class Executor {
-  constructor(progressBar) {
-    this.progressBar = progressBar;
-  }
-  async __start(progressBar, commands) {
+  constructor() {}
+  async __start(commands) {
     let messages = [];
     if (progressBar) progressBar.start(commands.length, 0);
     let i = 1;
@@ -45,12 +50,15 @@ module.exports = class Executor {
           process: command.msg,
         });
       i++;
+
       try {
         switch (command.cmd) {
           case "check":
             if (commandExistsSync(command.name)) {
               if (command.version) {
-                let version = execSync(`${command.name} -v`).toString();
+                let version = execSync(`${command.name} -v`, {
+                  stdio: "pipe",
+                }).toString();
 
                 // we just compare the sums of versions
                 // TODO : imporve this
@@ -89,119 +97,57 @@ module.exports = class Executor {
 
             break;
           case "makedir":
-            try {
-              fs.mkdirSync(command.path);
-              messages.push(
-                messageFactory.createMessage(
-                  `Success  ${command.msg} .`,
-                  "succ"
-                )
-              );
-            } catch (err) {
-              messages.push(
-                messageFactory.createMessage(`Error ${command.msg}!`, "err")
-              );
-            }
+            fs.mkdirSync(command.path);
 
             break;
 
           case "copy":
-            try {
-              fs.copySync(`${command.src}`, `${command.dest}`);
+            fs.copySync(`${command.src}`, `${command.dest}`);
 
-              messages.push(
-                messageFactory.createMessage(
-                  `Success  ${command.msg} .`,
-                  "succ"
-                )
-              );
-            } catch (err) {
-              messages.push(
-                messageFactory.createMessage(`Error ${command.msg}!`, "err")
-              );
-            }
             break;
           case "copyMulti":
-            try {
-              for (let file in command.files)
-                fs.copySync(
-                  `${command.src}/${command.files[file]}`,
-                  `${command.dest}/${command.files[file]}`
-                );
+            for (let file in command.files)
+              fs.copySync(
+                `${command.src}/${command.files[file]}`,
+                `${command.dest}/${command.files[file]}`
+              );
 
-              messages.push(
-                messageFactory.createMessage(
-                  `Success  ${command.msg} .`,
-                  "succ"
-                )
-              );
-            } catch (err) {
-              messages.push(
-                messageFactory.createMessage(`Error ${command.msg}!`, "err")
-              );
-            }
             break;
           case "create":
-            try {
-              if (typeof command.content == "function")
-                command.content = command.content();
-              fs.writeFileSync(`${command.path}`, command.content);
-
-              messages.push(
-                messageFactory.createMessage(
-                  `Success  ${command.msg} .`,
-                  "succ"
-                )
-              );
-            } catch (err) {
-              messages.push(
-                messageFactory.createMessage(`Error ${command.msg}!`, "err")
-              );
-            }
+            if (typeof command.content == "function")
+              command.content = command.content();
+            fs.writeFileSync(`${command.path}`, command.content);
 
             break;
 
           case "replace":
-            try {
-              await replace({
-                files: command.path,
-                from: command.from,
-                to: command.to,
-              });
-              messages.push(
-                messageFactory.createMessage(
-                  `Success  ${command.msg} .`,
-                  "succ"
-                )
-              );
-            } catch (err) {
-              messages.push(
-                messageFactory.createMessage(`Error ${command.msg}!`, "err")
-              );
-            }
+            await replace({
+              files: command.path,
+              from: command.from,
+              to: command.to,
+            });
 
             break;
           case "exec":
-            try {
-              execSync(command.command, { cwd: command.path });
-              messages.push(
-                messageFactory.createMessage(
-                  `Success  ${command.msg} .`,
-                  "succ"
-                )
-              );
-            } catch (err) {
-              messages.push(
-                messageFactory.createMessage(`Error ${command.msg}!`, "err")
-              );
-            }
+            execSync(command.command, {
+              cwd: command.path,
+              stdio: "pipe",
+            });
 
             break;
         }
+        messages.push(
+          messageFactory.createMessage(`Success  ${command.msg} .`, "succ")
+        );
       } catch (err) {
         messages.push(
-          messageFactory.createMessage(`Error Running : ${command.msg}!`, "err")
+          messageFactory.createMessage(
+            `Error Running : ${command.msg}!`,
+            "err",
+            err
+          )
         );
+        return messages;
       }
     }
     return messages;
@@ -209,8 +155,8 @@ module.exports = class Executor {
 
   run(arrayOFcommands) {
     return new Promise(async (resolve, reject) => {
-      const messages = await this.__start(this.progressBar, arrayOFcommands);
-      if (this.progressBar) this.progressBar.stop();
+      const messages = await this.__start(arrayOFcommands);
+      progressBar.stop();
 
       resolve(messages);
     });

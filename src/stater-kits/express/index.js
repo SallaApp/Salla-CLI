@@ -1,9 +1,13 @@
 // import deps
-const cliProgress = require("cli-progress");
+
 const fs = require("fs");
 const clc = require("cli-color");
 const InputSelector = require("../../helpers/cli-selector");
-const { printMessages, longLine } = require("../../helpers/message");
+const {
+  printMessages,
+  longLine,
+  createMessage,
+} = require("../../helpers/message");
 
 // import EpxressJS commands Executor
 const Executor = require("./src/main/create-project");
@@ -13,13 +17,6 @@ const SRC_TEMPLATE = __dirname + "/src/template";
 const HOME_DIR_PROJECTS = process.cwd() + "/";
 const DATABASE_ORM = ["Sequelize", "Mongoose", "TypeORM"];
 
-// create a new progress bar instance and use shades_classic theme
-const progressBar = new cliProgress.SingleBar(
-  {
-    format: " {process} [{bar}] {percentage}% | ETA: {eta}s | {value}/{total}",
-  },
-  cliProgress.Presets.shades_grey
-);
 // print salla head text
 require("../../helpers/print-head")(null);
 
@@ -37,11 +34,13 @@ module.exports.expressAppCreateor = async (options) => {
     });
   } else {
     if (fs.existsSync(`${HOME_DIR_PROJECTS}/${options.app_name}`)) {
-      console.log(
-        clc.redBright(
-          `[x] App name "${HOME_DIR_PROJECTS}${options.app_name}" already exists! ..  exiting setup .`
+      printMessages(
+        createMessage(
+          `App name "${HOME_DIR_PROJECTS}${options.app_name}" already exists! ..  exiting setup .`,
+          "err"
         )
       );
+
       process.exit(0);
     }
 
@@ -51,36 +50,40 @@ module.exports.expressAppCreateor = async (options) => {
 
   // start executing the process
   Executor({
-    progressBar,
     src: `${SRC_TEMPLATE}`,
     database_orm,
     ...inputs,
     app_path: HOME_DIR_PROJECTS + (inputs.app_name || options.app_name),
   })
     .then((msgs) => {
-      require("./src/main/print-final-output")({
-        msgs: msgs || [],
-        app_name: inputs.app_name || options.app_name,
-        app_path: HOME_DIR_PROJECTS + (inputs.app_name || options.app_name),
-      });
+      if (msgs.filter((msg) => msg.type === "err").length > 0) {
+        printMessages([
+          ...msgs,
+          createMessage(`Error! while creating your project .`, "err"),
+        ]);
+      } else {
+        require("./src/main/print-final-output")({
+          msgs: msgs || [],
+          app_name: inputs.app_name || options.app_name,
+          app_path: HOME_DIR_PROJECTS + (inputs.app_name || options.app_name),
+        });
+      }
     })
-    .catch((err) => {
+    .catch((msgs) => {
       longLine();
-      longLine();
-      printMessages(err);
-      longLine();
-      console.log(clc.redBright("[x]  Error! while creating your project . "));
+
+      printMessages(
+        createMessage(`Error! while creating your project .`, "err")
+      );
     });
 };
 
 // If Error occurs while creating the project
 process.on("unhandledRejection", function (err) {
   longLine();
-  printMessages(err);
-  longLine();
-  console.log(
-    clc.redBright("[x]  Error! while creating your project .  "),
-    err
+  console.log(err);
+  printMessages(
+    createMessage(`Error! while creating your project .`, "err", err)
   );
   process.exit(0);
 });

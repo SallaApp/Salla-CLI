@@ -1,7 +1,7 @@
 const exectoterClass = require("../../../../../helpers/executor");
 const fs = require("fs");
 module.exports = function (args) {
-  const executor = new exectoterClass(args.progressBar);
+  const executor = new exectoterClass();
   return executor.run([
     {
       cmd: "check",
@@ -55,7 +55,7 @@ module.exports = function (args) {
         return getPakcagejson(args);
       },
       path: `${args.app_path}/package.json`,
-      msg: "Initilize Project with NPM",
+      msg: "Installing Package.json deps",
     },
     {
       cmd: "exec",
