@@ -42,15 +42,9 @@ module.exports = async function (options) {
     "laravel",
   ]);
   // get database orm
-  options.database_orm = await InputsManager.selectInput(
-    "App Database ORM: ",
-    DATABASE_ORM
-  );
+  options.database_orm = await InputsManager.getDatabaseORMFromCLI();
   // get auth mode
-  const auth_mode = await InputsManager.selectInput("Select Mode : ", [
-    "easy",
-    "custom",
-  ]);
+  const auth_mode = await InputsManager.getAuthModeFromCLI();
   Logger.longLine();
 
   // start creating the project

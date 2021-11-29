@@ -8,7 +8,7 @@ class InputsManager {
   APP_CLIENT_SECRET;
   WEBHOOK_SECRET;
   DATABASE_ORM;
-  APP_MODE;
+  AUTH_MODE;
 
   getValues() {
     return {
@@ -16,7 +16,7 @@ class InputsManager {
       APP_CLIENT_SECRET: this.APP_CLIENT_SECRET,
       WEBHOOK_SECRET: this.WEBHOOK_SECRET,
       DATABASE_ORM: this.DATABASE_ORM,
-      APP_MODE: this.APP_MODE,
+      AUTH_MODE: this.AUTH_MODE,
     };
   }
   readLine(lable) {
@@ -56,6 +56,12 @@ class InputsManager {
       await this.selectInput("App Database ORM: ", DATABASE_ORM)
     ).value;
     return this.DATABASE_ORM;
+  }
+  async getAuthModeFromCLI() {
+    this.AUTH_MODE = (
+      await this.selectInput("App Database ORM: ", ["easy", "custom"])
+    ).value;
+    return this.AUTH_MODE;
   }
   checkProjectExists(folderPath, exit = false) {
     if (fs.existsSync(folderPath)) {
