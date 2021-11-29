@@ -1,10 +1,11 @@
 // importing module dependencies
 const commandExistsSync = require("command-exists").sync;
 const fs = require("fs-extra");
-const messageFactory = require("../helpers/message");
+const Logger = require("./LoggingManager");
 const replace = require("replace-in-file");
 const { execSync } = require("child_process");
 const cliProgress = require("cli-progress");
+const semver = require("semver");
 // create a new progress bar instance and use shades_classic theme
 const progressBar = new cliProgress.SingleBar(
   {
@@ -17,8 +18,8 @@ const progressBar = new cliProgress.SingleBar(
 
   example : 
       ** check node version 
-        const executor = new Executor()
-        executor.run([
+        const executionManager = new ExecutionManager()
+        executionManager.run([
           {
             cmd: "check",
             name: "node",
@@ -37,9 +38,11 @@ const progressBar = new cliProgress.SingleBar(
 
   
 */
-module.exports = class Executor {
+module.exports = class ExecutionManager {
   constructor() {}
   async __start(commands) {
+    if (!Array.isArray(commands)) {
+    }
     let messages = [];
     if (progressBar) progressBar.start(commands.length, 0);
     let i = 1;
@@ -60,35 +63,22 @@ module.exports = class Executor {
                   stdio: "pipe",
                 }).toString();
 
-                // we just compare the sums of versions
-                // TODO : imporve this
-                if (
-                  version
-                    .replace("v", "")
-                    .split(".")
-                    .reduce((c, p) => parseInt(c) + parseInt(p)) <
-                  command.version
-                    .split(".")
-                    .reduce((c, p) => parseInt(c) + parseInt(p))
-                ) {
+                const satisfies = semver.satisfies(version, command.version);
+                if (!satisfies)
                   messages.push(
-                    messageFactory.error(
-                      `${version} version is less than ${command.version}`
+                    Logger.error(
+                      `${command.name} version must be ${command.version}or newer`
                     )
                   );
-                  continue;
-                }
+                continue;
               }
 
               messages.push(
-                messageFactory.createMessage(
-                  `Command Found ${command.name} .`,
-                  "succ"
-                )
+                Logger.createMessage(`Command Found ${command.name} .`, "succ")
               );
             } else {
               messages.push(
-                messageFactory.createMessage(
+                Logger.createMessage(
                   `Command Not Found ${command.name}!`,
                   "err"
                 )
@@ -137,15 +127,11 @@ module.exports = class Executor {
             break;
         }
         messages.push(
-          messageFactory.createMessage(`Success  ${command.msg} .`, "succ")
+          Logger.createMessage(`Success  ${command.msg} .`, "succ")
         );
       } catch (err) {
         messages.push(
-          messageFactory.createMessage(
-            `Error Running : ${command.msg}!`,
-            "err",
-            err
-          )
+          Logger.createMessage(`Error Running : ${command.msg}!`, "err", err)
         );
         return messages;
       }
@@ -153,7 +139,16 @@ module.exports = class Executor {
     return messages;
   }
 
+  checkNodeVersion(version) {
+    return this.run({
+      cmd: "check",
+      name: "node",
+      version: version,
+      msg: "Checking Node Version",
+    });
+  }
   run(arrayOFcommands) {
+    if (!Array.isArray(arrayOFcommands)) arrayOFcommands = [arrayOFcommands];
     return new Promise(async (resolve, reject) => {
       const messages = await this.__start(arrayOFcommands);
       progressBar.stop();

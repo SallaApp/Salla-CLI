@@ -6,5 +6,5 @@ module.exports = function appCommands() {
     .command("login")
     .alias("l")
     .description(" login to salla app ")
-    .action(require("../src/app/login"));
+    .action(require("../src/login"));
 };

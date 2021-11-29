@@ -1,20 +1,16 @@
-const http = require('http');
-const finalhandler = require('finalhandler');
-const serveStatic = require('serve-static');
-const serveIndex = require('serve-index');
-const parseurl = require('parseurl');
-const path = require('path').posix;
-const fs = require('fs');
-
-const colors = require('./../../colors');
+const http = require("http");
+const finalhandler = require("finalhandler");
+const serveStatic = require("serve-static");
+const serveIndex = require("serve-index");
+const parseurl = require("parseurl");
+const path = require("path").posix;
+const fs = require("fs");
 
 function onRequest(config) {
   return (req, res) => {
-
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
-    res.setHeader('Access-Control-Max-Age', 2592000); // 30 days
-
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET");
+    res.setHeader("Access-Control-Max-Age", 2592000); // 30 days
 
     console.log(req);
     const done = finalhandler(req, res);
@@ -28,13 +24,17 @@ function onRequest(config) {
     //   res.write(content);
     //   res.end();
     // } else {
-      const index = serveIndex(config.root, {'icons': true});
-      const serve = serveStatic(config.root, {index: false});
+    const index = serveIndex(config.root, { icons: true });
+    const serve = serveStatic(config.root, { index: false });
 
-      serve(req, res, onNext = (err) => {
+    serve(
+      req,
+      res,
+      (onNext = (err) => {
         if (err) return done(err);
         index(req, res, done);
-      });
+      })
+    );
     // }
   };
 }

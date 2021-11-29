@@ -1,18 +1,18 @@
-const exectoterClass = require("../../../../../helpers/executor");
+const ExecutionManager = require("../../../../../utils/ExecutionManager");
 const fs = require("fs");
 module.exports = function (args) {
-  const executor = new exectoterClass();
+  const executor = new ExecutionManager();
   return executor.run([
     {
       cmd: "check",
       name: "node",
-      version: "10.x.x",
+      version: "^10 || ^12 || ^14",
       msg: "Checking Node Version",
     },
     {
       cmd: "check",
       name: "npm",
-      version: "6.x.x",
+      version: "^6 || ^7",
       msg: "Checking NPM Version",
     },
     { cmd: "makedir", path: args.app_path, msg: "Making Project Folder" },
@@ -89,7 +89,7 @@ function getPakcagejson(args) {
   );
   let packages = [
     ["@salla.sa/passport-strategy", "^1.0.2"],
-    ["@salla.sa/webhooks-actions", "^1.0.0"],
+    //["@salla.sa/webhooks-actions", "^1.0.0"], not published yet
     ["body-parser", "^1.19.0"],
     ["consolidate", "^0.15.0"],
     ["dotenv", "^8.2.0"],

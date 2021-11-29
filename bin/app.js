@@ -18,9 +18,8 @@ module.exports = function appCommands() {
     .command("serve")
     .alias("s")
     .option("-p, --port <name>", "port to listen to ")
-    .action(require("../src/app/serve"));
+    .action(require("../src/serve"));
 
-  _app.command("login").alias("l").action(require("../src/app/login"));
   _app.showSuggestionAfterError();
   return _app;
 };

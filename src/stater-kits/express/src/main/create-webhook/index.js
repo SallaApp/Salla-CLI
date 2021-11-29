@@ -1,43 +1,25 @@
-const { exit } = require("process");
 const fs = require("fs-extra");
 const path = require("path");
-const message = require("../../../../../helpers/message");
+const Logger = require("../../../../../utils/LoggingManager");
+
 module.exports = async function (options) {
   const app_name = "./";
   const webhook = process.argv[3];
   if (!webhook || webhook.split(".").length == 1) {
-    message.printMessage(
-      message.createMessage(
-        "Please enter a vaild webhook ex : app.installed ",
-        "err"
-      )
-    );
-    exit(0);
+    Logger.error("Please enter a vaild webhook ex : app.installed ");
+    process.exit(1);
   }
   if (!app_name) {
-    message.printMessages([
-      message.createMessage("Please enter your project name .", "err"),
-      message.createMessage(
-        "Usage  : salla create-webhook {event.name}",
-        "info"
-      ),
-    ]);
+    Logger.error("Please enter your project name .");
+    Logger.info("Usage  : salla create-webhook {event.name}");
 
-    exit(0);
+    process.exit(1);
   }
   if (!webhook) {
-    message.printMessages([
-      message.createMessage(
-        "Please enter the webhook you want to create ",
-        "err"
-      ),
-      message.createMessage(
-        "Usage  : salla create-webhook {event.name}",
-        "info"
-      ),
-    ]);
+    Logger.error("Please enter the webhook you want to create ");
+    Logger.info("Usage  : salla create-webhook {event.name}");
 
-    exit(0);
+    process.exit(1);
   }
 
   try {
@@ -50,14 +32,9 @@ module.exports = async function (options) {
         path.resolve(`./${app_name}/Actions/${folder}/${webhook_file}.js`)
       )
     ) {
-      message.printMessage(
-        message.createMessage(
-          "Please enter the webhook you want to create ",
-          "err"
-        )
-      );
+      Logger.error("Please enter the webhook you want to create ");
 
-      exit(0);
+      process.exit(1);
     }
     let webhook_template = fs
       .readFileSync(__dirname + "/templates/event.template.js")
@@ -67,24 +44,17 @@ module.exports = async function (options) {
       path.resolve(`./${app_name}/Actions/${folder}/${webhook_file}.js`),
       webhook_template.split("${event.name}").join(folder + "." + webhook_file)
     );
-    message.printMessage(
-      message.createMessage(
-        `webhook created successfully  ${path.resolve(
-          `./${app_name}/Actions/${folder}/${webhook_file}.js`
-        )}`,
-        "succ"
-      )
+    Logger.succ(
+      `webhook created successfully  ${path.resolve(
+        `./${app_name}/Actions/${folder}/${webhook_file}.js`
+      )}`
     );
   } catch (err) {
     console.log("err", err);
-    message.printMessage(
-      message.createMessage("Error when creating webhook ", "err")
-    );
+    Logger.error("Error when creating webhook ");
   }
 
   process.on("unhandledRejection", function (err) {
-    message.printMessage(
-      message.createMessage("Error when creating webhook ", "err")
-    );
+    Logger.error("Error when creating webhook ");
   });
 };

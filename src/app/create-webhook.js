@@ -1,8 +1,7 @@
 const checkFolder = require("../helpers/check-folder");
-const { printMessage, createMessage } = require("../helpers/message");
+const Logger = require("../utils/LoggingManager");
 
 module.exports = async function (options) {
-  // TODO : check if express or laravel
   if (checkFolder(process.cwd()) == "express") {
     require("../stater-kits/express/src/main/create-webhook")(options);
     return;
@@ -12,11 +11,5 @@ module.exports = async function (options) {
     // here create webhook for laravel
     return;
   }
-
-  printMessage(
-    createMessage(
-      "unknown project type .. please chose a vaild project ",
-      "err"
-    )
-  );
+  Logger.error("unknown project type .. please chose a vaild project ");
 };

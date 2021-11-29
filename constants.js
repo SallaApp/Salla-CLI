@@ -23,3 +23,5 @@ global.BASE_THEME = {
 global.AUTH_URL = BASE_URL + "/accounts/oauth/cli";
 global.ASSETS_PORT = "8181";
 global.AUTHENTICATION_PORT = "9898";
+global.FORBIDDEN_PROJECT_NAMES = ["node_modules", "src", "public"];
+global.DATABASE_ORM = ["Sequelize", "Mongoose", "TypeORM"];
