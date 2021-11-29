@@ -2,15 +2,15 @@
 
 //this to avoid local https errors, it cause problems locally
 require("https").globalAgent.options.rejectUnauthorized = false;
-
+const fs = require("fs");
 require("../constants");
 const Dev = require("../src/dev");
 const commander = require("commander");
 const program = new commander.Command();
-program.version("0.0.2");
 
-require("../src/helpers/print-head")(program);
-
+const packageJSON = JSON.parse(fs.readFileSync(`${__dirname}/../package.json`));
+program.version(packageJSON.version);
+program.showSuggestionAfterError();
 const themeCommands = require("./theme");
 const appCommands = require("./app");
 const loginCommands = require("./login");

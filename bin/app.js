@@ -7,7 +7,6 @@ module.exports = function appCommands() {
   // $ salla app create
   // $ salla app c
 
-  require("../src/helpers/print-head")(_app);
   _app
     .command("create")
     .alias("c")
@@ -22,5 +21,6 @@ module.exports = function appCommands() {
     .action(require("../src/app/serve"));
 
   _app.command("login").alias("l").action(require("../src/app/login"));
+  _app.showSuggestionAfterError();
   return _app;
 };

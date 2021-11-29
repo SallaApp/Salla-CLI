@@ -1,6 +1,6 @@
 {
   "name": "@salla.sa/cli",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "preferGlobal": true,
   "bin": {
     "salla": "bin/index.js"
@@ -27,7 +27,9 @@
     "chalk": "^4.1.2",
     "cli-select": "^1.1.2",
     "dotenv": "^10.0.0",
+    "meant": "^2.0.1",
     "ngrok": "^4.2.2",
+    "request": "^2.88.2",
     "shelljs": "^0.8.4"
   },
   "devDependencies": {
@@ -62,6 +64,6 @@
     "serve-static": "^1.14.1",
     "simple-git": "^2.47.0",
     "web-dev-server": "^3.0.22",
-    "ws": "^8.2.3"
+    "ws": "^8.3.0"
   }
 }
