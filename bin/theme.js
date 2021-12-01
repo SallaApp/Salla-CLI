@@ -20,7 +20,9 @@ module.exports = function themeCommands() {
     //.option('-n,--name <theme_name>', 'Theme name')
     .description("Start new salla theme")
     .action((options) =>
-      new Start(options, "start").run().catch(Logger.printCliResultErrorAndExit)
+      new Start(options, "start")
+        .run()
+        .catch((err) => Logger.printCliResultErrorAndExit(err))
     );
 
   themeCommand
@@ -28,7 +30,9 @@ module.exports = function themeCommands() {
     .description("Create Local sever")
     .option("-p,--port <port>", "Assets port")
     .action((options) =>
-      new Serve(options, "serve").run().catch(Logger.printCliResultErrorAndExit)
+      new Serve(options, "serve")
+        .run()
+        .catch((err) => Logger.printCliResultErrorAndExit(err))
     );
 
   themeCommand
@@ -37,7 +41,9 @@ module.exports = function themeCommands() {
     .requiredOption("-t,--theme_id <theme_id>", "Theme Id")
     .description("Upload modified file for testing theme.")
     .action((options) =>
-      new Sync(options, "sync").run().catch(Logger.printCliResultErrorAndExit)
+      new Sync(options, "sync")
+        .run()
+        .catch((err) => Logger.printCliResultErrorAndExit(err))
     );
 
   themeCommand
@@ -47,7 +53,9 @@ module.exports = function themeCommands() {
     .option("-s,--skip-start", "skip start")
     .description("Watch Salla theme")
     .action((options) =>
-      new Watch(options, "watch").run().catch(Logger.printCliResultErrorAndExit)
+      new Watch(options, "watch")
+        .run()
+        .catch((err) => Logger.printCliResultErrorAndExit(err))
     );
 
   themeCommand
@@ -59,7 +67,9 @@ module.exports = function themeCommands() {
     .option("-i,--minor", "Is release minor")
     .option("-m,--message <message>", "commit message")
     .action((options) =>
-      new Push(options, "push").run().catch(Logger.printCliResultErrorAndExit)
+      new Push(options, "push")
+        .run()
+        .catch((err) => Logger.printCliResultErrorAndExit(err))
     );
 
   themeCommand
@@ -69,7 +79,7 @@ module.exports = function themeCommands() {
     .action((options) =>
       new publish(options, "publish")
         .run()
-        .catch(Logger.printCliResultErrorAndExit)
+        .catch((err) => Logger.printCliResultErrorAndExit(err))
     );
 
   return themeCommand;

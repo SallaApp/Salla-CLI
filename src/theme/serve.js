@@ -10,7 +10,7 @@ class Serve extends BaseClass {
    * @return {Promise<null>}
    */
   async run() {
-    Logger.info("> Creating local server to serve assets...".green);
+    Logger.info("> Creating local server to serve assets...");
 
     Servino.start({
       port: this.options.port || ASSETS_PORT,

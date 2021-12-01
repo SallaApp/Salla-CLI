@@ -120,15 +120,13 @@ module.exports = class Servino {
     this.log("[Server Closed]", "...");
   }
 
-  static log(label, msg, color = fgColors.cyan) {
+  static log(label, msg) {
     if (config.verbose) {
       console.log(
-        color,
         "[" + new Date().toLocaleTimeString() + "]",
         label,
-        fgColors.yellow,
-        msg,
-        fgColors.reset
+
+        msg
       );
     }
   }

@@ -19,16 +19,33 @@ class InputsManager {
       AUTH_MODE: this.AUTH_MODE,
     };
   }
-  readLine(lable, { validate, name } = {}) {
+  readLine(lable, { validate, name, errorMessage } = {}) {
     Logger.longLine();
     let val = readlineSync.question(lable);
     if (validate) {
       // try until validated
-      while (!validate.test(val)) {
-        Logger.error("You must enter a valid " + name);
-        Logger.longLine();
-        val = readlineSync.question(lable);
+      if (typeof validate == "function") {
+        while (!validate(val)) {
+          if (errorMessage) {
+            Logger.error(errorMessage);
+          } else {
+            Logger.error(`You must enter a valid ${name}`);
+          }
+          Logger.longLine();
+          val = readlineSync.question(lable);
+        }
+      } else {
+        while (!validate.test(val)) {
+          if (errorMessage) {
+            Logger.error(errorMessage);
+          } else {
+            Logger.error(`You must enter a valid ${name}`);
+          }
+          Logger.longLine();
+          val = readlineSync.question(lable);
+        }
       }
+
       return val;
     } else {
       return val;
@@ -50,6 +67,7 @@ class InputsManager {
     Logger.normal(selectedVal.value);
     return selectedVal.value;
   }
+
   getClientIDFromCLI() {
     this.APP_CLIENT_ID = this.readLine("App Client ID: ");
     return this.APP_CLIENT_ID;
@@ -71,9 +89,10 @@ class InputsManager {
     return selectedORM;
   }
   async getAuthModeFromCLI() {
-    this.AUTH_MODE = (
-      await this.selectInput("App Auth Mode: ", ["easy", "custom"])
-    ).value;
+    this.AUTH_MODE = await this.selectInput("App Auth Mode: ", [
+      "easy",
+      "custom",
+    ]);
     return this.AUTH_MODE;
   }
   checkProjectExists(folderPath, exit = false) {

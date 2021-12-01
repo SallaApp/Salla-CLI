@@ -12,7 +12,7 @@ class LoggingManager {
     this.instant_print = bool;
   }
   printCliResultErrorAndExit(error) {
-    printCliResultError(error);
+    this.printCliResultError(error);
     // Exit with error code so automated systems recognize it as a failure
     // eslint-disable-next-line no-process-exit
     process.exit(1);
@@ -74,6 +74,8 @@ class LoggingManager {
 
     if (type == "err")
       msgObj = { msg: `[x] ${msg}`, color: "redBright", type, sideMessage };
+    if (type == "side-err")
+      msgObj = { msg: `[x] ${msg}`, color: "red", type, sideMessage };
     if (type == "succ")
       msgObj = { msg: `[ok] ${msg}`, color: "greenBright", type, sideMessage };
     if (type == "info")
@@ -86,15 +88,18 @@ class LoggingManager {
     return msgObj;
   }
   error(msg, ...msgs) {
-    msgs.map((msg) => this.printMessage(this.createMessage(msg, "err")));
+    if (msgs.length > 0)
+      msgs.map((msg) => this.printMessage(this.createMessage(msg, "side-err")));
     return this.printMessage(this.createMessage(msg, "err"));
   }
   warn(msg, ...msgs) {
-    msgs.map((msg) => this.printMessage(this.createMessage(msg, "warn")));
+    if (msgs.length > 0)
+      msgs.map((msg) => this.printMessage(this.createMessage(msg, "warn")));
     return this.printMessage(this.createMessage(msg, "warn"));
   }
   succ(msg, ...msgs) {
-    msgs.map((msg) => this.printMessage(this.createMessage(msg, "succ")));
+    if (msgs.length > 0)
+      msgs.map((msg) => this.printMessage(this.createMessage(msg, "succ")));
     return this.printMessage(this.createMessage(msg, "succ"));
   }
   success(msg, ...msgs) {
@@ -102,7 +107,8 @@ class LoggingManager {
   }
 
   info(msg, ...msgs) {
-    msgs.map((msg) => this.printMessage(this.createMessage(msg, "info")));
+    if (msgs.length > 0)
+      msgs.map((msg) => this.printMessage(this.createMessage(msg, "info")));
     this.printMessage(this.createMessage(msg, "info"));
     return;
   }

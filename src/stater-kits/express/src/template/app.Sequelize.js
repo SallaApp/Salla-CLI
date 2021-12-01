@@ -22,7 +22,7 @@ const SallaWebhook = require("@salla.sa/webhooks-actions");
 */
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
-
+const OAUTH_CALLBACK_URL = process.env.OAUTH_CALLBACK_URL;
 SallaWebhook.setSecret(process.env.WEBHOOK_SECRET);
 // Add Listners
 SallaWebhook.on("app.installed", (eventBody, userArgs) => {
@@ -39,7 +39,7 @@ SallaWebhook.on("all", (eventBody, userArgs) => {
 const SallaAPI = new SallaAPIFactory({
   clientID: CLIENT_ID,
   clientSecret: CLIENT_SECRET,
-  callbackURL: "http://localhost:8081/oauth/callback",
+  callbackURL: OAUTH_CALLBACK_URL,
 });
 
 // set Listner on auth success
@@ -208,13 +208,7 @@ app.get("/logout", function (req, res) {
 });
 
 app.listen(port, function () {
-  console.log("Output URLs:");
-  console.log("    =>    Local App Url", `http://localhost:${port}`);
-  console.log("    =>    Webhook Url:", `http://localhost:${port}/webhook`);
-  console.log(
-    "    =>    OAuth Callback Url:",
-    `http://localhost:${port}/oauth/callback`
-  );
+  console.log("Listening on port " + port);
 });
 
 // Simple route middleware to ensure user is authenticated.

@@ -1,7 +1,8 @@
 const BaseClass = require("./utils/BaseClass");
 const { exec, execSync } = require("child_process");
 const Logger = require("../utils/LoggingManager");
-const GithubAPI = new (require("../utils/AuthManager/Github"))();
+
+const { AuthManager, GithubAPI } = require("../utils/AuthManager")();
 
 /**
  * @property {PublishOptions} options
@@ -18,7 +19,7 @@ class Publish extends BaseClass {
      * @type {SallaConfig}
      */
     let tokens = await this.getTokens();
-    GithubAPI.setConfigData(tokens);
+    GithubAPI.setConfigData(tokens.github);
     let command = `push --force --token ${tokens.github.access_token} --name ${tokens.github.login}`;
 
     this.runTheme(command + ' --minor --message "New Release 🚀"');
@@ -42,9 +43,7 @@ class Publish extends BaseClass {
 
     //check the draft id
     if (!config.draft_id) {
-      Logger.info(
-        `please run ${"salla theme watch".green} to create draft theme`
-      );
+      Logger.info(`please run ${"salla theme watch"} to create draft theme`);
 
       return null;
     }

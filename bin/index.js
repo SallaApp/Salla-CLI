@@ -7,7 +7,12 @@ require("../constants");
 const Dev = require("../src/dev");
 const commander = require("commander");
 const program = new commander.Command();
-
+if (!process.argv.includes("--nohead")) {
+  // print salla head text
+  require("../src/helpers/print-salla-headtext")(null);
+} else {
+  process.argv.splice(process.argv.indexOf("--nohead"), 1);
+}
 const packageJSON = JSON.parse(fs.readFileSync(`${__dirname}/../package.json`));
 program.version(packageJSON.version);
 program.showSuggestionAfterError();

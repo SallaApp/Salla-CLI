@@ -77,6 +77,8 @@ function generateEnv(args) {
     DATABASE_USERNAME: "",
     DATABASE_SERVER: "",
     SALLA_AUTHORIZATION_MODE: args.auth_mode,
+    OAUTH_CALLBACK_URL: "",
+    APP_ID: args.app_id,
   };
   for (let e in envOjb) {
     outputEnv += `${e}=${envOjb[e]}\n`;

@@ -1,26 +1,40 @@
 const axios = require("axios");
 const Logger = require("../utils/LoggingManager");
-
+const { AuthManager } = require("../utils/AuthManager")();
 /**
- * @property {string|undefined} accessToken
+ * @typedef {string} accessToken
+ * @typedef {string} baseEndpoint
  */
-class SallaApi {
+module.exports = class SallaAPI {
   constructor() {
-    this.baseEndpoint = BASE_URL + "/admin/v2/";
+    this.baseEndpoint = BASE_URL + "/api/";
+
+    (async () => {
+      this.accessToken = (await AuthManager.getTokens()).salla.access_token;
+    })();
     this.endpoints = {
       user: "oauth2/user/info",
+      // theme endpoints
       new_draft: "theme",
       upload_file: "theme/{draft_id}/upload",
       publish: "theme/{draft_id}/publish",
+      // partner endpoints
+      apps: "app",
+      me: "me",
+      add: "app",
     };
 
     //by default all methods are post, so if there is need to another method, set it here
     this.endpointsMethods = {
       user: "get",
+      apps: "get",
+      me: "get",
+      add: "post",
     };
   }
 
   setAccessToken(accessToken) {
+    AuthManager.set("salla", { access_token: accessToken });
     this.accessToken = accessToken;
   }
   request(endpoint, data, headers) {
@@ -28,6 +42,7 @@ class SallaApi {
       throw "Failed to find endpoint for: " + endpoint;
     }
     let url = this.getUrlForEndpoint(endpoint, data);
+
     return this.getDataFromUrl(
       url,
       this.endpointsMethods[endpoint],
@@ -35,7 +50,9 @@ class SallaApi {
       headers
     );
   }
-
+  requestURL(url, method, data, headers) {
+    return this.getDataFromUrl(url, method, data, headers);
+  }
   /**
    * pass all endpoints from here to be free changing endpoints without breakChange
    * @param {string} endpoint
@@ -77,13 +94,16 @@ class SallaApi {
       },
     })
       .then((res) => res.data)
-      .catch(this.handleErrors);
+      .catch((err) => {
+        //console.log(err);
+        this.handleErrors(err);
+      });
   }
 
   handleErrors(error) {
     if (error && error.response && error.response.data) {
       let data = error.response.data;
-      let errorMessage = `  ${error.name}: ${error.message}`;
+      let errorMessage = `${error.name}: ${error.message}`;
       if (!data || !data.error) {
         Logger.error(errorMessage);
         return false;
@@ -117,6 +137,4 @@ class SallaApi {
     }
     throw error;
   }
-}
-
-module.exports = SallaApi;
+};

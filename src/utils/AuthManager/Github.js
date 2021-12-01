@@ -10,11 +10,15 @@ const { execSync } = require("child_process");
 class GithubAPI {
   GithubConfig;
   gitSimple;
+  AuthManager;
   constructor() {
     this.gitSimple = require("simple-git/promise")({ baseDir: BASE_PATH });
   }
   setGithubConfigData(GithubConfig) {
     this.GithubConfig = GithubConfig;
+  }
+  setAuthManager(AuthManager) {
+    this.AuthManager = AuthManager;
   }
   createRepo({ repo_url, access_token, repo_name, isPrivate, message }) {
     return this.gitSimple
@@ -112,7 +116,28 @@ class GithubAPI {
     }
     return checked;
   }
+  async isTokenValid(github) {
+    try {
+      /**
+       * @see https://docs.github.com/en/rest/reference/users#get-the-authenticated-user--code-samples
+       * @type {{login:string, id:number, email:string, name:string, ...}}
+       */
+      let user = await this.getUser();
+      if (github.login !== user.login) {
+        github.login = user.login;
+      }
 
+      return true;
+    } catch (err) {
+      return false;
+    }
+  }
+  askForGithubToken() {
+    let github_token = InputsManager.readLine("Github token: ", {
+      name: "github_token",
+    });
+    return github_token;
+  }
   /**
    *
    * @param  {GithubConfig} GithubConfig
@@ -120,9 +145,26 @@ class GithubAPI {
    */
   async initiateRepo({ message, isPrivate }) {
     if (!this.GithubConfig) {
-      // this.setConfigData
-      Logger.error(`Please set the config data first.`);
-      return;
+      let configData = fs.existsSync(CLI_CONFIG_FILE)
+        ? require(CLI_CONFIG_FILE)
+        : null;
+
+      this.GithubConfig = configData.github || {};
+      if (!(await this.isTokenValid(configData.github))) {
+        let github_token = await this.askForGithubToken();
+        this.GithubConfig.access_token = github_token;
+        console.log("this.AuthManager", this.AuthManager.set);
+        await this.AuthManager.set({
+          github: github_token,
+        });
+        let user = await this.getUser();
+
+        this.GithubConfig.login = user.login;
+
+        await this.AuthManager.set({
+          login: login,
+        });
+      }
     }
     const repoName = InputsManager.readLine(
       "What do you want to call your repository ? ",
@@ -130,7 +172,7 @@ class GithubAPI {
     );
 
     Logger.succ(
-      `  Initiating repository in github (${this.GithubConfig.login}), please wait....`
+      `Initiating repository in github (${this.GithubConfig.login}), please wait....`
     );
     const remoteRepo = `https://github.com/${this.GithubConfig.login}/${repoName}`;
 

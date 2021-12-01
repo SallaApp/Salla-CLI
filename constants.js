@@ -9,10 +9,14 @@ try {
 } catch (e) {
   //create config file with dir
   fs.mkdirSync(require("os").homedir() + "/.salla");
-  fs.writeJSONSync(CLI_CONFIG_FILE, { BASE_URL: "" });
+  fs.writeJSONSync(CLI_CONFIG_FILE, {
+    BASE_URL: "https://partners-7148f85b25810aa8a1967a7b6f5c0117.salla.group",
+    salla: {},
+    github: {},
+  });
 }
 global.BASE_URL =
-  BASE_URL || "https://dashboard-26c3cd35add3468fc189c714bd1a1345.salla.group";
+  BASE_URL || "https://partners-7148f85b25810aa8a1967a7b6f5c0117.salla.group";
 
 global.BASE_THEME = {
   url: "https://github.com/SallaApp/theme-one",
@@ -25,3 +29,4 @@ global.ASSETS_PORT = "8181";
 global.AUTHENTICATION_PORT = "9898";
 global.FORBIDDEN_PROJECT_NAMES = ["node_modules", "src", "public"];
 global.DATABASE_ORM = ["Sequelize", "Mongoose", "TypeORM"];
+global.DEFAULT_APP_PORT = 8081;

@@ -37,7 +37,7 @@ class Watch extends BaseClass {
         this.path().join(BASE_PATH, "node_modules")
       ))
     ) {
-      Logger.info(`  running '${packageManager} install'...`.green);
+      Logger.info(`  running '${packageManager} install'...`);
       // Logger.error('Folder (node_modules) is not exists! It looks that you didn\'t run (' + (packageManager + ' install').bold + ') yet.')
       this.runSysCommand(packageManager + " install");
       // return null;
@@ -94,7 +94,7 @@ class Watch extends BaseClass {
     await this.openBrowser(response.preview_url);
 
     packageManager += packageManager === "npm" ? " run" : "";
-    Logger.info(`  running '${packageManager} watch'...`.green);
+    Logger.info(`  running '${packageManager} watch'...`);
     this.runSysCommand(packageManager + " watch");
     //
     // var spawn = require('child_process').spawn;
@@ -134,7 +134,7 @@ class Watch extends BaseClass {
   }
 
   async createDraftTheme() {
-    console.log("  Prepare testing theme...".green);
+    console.log("  Prepare testing theme...");
     const { repo_url, theme_name, theme_id } = this.configs();
     return (await this.sallaApi())
       .request("new_draft", {

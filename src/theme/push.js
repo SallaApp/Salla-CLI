@@ -1,6 +1,6 @@
 const BaseClass = require("./utils/BaseClass");
+const { AuthManager, GithubAPI } = require("../utils/AuthManager")();
 
-const GithubAPI = new (require("../utils/AuthManager/Github"))();
 const Logger = require("../utils/LoggingManager");
 
 /**
@@ -67,7 +67,7 @@ class Push extends BaseClass {
       // this.success('There is no changes in twig files.');
       return;
     }
-    let tagName = await this.getTagName(this.options.minor);
+    let tagName = await GithubAPI.getTagName(this.options.minor);
 
     GithubAPI.addAndCommit({
       path: "./*",
@@ -77,7 +77,7 @@ class Push extends BaseClass {
       .then(
         () =>
           files.length > 10 &&
-          this.log(`  Pushing (${files.length}) files  into git repo...`.green)
+          Logger.info(`  Pushing (${files.length}) files  into git repo...`)
       )
       .then(() => Logger.success(`Files pushed to GitHub.`));
   }

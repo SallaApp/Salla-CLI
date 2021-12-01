@@ -1,6 +1,6 @@
 const Logger = require("../utils/LoggingManager");
 
-const AuthManager = require("../utils/AuthManager");
+const { AuthManager, SallaAuthApi } = require("../utils/AuthManager")();
 
 const generateRandome = require("../helpers/generateRandom");
 const { WebSocket } = require("ws");
@@ -11,8 +11,8 @@ module.exports = async function (options) {
   let salla_endpoint = "https://salla.partners/auth/cli";
   let salla_ws_endpoint = "ws://salla.partners/auth/cli";
 
-  const auth = new AuthManager();
-  const tokens = auth.getTokens();
+  const tokens = await AuthManager.isSallaTokenValid();
+
   let rand_idn = generateRandome(64);
   let testEndpoint = `${salla_endpoint}?identify=${rand_idn}`;
 

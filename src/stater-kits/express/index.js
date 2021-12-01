@@ -12,16 +12,13 @@ const PrintFinalOutput = require("./src/main/print-final-output");
 // set constants for the project
 const SRC_TEMPLATE = __dirname + "/src/template";
 
-// print salla head text
-require("../../helpers/print-salla-headtext")(null);
-
 // export the module
 module.exports.ExpressAppCreateor = async (options) => {
   // start executing the process
   return Executor({
     src: `${SRC_TEMPLATE}`,
     ...options,
-    app_path: BASE_PATH + "/" + options.app_name,
+    app_path: BASE_PATH + "/" + options.app_name.split(" ").join("_"),
   })
     .then((msgs) => {
       if (msgs.filter((msg) => msg.type === "err").length > 0) {

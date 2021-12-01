@@ -1,7 +1,8 @@
-const SallaApi = new (require("../../api/SallaApi"))();
-
 const Logger = require("../LoggingManager");
 const fs = require("fs-extra");
+
+const GithubAPI = new (require("./Github"))();
+const SallaAuthAPI = new (require("./SallaAuthApi"))();
 
 /**
  * @typedef {{
@@ -19,11 +20,21 @@ class AuthManager {
   /**
    * @return {Promise<SallaConfig>}
    */
-
+  constructor() {
+    try {
+      this.configData = fs.existsSync(CLI_CONFIG_FILE)
+        ? require(CLI_CONFIG_FILE)
+        : null;
+    } catch (error) {
+      Logger.error("Error while reading config file: ", error.message);
+    }
+  }
   async getTokens() {
     if (this.configData) {
+      GithubAPI.setGithubConfigData(this.configData.github || {});
       return this.configData;
     }
+
     try {
       this.configData = fs.existsSync(CLI_CONFIG_FILE)
         ? require(CLI_CONFIG_FILE)
@@ -32,9 +43,14 @@ class AuthManager {
       Logger.error("Error while reading config file: ", error.message);
       return null;
     }
-    this.configData;
+    return this.configData;
   }
-
+  async askForGithubToken() {
+    let github_token = await GithubAPI.askForGithubToken();
+    if (!this.configData.github) this.configData.github = {};
+    this.configData.github.access_token = github_token;
+    await this.set("github", { access_token: github_token });
+  }
   /**
    * @param {object|SallaConfig} token
    * @param withLog
@@ -69,30 +85,21 @@ class AuthManager {
       (await this.isGithubTokenValid())
     );
   }
-  async isGithubTokenValid(GithubAPI) {
-    try {
-      /**
-       * @see https://docs.github.com/en/rest/reference/users#get-the-authenticated-user--code-samples
-       * @type {{login:string, id:number, email:string, name:string, ...}}
-       */
-      let user = GithubAPI.getUser();
-      if (this.configData.github.login !== user.login) {
-        this.configData.github.login = user.login;
-        await this.save(this.configData);
-      }
-
-      return true;
-    } catch (err) {
-      return false;
-    }
+  async isGithubTokenValid() {
+    return GithubAPI.isTokenValid(this.configData.github);
   }
+
   async isSallaTokenValid() {
     if (!this.configData.salla || !this.configData.salla.access_token) {
       return false;
     }
-    SallaApi.setAccessToken(this.configData.salla.access_token);
+    const SallaApi = require("../../api/SallaApi");
+    const SallaApiObj = new SallaApi();
 
-    let user = await SallaApi.request("user");
+    SallaApiObj.setAccessToken(this.configData.salla.access_token);
+
+    let user = await SallaApiObj.request("me");
+
     if (user && user.success) {
       return true;
     }
@@ -107,9 +114,19 @@ class AuthManager {
   async set(key, value) {
     const config = await this.getTokens();
     if (config == null) config = {};
-    config[key] = value;
+    if (typeof value === "object") config[key] = { ...config[key], ...value };
+    else config[key] = value;
     await this.save(config);
   }
 }
 
-module.exports = AuthManager;
+module.exports = () => {
+  let AuthObj = new AuthManager();
+  GithubAPI.setAuthManager(AuthObj);
+  SallaAuthAPI.setAuthManager(AuthObj);
+  return {
+    GithubAPI,
+    AuthManager: AuthObj,
+    SallaAuthAPI,
+  };
+};

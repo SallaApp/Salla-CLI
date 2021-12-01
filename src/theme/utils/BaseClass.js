@@ -18,7 +18,7 @@
 
 const SallaApi = require("../../api/SallaApi");
 const { execSync } = require("child_process");
-const AuthManager = new (require("../../utils/AuthManager"))();
+const { AuthManager, GithubAPI } = require("../../utils/AuthManager")();
 
 /**
  * @property {ThemeCommandsOptions} options
@@ -41,7 +41,7 @@ class BaseClass {
       //throw "Theme not exists";
       process.exit();
     }
-
+    this.tokens = AuthManager.getTokens();
     this.options = options || {};
     this.commandName = commandName;
     this.readyToReturn = false;
@@ -126,6 +126,11 @@ class BaseClass {
     if (this.tokens) {
       return this.tokens;
     }
+
+    if (!(await AuthManager.isGithubTokenValid()) && !skip_tokens_check) {
+      await AuthManager.askForGithubToken();
+      this.tokens = await AuthManager.getTokens();
+    }
     return (this.tokens = await AuthManager.getTokens());
   }
 
@@ -160,7 +165,7 @@ class BaseClass {
 
   /******* Common Helper Methods *******/
   runTheme(command) {
-    return this.runSysCommand("salla theme " + command);
+    return this.runSysCommand("salla theme " + command + " --nohead");
   }
 
   runSysCommand(command) {

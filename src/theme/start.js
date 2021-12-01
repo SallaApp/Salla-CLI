@@ -13,6 +13,7 @@ class Start extends BaseClass {
     //to avoid using word 'theme_name' in command line, just using 'name'
     this.options.theme_name = this.options.name || "";
     delete this.options.name;
+
     // this will exit if node version is lower than what's been required
     executor.checkNodeVersion();
     if (await this.configManager().isExists()) {
@@ -49,7 +50,7 @@ class Start extends BaseClass {
 
     global.BASE_PATH = this.path().join(BASE_PATH, theme_name);
 
-    //Logger.info(`  Creating new folder (${theme_name.bold})...`.green);
+    //Logger.info(`  Creating new folder (${theme_name.bold})...`);
     if (await this.fileSys().exists(BASE_PATH)) {
       let message = `Folder (${theme_name.bold}) is already exists.`;
       Logger.error(
@@ -58,8 +59,8 @@ class Start extends BaseClass {
       throw message;
     }
     await this.fileSys().mkdirs(BASE_PATH);
-    Logger.success(`Folder (${theme_name.bold}) created successfully.`.green);
-    //Logger.info(`  Changing working directory to (${theme_name.bold})...`.green);
+    Logger.success(`Folder (${theme_name.bold}) created successfully.`);
+    //Logger.info(`  Changing working directory to (${theme_name.bold})...`);
     process.chdir(theme_name);
   }
 
@@ -79,7 +80,7 @@ class Start extends BaseClass {
   }
 
   async cloneRepo(theme_name) {
-    Logger.info("  Downloading Base Theme, please wait...".green);
+    Logger.info("  Downloading Base Theme, please wait...");
     const latestRelease = await this.getTheLatestRelease();
     if (
       latestRelease.status === 404 ||
@@ -111,7 +112,7 @@ class Start extends BaseClass {
     }
 
     Logger.success("Base theme downloaded");
-    Logger.info("  Extracting base theme files...".green);
+    Logger.info("  Extracting base theme files...");
     const zip = new AdmZip(await response.buffer());
     //const entries = zip.getEntries();
     const mainEntry = zip.getEntries()[0].entryName;
@@ -130,9 +131,7 @@ class Start extends BaseClass {
     try {
       return this.configs();
     } catch (err) {
-      Logger.info(
-        `********** Building New ${"Salla".bold} Theme **********`.green
-      );
+      Logger.info(`********** Building New ${"Salla".bold} Theme **********`);
       return {};
     }
   }
