@@ -2,7 +2,7 @@ const BaseClass = require("./utils/BaseClass");
 const { Octokit } = require("@octokit/rest");
 const fetch = require("node-fetch");
 const AdmZip = require("adm-zip");
-
+const Logger = require("../utils/LoggingManager");
 const ExecutionManager = require("../../src/utils/ExecutionManager");
 const executor = new ExecutionManager();
 /**
@@ -16,7 +16,7 @@ class Start extends BaseClass {
     // this will exit if node version is lower than what's been required
     executor.checkNodeVersion();
     if (await this.configManager().isExists()) {
-      //this.success("Theme is exists.");
+      //Logger.success("Theme is exists.");
       this.runTheme("watch --skip-start");
       return;
     }
@@ -37,7 +37,7 @@ class Start extends BaseClass {
 
     await this.cloneRepo(themeConfig.theme_name)
       .then(async () => await this.configManager().save(themeConfig))
-      .then(() => this.success(`Theme config stored into theme.json`));
+      .then(() => Logger.success(`Theme config stored into theme.json`));
 
     return this.runTheme("watch --skip-start");
   }
@@ -49,17 +49,17 @@ class Start extends BaseClass {
 
     global.BASE_PATH = this.path().join(BASE_PATH, theme_name);
 
-    //this.log(`  Creating new folder (${theme_name.bold})...`.green);
+    //Logger.info(`  Creating new folder (${theme_name.bold})...`.green);
     if (await this.fileSys().exists(BASE_PATH)) {
       let message = `Folder (${theme_name.bold}) is already exists.`;
-      this.error(
+      Logger.error(
         `Folder (${theme_name.bold}) is already existed in this directory!`
       );
       throw message;
     }
     await this.fileSys().mkdirs(BASE_PATH);
-    this.success(`Folder (${theme_name.bold}) created successfully.`.green);
-    //this.log(`  Changing working directory to (${theme_name.bold})...`.green);
+    Logger.success(`Folder (${theme_name.bold}) created successfully.`.green);
+    //Logger.info(`  Changing working directory to (${theme_name.bold})...`.green);
     process.chdir(theme_name);
   }
 
@@ -79,14 +79,14 @@ class Start extends BaseClass {
   }
 
   async cloneRepo(theme_name) {
-    this.log("  Downloading Base Theme, please wait...".green);
+    Logger.info("  Downloading Base Theme, please wait...".green);
     const latestRelease = await this.getTheLatestRelease();
     if (
       latestRelease.status === 404 ||
       !latestRelease.data ||
       !latestRelease.data[0]
     ) {
-      this.error("Failed to get latest Release", latestRelease);
+      Logger.error("Failed to get latest Release", latestRelease);
       throw "";
     }
     await this.getAndUnZip(latestRelease.data[0].zipball_url, theme_name);
@@ -105,24 +105,24 @@ class Start extends BaseClass {
     //TODO:: add progress bar
     const response = await fetch(url, { headers: this.authHeader() });
     if (!response.ok) {
-      this.error("Failed to get base theme.");
-      this.error(await response.json());
+      Logger.error("Failed to get base theme.");
+      Logger.error(await response.json());
       throw "Failed to get base theme );";
     }
 
-    this.success("Base theme downloaded");
-    this.log("  Extracting base theme files...".green);
+    Logger.success("Base theme downloaded");
+    Logger.info("  Extracting base theme files...".green);
     const zip = new AdmZip(await response.buffer());
     //const entries = zip.getEntries();
     const mainEntry = zip.getEntries()[0].entryName;
     zip.extractAllTo(/*target path*/ BASE_PATH, /*overwrite*/ false);
     const srcDir = this.path().join(BASE_PATH, mainEntry);
     this.fileSys().copySync(srcDir, BASE_PATH, { overwrite: false }, (err) =>
-      err ? this.error(err) : this.success("success!")
+      err ? Logger.error(err) : Logger.success("success!")
     );
     this.fileSys().removeSync(srcDir);
     this.fileSys().removeSync(this.path().join(BASE_PATH, ".github"));
-    //this.success('Base theme is ready.');
+    //Logger.success('Base theme is ready.');
     return true;
   }
 
@@ -130,7 +130,7 @@ class Start extends BaseClass {
     try {
       return this.configs();
     } catch (err) {
-      this.log(
+      Logger.info(
         `********** Building New ${"Salla".bold} Theme **********`.green
       );
       return {};

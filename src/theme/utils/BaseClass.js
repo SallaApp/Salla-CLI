@@ -4,7 +4,7 @@
 /** @typedef {boolean|undefined} CheckOption */
 /** @typedef {string|undefined} Option */
 /** @typedef {number|undefined} NumOption */
-/** @typedef {('start'|'auth'|'serve'|'sync'|'watch'|'push'|'publish'|'dev'|undefined)} Commands */
+/** @typedef {('start'|'serve'|'sync'|'watch'|'push'|'publish'|'dev'|undefined)} Commands */
 
 /** @typedef {{force:CheckOption, port:NumOption}} AuthOptions */
 /** @typedef {Object} PublishOptions */
@@ -15,9 +15,10 @@
 /** @typedef {{skipStart:CheckOption, port:NumOption}} WatchOptions */
 /** @typedef {{base:string, config:CheckOption}} DevOptions */
 /** @typedef {AuthOptions|PublishOptions|PushOptions|ServeOptions|StartOptions|SyncOptions|WatchOptions|{}} ThemeCommandsOptions */
-require("colors");
+
 const SallaApi = require("../../api/SallaApi");
 const { execSync } = require("child_process");
+const AuthManager = new (require("../../utils/AuthManager"))();
 
 /**
  * @property {ThemeCommandsOptions} options
@@ -125,16 +126,7 @@ class BaseClass {
     if (this.tokens) {
       return this.tokens;
     }
-    return (this.tokens = await this.authManager(skip_tokens_check).tokens());
-  }
-
-  authManager(skip_tokens_check) {
-    if (this._auth) {
-      this._auth.skip_tokens_check = skip_tokens_check;
-      return this._auth;
-    }
-    this._auth = new (require("./AuthManager"))(this.options, this.commandName);
-    return this.authManager(skip_tokens_check);
+    return (this.tokens = await AuthManager.getTokens());
   }
 
   /**

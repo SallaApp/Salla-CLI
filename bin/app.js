@@ -18,7 +18,7 @@ module.exports = function appCommands() {
     .command("serve")
     .alias("s")
     .option("-p, --port <name>", "port to listen to ")
-    .action(require("../src/serve"));
+    .action(require("../src/app/serve"));
 
   _app.showSuggestionAfterError();
   return _app;

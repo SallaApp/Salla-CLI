@@ -40,15 +40,16 @@ const progressBar = new cliProgress.SingleBar(
 */
 module.exports = class ExecutionManager {
   constructor() {}
-  async __start(commands) {
+  async __start(commands, progress) {
     if (!Array.isArray(commands)) {
     }
     let messages = [];
-    if (progressBar) progressBar.start(commands.length, 0);
+
+    if (progress && progressBar) progressBar.start(commands.length, 0);
     let i = 1;
     for (let command in commands) {
       command = commands[command];
-      if (progressBar)
+      if (progress && progressBar)
         progressBar.update(i, {
           process: command.msg,
         });
@@ -140,18 +141,21 @@ module.exports = class ExecutionManager {
   }
 
   checkNodeVersion(version) {
-    return this.run({
-      cmd: "check",
-      name: "node",
-      version: version,
-      msg: "Checking Node Version",
-    });
+    return this.run(
+      {
+        cmd: "check",
+        name: "node",
+        version: version,
+        msg: "Checking Node Version",
+      },
+      { progress: false }
+    );
   }
-  run(arrayOFcommands) {
+  run(arrayOFcommands, { progress = true } = {}) {
     if (!Array.isArray(arrayOFcommands)) arrayOFcommands = [arrayOFcommands];
     return new Promise(async (resolve, reject) => {
-      const messages = await this.__start(arrayOFcommands);
-      progressBar.stop();
+      const messages = await this.__start(arrayOFcommands, progress);
+      if (progress) progressBar.stop();
 
       resolve(messages);
     });

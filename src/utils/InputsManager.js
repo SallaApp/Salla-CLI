@@ -7,7 +7,7 @@ class InputsManager {
   APP_CLIENT_ID;
   APP_CLIENT_SECRET;
   WEBHOOK_SECRET;
-  DATABASE_ORM;
+
   AUTH_MODE;
 
   getValues() {
@@ -15,13 +15,24 @@ class InputsManager {
       APP_CLIENT_ID: this.APP_CLIENT_ID,
       APP_CLIENT_SECRET: this.APP_CLIENT_SECRET,
       WEBHOOK_SECRET: this.WEBHOOK_SECRET,
-      DATABASE_ORM: this.DATABASE_ORM,
+
       AUTH_MODE: this.AUTH_MODE,
     };
   }
-  readLine(lable) {
+  readLine(lable, { validate, name } = {}) {
     Logger.longLine();
-    return readlineSync.question(lable);
+    let val = readlineSync.question(lable);
+    if (validate) {
+      // try until validated
+      while (!validate.test(val)) {
+        Logger.error("You must enter a valid " + name);
+        Logger.longLine();
+        val = readlineSync.question(lable);
+      }
+      return val;
+    } else {
+      return val;
+    }
   }
 
   async selectInput(lable, values) {
@@ -52,14 +63,16 @@ class InputsManager {
     return this.WEBHOOK_SECRET;
   }
   async getDatabaseORMFromCLI() {
-    this.DATABASE_ORM = (
-      await this.selectInput("App Database ORM: ", DATABASE_ORM)
-    ).value;
-    return this.DATABASE_ORM;
+    let selectedORM = await this.selectInput(
+      "App Database ORM: ",
+      DATABASE_ORM
+    );
+
+    return selectedORM;
   }
   async getAuthModeFromCLI() {
     this.AUTH_MODE = (
-      await this.selectInput("App Database ORM: ", ["easy", "custom"])
+      await this.selectInput("App Auth Mode: ", ["easy", "custom"])
     ).value;
     return this.AUTH_MODE;
   }

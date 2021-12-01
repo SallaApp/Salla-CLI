@@ -97,6 +97,10 @@ class LoggingManager {
     msgs.map((msg) => this.printMessage(this.createMessage(msg, "succ")));
     return this.printMessage(this.createMessage(msg, "succ"));
   }
+  success(msg, ...msgs) {
+    return this.succ(msg, msgs);
+  }
+
   info(msg, ...msgs) {
     msgs.map((msg) => this.printMessage(this.createMessage(msg, "info")));
     this.printMessage(this.createMessage(msg, "info"));

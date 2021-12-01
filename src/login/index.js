@@ -7,6 +7,7 @@ const { WebSocket } = require("ws");
 const request = require("request");
 
 module.exports = async function (options) {
+  // WIP
   let salla_endpoint = "https://salla.partners/auth/cli";
   let salla_ws_endpoint = "ws://salla.partners/auth/cli";
 
@@ -32,7 +33,7 @@ module.exports = async function (options) {
     console.log("received: %s", data);
     data = JSON.parse(data);
     if (data.msg == "ok") {
-      console.log("yooo here's the token", data.token);
+      console.log("here's the token", data.token);
     }
   });
   Logger.succ("`You are Logged to salla");

@@ -4,7 +4,7 @@ const Logger = require("../src/utils/LoggingManager");
 
 module.exports = function themeCommands() {
   const Start = require("../src/theme/start");
-  const Auth = require("../src/theme/auth");
+
   const Serve = require("../src/theme/serve");
   const Watch = require("../src/theme/watch");
   const Sync = require("../src/theme/sync");
@@ -21,16 +21,6 @@ module.exports = function themeCommands() {
     .description("Start new salla theme")
     .action((options) =>
       new Start(options, "start").run().catch(Logger.printCliResultErrorAndExit)
-    );
-
-  themeCommand
-    .command("auth")
-    .alias("a")
-    .description("Check if the tokens existed and valid")
-    .option("-f,--force", "Force get new tokens")
-    .option("-p,--port <port>", "Authentication socket port")
-    .action((options) =>
-      new Auth(options, "auth").run().catch(Logger.printCliResultErrorAndExit)
     );
 
   themeCommand

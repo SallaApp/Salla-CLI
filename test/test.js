@@ -1,8 +1,9 @@
+// WIP
 require("../constants");
 const GithubAPI = new (require("../src/utils/AuthManager/Github"))();
 console.log("GithubAPI", GithubAPI);
 GithubAPI.setGithubConfigData({
-  access_token: "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",
+  access_token: "",
   login: "kkk",
   email: "test",
 });
