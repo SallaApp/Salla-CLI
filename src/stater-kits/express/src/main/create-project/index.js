@@ -69,16 +69,16 @@ module.exports = function (args) {
 function generateEnv(args) {
   let outputEnv = "";
   const envOjb = {
-    CLIENT_ID: args.app_client_id,
-    CLIENT_SECRET: args.app_client_secret,
-    AUTH_MODE: args.auth_mode,
-    WEBHOOK_SECRET: args.webhook_secret,
+    SALLA_OAUTH_CLIENT_ID: args.app_client_id,
+    SALLA_OAUTH_CLIENT_SECRET: args.app_client_secret,
+    SALLA_WEBHOOK_SECRET: args.webhook_secret,
+    SALLA_AUTHORIZATION_MODE: args.auth_mode,
+    SALLA_OAUTH_CLIENT_REDIRECT_URI: "",
+    SALLA_APP_ID: args.app_id,
+
     DATABASE_PASSWORD: "",
     DATABASE_USERNAME: "",
     DATABASE_SERVER: "",
-    SALLA_AUTHORIZATION_MODE: args.auth_mode,
-    OAUTH_CALLBACK_URL: "",
-    APP_ID: args.app_id,
   };
   for (let e in envOjb) {
     outputEnv += `${e}=${envOjb[e]}\n`;
@@ -91,7 +91,7 @@ function getPakcagejson(args) {
   );
   let packages = [
     ["@salla.sa/passport-strategy", "^1.0.2"],
-    //["@salla.sa/webhooks-actions", "^1.0.0"], not published yet
+    ["@salla.sa/webhooks-actions", "^1.0.0"],
     ["body-parser", "^1.19.0"],
     ["consolidate", "^0.15.0"],
     ["dotenv", "^8.2.0"],

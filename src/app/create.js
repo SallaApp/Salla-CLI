@@ -1,18 +1,26 @@
 const Logger = require("../utils/LoggingManager");
 const { ExpressAppCreateor } = require("../stater-kits/express");
+const { LaravelAppCreateor } = require("../stater-kits/laravel");
 const generateRandomName = require("../helpers/generateRandom");
 const InputsManager = require("../utils/InputsManager");
 const ServeCommand = require("./serve");
 const PartnerApi = new (require("../api/partner"))();
 const { AuthManager } = require("../utils/AuthManager")();
+
 // export function to Salla-cli
 module.exports = async function (options) {
-  Logger.info("Please wait while we are getting your apps from the salla...");
+  Logger.info("Please wait while we are getting your apps from Salla ...");
   if (!(await AuthManager.isSallaTokenValid())) {
     Logger.error("You need to login first");
     return;
   }
-  let apps = await PartnerApi.getAllApps();
+  let apps = [];
+  try {
+    apps = await PartnerApi.getAllApps();
+  } catch (err) {
+    Logger.error("Error getting apps from your Salla account ... timeout!");
+    return;
+  }
 
   //  select app
   options.app_name =
@@ -23,6 +31,7 @@ module.exports = async function (options) {
       "Create New App ?",
     ]));
   let isNewApp = false;
+  options.app_path = generateAppPath(options.app_name);
   // check if create new app or not
   if (options.app_name.indexOf("Create New App") > -1) {
     isNewApp = true;
@@ -36,6 +45,7 @@ module.exports = async function (options) {
       name: "App Name",
       errorMessage: "App Name must be between 10 and 50 characters",
     });
+    options.app_path = generateAppPath(options.app_name);
 
     // check if app name is allowed to use
     if (FORBIDDEN_PROJECT_NAMES.includes(options.app_name)) {
@@ -46,7 +56,7 @@ module.exports = async function (options) {
     }
 
     // this will trigger process.exit(1) if the app name exists
-    InputsManager.checkProjectExists(`${BASE_PATH}/${options.app_name}`, true);
+    InputsManager.checkProjectExists(options.app_path, true);
 
     // get description
     options.desc_english = InputsManager.readLine("Enter Description  : ", {
@@ -73,10 +83,7 @@ module.exports = async function (options) {
     options.auth_mode = await InputsManager.getAuthModeFromCLI();
   } else {
     // this will trigger process.exit(1) if the app name exists
-    InputsManager.checkProjectExists(
-      `${BASE_PATH}/${options.app_name.split(" ").join("_")}`,
-      true
-    );
+    InputsManager.checkProjectExists(options.app_path, true);
   }
 
   // get project type
@@ -129,24 +136,32 @@ module.exports = async function (options) {
 
   // start creating the project
   // check if the project is expressjs or laravel
-  if (projectType === "express") {
-    // Create Express APP
-    let optionsOutput = await ExpressAppCreateor(options);
+  try {
+    if (projectType === "express") {
+      // Create Express APP
+      await ExpressAppCreateor(options);
+    } else if (projectType === "laravel") {
+      // Create Laravel APP
+      await LaravelAppCreateor(options);
+    } else {
+      Logger.error("Framework not supported ... ");
+      process.exit(1);
+    }
 
-    process.chdir(optionsOutput.app_path.split(" ").join("_"));
-  } else if (projectType === "laravel") {
-    // Create Laravel APP
-    await require("../stater-kits/laravel");
-  } else {
-    Logger.error("Framework not supported ... ");
+    process.chdir(options.app_path.split(" ").join("_"));
+    // after creating the project we run salla serve
+    // run serve
+    ServeCommand({ port: DEFAULT_APP_PORT });
+  } catch (err) {
+    Logger.error("Error ... ", err);
+    process.exit(1);
   }
-
-  // after creating the project we run salla serve
-  // run serve
-  ServeCommand({ port: DEFAULT_APP_PORT });
 
   // catch Ctrl+C
   InputsManager.catchCtrlC(options.app_name.split(" ").join("_"));
 
   return;
 };
+
+const generateAppPath = (appName) =>
+  BASE_PATH + "/" + appName.split(" ").join("_");

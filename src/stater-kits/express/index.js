@@ -18,7 +18,7 @@ module.exports.ExpressAppCreateor = async (options) => {
   return Executor({
     src: `${SRC_TEMPLATE}`,
     ...options,
-    app_path: BASE_PATH + "/" + options.app_name.split(" ").join("_"),
+    app_path: options.app_path,
   })
     .then((msgs) => {
       if (msgs.filter((msg) => msg.type === "err").length > 0) {
@@ -30,13 +30,13 @@ module.exports.ExpressAppCreateor = async (options) => {
         PrintFinalOutput({
           msgs: msgs || [],
           ...options,
-          app_path: BASE_PATH + "/" + options.app_name,
+          app_path: options.app_path,
         });
       }
       return {
         msgs: msgs || [],
         ...options,
-        app_path: BASE_PATH + "/" + options.app_name,
+        app_path: options.app_path,
       };
     })
     .catch((msgs) => {

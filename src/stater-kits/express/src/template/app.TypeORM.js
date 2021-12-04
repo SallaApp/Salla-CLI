@@ -16,14 +16,15 @@ const SallaWebhook = require("@salla.sa/webhooks-actions");
 /*
   Create a .env file in the root directory of your project. 
   Add environment-specific variables on new lines in the form of NAME=VALUE. For example:
-  CLIENT_ID=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-  CLIENT_SECRET=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  SALLA_OAUTH_CLIENT_ID=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  SALLA_OAUTH_CLIENT_SECRET=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   ...
 */
-const CLIENT_ID = process.env.CLIENT_ID;
-const CLIENT_SECRET = process.env.CLIENT_SECRET;
-const OAUTH_CALLBACK_URL = process.env.OAUTH_CALLBACK_URL;
-SallaWebhook.setSecret(process.env.WEBHOOK_SECRET);
+const SALLA_OAUTH_CLIENT_ID = process.env.SALLA_OAUTH_CLIENT_ID;
+const SALLA_OAUTH_CLIENT_SECRET = process.env.SALLA_OAUTH_CLIENT_SECRET;
+const SALLA_OAUTH_CLIENT_REDIRECT_URI =
+  process.env.SALLA_OAUTH_CLIENT_REDIRECT_URI;
+SallaWebhook.setSecret(process.env.SALLA_WEBHOOK_SECRET);
 // Add Listners
 SallaWebhook.on("app.installed", (eventBody, userArgs) => {
   // handel app.installed event
@@ -37,9 +38,9 @@ SallaWebhook.on("all", (eventBody, userArgs) => {
 
 // we initialize our Salla API
 const SallaAPI = new SallaAPIFactory({
-  clientID: CLIENT_ID,
-  clientSecret: CLIENT_SECRET,
-  callbackURL: OAUTH_CALLBACK_URL,
+  clientID: SALLA_OAUTH_CLIENT_ID,
+  clientSecret: SALLA_OAUTH_CLIENT_SECRET,
+  callbackURL: SALLA_OAUTH_CLIENT_REDIRECT_URI,
 });
 
 // set Listner on auth success

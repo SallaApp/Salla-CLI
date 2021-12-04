@@ -34,7 +34,7 @@ class LoggingManager {
     msgs = this.__flatArray(msgs);
 
     for (let i = 0; i < msgs.length; i++) {
-      this.longLine();
+      //this.longLine();
       console.log(clc[msgs[i].color](msgs[i].msg));
       if (msgs[i].sideMessage) console.log(clc["red"](msgs[i].sideMessage));
     }
@@ -58,7 +58,7 @@ class LoggingManager {
   }
   // print message object
   printMessage(msg) {
-    this.longLine();
+    // this.longLine();
     console.log(clc[msg.color](msg.msg));
     if (msg.sideMessage) console.log(clc["red"](msg.sideMessage));
   }

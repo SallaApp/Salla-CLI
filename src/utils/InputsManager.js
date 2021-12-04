@@ -20,7 +20,7 @@ class InputsManager {
     };
   }
   readLine(lable, { validate, name, errorMessage } = {}) {
-    Logger.longLine();
+    //Logger.longLine();
     let val = readlineSync.question(lable);
     if (validate) {
       // try until validated
@@ -31,7 +31,7 @@ class InputsManager {
           } else {
             Logger.error(`You must enter a valid ${name}`);
           }
-          Logger.longLine();
+          //Logger.longLine();
           val = readlineSync.question(lable);
         }
       } else {
@@ -41,7 +41,7 @@ class InputsManager {
           } else {
             Logger.error(`You must enter a valid ${name}`);
           }
-          Logger.longLine();
+          //Logger.longLine();
           val = readlineSync.question(lable);
         }
       }
@@ -53,7 +53,7 @@ class InputsManager {
   }
 
   async selectInput(lable, values) {
-    Logger.longLine();
+    //Logger.longLine();
     Logger.normal(lable);
     let selectedVal = await cliSelect({
       values,
