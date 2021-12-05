@@ -26,8 +26,8 @@ module.exports = async function (options) {
   });
   Logger.succ(`Remote URL : ${url} `);
   Logger.succ(`Local  URL : http://localhost:${options.port} `);
-  Logger.succ(`Webhook URL : ${url}/webhook `);
-  Logger.succ(`OAuth Callback URL : ${url}/oauth/callback `);
+  Logger.succ(`Webhook URL : ${url}/webhook/ `);
+  Logger.succ(`OAuth Callback URL : ${url}/oauth/callback/ `);
 
   Logger.longLine();
   // give sometime to ngrok to connect and expressjs to start
@@ -39,13 +39,14 @@ module.exports = async function (options) {
   // update urls of the app
   try {
     let data = env.parse(fs.readFileSync(".env"));
+
     try {
-      await PartnerApi.updateWebhookURL(data.SALLA_APP_ID, `${url}/webhook`);
+      await PartnerApi.updateWebhookURL(data.SALLA_APP_ID, `${url}/webhook/`);
     } catch (e) {}
     try {
       await PartnerApi.updateRedirectURL(
         data.SALLA_APP_ID,
-        `${url}/oauth/callback`
+        `${url}/oauth/callback/`
       );
     } catch (e) {}
     Logger.succ(`OAuth Callback URL and webhook URL updated successfully `);

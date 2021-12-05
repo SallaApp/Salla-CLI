@@ -119,7 +119,10 @@ module.exports = async function (options) {
 
       Logger.succ("New App Created");
     } catch (err) {
-      Logger.error("Error Creating App  ... ", err);
+      Logger.error(
+        "Error Creating App  ...  THIS IS DEMO .. WE WILL EXIT APP IN THE PRODUCTION VERSION"
+      );
+      //process.exit(1);
     }
   }
   let appData = await PartnerApi.getApp(options.app_name);

@@ -95,8 +95,8 @@ module.exports = class SallaAPI {
     })
       .then((res) => res.data)
       .catch((err) => {
-        //console.log(err);
         this.handleErrors(err);
+        throw err;
       });
   }
 
