@@ -34,6 +34,12 @@ module.exports.LaravelAppCreateor = async (options) => {
       content: generateEnv(options),
       msg: "Creating .env file",
     },
+    {
+      cmd: "exec",
+      command: "php artisan key:generate",
+      path: `${options.app_path}`,
+      msg: "Generating Artisan Key",
+    },
   ]);
   Logger.printMessages(messages);
 };

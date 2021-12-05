@@ -40,10 +40,13 @@ module.exports = async function (options) {
   try {
     let data = env.parse(fs.readFileSync(".env"));
     try {
-      await PartnerApi.updateWebhookURL(data.APP_ID, `${url}/webhook`);
+      await PartnerApi.updateWebhookURL(data.SALLA_APP_ID, `${url}/webhook`);
     } catch (e) {}
     try {
-      await PartnerApi.updateRedirectURL(data.APP_ID, `${url}/oauth/callback`);
+      await PartnerApi.updateRedirectURL(
+        data.SALLA_APP_ID,
+        `${url}/oauth/callback`
+      );
     } catch (e) {}
     Logger.succ(`OAuth Callback URL and webhook URL updated successfully `);
     fs.writeFileSync(".env", generateEnv(data, `${url}/oauth/callback`));
