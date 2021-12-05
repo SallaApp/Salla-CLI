@@ -1,33 +1,16 @@
 const ExecutionManager = require("../../utils/ExecutionManager");
 // import deps
+const shell = require("shelljs");
 const env = require("dotenv");
 const Logger = require("../../utils/LoggingManager");
 const fs = require("fs");
-// set constants for the project
-const SRC_TEMPLATE = __dirname + "/laravel-starter-kit";
+
 module.exports.LaravelAppCreateor = async (options) => {
   const executor = new ExecutionManager();
+  shell.exec(
+    "composer create-project salla/laravel-starter-kit " + options.app_name
+  );
   let messages = await executor.run([
-    { cmd: "makedir", path: options.app_path, msg: "Making Project Folder" },
-    {
-      cmd: "copy",
-      src: SRC_TEMPLATE,
-      dest: `${options.app_path}/`,
-      msg: "Setup Laravel files .",
-    },
-
-    {
-      cmd: "exec",
-      command: "npm install",
-      path: `${options.app_path}`,
-      msg: "Installing Project Deps with NPM",
-    },
-    {
-      cmd: "exec",
-      command: "composer install",
-      path: `${options.app_path}`,
-      msg: "Installing Project Deps with Composer",
-    },
     {
       cmd: "create",
       path: `${options.app_path}/.env`,
@@ -38,7 +21,7 @@ module.exports.LaravelAppCreateor = async (options) => {
       cmd: "exec",
       command: "php artisan key:generate",
       path: `${options.app_path}`,
-      msg: "Generating Artisan Key",
+      msg: "Generating App Key",
     },
   ]);
   Logger.printMessages(messages);
@@ -52,7 +35,7 @@ process.on("unhandledRejection", function (err) {
   process.exit(0);
 });
 function generateEnv(args) {
-  let envOjb = env.parse(fs.readFileSync(SRC_TEMPLATE + "/.env.example"));
+  let envOjb = env.parse(fs.readFileSync(`${__dirname}/.env.example`));
   let outputEnv = "";
   envOjb = {
     ...envOjb,
