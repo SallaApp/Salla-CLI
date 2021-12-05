@@ -20,6 +20,12 @@ module.exports = function appCommands() {
     .option("-p, --port <name>", "port to listen to ")
     .action(require("../src/app/serve"));
 
+  _app
+    .command("create-webhook")
+    .alias("l")
+    .description("Creating new webhook event file")
+    .action(require("../src/app/create-webhook"));
+
   _app.showSuggestionAfterError();
   return _app;
 };

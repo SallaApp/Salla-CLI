@@ -115,9 +115,6 @@ class InputsManager {
     );
 
     Logger.longLine();
-
-    Logger.normal("As always, happy hacking! 🙌");
-    Logger.longLine();
   }
   catchCtrlC(app_name) {
     process.on("SIGINT", () => {
