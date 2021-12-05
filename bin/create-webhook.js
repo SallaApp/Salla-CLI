@@ -6,7 +6,7 @@ module.exports = function createWebhookCommands() {
   return _app
     .command("create-webhook")
     .alias("l")
-    .description("Webhook on the way, Please Wait...")
+    .description("Webhook on the way! Please Wait...")
     .action(require("../src/app/create-webhook"));
 };
 

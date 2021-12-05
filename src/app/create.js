@@ -9,7 +9,7 @@ const { AuthManager } = require("../utils/AuthManager")();
 
 // export function to Salla-cli
 module.exports = async function (options) {
-  Logger.info("Please wait while we are getting your apps from Salla ... It won't take much time . ");
+  Logger.info("Please wait while we are getting your apps from Salla ... It won't take much time .");
   // Logger.info("Getting your apps from Salla! Hold on until fully fetched ...");
   if (!(await AuthManager.isSallaTokenValid())) {
     Logger.error("Please, login to Salla!");
@@ -44,7 +44,7 @@ module.exports = async function (options) {
         return true;
       },
       name: "App Name",
-      errorMessage: "Your App Name must be between 10 and 50 characters long",
+      errorMessage: "Your App Name must be between 10 and 50 characters long!",
     });
     options.app_path = generateAppPath(options.app_name);
 
@@ -68,7 +68,7 @@ module.exports = async function (options) {
         return true;
       },
 
-      errorMessage: "Description must be at least 100 characters long",
+      errorMessage: "Description must be at least 100 characters long!",
     });
     // get Email
     options.email = InputsManager.readLine("Enter Email : ", {
@@ -140,6 +140,7 @@ module.exports = async function (options) {
 
   // start creating the project
   // check if the project is expressjs or laravel
+
   try {
     if (projectType === "express") {
       // Create Express APP
@@ -148,7 +149,7 @@ module.exports = async function (options) {
       // Create Laravel APP
       await LaravelAppCreateor(options);
     } else {
-      Logger.error("The Framework selected is not supported ... Please choose a valid framework");
+      Logger.error("The Framework selected is not supported ... Please choose a valid framework.");
       process.exit(1);
     }
 
