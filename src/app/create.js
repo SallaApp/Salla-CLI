@@ -166,7 +166,7 @@ module.exports = async function (options) {
     // run serve
     ServeCommand({ port: DEFAULT_APP_PORT });
   } catch (err) {
-    Logger.error("Error ... ", err);
+    Logger.error("There is an error that occured! Please check it.", err);
     process.exit(1);
   }
 

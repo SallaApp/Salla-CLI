@@ -11,5 +11,5 @@ module.exports = async function (options) {
     // here create webhook for laravel
     return;
   }
-  Logger.error("unknown project type .. please chose a vaild project ");
+  Logger.error("Unknow project type. Please use a valid project type.");
 };
