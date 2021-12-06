@@ -1,0 +1,14 @@
+{
+  "cli": {
+    "app": {
+      "create": {
+        "description": "Create a new app",
+        "express": {},
+        "laravel": {}
+      },
+      "serve": {},
+      "login": {},
+      "theme": {}
+    }
+  }
+}

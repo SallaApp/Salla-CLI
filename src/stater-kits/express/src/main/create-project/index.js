@@ -19,7 +19,7 @@ module.exports = function (args) {
 
     {
       cmd: "copyMulti",
-      files: [".gitignore", "views", "helpers", "Actions", "database"],
+      files: [".gitignore", "views", "helpers", "Actions"],
       src: `${args.src}`,
       dest: `${args.app_path}`,
       msg: "Copying main files and folders to new project",

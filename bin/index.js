@@ -20,11 +20,10 @@ const themeCommands = require("./theme");
 const appCommands = require("./app");
 const loginCommands = require("./login");
 const devCommands = require("./dev");
-const createWebhook = require("./create-webhook");
 
 program.addCommand(themeCommands());
 program.addCommand(appCommands());
 program.addCommand(loginCommands());
 program.addCommand(devCommands());
-program.addCommand(createWebhook());
+
 program.parse(process.argv);

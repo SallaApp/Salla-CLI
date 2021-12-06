@@ -24,6 +24,7 @@ module.exports = async function (options) {
   const url = await ngrok.connect({
     addr: options.port,
   });
+  Logger.longLine();
   Logger.succ(`Remote URL : ${url} `);
   Logger.succ(`Local  URL : http://localhost:${options.port} `);
   Logger.succ(`Webhook URL : ${url}/webhook/ `);
@@ -49,9 +50,10 @@ module.exports = async function (options) {
         `${url}/oauth/callback/`
       );
     } catch (e) {}
-    Logger.succ(`OAuth Callback URL and webhook URL updated successfully `);
+    Logger.succ(`OAuth Callback and webhook URLs updated successfully  `);
     Logger.longLine();
     Logger.normal("As always, happy hacking! 🙌");
+    Logger.longLine();
     fs.writeFileSync(".env", generateEnv(data, `${url}/oauth/callback`));
   } catch (err) {
     console.log("err", err);
