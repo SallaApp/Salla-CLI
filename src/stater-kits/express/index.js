@@ -4,8 +4,8 @@ const Logger = require("../../utils/LoggingManager");
 
 //Logger.setInstantPrint(true);
 
-// import EpxressJS commands Executor
-const Executor = require("./src/main/create-project");
+// import EpxressJS  CreateApp
+const CreateApp = require("./src/main/create-project");
 
 const PrintFinalOutput = require("./src/main/print-final-output");
 
@@ -14,8 +14,9 @@ const SRC_TEMPLATE = __dirname + "/src/template";
 
 // export the module
 module.exports.ExpressAppCreateor = async (options) => {
+  if (!options.auth_mode) options.auth_mode = "easy";
   // start executing the process
-  return Executor({
+  return CreateApp({
     src: `${SRC_TEMPLATE}`,
     ...options,
     app_path: options.app_path,

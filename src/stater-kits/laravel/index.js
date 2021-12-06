@@ -8,7 +8,8 @@ const fs = require("fs");
 module.exports.LaravelAppCreateor = async (options) => {
   const executor = new ExecutionManager();
   shell.exec(
-    "composer create-project salla/laravel-starter-kit " + options.app_name
+    "composer create-project salla/laravel-starter-kit " +
+      options.app_name.split(" ").join("_")
   );
   let messages = await executor.run([
     {

@@ -9,7 +9,9 @@ const { AuthManager } = require("../utils/AuthManager")();
 
 // export function to Salla-cli
 module.exports = async function (options) {
-  Logger.info("Please wait while we are getting your apps from Salla ... It won't take much time .");
+  Logger.info(
+    "Please wait while we are getting your apps from Salla ... It won't take much time ."
+  );
   // Logger.info("Getting your apps from Salla! Hold on until fully fetched ...");
   if (!(await AuthManager.isSallaTokenValid())) {
     Logger.error("Please, login to Salla!");
@@ -19,7 +21,9 @@ module.exports = async function (options) {
   try {
     apps = await PartnerApi.getAllApps();
   } catch (err) {
-    Logger.error("Hmmmm, something went wrong while fetching your apps from Salla. Please try again later.");
+    Logger.error(
+      "Hmmmm, something went wrong while fetching your apps from Salla. Please try again later."
+    );
     return;
   }
 
@@ -114,7 +118,9 @@ module.exports = async function (options) {
         options.app_url
       );
       if (res == false) {
-        Logger.error("Hmmmm, something went wrong while creating your app. Please try again later.");
+        Logger.error(
+          "Hmmmm, something went wrong while creating your app. Please try again later."
+        );
         process.exit(1);
       }
 
@@ -149,7 +155,9 @@ module.exports = async function (options) {
       // Create Laravel APP
       await LaravelAppCreateor(options);
     } else {
-      Logger.error("The Framework selected is not supported ... Please choose a valid framework.");
+      Logger.error(
+        "The Framework selected is not supported ... Please choose a valid framework."
+      );
       process.exit(1);
     }
 
