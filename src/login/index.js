@@ -33,9 +33,9 @@ module.exports = async function (options) {
     console.log("received: %s", data);
     data = JSON.parse(data);
     if (data.msg == "ok") {
-      console.log("here's the token", data.token);
+      console.log("Here is the Token: ", data.token);
     }
   });
-  Logger.succ("`You are Logged to salla");
-  Logger.error(`Error Logging to salla`);
+  Logger.succ("`Hello World! You are now logged in at Salla.`");
+  Logger.error(`Oops! There is an error logging to Salla.`);
 };
