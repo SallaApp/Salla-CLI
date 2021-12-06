@@ -6,18 +6,19 @@ module.exports = async function (options) {
   const app_name = "./";
   const webhook = process.argv[3];
   if (!webhook || webhook.split(".").length == 1) {
-    Logger.error("Please enter a vaild webhook ex : app.installed ");
+    Logger.error("Hmmm! An error occured. Please enter a valid webhook name. Example: 'app.installed'");
+    
     process.exit(1);
   }
   if (!app_name) {
-    Logger.error("Please enter your project name .");
-    Logger.info("Usage  : salla create-webhook {event.name}");
+    Logger.error("Hmmm! An error occured. Please, enter your project name.");
+    Logger.info("Usage : salla create-webhook {event.name}");
 
     process.exit(1);
   }
   if (!webhook) {
-    Logger.error("Please enter the webhook you want to create ");
-    Logger.info("Usage  : salla create-webhook {event.name}");
+    Logger.error("Hmmm! An error occured. Please, enter the Webhook you want to create.");
+    Logger.info("Usage : salla create-webhook {event.name}");
 
     process.exit(1);
   }
@@ -32,7 +33,7 @@ module.exports = async function (options) {
         path.resolve(`./${app_name}/Actions/${folder}/${webhook_file}.js`)
       )
     ) {
-      Logger.error("Please enter the webhook you want to create ");
+      Logger.error("Hmmm! An error occured. Please, enter the Webhook you want to create.");
 
       process.exit(1);
     }
@@ -51,10 +52,10 @@ module.exports = async function (options) {
     );
   } catch (err) {
     console.log("err", err);
-    Logger.error("Error when creating webhook ");
+    Logger.error("Hmmm! An error occured when creating webhook. Please try again.");
   }
 
   process.on("unhandledRejection", function (err) {
-    Logger.error("Error when creating webhook ");
+    Logger.error("Hmmm! An error occured when creating webhook. Please try again.");
   });
 };

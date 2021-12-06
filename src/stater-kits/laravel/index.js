@@ -16,13 +16,13 @@ module.exports.LaravelAppCreateor = async (options) => {
       cmd: "create",
       path: `${options.app_path}/.env`,
       content: generateEnv(options),
-      msg: "Creating .env file",
+      msg: "On the way! Creating .env file.",
     },
     {
       cmd: "exec",
       command: "php artisan key:generate",
       path: `${options.app_path}`,
-      msg: "Generating App Key",
+      msg: "On the way! Generating the App Key.",
     },
   ]);
   Logger.printMessages(messages);
@@ -32,7 +32,8 @@ process.on("unhandledRejection", function (err) {
   Logger.longLine();
   Logger.normal(err);
 
-  Logger.error(`Error! while creating your project .`);
+  Logger.error(`Hmmm, something went wrong while creating your app. Please try again.`);
+
   process.exit(0);
 });
 function generateEnv(args) {

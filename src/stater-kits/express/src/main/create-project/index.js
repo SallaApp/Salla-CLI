@@ -2,52 +2,58 @@ const ExecutionManager = require("../../../../../utils/ExecutionManager");
 const fs = require("fs");
 module.exports = function (args) {
   const executor = new ExecutionManager();
-  return executor.run([
-    {
+  return executor.run([{
       cmd: "check",
       name: "node",
       version: NODE_ENGINES,
-      msg: "Checking Node Version",
+      msg: "Looking up for NodeJS's version ...",
     },
     {
       cmd: "check",
       name: "npm",
       version: NPM_ENGINES,
-      msg: "Checking NPM Version",
+      msg: "Looking up for NPM's version ...",
     },
-    { cmd: "makedir", path: args.app_path, msg: "Making Project Folder" },
+    {
+      cmd: "makedir",
+      path: args.app_path,
+      msg: "Creating the Project's Folder"
+    },
 
     {
       cmd: "copyMulti",
       files: [".gitignore", "views", "helpers", "Actions"],
       src: `${args.src}`,
       dest: `${args.app_path}`,
-      msg: "Copying main files and folders to new project",
+      msg: "Copying the Main Files and Folders to the newly created Project ...",
+
     },
     {
       cmd: "create",
 
       path: `${args.app_path}/.env`,
       content: generateEnv(args),
-      msg: "Creating .env file",
+      msg: "Creating the .env file",
+
     },
     {
       cmd: "copy",
       src: `${args.src}/ORMs/${args.database_orm}`,
       dest: `${args.app_path}/database/${args.database_orm}`,
-      msg: "Setup Preferred ORM Files .",
+      msg: "Setting up the Preferred Database ORM Files ...",
+
     },
     {
       cmd: "copy",
       src: `${args.src}/app.${args.database_orm}.js`,
       dest: `${args.app_path}/app.js`,
-      msg: "Setup Preferred ORM app.js .",
+      msg: "Setting up the Preferred Database ORM app.js file ...",
     },
     {
       cmd: "exec",
       command: "npm init -y",
       path: `${args.app_path}`,
-      msg: "Initilize Project with NPM",
+      msg: "Initializing the Project's NPM file ...",
     },
     {
       cmd: "create",
@@ -55,13 +61,13 @@ module.exports = function (args) {
         return getPakcagejson(args);
       },
       path: `${args.app_path}/package.json`,
-      msg: "Installing Package.json deps",
+      msg: "Installing all package.json dependencies ...",
     },
     {
       cmd: "exec",
       command: "npm install",
       path: `${args.app_path}`,
-      msg: "Installing Project Deps with NPM",
+      msg: "Installing Project dependencies with NPM ...",
     },
   ]);
 };
@@ -85,6 +91,7 @@ function generateEnv(args) {
   }
   return outputEnv;
 }
+
 function getPakcagejson(args) {
   const packageJSON = JSON.parse(
     fs.readFileSync(`${args.app_path}/package.json`)
@@ -113,12 +120,16 @@ function getPakcagejson(args) {
     packages.push(["mysql2", "^2.3.3"]);
   }
 
-  packageJSON.scripts = { "start-app": "node app.js" };
+  packageJSON.scripts = {
+    "start-app": "node app.js"
+  };
   packageJSON.description =
     "New Awesome Application using Salla API and NodeJS";
   packageJSON.dependencies = packages.reduce(
-    (a, v) => ({ ...a, [v[0]]: v[1] }),
-    {}
+    (a, v) => ({
+      ...a,
+      [v[0]]: v[1]
+    }), {}
   );
   return JSON.stringify(packageJSON, null, 2);
 }

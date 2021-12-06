@@ -25,7 +25,7 @@ module.exports.ExpressAppCreateor = async (options) => {
       if (msgs.filter((msg) => msg.type === "err").length > 0) {
         Logger.printMessages([
           ...msgs,
-          Logger.createMessage(`Error! while creating your project .`, "err"),
+          Logger.createMessage(`Oops! An error occured while creating your project. Please try again ...`, "err"),
         ]);
       } else {
         PrintFinalOutput({
@@ -42,7 +42,7 @@ module.exports.ExpressAppCreateor = async (options) => {
     })
     .catch((msgs) => {
       Logger.longLine();
-      Logger.error(`Error! while creating your project .`);
+      Logger.error(`Oops! An error occured while creating your project. Please try again ...`);
     });
 };
 
@@ -51,6 +51,6 @@ process.on("unhandledRejection", function (err) {
   Logger.longLine();
   Logger.normal(err);
 
-  Logger.error(`Error! while creating your project .`);
+  Logger.error(`Oops! An error occured while creating your project. Please try again ...`);
   process.exit(0);
 });
