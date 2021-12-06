@@ -6,13 +6,13 @@ module.exports = function (args) {
     {
       cmd: "check",
       name: "node",
-      version: "^10 || ^12 || ^14",
+      version: NODE_ENGINES,
       msg: "Checking Node Version",
     },
     {
       cmd: "check",
       name: "npm",
-      version: "^6 || ^7",
+      version: NPM_ENGINES,
       msg: "Checking NPM Version",
     },
     { cmd: "makedir", path: args.app_path, msg: "Making Project Folder" },
