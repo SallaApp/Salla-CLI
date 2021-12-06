@@ -23,7 +23,7 @@ module.exports = function appCommands() {
   _app
     .command("create-webhook")
     .alias("l")
-    .description("Webhook on the way! Please wait...")
+    .description("Creating a new webhook event file.")
     .action(require("../src/app/create-webhook"));
 
   _app.showSuggestionAfterError();
