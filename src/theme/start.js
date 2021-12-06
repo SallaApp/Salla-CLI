@@ -38,7 +38,8 @@ class Start extends BaseClass {
 
     await this.cloneRepo(themeConfig.theme_name)
       .then(async () => await this.configManager().save(themeConfig))
-      .then(() => Logger.success(`Theme config stored into theme.json`));
+      .then(() => Logger.success(`Hooray! Theme ${themeConfig.theme_name} has been created successfully.`));
+      
 
     return this.runTheme("watch --skip-start");
   }
@@ -52,14 +53,14 @@ class Start extends BaseClass {
 
     //Logger.info(`  Creating new folder (${theme_name.bold})...`);
     if (await this.fileSys().exists(BASE_PATH)) {
-      let message = `Folder (${theme_name.bold}) is already exists.`;
+      let message = `Oops! The folder (${theme_name.bold}) does already exist.`;
       Logger.error(
-        `Folder (${theme_name.bold}) is already existed in this directory!`
+        `Oops! The folder (${theme_name.bold}) does already exist in this directory! Please try another name.`
       );
       throw message;
     }
     await this.fileSys().mkdirs(BASE_PATH);
-    Logger.success(`Folder (${theme_name.bold}) created successfully.`);
+    Logger.success(`Hooray! The folder (${theme_name.bold}) has been created successfully.`);
     //Logger.info(`  Changing working directory to (${theme_name.bold})...`);
     process.chdir(theme_name);
   }
@@ -87,7 +88,7 @@ class Start extends BaseClass {
       !latestRelease.data ||
       !latestRelease.data[0]
     ) {
-      Logger.error("Failed to get latest Release", latestRelease);
+      Logger.error("Oops! The system failed to get latest Release. Please try again, ", latestRelease);
       throw "";
     }
     await this.getAndUnZip(latestRelease.data[0].zipball_url, theme_name);
@@ -106,20 +107,20 @@ class Start extends BaseClass {
     //TODO:: add progress bar
     const response = await fetch(url, { headers: this.authHeader() });
     if (!response.ok) {
-      Logger.error("Failed to get base theme.");
+      Logger.error("Hmmmm! Something went wrong while trying to get base theme. Please try again.");
       Logger.error(await response.json());
-      throw "Failed to get base theme );";
+      throw "Hmmmm! Something went wrong while trying to get base theme. Please try again.);";
     }
 
-    Logger.success("Base theme downloaded");
-    Logger.info("  Extracting base theme files...");
+    Logger.success("Hooray! Base theme downloaded successfully.");
+    Logger.info("Extracting base theme files... Please wait!");
     const zip = new AdmZip(await response.buffer());
     //const entries = zip.getEntries();
     const mainEntry = zip.getEntries()[0].entryName;
     zip.extractAllTo(/*target path*/ BASE_PATH, /*overwrite*/ false);
     const srcDir = this.path().join(BASE_PATH, mainEntry);
     this.fileSys().copySync(srcDir, BASE_PATH, { overwrite: false }, (err) =>
-      err ? Logger.error(err) : Logger.success("success!")
+      err ? Logger.error(err) : Logger.success("Hooray!")
     );
     this.fileSys().removeSync(srcDir);
     this.fileSys().removeSync(this.path().join(BASE_PATH, ".github"));
@@ -171,9 +172,9 @@ class Start extends BaseClass {
       prompts.push({
         type: "input",
         name: "theme_name",
-        message: "What you want to call your theme ?",
+        message: "What would you like to name your theme?",
         validate: (val) =>
-          /^[a-zA-Z0-9\s_-]+$/.test(val) || "You must enter a Valid name",
+          /^[a-zA-Z0-9\s_-]+$/.test(val) || "Please, enter a valid theme name",
         default: defaultAnswers.theme_name,
       });
     }

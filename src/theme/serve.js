@@ -17,7 +17,9 @@ class Serve extends BaseClass {
       root: this.options.assets || "assets", // todo :: make it dynamic
       verbose: true,
     }).on("listening", () => {
-      Logger.success("Local server is running.");
+      
+      Logger.success("Whoop! Local server is currently running.");
+      // Logger.success("Whoop! Server is running on port " + ASSETS_PORT);
     });
   }
 }

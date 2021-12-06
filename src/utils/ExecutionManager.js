@@ -3,12 +3,13 @@ const commandExistsSync = require("command-exists").sync;
 const fs = require("fs-extra");
 const Logger = require("./LoggingManager");
 const replace = require("replace-in-file");
-const { execSync } = require("child_process");
+const {
+  execSync
+} = require("child_process");
 const cliProgress = require("cli-progress");
 const semver = require("semver");
 // create a new progress bar instance and use shades_classic theme
-const progressBar = new cliProgress.SingleBar(
-  {
+const progressBar = new cliProgress.SingleBar({
     format: " {process} [{bar}] {percentage}% | ETA: {eta}s | {value}/{total}",
   },
   cliProgress.Presets.shades_grey
@@ -41,8 +42,7 @@ const progressBar = new cliProgress.SingleBar(
 module.exports = class ExecutionManager {
   constructor() {}
   async __start(commands, progress) {
-    if (!Array.isArray(commands)) {
-    }
+    if (!Array.isArray(commands)) {}
     let messages = [];
 
     if (progress && progressBar) progressBar.start(commands.length, 0);
@@ -68,19 +68,19 @@ module.exports = class ExecutionManager {
                 if (!satisfies)
                   messages.push(
                     Logger.error(
-                      `${command.name} version must be ${command.version}or newer`
+                      `Hmmm! The ${command.name} version must be ${command.version} or newer. Your version is ${version}, so please update it or install it manually.`
                     )
                   );
                 continue;
               }
 
               messages.push(
-                Logger.createMessage(`Command Found ${command.name} .`, "succ")
+                Logger.createMessage(`Hooray! The following Command ${command.name} has been found.`, "success!")
               );
             } else {
               messages.push(
                 Logger.createMessage(
-                  `Command Not Found ${command.name}!`,
+                  `Hmmm! The following Command ${command.name} has not been found.`,
                   "err"
                 )
               );
@@ -128,11 +128,11 @@ module.exports = class ExecutionManager {
             break;
         }
         messages.push(
-          Logger.createMessage(`Success  ${command.msg} .`, "succ")
+          Logger.createMessage(`Hooray! Success  ${command.msg}.`, "succ")
         );
       } catch (err) {
         messages.push(
-          Logger.createMessage(`Error Running : ${command.msg}!`, "err", err)
+          Logger.createMessage(`Hmmm! An error occured while running : ${command.msg}!`, "err", err)
         );
         return messages;
       }
@@ -141,17 +141,18 @@ module.exports = class ExecutionManager {
   }
 
   checkNodeVersion(version) {
-    return this.run(
-      {
-        cmd: "check",
-        name: "node",
-        version: version,
-        msg: "Checking Node Version",
-      },
-      { progress: false }
-    );
+    return this.run({
+      cmd: "check",
+      name: "node",
+      version: version,
+      msg: "Looking up Node's Version. Please wait...",
+    }, {
+      progress: false
+    });
   }
-  run(arrayOFcommands, { progress = true } = {}) {
+  run(arrayOFcommands, {
+    progress = true
+  } = {}) {
     if (!Array.isArray(arrayOFcommands)) arrayOFcommands = [arrayOFcommands];
     return new Promise(async (resolve, reject) => {
       const messages = await this.__start(arrayOFcommands, progress);

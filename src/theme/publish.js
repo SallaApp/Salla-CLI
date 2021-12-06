@@ -10,10 +10,10 @@ const { AuthManager, GithubAPI } = require("../utils/AuthManager")();
 class Publish extends BaseClass {
   async run() {
     if (!(await this.isReadyForPublish())) {
-      Logger.error("Failed to publish theme.");
+      Logger.error("Hmm, something went wrong while publishing your theme. Please try again.");
       return null;
     }
-    Logger.info("  Publishing your theme to Salla...");
+    Logger.info(" Publishing your theme to Salla...");
 
     /**
      * @type {SallaConfig}
@@ -27,13 +27,13 @@ class Publish extends BaseClass {
       .request("publish", { params: [this.configs().draft_id] })
       .then(async (res) => {
         if (res === false) {
-          Logger.error("Failed to publish theme.");
+          Logger.error("Hmm, something went wrong while publishing your theme. Please try again.");
         }
         if (res.status === 200) {
           await this.configManager().set("theme_id", res.data.theme_id);
           this.runTheme(command + ' --message "Pump Version ⬆️"');
 
-          Logger.success(`Theme published successfully`);
+          Logger.success(`Whoop! Your theme is published successfully.`);
         }
       });
   }
@@ -43,14 +43,15 @@ class Publish extends BaseClass {
 
     //check the draft id
     if (!config.draft_id) {
-      Logger.info(`please run ${"salla theme watch"} to create draft theme`);
+      Logger.info(`To create a draft theme, run ${"salla theme watch"}`);
+      
 
       return null;
     }
 
     // check author name
     if (!config.author) {
-      const author = InputsManager.readLine("What is the author name ?", {
+      const author = InputsManager.readLine("Who is the author name?", {
         name: "author name",
         validate: /^[a-zA-Z0-9\s_-]+$/,
       });
@@ -59,7 +60,7 @@ class Publish extends BaseClass {
 
     // check email
     if (!config.email) {
-      const email = InputsManager.readLine("What is your email ?", {
+      const email = InputsManager.readLine("What is your email address?", {
         name: "email",
         validate: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
       });
@@ -68,7 +69,7 @@ class Publish extends BaseClass {
 
     // check the support url
     if (!config.support_url) {
-      const support_url = InputsManager.readLine("What is your support url ?", {
+      const support_url = InputsManager.readLine("Your support url?", {
         name: "support url",
         validate: /^https?:\/\//,
       });

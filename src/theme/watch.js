@@ -53,12 +53,13 @@ class Watch extends BaseClass {
      */
     let response = await this.createDraftTheme();
     if (!response || !response.preview_url || !response.id) {
-      Logger.error("Failed to create testing theme.");
+      Logger.error("Oops! Something went wrong while creating the testing theme. Please try again later.");
+      
       return null;
     }
 
     await this.configManager().set("draft_id", response.id);
-    Logger.success("Testing theme created.");
+    Logger.success("Hooray! Your theme is ready to test!");
 
     let assetsPort =
       this.options.port || process.env.ASSETS_PORT || ASSETS_PORT;
@@ -78,23 +79,24 @@ class Watch extends BaseClass {
       return null;
     }
     response.preview_url += "&assets_url=http://localhost:" + assetsPort;
-    Logger.success("Preview Url:", response.preview_url);
+    Logger.success("Here goes the Preview Url:", response.preview_url);
 
     // check if watch defined in package.json
     if (!packageJs.scripts.hasOwnProperty("watch")) {
-      Logger.warn("There is no watch script in package.json");
+      Logger.warn("Hmmm! The system couldn't detect any  watch script in the package.json file.");
       return null;
     }
 
     if (!packageManager) {
-      Logger.error("Cloud not find " + "yarn/npm".bold + " in your system!");
+      Logger.error("There is no package manager installed on your system. Please install" + "yarn/npm".bold + " in your system!");
+      
       return null;
     }
 
     await this.openBrowser(response.preview_url);
 
     packageManager += packageManager === "npm" ? " run" : "";
-    Logger.info(`  running '${packageManager} watch'...`);
+    Logger.info(`Currently running '${packageManager} watch'... Press Ctrl+C to stop or Ctrl+D to exit.`);
     this.runSysCommand(packageManager + " watch");
     //
     // var spawn = require('child_process').spawn;
@@ -128,13 +130,13 @@ class Watch extends BaseClass {
       return require(process.cwd() + "/package.json");
     } catch (e) {
       // There was no package.json
-      Logger.error("Can't find: package.json");
+      Logger.error("Hmmm! There is no package.json file in your project.");
       return null;
     }
   }
 
   async createDraftTheme() {
-    console.log("  Prepare testing theme...");
+    console.log("preparing your testing theme... Please wait!");
     const { repo_url, theme_name, theme_id } = this.configs();
     return (await this.sallaApi())
       .request("new_draft", {

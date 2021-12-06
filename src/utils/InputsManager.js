@@ -29,7 +29,7 @@ class InputsManager {
           if (errorMessage) {
             Logger.error(errorMessage);
           } else {
-            Logger.error(`You must enter a valid ${name}`);
+            Logger.error(`Hmmm! ${name} is not valid! try again by entering a valid name.`);
           }
           //Logger.longLine();
           val = readlineSync.question(lable);
@@ -39,7 +39,7 @@ class InputsManager {
           if (errorMessage) {
             Logger.error(errorMessage);
           } else {
-            Logger.error(`You must enter a valid ${name}`);
+            Logger.error(`You must enter a valid ${name}! Please, try again by entering a valid name.`);
           }
           //Logger.longLine();
           val = readlineSync.question(lable);
@@ -73,11 +73,11 @@ class InputsManager {
     return this.APP_CLIENT_ID;
   }
   getClientSecretFromCLI() {
-    this.APP_CLIENT_SECRET = this.readLine("App Client Secret: ");
+    this.APP_CLIENT_SECRET = this.readLine("App Client Secret Key: ");
     return this.APP_CLIENT_SECRET;
   }
   getWebhookSecretFromCLI() {
-    this.WEBHOOK_SECRET = this.readLine("App Webhook Secret: ");
+    this.WEBHOOK_SECRET = this.readLine("App Webhook Secret Key: ");
     return this.WEBHOOK_SECRET;
   }
   async getDatabaseORMFromCLI() {
@@ -89,7 +89,7 @@ class InputsManager {
     return selectedORM;
   }
   async getAuthModeFromCLI() {
-    this.AUTH_MODE = await this.selectInput("App Auth Mode: ", [
+    this.AUTH_MODE = await this.selectInput("App Authintication Mode: ", [
       "easy",
       "custom",
     ]);
@@ -98,8 +98,11 @@ class InputsManager {
   checkProjectExists(folderPath, exit = false) {
     if (fs.existsSync(folderPath)) {
       Logger.error(
-        `App name "${folderPath}" already exists! ..  exiting setup .`
+        `Hmmm! Looks like you already have a project in ${folderPath}. Please, either delete it and try again or use a different folder name.`
       );
+      // Logger.error(
+      //   `App name "${folderPath}" already exists! ..  exiting setup .`
+      // );
       if (exit) {
         process.exit(1);
       }
@@ -107,12 +110,16 @@ class InputsManager {
   }
 
   finalMessage(app_name) {
-    Logger.normal("You Can continue developing the app using this command  :");
+    Logger.normal("You have successfully created a new Salla app! Please, run the following command to start your app:");
+    // Logger.normal("You Can continue developing the app using this command  :");
 
     Logger.longLine();
     Logger.succ(
-      `                    ~# cd ${app_name} && salla app serve                    `
+      `~# cd ${app_name} && salla app serve --port 3000 --host`
     );
+    // Logger.succ(
+    //   `                    ~# cd ${app_name} && salla app serve                    `
+    // );
 
     Logger.longLine();
   }
