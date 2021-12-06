@@ -6,6 +6,6 @@ module.exports = function DevCommands() {
     return (new commander.Command()).command("dev", {hidden: true})
         .option('-b,--base <working_base>', 'Changing the base url for all endpoints.')
         .option('-c,--config', 'Show config file.')
-        .description("Commands For Internal Team")
+        .description("Development Command for the Internal team.")
         .action(options => new Dev(options, 'dev').run());
 }

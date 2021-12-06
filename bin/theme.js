@@ -18,7 +18,7 @@ module.exports = function themeCommands() {
     .command("start")
     .alias("s")
     //.option('-n,--name <theme_name>', 'Theme name')
-    .description("Start new salla theme")
+    .description("Start intiliazing a new theme.")
     .action((options) =>
       new Start(options, "start")
         .run()
@@ -27,7 +27,7 @@ module.exports = function themeCommands() {
 
   themeCommand
     .command("serve")
-    .description("Create Local sever")
+    .description("Serving the theme ...")
     .option("-p,--port <port>", "Assets port")
     .action((options) =>
       new Serve(options, "serve")
@@ -38,8 +38,8 @@ module.exports = function themeCommands() {
   themeCommand
     .command("sync", { hidden: true })
     .requiredOption("-f,--file <file_path>", "File Path")
-    .requiredOption("-t,--theme_id <theme_id>", "Theme Id")
-    .description("Upload modified file for testing theme.")
+    .requiredOption("-t,--theme_id <theme_id>", "Theme ID")
+    .description("")
     .action((options) =>
       new Sync(options, "sync")
         .run()
@@ -51,7 +51,7 @@ module.exports = function themeCommands() {
     .alias("w")
     .option("-p,--port <port>", "assets port")
     .option("-s,--skip-start", "skip start")
-    .description("Watch Salla theme")
+    .description("Watching the theme ...")
     .action((options) =>
       new Watch(options, "watch")
         .run()
@@ -60,12 +60,12 @@ module.exports = function themeCommands() {
 
   themeCommand
     .command("push")
-    .description("Push Salla theme")
+    .description("Pushing the theme ...")
     .option("-f,--force", "Force push all files, not only twig files.")
-    .option("-t,--token <github_token>", "Github token")
-    .option("-n,--name <github_name>", "Github user name")
+    .option("-t,--token <github_token>", "Github Token")
+    .option("-n,--name <github_name>", "Github User Name")
     .option("-i,--minor", "Is release minor")
-    .option("-m,--message <message>", "commit message")
+    .option("-m,--message <message>", "Commit Message")
     .action((options) =>
       new Push(options, "push")
         .run()
@@ -75,7 +75,7 @@ module.exports = function themeCommands() {
   themeCommand
     .command("publish")
     .alias("p")
-    .description("publish Salla theme")
+    .description("Publishing the theme ...")
     .action((options) =>
       new publish(options, "publish")
         .run()

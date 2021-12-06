@@ -5,6 +5,6 @@ module.exports = function appCommands() {
   return program
     .command("login")
     .alias("l")
-    .description(" login to salla app ")
+    .description("Please, login to Salla")
     .action(require("../src/login"));
 };
