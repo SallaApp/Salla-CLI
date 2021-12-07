@@ -3,7 +3,7 @@ const { Octokit } = require("@octokit/rest");
 const fetch = require("node-fetch");
 const AdmZip = require("adm-zip");
 const Logger = require("../utils/LoggingManager");
-const ExecutionManager = require("../../src/utils/ExecutionManager");
+const ExecutionManager = require("../utils/ExecutionManager");
 const executor = new ExecutionManager();
 /**
  * @property {StartOptions} options
@@ -37,9 +37,12 @@ class Start extends BaseClass {
     await this.createSubFolderIfNeeded(themeConfig.theme_name);
 
     await this.cloneRepo(themeConfig.theme_name)
-      .then(async () => await this.configManager().save(themeConfig))
-      .then(() => Logger.success(`Hooray! Theme ${themeConfig.theme_name} has been created successfully.`));
-      
+      .then(async () => await this.configManager().saveUnder(themeConfig))
+      .then(() =>
+        Logger.success(
+          `Hooray! Theme ${themeConfig.theme_name} has been created successfully.`
+        )
+      );
 
     return this.runTheme("watch --skip-start");
   }
@@ -60,7 +63,9 @@ class Start extends BaseClass {
       throw message;
     }
     await this.fileSys().mkdirs(BASE_PATH);
-    Logger.success(`Hooray! The folder (${theme_name.bold}) has been created successfully.`);
+    Logger.success(
+      `Hooray! The folder (${theme_name.bold}) has been created successfully.`
+    );
     //Logger.info(`  Changing working directory to (${theme_name.bold})...`);
     process.chdir(theme_name);
   }
@@ -88,7 +93,10 @@ class Start extends BaseClass {
       !latestRelease.data ||
       !latestRelease.data[0]
     ) {
-      Logger.error("Oops! The system failed to get latest Release. Please try again, ", latestRelease);
+      Logger.error(
+        "Oops! The system failed to get latest Release. Please try again, ",
+        latestRelease
+      );
       throw "";
     }
     await this.getAndUnZip(latestRelease.data[0].zipball_url, theme_name);
@@ -107,7 +115,9 @@ class Start extends BaseClass {
     //TODO:: add progress bar
     const response = await fetch(url, { headers: this.authHeader() });
     if (!response.ok) {
-      Logger.error("Hmmmm! Something went wrong while trying to get base theme. Please try again.");
+      Logger.error(
+        "Hmmmm! Something went wrong while trying to get base theme. Please try again."
+      );
       Logger.error(await response.json());
       throw "Hmmmm! Something went wrong while trying to get base theme. Please try again.);";
     }

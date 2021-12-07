@@ -26,8 +26,10 @@ class AuthManager {
         ? require(CLI_CONFIG_FILE)
         : null;
     } catch (error) {
-      Logger.error("Hmm, something went wrong while reading config file: ", error.message);
-
+      Logger.error(
+        "Hmm, something went wrong while reading config file: ",
+        error.message
+      );
     }
   }
   async getTokens() {
@@ -41,7 +43,10 @@ class AuthManager {
         ? require(CLI_CONFIG_FILE)
         : null;
     } catch (error) {
-      Logger.error("Hmm, something went wrong while reading config file: ", error.message);
+      Logger.error(
+        "Hmm, something went wrong while reading config file: ",
+        error.message
+      );
       return null;
     }
     return this.configData;
@@ -70,7 +75,10 @@ class AuthManager {
     try {
       return fs.writeJSONSync(CLI_CONFIG_FILE, configData);
     } catch (err) {
-      Logger.error("Hmm, something went wrong while reading config file: ", err.message);
+      Logger.error(
+        "Hmm, something went wrong while reading config file: ",
+        err.message
+      );
       return;
     }
   }

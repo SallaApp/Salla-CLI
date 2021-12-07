@@ -102,7 +102,9 @@ class GithubAPI {
       .then(() => this.gitSimple.push("origin", "master"));
   }
   async checkChanges() {
-    Logger.info("Please make sure you have made all the changes you want to commit, and check for changed and uncommitted files");
+    Logger.info(
+      "Please make sure you have made all the changes you want to commit, and check for changed and uncommitted files"
+    );
     const status = await this.gitSimple.status();
     const checked = status.files.length > 0;
     if (checked) {
@@ -126,6 +128,9 @@ class GithubAPI {
       let user = await this.getUser();
       if (github.login !== user.login) {
         github.login = user.login;
+        await this.AuthManager.set({
+          login: user.login,
+        });
       }
 
       return true;
@@ -154,7 +159,7 @@ class GithubAPI {
       if (!(await this.isTokenValid(configData.github))) {
         let github_token = await this.askForGithubToken();
         this.GithubConfig.access_token = github_token;
-        console.log("this.AuthManager", this.AuthManager.set);
+
         await this.AuthManager.set({
           github: github_token,
         });
@@ -167,10 +172,10 @@ class GithubAPI {
         });
       }
     }
-    const repoName = InputsManager.readLine(
-      "Name of the repository:",
-      { validate: /^[a-zA-Z0-9\s_-]+$/, name: "repository name" }
-    );
+    const repoName = InputsManager.readLine("Name of the repository:", {
+      validate: /^[a-zA-Z0-9\s_-]+$/,
+      name: "repository name",
+    });
 
     Logger.succ(
       `Initializing a new Github repository (${repoName}) for you. Please wait...`
@@ -188,7 +193,7 @@ class GithubAPI {
       return { remoteRepo, repoName };
     } catch (err) {
       Logger.error(`Hmmm, something went wrong. ${err.message}`);
-      
+
       fs.removeSync(".git");
       return null;
     }

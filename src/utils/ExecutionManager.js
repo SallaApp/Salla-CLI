@@ -3,13 +3,12 @@ const commandExistsSync = require("command-exists").sync;
 const fs = require("fs-extra");
 const Logger = require("./LoggingManager");
 const replace = require("replace-in-file");
-const {
-  execSync
-} = require("child_process");
+const { execSync } = require("child_process");
 const cliProgress = require("cli-progress");
 const semver = require("semver");
 // create a new progress bar instance and use shades_classic theme
-const progressBar = new cliProgress.SingleBar({
+const progressBar = new cliProgress.SingleBar(
+  {
     format: " {process} [{bar}] {percentage}% | ETA: {eta}s | {value}/{total}",
   },
   cliProgress.Presets.shades_grey
@@ -37,12 +36,38 @@ const progressBar = new cliProgress.SingleBar({
         6- exec: execute a command
         7- create: create a file
 
+  [*] You can execute salla commands with the following syntax :
+       const executionManager = new ExecutionManager()
+        executionManager.salla.theme()
   
 */
 module.exports = class ExecutionManager {
-  constructor() {}
+  constructor() {
+    // TODO: implement salla commands
+    this.salla = {
+      theme: (command_options) => {
+        return execSync("salla theme " + command_options + " --nohead", {
+          stdio: "inherit",
+          cwd: BASE_PATH,
+        });
+      },
+      app: (command_options) => {
+        return execSync("salla app " + command_options + " --nohead", {
+          stdio: "inherit",
+          cwd: BASE_PATH,
+        });
+      },
+      serve: (command_options) => {
+        return execSync("salla serve " + command_options + " --nohead", {
+          stdio: "inherit",
+          cwd: BASE_PATH,
+        });
+      },
+    };
+  }
   async __start(commands, progress) {
-    if (!Array.isArray(commands)) {}
+    if (!Array.isArray(commands)) {
+    }
     let messages = [];
 
     if (progress && progressBar) progressBar.start(commands.length, 0);
@@ -75,7 +100,10 @@ module.exports = class ExecutionManager {
               }
 
               messages.push(
-                Logger.createMessage(`Hooray! The following Command ${command.name} has been found.`, "success!")
+                Logger.createMessage(
+                  `Hooray! The following Command ${command.name} has been found.`,
+                  "success!"
+                )
               );
             } else {
               messages.push(
@@ -128,11 +156,15 @@ module.exports = class ExecutionManager {
             break;
         }
         messages.push(
-          Logger.createMessage(`Hooray! Success  ${command.msg}.`, "succ")
+          Logger.createMessage(`Hooray! Success ${command.msg} `, "succ")
         );
       } catch (err) {
         messages.push(
-          Logger.createMessage(`Hmmm! An error occured while running : ${command.msg}!`, "err", err)
+          Logger.createMessage(
+            `Hmmm! An error occured while running : ${command.msg}!`,
+            "err",
+            err
+          )
         );
         return messages;
       }
@@ -141,18 +173,19 @@ module.exports = class ExecutionManager {
   }
 
   checkNodeVersion(version) {
-    return this.run({
-      cmd: "check",
-      name: "node",
-      version: version,
-      msg: "Looking up Node's Version. Please wait...",
-    }, {
-      progress: false
-    });
+    return this.run(
+      {
+        cmd: "check",
+        name: "node",
+        version: version,
+        msg: "Looking up Node's Version.",
+      },
+      {
+        progress: false,
+      }
+    );
   }
-  run(arrayOFcommands, {
-    progress = true
-  } = {}) {
+  run(arrayOFcommands, { progress = true } = {}) {
     if (!Array.isArray(arrayOFcommands)) arrayOFcommands = [arrayOFcommands];
     return new Promise(async (resolve, reject) => {
       const messages = await this.__start(arrayOFcommands, progress);

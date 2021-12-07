@@ -22,70 +22,84 @@ const BaseClass = require("./BaseClass");
  * @property {ThemeConfigs|undefined} _configs
  */
 class ConfigManager extends BaseClass {
-    isExists() {
-        return this.fileSys().exists(this.configPath());
-    }
+  isExists() {
+    return this.fileSys().exists(this.configPath());
+  }
 
-    configPath() {
-        return this.path().join(BASE_PATH, "theme.json");
-    }
+  configPath() {
+    return this.path().join(BASE_PATH, "theme.json");
+  }
 
-    /**
-     *
-     * @return {ThemeConfigs}
-     */
-    all() {
-        if (this._configs) {
-            return this._configs;
-        }
-        try {
-            this._configs = require(this.configPath());
-            if (this.isConfigValid(this._configs)) {
-                return this._configs;
-            }
-            this._configs = undefined;
-        } catch (e) {
-        }
-        throw "theme.json config is corrupted.\n"
-        + "  - Remove theme.json file.\n".red
-        + "  $ salla theme start".cyan + "  again.".red;
+  /**
+   *
+   * @return {ThemeConfigs}
+   */
+  all() {
+    if (this._configs) {
+      return this._configs;
     }
+    try {
+      this._configs = require(this.configPath());
+      if (this.isConfigValid(this._configs)) {
+        return this._configs;
+      }
+      this._configs = undefined;
+    } catch (e) {}
+    throw (
+      "theme.json config is corrupted.\n" +
+      "  - Remove theme.json file.\n".red +
+      "  $ salla theme start".cyan +
+      "  again.".red
+    );
+  }
 
-    /**
-     * @param {object} config
-     * @return {*}
-     */
-    save(config) {
-        return this.fileSys().writeFile(this.configPath(), JSON.stringify(config, null, 4));
-    }
+  /**
+   * @param {object} config
+   * @return {*}
+   */
+  save(config) {
+    return this.fileSys().writeFile(
+      this.configPath(),
+      JSON.stringify(config, null, 4)
+    );
+  }
+  /**
+   * @param {object} config
+   * @return {*}
+   */
+  saveUnder(config) {
+    return this.fileSys().writeFile(
+      this.configPath(),
+      JSON.stringify({ ...this.all(), ...config }, null, 4)
+    );
+  }
 
-    /**
-     * @param {ThemeConfigs} config
-     * @returns {boolean}
-     */
-    isConfigValid(config) {
-        return !!config.version
-    }
+  /**
+   * @param {ThemeConfigs} config
+   * @returns {boolean}
+   */
+  isConfigValid(config) {
+    return !!config.version;
+  }
 
-    /**
-     * @param {string} key
-     * @return {JsonValue}
-     */
-    get(key) {
-        return this.all()[key];
-    }
+  /**
+   * @param {string} key
+   * @return {JsonValue}
+   */
+  get(key) {
+    return this.all()[key];
+  }
 
-    /**
-     * @param {string} key
-     * @param {JsonValue|JsonValue[]} value
-     * @return {*}
-     */
-    set(key, value) {
-        const config = this.all();
-        config[key] = value;
-        return this.save(config);
-    }
-
+  /**
+   * @param {string} key
+   * @param {JsonValue|JsonValue[]} value
+   * @return {*}
+   */
+  set(key, value) {
+    const config = this.all();
+    config[key] = value;
+    return this.save(config);
+  }
 }
 
 module.exports = ConfigManager;

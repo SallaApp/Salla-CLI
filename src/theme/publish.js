@@ -10,7 +10,9 @@ const { AuthManager, GithubAPI } = require("../utils/AuthManager")();
 class Publish extends BaseClass {
   async run() {
     if (!(await this.isReadyForPublish())) {
-      Logger.error("Hmm, something went wrong while publishing your theme. Please try again.");
+      Logger.error(
+        "Hmm, something went wrong while publishing your theme. Please try again."
+      );
       return null;
     }
     Logger.info(" Publishing your theme to Salla...");
@@ -27,7 +29,9 @@ class Publish extends BaseClass {
       .request("publish", { params: [this.configs().draft_id] })
       .then(async (res) => {
         if (res === false) {
-          Logger.error("Hmm, something went wrong while publishing your theme. Please try again.");
+          Logger.error(
+            "Hmm, something went wrong while publishing your theme. Please try again."
+          );
         }
         if (res.status === 200) {
           await this.configManager().set("theme_id", res.data.theme_id);
@@ -44,7 +48,6 @@ class Publish extends BaseClass {
     //check the draft id
     if (!config.draft_id) {
       Logger.info(`To create a draft theme, run ${"salla theme watch"}`);
-      
 
       return null;
     }

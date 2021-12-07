@@ -14,7 +14,7 @@ describe("Testing Utils Classes and Functions ", function () {
     fs.removeSync(test_path);
   });
 
-  it("should mkdir with ExecutionManager ", function (done) {
+  it("should makedir with ExecutionManager ", function (done) {
     const ExecutionManager = require("../../src/utils/ExecutionManager");
     const executionManager = new ExecutionManager();
     let dir_path = test_path + "/something";
@@ -35,5 +35,4 @@ describe("Testing Utils Classes and Functions ", function () {
         }
       });
   });
-  // TODO: Add more tests
 });

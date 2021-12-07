@@ -14,7 +14,6 @@ module.exports = async function (options) {
     Logger.info(
       "Installing ngrok library as a one-time installation. Please wait as this may take a while..."
     );
-    
 
     execSync("npm install -g ngrok");
   }
@@ -51,13 +50,14 @@ module.exports = async function (options) {
         `${url}/oauth/callback/`
       );
     } catch (e) {}
-    Logger.succ(`Whoops! OAuth Callback and Webhook URLs have been updated successfully.`);
+    Logger.succ(
+      `Whoops! OAuth Callback and Webhook URLs have been updated successfully.`
+    );
     Logger.longLine();
     Logger.normal("As always, happy coding!");
     Logger.longLine();
     fs.writeFileSync(".env", generateEnv(data, `${url}/oauth/callback`));
   } catch (err) {
-    console.log("err", err);
     Logger.error(`There is an error in reading .env file. Please check it.`);
   }
 
@@ -68,7 +68,10 @@ module.exports = async function (options) {
       { cwd: process.cwd() },
       (err, stdout, stderr) => {
         if (err) {
-          Logger.error(`Hmmmmm, Expressjs app couldn't be started ...`, err.message);
+          Logger.error(
+            `Hmmmmm, Expressjs app couldn't be started ...`,
+            err.message
+          );
           return;
         }
         Logger.normal(stdout);
@@ -95,7 +98,9 @@ module.exports = async function (options) {
       }
     );
   } else {
-    Logger.error(`Hmmmmm, this is not a Laravel or Expressjs project! The project will be exited.`);
+    Logger.error(
+      `Hmmmmm, this is not a Laravel or Expressjs project! The project will be exited.`
+    );
     process.exit(1);
   }
 

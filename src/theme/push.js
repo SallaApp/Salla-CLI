@@ -79,7 +79,11 @@ class Push extends BaseClass {
           files.length > 10 &&
           Logger.info(`  Pushing (${files.length}) files  into git repo...`)
       )
-      .then(() => Logger.success(`Whoop! All done! Your files has been pushed to Github successfully.`));
+      .then(() =>
+        Logger.success(
+          `Whoop! All done! Your files has been pushed to Github successfully.`
+        )
+      );
   }
 }
 

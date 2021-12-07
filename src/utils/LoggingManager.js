@@ -26,6 +26,9 @@ class LoggingManager {
         }
       }
     }
+    this.printVisitTroubleshootingPage();
+  }
+  printVisitTroubleshootingPage() {
     this.info(this.visitTroubleshootingPage);
     this.info(this.submitGithubIssue);
   }
@@ -35,6 +38,7 @@ class LoggingManager {
 
     for (let i = 0; i < msgs.length; i++) {
       //this.longLine();
+      if (typeof msgs[i].msg == "undefined") continue;
       console.log(clc[msgs[i].color](msgs[i].msg));
       if (msgs[i].sideMessage) console.log(clc["red"](msgs[i].sideMessage));
     }
@@ -58,6 +62,7 @@ class LoggingManager {
   }
   // print message object
   printMessage(msg) {
+    if (!msg) return;
     // this.longLine();
     console.log(clc[msg.color](msg.msg));
     if (msg.sideMessage) console.log(clc["red"](msg.sideMessage));
@@ -69,6 +74,7 @@ class LoggingManager {
    * @property {String|undefined} sideMessage - side message
    */
   createMessage(msg, type, sideMessage) {
+    if (msg.length == 0) return;
     if (!msg) throw new Error("msg is required");
     let msgObj = {};
 

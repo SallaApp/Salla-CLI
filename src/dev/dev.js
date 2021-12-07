@@ -1,9 +1,14 @@
-const BaseClass = require("./theme/utils/BaseClass");
-
 /**
  * Use For Internal Development
  * @property {DevOptions} options
  */
+/**
+ * 
+ * 
+ * 
+ const BaseClass = require("./theme/utils/BaseClass");
+
+
 class Dev extends BaseClass {
 
     run() {
@@ -21,3 +26,5 @@ class Dev extends BaseClass {
 }
 
 module.exports = Dev;
+
+ */

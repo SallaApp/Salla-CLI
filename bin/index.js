@@ -4,7 +4,7 @@
 require("https").globalAgent.options.rejectUnauthorized = false;
 const fs = require("fs");
 require("../constants");
-const Dev = require("../src/dev");
+
 const commander = require("commander");
 const program = new commander.Command();
 if (!process.argv.includes("--nohead")) {

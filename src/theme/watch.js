@@ -53,8 +53,10 @@ class Watch extends BaseClass {
      */
     let response = await this.createDraftTheme();
     if (!response || !response.preview_url || !response.id) {
-      Logger.error("Oops! Something went wrong while creating the testing theme. Please try again later.");
-      
+      Logger.error(
+        "Oops! Something went wrong while creating the testing theme. Please try again later."
+      );
+
       return null;
     }
 
@@ -83,20 +85,28 @@ class Watch extends BaseClass {
 
     // check if watch defined in package.json
     if (!packageJs.scripts.hasOwnProperty("watch")) {
-      Logger.warn("Hmmm! The system couldn't detect any  watch script in the package.json file.");
+      Logger.warn(
+        "Hmmm! The system couldn't detect any  watch script in the package.json file."
+      );
       return null;
     }
 
     if (!packageManager) {
-      Logger.error("There is no package manager installed on your system. Please install" + "yarn/npm".bold + " in your system!");
-      
+      Logger.error(
+        "There is no package manager installed on your system. Please install" +
+          "yarn/npm".bold +
+          " in your system!"
+      );
+
       return null;
     }
 
     await this.openBrowser(response.preview_url);
 
     packageManager += packageManager === "npm" ? " run" : "";
-    Logger.info(`Currently running '${packageManager} watch'... Press Ctrl+C to stop or Ctrl+D to exit.`);
+    Logger.info(
+      `Currently running '${packageManager} watch'... Press Ctrl+C to stop or Ctrl+D to exit.`
+    );
     this.runSysCommand(packageManager + " watch");
     //
     // var spawn = require('child_process').spawn;

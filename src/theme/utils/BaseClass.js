@@ -37,7 +37,9 @@ class BaseClass {
       ["push", "publish", "watch", "serve"].includes(commandName) &&
       !this.fileSys().existsSync(this.path().join(BASE_PATH, "theme.json"))
     ) {
-      this.error("Hmmm, seems like you are trying to run a command without a theme.json file.\nPlease run `salla init` to create a theme.json file.");
+      this.error(
+        "Hmmm, seems like you are trying to run a command without a theme.json file.\nPlease run `salla theme init` to create a theme.json file."
+      );
       // this.error("Please make sure you are in the theme folder");
 
       //throw "Theme not exists";
@@ -125,14 +127,14 @@ class BaseClass {
    * @return {Promise<SallaConfig>}
    */
   async getTokens(skip_tokens_check = false) {
-    if (this.tokens) {
-      return this.tokens;
-    }
-
     if (!(await AuthManager.isGithubTokenValid()) && !skip_tokens_check) {
       await AuthManager.askForGithubToken();
       this.tokens = await AuthManager.getTokens();
     }
+    if (this.tokens) {
+      return this.tokens;
+    }
+
     return (this.tokens = await AuthManager.getTokens());
   }
 

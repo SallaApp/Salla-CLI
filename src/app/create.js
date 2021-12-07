@@ -1,7 +1,7 @@
 const Logger = require("../utils/LoggingManager");
 const { ExpressAppCreateor } = require("../stater-kits/express");
 const { LaravelAppCreateor } = require("../stater-kits/laravel");
-const generateRandomName = require("../helpers/generateRandom");
+
 const InputsManager = require("../utils/InputsManager");
 const ServeCommand = require("./serve");
 const PartnerApi = new (require("../api/partner"))();
@@ -121,6 +121,7 @@ module.exports = async function (options) {
         Logger.error(
           "Hmmmm, something went wrong while creating your app. Please try again later."
         );
+        Logger.printVisitTroubleshootingPage();
         process.exit(1);
       }
 
@@ -167,6 +168,8 @@ module.exports = async function (options) {
     ServeCommand({ port: DEFAULT_APP_PORT });
   } catch (err) {
     Logger.error("There is an error that occured! Please check it.", err);
+    Logger.printVisitTroubleshootingPage();
+
     process.exit(1);
   }
 
