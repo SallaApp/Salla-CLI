@@ -38,7 +38,7 @@ class GithubAPI {
         name: repo_name,
         private: isPrivate,
       });
-      Logger.success("Github repository created.");
+      Logger.success("Whoop! Your Github repository is created successfully.");
     } catch (err) {
       let errorMessage = err.message.includes("name already exists")
         ? `Github repository (${repo_name}) already exists.`
@@ -102,11 +102,12 @@ class GithubAPI {
       .then(() => this.gitSimple.push("origin", "master"));
   }
   async checkChanges() {
-    Logger.info("Check for changed and uncommitted files");
+    Logger.info("Please make sure you have made all the changes you want to commit, and check for changed and uncommitted files");
     const status = await this.gitSimple.status();
     const checked = status.files.length > 0;
     if (checked) {
-      Logger.info(`Find ${status.files.length} file changes:`);
+      Logger.info(`Find ${status.files.length} uncommitted files:`);
+      // Logger.info(`Find ${status.files.length} file changes:`);
       console.table(
         status.files.map((file) => ({
           type: file.working_dir,
@@ -167,12 +168,12 @@ class GithubAPI {
       }
     }
     const repoName = InputsManager.readLine(
-      "What do you want to call your repository ? ",
+      "Name of the repository:",
       { validate: /^[a-zA-Z0-9\s_-]+$/, name: "repository name" }
     );
 
     Logger.succ(
-      `Initiating repository in github (${this.GithubConfig.login}), please wait....`
+      `Initializing a new Github repository (${repoName}) for you. Please wait...`
     );
     const remoteRepo = `https://github.com/${this.GithubConfig.login}/${repoName}`;
 
@@ -186,7 +187,8 @@ class GithubAPI {
       });
       return { remoteRepo, repoName };
     } catch (err) {
-      Logger.error(`Failed to initiate Git repo, ${err.name}: ${err.message}`);
+      Logger.error(`Hmmm, something went wrong. ${err.message}`);
+      
       fs.removeSync(".git");
       return null;
     }
