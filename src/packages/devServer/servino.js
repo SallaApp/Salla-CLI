@@ -16,11 +16,11 @@ let server = null,
 
 module.exports = class Servino {
   static start(cfg) {
-    let rootPath = cfg.root
-      ? cfg.isvscode
-        ? cfg.root
-        : path.join(process.cwd(), cfg.root).replace(/\\/g, "/")
-      : process.cwd().replace(/\\/g, "/");
+    let rootPath = cfg.root ?
+      cfg.isvscode ?
+      cfg.root :
+      path.join(process.cwd(), cfg.root).replace(/\\/g, "/") :
+      process.cwd().replace(/\\/g, "/");
 
     config = {
       host: cfg.host || "0.0.0.0",

@@ -37,7 +37,9 @@ class BaseClass {
       ["push", "publish", "watch", "serve"].includes(commandName) &&
       !this.fileSys().existsSync(this.path().join(BASE_PATH, "theme.json"))
     ) {
-      this.error("Please make sure you are in the theme folder");
+      this.error("Hmmm, seems like you are trying to run a command without a theme.json file.\nPlease run `salla init` to create a theme.json file.");
+      // this.error("Please make sure you are in the theme folder");
+
       //throw "Theme not exists";
       process.exit();
     }

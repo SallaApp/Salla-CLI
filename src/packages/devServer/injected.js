@@ -5,7 +5,8 @@ function SallaReload() {
   ws.onmessage = function(msg) {
     location.reload();
   };
-  console.log('%cLive reload is enabled.', 'color: #bada55');
+  console.log('%cLive reload is currently enabled.', 'color: #bada55');
+  
 }
 
 SallaReload();
