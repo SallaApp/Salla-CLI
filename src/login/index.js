@@ -36,6 +36,6 @@ module.exports = async function (options) {
       console.log("Here is the Token: ", data.token);
     }
   });
-  Logger.succ("`Hello World! You are now logged in at Salla.`");
-  Logger.error(`Oops! There is an error logging to Salla.`);
+  Logger.succ("`👋 Hello World! You have landed successfully at Salla 🤓`");
+  Logger.error(`🛑 Oops! There is an error logging to Salla. Please try loggin again by running the following command: salla login.`);
 };

@@ -38,7 +38,7 @@ class BaseClass {
       !this.fileSys().existsSync(this.path().join(BASE_PATH, "theme.json"))
     ) {
       this.error(
-        "Hmmm, seems like you are trying to run a command without a theme.json file.\nPlease run `salla theme init` to create a theme.json file."
+        "🤔 Hmmm! Seems like you are trying to run a command without a theme.json file.\nPlease run `salla theme init` to create a theme.json file."
       );
       // this.error("Please make sure you are in the theme folder");
 

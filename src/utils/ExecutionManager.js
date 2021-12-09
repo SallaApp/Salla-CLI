@@ -93,7 +93,7 @@ module.exports = class ExecutionManager {
                 if (!satisfies)
                   messages.push(
                     Logger.error(
-                      `Hmmm! The ${command.name} version must be ${command.version} or newer. Your version is ${version}, so please update it or install it manually.`
+                      `🤔 Hmmm! The ${command.name} version must be ${command.version} or newer. Your version is ${version}, so please update it or install it manually.`
                     )
                   );
                 continue;
@@ -101,14 +101,14 @@ module.exports = class ExecutionManager {
 
               messages.push(
                 Logger.createMessage(
-                  `Hooray! The following Command ${command.name} has been found.`,
+                  `🎉 Hooray! The following Command ${command.name} has been found.`,
                   "success!"
                 )
               );
             } else {
               messages.push(
                 Logger.createMessage(
-                  `Hmmm! The following Command ${command.name} has not been found.`,
+                  `🛑 Oops! The following Command ${command.name} has not been found.`,
                   "err"
                 )
               );
@@ -156,12 +156,12 @@ module.exports = class ExecutionManager {
             break;
         }
         messages.push(
-          Logger.createMessage(`Hooray! Success ${command.msg} `, "succ")
+          Logger.createMessage(`🎉 Hooray! Success ${command.msg} `, "succ")
         );
       } catch (err) {
         messages.push(
           Logger.createMessage(
-            `Hmmm! An error occured while running : ${command.msg}!`,
+            `🤔 Hmmm! An error occured while running : ${command.msg}!`,
             "err",
             err
           )

@@ -81,7 +81,7 @@ class Push extends BaseClass {
       )
       .then(() =>
         Logger.success(
-          `Whoop! All done! Your files has been pushed to Github successfully.`
+          `🎉 Whoop! All done! Your files has been pushed to Github successfully.`
         )
       );
   }

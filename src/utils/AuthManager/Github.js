@@ -38,7 +38,7 @@ class GithubAPI {
         name: repo_name,
         private: isPrivate,
       });
-      Logger.success("Whoop! Your Github repository is created successfully.");
+      Logger.success("🎉 Whoop! Your Github repository is created successfully.");
     } catch (err) {
       let errorMessage = err.message.includes("name already exists")
         ? `Github repository (${repo_name}) already exists.`
@@ -192,7 +192,7 @@ class GithubAPI {
       });
       return { remoteRepo, repoName };
     } catch (err) {
-      Logger.error(`Hmmm, something went wrong. ${err.message}`);
+      Logger.error(`🤔 Hmmm! Something went wrong. ${err.message}`);
 
       fs.removeSync(".git");
       return null;

@@ -2,7 +2,7 @@ const clc = require("cli-color");
 
 class LoggingManager {
   visitTroubleshootingPage =
-    "Please visit the troubleshooting page https://dev.salla.sa/";
+    "Please, visit the troubleshooting page https://dev.salla.sa/ for better support.";
   submitGithubIssue =
     "If this error persists, please visit https://github.com/sallaapp/salla-cli/issues and submit an issue.";
   constructor() {

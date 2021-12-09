@@ -16,13 +16,13 @@ module.exports.LaravelAppCreateor = async (options) => {
       cmd: "create",
       path: `${options.app_path}/.env`,
       content: generateEnv(options),
-      msg: "On the way! Creating .env file.",
+      msg: "✅ Creating .env file.",
     },
     {
       cmd: "exec",
       command: "php artisan key:generate",
       path: `${options.app_path}`,
-      msg: "On the way! Generating the App Key.",
+      msg: "✅ Generating the App Key.",
     },
   ]);
   Logger.printMessages(messages);
@@ -32,7 +32,7 @@ process.on("unhandledRejection", function (err) {
   Logger.longLine();
   Logger.normal(err);
 
-  Logger.error(`Hmmm, something went wrong while creating your app. Please try again.`);
+  Logger.error(`🤔 Hmmm! Something went wrong while creating your app. Please try again by running the following command: salla app create <ProjectName>`);
 
   process.exit(0);
 });

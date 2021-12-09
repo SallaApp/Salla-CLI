@@ -39,7 +39,7 @@ module.exports = class SallaAPI {
   }
   request(endpoint, data, headers) {
     if (!this.endpoints[endpoint]) {
-      throw "Failed to find endpoint for: " + endpoint;
+      throw "🛑 Oops! The system failed to find endpoint for: " + endpoint;
     }
     let url = this.getUrlForEndpoint(endpoint, data);
 
@@ -119,7 +119,7 @@ module.exports = class SallaAPI {
         data.error.message.includes("authorization token")
       ) {
         Logger.error(
-          `Invalid authorization token, make sure to run: ${
+          `🛑 Oops! An invalid authorization token was found. Ensure to run the following command to login properly to Salla: ${
             "salla login".bold.cyan
           }`
         );

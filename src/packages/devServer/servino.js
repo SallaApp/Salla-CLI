@@ -50,17 +50,17 @@ module.exports = class Servino {
         self.log("[Serving]", serverUrl);
         self.log("[CWD]", config.root);
 
-        self.log("[Waiting For Changes]", "");
+        self.log("[😌 Waiting For Changes]", "");
       })
       .on("error", (e) => {
         if (e.code === "EADDRINUSE") {
           self.log(
-            `Error: Port ${e.port}`,
-            "is already in use. Trying another port."
+            `🛑Oops! The Port ${e.port}`,
+            "is already in use. Please close the process or change the port number."
           );
           setTimeout(() => server.listen(0, config.host), 200);
         } else {
-          self.log("Error: " + e.message);
+          self.log("🛑 Oops! The following message says: " + e.message);
           self.stop();
         }
       });
@@ -117,7 +117,7 @@ module.exports = class Servino {
     // close all your connections immediately
     server.close();
 
-    this.log("[Server Closed]", "...");
+    this.log("[🛑 Server Closed]", "...");
   }
 
   static log(label, msg) {

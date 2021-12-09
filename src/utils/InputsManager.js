@@ -98,7 +98,7 @@ class InputsManager {
   checkProjectExists(folderPath, exit = false) {
     if (fs.existsSync(folderPath)) {
       Logger.error(
-        `Hmmm! Looks like you already have a project in ${folderPath}. Please, either delete it and try again or use a different folder name.`
+        `🤔 Hmmm! Looks like you already have a project in ${folderPath}. Please, either delete it and try again or use a different folder name.`
       );
       // Logger.error(
       //   `App name "${folderPath}" already exists! ..  exiting setup .`

@@ -11,7 +11,7 @@ class Publish extends BaseClass {
   async run() {
     if (!(await this.isReadyForPublish())) {
       Logger.error(
-        "Hmm, something went wrong while publishing your theme. Please try again."
+        "🤔 Hmmm, something went wrong while publishing your theme. Please try again."
       );
       return null;
     }
@@ -30,14 +30,14 @@ class Publish extends BaseClass {
       .then(async (res) => {
         if (res === false) {
           Logger.error(
-            "Hmm, something went wrong while publishing your theme. Please try again."
+            "🤔 Hmmm! Something went wrong while publishing your theme. Please try again."
           );
         }
         if (res.status === 200) {
           await this.configManager().set("theme_id", res.data.theme_id);
           this.runTheme(command + ' --message "Pump Version ⬆️"');
 
-          Logger.success(`Whoop! Your theme is published successfully.`);
+          Logger.success(`🎉 Whoop! Your theme is published successfully.`);
         }
       });
   }
@@ -54,7 +54,7 @@ class Publish extends BaseClass {
 
     // check author name
     if (!config.author) {
-      const author = InputsManager.readLine("Who is the author name?", {
+      const author = InputsManager.readLine("? Author name: ", {
         name: "author name",
         validate: /^[a-zA-Z0-9\s_-]+$/,
       });
@@ -63,7 +63,7 @@ class Publish extends BaseClass {
 
     // check email
     if (!config.email) {
-      const email = InputsManager.readLine("What is your email address?", {
+      const email = InputsManager.readLine("? Email Address: ", {
         name: "email",
         validate: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
       });
@@ -72,7 +72,7 @@ class Publish extends BaseClass {
 
     // check the support url
     if (!config.support_url) {
-      const support_url = InputsManager.readLine("Your support url?", {
+      const support_url = InputsManager.readLine("? Support Url: ", {
         name: "support url",
         validate: /^https?:\/\//,
       });

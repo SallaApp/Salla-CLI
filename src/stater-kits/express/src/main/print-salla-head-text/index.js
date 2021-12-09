@@ -13,7 +13,7 @@ console.log(
     textColor: "white",
   })
     .center("^_^")
-    .center("Welcome to Salla Express Starter Kit ")
+    .center("👋 Hello World! Welcome to Salla Express Starter Kit.")
     .center("https://salla.dev/")
     .emptyLine()
     .render()

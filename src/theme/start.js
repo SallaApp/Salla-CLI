@@ -40,7 +40,7 @@ class Start extends BaseClass {
       .then(async () => await this.configManager().saveUnder(themeConfig))
       .then(() =>
         Logger.success(
-          `Hooray! Theme ${themeConfig.theme_name} has been created successfully.`
+          `🎉 Hooray! Theme ${themeConfig.theme_name} has been created successfully.`
         )
       );
 
@@ -56,15 +56,15 @@ class Start extends BaseClass {
 
     //Logger.info(`  Creating new folder (${theme_name.bold})...`);
     if (await this.fileSys().exists(BASE_PATH)) {
-      let message = `Oops! The folder (${theme_name.bold}) does already exist.`;
+      let message = `🛑 Oops! The folder (${theme_name.bold}) does already exist.`;
       Logger.error(
-        `Oops! The folder (${theme_name.bold}) does already exist in this directory! Please try another name.`
+        `🛑 Oops! The folder (${theme_name.bold}) does already exist in this directory! Please try another name.`
       );
       throw message;
     }
     await this.fileSys().mkdirs(BASE_PATH);
     Logger.success(
-      `Hooray! The folder (${theme_name.bold}) has been created successfully.`
+      `🎉 Hooray! The folder (${theme_name.bold}) has been created successfully.`
     );
     //Logger.info(`  Changing working directory to (${theme_name.bold})...`);
     process.chdir(theme_name);
@@ -94,7 +94,7 @@ class Start extends BaseClass {
       !latestRelease.data[0]
     ) {
       Logger.error(
-        "Oops! The system failed to get latest Release. Please try again, ",
+        "🛑 Oops! The system failed to get latest Release. Please try again, ",
         latestRelease
       );
       throw "";
@@ -116,21 +116,21 @@ class Start extends BaseClass {
     const response = await fetch(url, { headers: this.authHeader() });
     if (!response.ok) {
       Logger.error(
-        "Hmmmm! Something went wrong while trying to get base theme. Please try again."
+        "🤔 Hmmm! Something went wrong while trying to get base theme. Please try again."
       );
       Logger.error(await response.json());
-      throw "Hmmmm! Something went wrong while trying to get base theme. Please try again.);";
+      throw "🤔 Hmmm! Something went wrong while trying to get base theme. Please try again.);";
     }
 
-    Logger.success("Hooray! Base theme downloaded successfully.");
-    Logger.info("Extracting base theme files... Please wait!");
+    Logger.success("🎉 Hooray! Base theme downloaded successfully.");
+    Logger.info("✅ Extracting base theme files...");
     const zip = new AdmZip(await response.buffer());
     //const entries = zip.getEntries();
     const mainEntry = zip.getEntries()[0].entryName;
     zip.extractAllTo(/*target path*/ BASE_PATH, /*overwrite*/ false);
     const srcDir = this.path().join(BASE_PATH, mainEntry);
     this.fileSys().copySync(srcDir, BASE_PATH, { overwrite: false }, (err) =>
-      err ? Logger.error(err) : Logger.success("Hooray!")
+      err ? Logger.error(err) : Logger.success("🎉 Hooray!")
     );
     this.fileSys().removeSync(srcDir);
     this.fileSys().removeSync(this.path().join(BASE_PATH, ".github"));

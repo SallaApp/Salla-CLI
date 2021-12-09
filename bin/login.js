@@ -5,6 +5,6 @@ module.exports = function appCommands() {
   return program
     .command("login")
     .alias("l")
-    .description("Please, login to Salla")
+    .description("🛑 Oops! Unable to authinticate. Try loggin again to Salla!")
     .action(require("../src/login"));
 };

@@ -10,20 +10,20 @@ class Sync extends BaseClass {
   async run() {
     if (!this.options.theme_id) {
       Logger.error(
-        "Hmmm, you need to specify a valid Theme ID, as theme_id didn't pass! Please try again."
+        "🤔 Hmmm! You need to specify a valid Theme ID, as theme_id didn't pass! Please try again."
       );
 
       return null;
     }
     if (!this.options.file) {
       Logger.error(
-        "Oops! Unfortunately, the file was not received. Please try again."
+        "🛑 Oops! Unfortunately, the file was not received. Please try again."
       );
       return null;
     }
     if (!(await this.fileSys().exists(this.options.file))) {
       Logger.error(
-        "Oops! Unfortunately, the file you specified doesn't exist. Please try again."
+        "🛑 Oops! Unfortunately, the file you specified doesn't exist. Please try again."
       );
       return null;
     }
@@ -34,7 +34,7 @@ class Sync extends BaseClass {
 
     if (this.fileSys().statSync(this.options.file).size > 1024 * 500) {
       Logger.error(
-        `Oops! The file (${path.bold}) is larger than 500 KB. Please try again with a smaller size.`
+        `🛑 Oops! The file (${path.bold}) is larger than 500 KB. Please try again with a smaller size.`
       );
       return null;
     }
@@ -52,7 +52,7 @@ class Sync extends BaseClass {
       .then((res) => {
         if (res === false) {
           Logger.error(
-            "Hmmm! The system failed to sync: " +
+            "🤔 Hmmm! The system failed to sync: " +
               path.bold +
               " to the theme: " +
               this.options.theme_id.bold +
@@ -61,7 +61,7 @@ class Sync extends BaseClass {
         }
         if (res.status === 200) {
           Logger.success(
-            `Hooray! The file (${path.bold}) is synced successfully to the theme: ${this.options.theme_id.bold}`
+            `🎉 Hooray! The file (${path.bold}) is synced successfully to the theme: ${this.options.theme_id.bold}`
           );
         }
       });

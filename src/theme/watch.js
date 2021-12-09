@@ -54,14 +54,14 @@ class Watch extends BaseClass {
     let response = await this.createDraftTheme();
     if (!response || !response.preview_url || !response.id) {
       Logger.error(
-        "Oops! Something went wrong while creating the testing theme. Please try again later."
+        "🛑 Oops! Something went wrong while creating the testing theme. Please try again later."
       );
 
       return null;
     }
 
     await this.configManager().set("draft_id", response.id);
-    Logger.success("Hooray! Your theme is ready to test!");
+    Logger.success("🎉Hooray! Your theme is ready to test!");
 
     let assetsPort =
       this.options.port || process.env.ASSETS_PORT || ASSETS_PORT;
@@ -86,7 +86,7 @@ class Watch extends BaseClass {
     // check if watch defined in package.json
     if (!packageJs.scripts.hasOwnProperty("watch")) {
       Logger.warn(
-        "Hmmm! The system couldn't detect any  watch script in the package.json file."
+        "🤔 Hmmm! The system couldn't detect any  watch script in the package.json file."
       );
       return null;
     }

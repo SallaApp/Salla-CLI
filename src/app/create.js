@@ -10,11 +10,11 @@ const { AuthManager } = require("../utils/AuthManager")();
 // export function to Salla-cli
 module.exports = async function (options) {
   Logger.info(
-    "Please wait while we are getting your apps from Salla ... It won't take much time ."
+    "✅ Getting your apps from Salla ... On the way ☕️"
   );
   // Logger.info("Getting your apps from Salla! Hold on until fully fetched ...");
   if (!(await AuthManager.isSallaTokenValid())) {
-    Logger.error("Please, login to Salla!");
+    Logger.error("🛑 Oops! Unable to authinticate. Try loggin again to Salla!");
     return;
   }
   let apps = [];
@@ -22,7 +22,7 @@ module.exports = async function (options) {
     apps = await PartnerApi.getAllApps();
   } catch (err) {
     Logger.error(
-      "Hmmmm, something went wrong while fetching your apps from Salla. Please try again later."
+      "🤔 Hmmm! Something went wrong while fetching your apps from Salla. Please try again later."
     );
     return;
   }
@@ -33,7 +33,7 @@ module.exports = async function (options) {
     (await InputsManager.selectInput("Select App : ", [
       /* apps from developer account */
       ...apps.map((app) => app.name.en),
-      "Create New App ?",
+      "? Create New App",
     ]));
   let isNewApp = false;
   options.app_path = generateAppPath(options.app_name);
@@ -119,16 +119,16 @@ module.exports = async function (options) {
       );
       if (res == false) {
         Logger.error(
-          "Hmmmm, something went wrong while creating your app. Please try again later."
+          "🤔 Hmmm, something went wrong while creating your app. Please try again later."
         );
         Logger.printVisitTroubleshootingPage();
         process.exit(1);
       }
 
-      Logger.succ("Whoop! Your app has been created successfully.");
+      Logger.succ("🎉 Whoop! Your app has been created successfully.");
     } catch (err) {
       Logger.error(
-        "Hmmmm, something went wrong while creating your app. Please try again later."
+        "🤔 Hmmm, something went wrong while creating your app. Please try again later."
       );
       //process.exit(1);
     }

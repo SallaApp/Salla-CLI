@@ -12,14 +12,14 @@ module.exports = async function (options) {
   // check if ngrok is installed
   if (!commandExistsSync("ngrok")) {
     Logger.info(
-      "Installing ngrok library as a one-time installation. Please wait as this may take a while..."
+      "✅ Installing ngrok library as a one-time installation..."
     );
 
     execSync("npm install -g ngrok");
   }
   Logger.info(
-    `Starting project with PORT:${options.port} ... `,
-    `Starting ngrok ngrok ... `
+    `✅ Starting your project on PORT:${options.port} ... `,
+    `✅ Starting ngrok ngrok ... `
   );
   const url = await ngrok.connect({
     addr: options.port,
@@ -51,14 +51,14 @@ module.exports = async function (options) {
       );
     } catch (e) {}
     Logger.succ(
-      `Whoops! OAuth Callback and Webhook URLs have been updated successfully.`
+      `🎉 Hooray! OAuth Callback and Webhook URLs have been updated successfully.`
     );
     Logger.longLine();
     Logger.normal("As always, happy coding!");
     Logger.longLine();
     fs.writeFileSync(".env", generateEnv(data, `${url}/oauth/callback`));
   } catch (err) {
-    Logger.error(`There is an error in reading .env file. Please check it.`);
+    Logger.error(`🛑 Oops! There is an error in reading .env file. Please check it.`);
   }
 
   // auto detect the project type
@@ -69,7 +69,7 @@ module.exports = async function (options) {
       (err, stdout, stderr) => {
         if (err) {
           Logger.error(
-            `Hmmmmm, Expressjs app couldn't be started ...`,
+            `🤔 Hmmm! Expressjs app couldn't be started.`,
             err.message
           );
           return;
@@ -77,7 +77,7 @@ module.exports = async function (options) {
         Logger.normal(stdout);
         Logger.normal(stderr);
         Logger.succ(
-          `Whoops! ExpressJS App Started Successfully on PORT:${options.port} `
+          `🎉 Hooray! ExpressJS App Started Successfully on PORT:${options.port} `
         );
       }
     );
@@ -93,13 +93,13 @@ module.exports = async function (options) {
         Logger.normal(stdout);
         Logger.normal(stderr);
         Logger.succ(
-          `Whoops! Laravel App Started Successfully on PORT:${options.port}`
+          `🎉 Hooray! Laravel App Started Successfully on PORT:${options.port}`
         );
       }
     );
   } else {
     Logger.error(
-      `Hmmmmm, this is not a Laravel or Expressjs project! The project will be exited.`
+      `🤔 Hmmm, this is not a Laravel or Expressjs project! The project will be exited.`
     );
     process.exit(1);
   }
