@@ -47,13 +47,13 @@ module.exports = function (args) {
       cmd: "copy",
       src: `${args.src}/app.${args.database_orm}.js`,
       dest: `${args.app_path}/app.js`,
-      msg: "Setting up the Preferred Database ORM app.js file ...",
+      msg: "✨ Setting up the Preferred Database ORM app.js file ...",
     },
     {
       cmd: "exec",
       command: "npm init -y",
       path: `${args.app_path}`,
-      msg: "Initializing the Project's NPM file ...",
+      msg: "✨ Initializing the Project's NPM file ...",
     },
     {
       cmd: "create",
@@ -61,13 +61,13 @@ module.exports = function (args) {
         return getPakcagejson(args);
       },
       path: `${args.app_path}/package.json`,
-      msg: "Installing all package.json dependencies ...",
+      msg: "✨ nstalling all package.json dependencies ...",
     },
     {
       cmd: "exec",
       command: "npm install",
       path: `${args.app_path}`,
-      msg: "Installing Project dependencies with NPM ...",
+      msg: "✨ Installing Project dependencies with NPM ...",
     },
   ]);
 };

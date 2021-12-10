@@ -5,6 +5,6 @@ module.exports = ({ msgs, app_name, app_path }) => {
   // print other messages from commands
   Logger.printMessages(msgs);
 
-  Logger.succ(`🎉 ! ${app_name} is created With No Errors .`);
+  Logger.succ(`🎉 Hooray! Your app, ${app_name}, is created successfully.`);
   
 };

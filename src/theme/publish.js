@@ -11,11 +11,11 @@ class Publish extends BaseClass {
   async run() {
     if (!(await this.isReadyForPublish())) {
       Logger.error(
-        "🤔 Hmmm, something went wrong while publishing your theme. Please try again."
+        "🤔 Hmmm! Something went wrong while publishing your theme. Please try again."
       );
       return null;
     }
-    Logger.info(" Publishing your theme to Salla...");
+    Logger.info("✨ Publishing your theme to Salla...");
 
     /**
      * @type {SallaConfig}
@@ -37,7 +37,7 @@ class Publish extends BaseClass {
           await this.configManager().set("theme_id", res.data.theme_id);
           this.runTheme(command + ' --message "Pump Version ⬆️"');
 
-          Logger.success(`🎉 Whoop! Your theme is published successfully.`);
+          Logger.success(`🎉 Hooray! Your theme is published successfully.`);
         }
       });
   }
@@ -47,7 +47,7 @@ class Publish extends BaseClass {
 
     //check the draft id
     if (!config.draft_id) {
-      Logger.info(`To create a draft theme, run ${"salla theme watch"}`);
+      Logger.info(`ℹ️ To create a draft theme, run ${"salla theme watch"}`);
 
       return null;
     }

@@ -75,7 +75,7 @@ module.exports = function themeCommands() {
   themeCommand
     .command("publish")
     .alias("p")
-    .description("✅ Publishing the theme ...")
+    .description("✨ Publishing the theme ... Almost done!")
     .action((options) =>
       new publish(options, "publish")
         .run()

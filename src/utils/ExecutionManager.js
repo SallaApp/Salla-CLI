@@ -93,7 +93,9 @@ module.exports = class ExecutionManager {
                 if (!satisfies)
                   messages.push(
                     Logger.error(
-                      `🤔 Hmmm! The ${command.name} version must be ${command.version} or newer. Your version is ${version}, so please update it or install it manually.`
+                      '🤔 Hmmm! The ${command.name} version must be ${command.version} or newer. Your version is ${version}, please either please update or install it manually.'
+                      // `${command.name} version is not compatible with Salla. Please update your ${command.name} version to ${command.version}`
+                    
                     )
                   );
                 continue;

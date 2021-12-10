@@ -7,7 +7,7 @@ module.exports = function DevCommands() {
     .command("dev", { hidden: true })
     .option(
       "-b,--base <working_base>",
-      "✅ Changing the base url for all endpoints."
+      "✨ Changing the base url for all endpoints ..."
     )
     .option("-c,--config", "Show config file.")
     .description("Development Command for the Internal team.")

@@ -10,7 +10,7 @@ const { AuthManager } = require("../utils/AuthManager")();
 // export function to Salla-cli
 module.exports = async function (options) {
   Logger.info(
-    "✅ Getting your apps from Salla ... On the way ☕️"
+    "✨ Getting your apps from Salla ... On the way ☕️"
   );
   // Logger.info("Getting your apps from Salla! Hold on until fully fetched ...");
   if (!(await AuthManager.isSallaTokenValid())) {
@@ -30,17 +30,17 @@ module.exports = async function (options) {
   //  select app
   options.app_name =
     options.name ||
-    (await InputsManager.selectInput("Select App : ", [
+    (await InputsManager.selectInput("✅ Select Your App:", [
       /* apps from developer account */
       ...apps.map((app) => app.name.en),
-      "? Create New App",
+      "? Want to Create New Salla Partner App?",
     ]));
   let isNewApp = false;
   options.app_path = generateAppPath(options.app_name);
   // check if create new app or not
   if (options.app_name.indexOf("Create New App") > -1) {
     isNewApp = true;
-    options.app_name = InputsManager.readLine("Enter App Name : ", {
+    options.app_name = InputsManager.readLine("? App Name:", {
       validate(value) {
         if (value.length < 10 || value.length > 50) {
           return false;
@@ -48,14 +48,14 @@ module.exports = async function (options) {
         return true;
       },
       name: "App Name",
-      errorMessage: "Your App Name must be between 10 and 50 characters long!",
+      errorMessage: "ℹ️ For better visbility, your App Name must be between 10 and 50 characters long!",
     });
     options.app_path = generateAppPath(options.app_name);
 
     // check if app name is allowed to use
     if (FORBIDDEN_PROJECT_NAMES.includes(options.app_name)) {
       Logger.error(
-        `The App Name ${options.app_name} is not allowed to use. Please try with another name.`
+        `🛑 Oops! Seems like the App Name ${options.app_name} is not allowed to use. Please try with another name.`
       );
       process.exit(1);
     }
@@ -64,7 +64,7 @@ module.exports = async function (options) {
     InputsManager.checkProjectExists(options.app_path, true);
 
     // get description
-    options.desc_english = InputsManager.readLine("Enter Description  : ", {
+    options.desc_english = InputsManager.readLine("? Short Description:", {
       validate(value) {
         if (value.length < 100) {
           return false;
@@ -72,19 +72,19 @@ module.exports = async function (options) {
         return true;
       },
 
-      errorMessage: "Description must be at least 100 characters long!",
+      errorMessage: "ℹ️ To compel merchants, ensure that your description is at least 100 characters long.",
     });
     // get Email
-    options.email = InputsManager.readLine("Enter Email : ", {
+    options.email = InputsManager.readLine("? Email Address:", {
       validate: /\S+@\S+\.\S+/,
       name: "Email ",
     });
     // select app type
     options.app_type = await InputsManager.selectInput(
-      "Select App Type : ",
+      "? Select App Type: (Use arrow keys)",
       PartnerApi.app_types
     );
-    options.app_url = InputsManager.readLine("Enter URL : ");
+    options.app_url = InputsManager.readLine("? App Homepage URL:");
     options.auth_mode = await InputsManager.getAuthModeFromCLI();
   } else {
     // this will trigger process.exit(1) if the app name exists
@@ -92,9 +92,9 @@ module.exports = async function (options) {
   }
 
   // get project type
-  const projectType = await InputsManager.selectInput("Select Framework : ", [
-    "express",
-    "laravel",
+  const projectType = await InputsManager.selectInput("? Select Framework: (Use arrow keys)", [
+    "Express",
+    "Laravel",
   ]);
   if (projectType === "express") {
     // get database orm
@@ -103,7 +103,7 @@ module.exports = async function (options) {
 
   if (isNewApp) {
     // we create a new app in salla cloud then we set the args to the new app
-    Logger.info("Initializing your app in Salla. This might take a while ...");
+    Logger.info("✨ Initializing your app in Salla. On the way ☕️");
     Logger.info("Please Wait ...");
     try {
       let res = await PartnerApi.addNewApp(
@@ -119,16 +119,16 @@ module.exports = async function (options) {
       );
       if (res == false) {
         Logger.error(
-          "🤔 Hmmm, something went wrong while creating your app. Please try again later."
+          "🤔 Hmmm! Something went wrong while creating your app. Please try again by running the following command: salla app create  -n <appname>"
         );
         Logger.printVisitTroubleshootingPage();
         process.exit(1);
       }
 
-      Logger.succ("🎉 Whoop! Your app has been created successfully.");
+      Logger.succ("🎉 Hooray! Your app has been created successfully.");
     } catch (err) {
       Logger.error(
-        "🤔 Hmmm, something went wrong while creating your app. Please try again later."
+        "🤔 Hmmm! Something went wrong while creating your app. Run the following command to create your app: salla app create  -n <appname>"
       );
       //process.exit(1);
     }
@@ -157,7 +157,7 @@ module.exports = async function (options) {
       await LaravelAppCreateor(options);
     } else {
       Logger.error(
-        "The Framework selected is not supported ... Please choose a valid framework."
+        "🤔 Hmmm! The Framework selected is not supported ... From the provided list, please choose a valid framework."
       );
       process.exit(1);
     }
@@ -167,7 +167,7 @@ module.exports = async function (options) {
     // run serve
     ServeCommand({ port: DEFAULT_APP_PORT });
   } catch (err) {
-    Logger.error("There is an error that occured! Please check it.", err);
+    Logger.error("🛑 Oops! There is an error that occured! Please check it.", err);
     Logger.printVisitTroubleshootingPage();
 
     process.exit(1);

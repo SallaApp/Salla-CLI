@@ -10,7 +10,7 @@ module.exports = function appCommands() {
   _app
     .command("create")
     .alias("c")
-    .description("Easily create a new Salla app using Salla CLI in this manner:  salla app create  -n <appname>")
+    .description("ℹ️ Easily create a new Salla app using Salla CLI by running the following command:  salla app create  -n <appname>")
     .option("-n, --name <name>", "name of project ")
     .action(require("../src/app/create"));
 
@@ -23,7 +23,7 @@ module.exports = function appCommands() {
   _app
     .command("create-webhook")
     .alias("l")
-    .description("✅ Creating a new webhook event file.")
+    .description("✨ Creating a new webhook event file ...")
     .action(require("../src/app/create-webhook"));
 
   _app.showSuggestionAfterError();

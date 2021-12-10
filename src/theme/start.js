@@ -58,7 +58,7 @@ class Start extends BaseClass {
     if (await this.fileSys().exists(BASE_PATH)) {
       let message = `🛑 Oops! The folder (${theme_name.bold}) does already exist.`;
       Logger.error(
-        `🛑 Oops! The folder (${theme_name.bold}) does already exist in this directory! Please try another name.`
+        `🛑 Oops! The folder, (${theme_name.bold}), does already exist in this directory! Please try another name.`
       );
       throw message;
     }
@@ -86,7 +86,7 @@ class Start extends BaseClass {
   }
 
   async cloneRepo(theme_name) {
-    Logger.info("  Downloading Base Theme, please wait...");
+    Logger.info("✨ Downloading Base Theme ...");
     const latestRelease = await this.getTheLatestRelease();
     if (
       latestRelease.status === 404 ||
@@ -116,14 +116,14 @@ class Start extends BaseClass {
     const response = await fetch(url, { headers: this.authHeader() });
     if (!response.ok) {
       Logger.error(
-        "🤔 Hmmm! Something went wrong while trying to get base theme. Please try again."
+        "🤔 Hmmm! Something went wrong while trying to get your base theme. Please try again."
       );
       Logger.error(await response.json());
-      throw "🤔 Hmmm! Something went wrong while trying to get base theme. Please try again.);";
+      throw "🤔 Hmmm! Something went wrong while trying to get your base theme. Please try again.);";
     }
 
     Logger.success("🎉 Hooray! Base theme downloaded successfully.");
-    Logger.info("✅ Extracting base theme files...");
+    Logger.info("✨ Extracting base theme files ...");
     const zip = new AdmZip(await response.buffer());
     //const entries = zip.getEntries();
     const mainEntry = zip.getEntries()[0].entryName;
@@ -182,9 +182,9 @@ class Start extends BaseClass {
       prompts.push({
         type: "input",
         name: "theme_name",
-        message: "What would you like to name your theme?",
+        message: "? What would you like to name your theme?",
         validate: (val) =>
-          /^[a-zA-Z0-9\s_-]+$/.test(val) || "Please, enter a valid theme name",
+          /^[a-zA-Z0-9\s_-]+$/.test(val) || "🛑 Oops! An error occured. Please enter a valid theme name",
         default: defaultAnswers.theme_name,
       });
     }

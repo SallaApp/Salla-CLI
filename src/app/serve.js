@@ -12,23 +12,23 @@ module.exports = async function (options) {
   // check if ngrok is installed
   if (!commandExistsSync("ngrok")) {
     Logger.info(
-      "✅ Installing ngrok library as a one-time installation..."
+      "✨ Installing ngrok library as a one-time installation..."
     );
 
     execSync("npm install -g ngrok");
   }
   Logger.info(
-    `✅ Starting your project on PORT:${options.port} ... `,
-    `✅ Starting ngrok ngrok ... `
+    `✨ Starting your project on PORT:${options.port} ... `,
+    `✨ Starting ngrok ngrok ... `
   );
   const url = await ngrok.connect({
     addr: options.port,
   });
   Logger.longLine();
-  Logger.succ(`Remote URL : ${url} `);
-  Logger.succ(`Local  URL : http://localhost:${options.port} `);
-  Logger.succ(`Webhook URL : ${url}/webhook/ `);
-  Logger.succ(`OAuth Callback URL : ${url}/oauth/callback/ `);
+  Logger.succ(`✅ Remote URL : ${url} `);
+  Logger.succ(`✅ Local  URL : http://localhost:${options.port} `);
+  Logger.succ(`✅ Webhook URL : ${url}/webhook/ `);
+  Logger.succ(`✅ OAuth Callback URL : ${url}/oauth/callback/ `);
 
   Logger.longLine();
   // give sometime to ngrok to connect and expressjs to start
@@ -54,7 +54,7 @@ module.exports = async function (options) {
       `🎉 Hooray! OAuth Callback and Webhook URLs have been updated successfully.`
     );
     Logger.longLine();
-    Logger.normal("As always, happy coding!");
+    Logger.normal("💻 As always, happy coding! 💻");
     Logger.longLine();
     fs.writeFileSync(".env", generateEnv(data, `${url}/oauth/callback`));
   } catch (err) {
@@ -87,7 +87,7 @@ module.exports = async function (options) {
       { cwd: process.cwd() },
       (err, stdout, stderr) => {
         if (err) {
-          Logger.error(`Can't Start Laravel app ...`, err.message);
+          Logger.error(`🤔 Hmmm! Laravel app coudln't be started ...`, err.message);
           return;
         }
         Logger.normal(stdout);
@@ -99,7 +99,7 @@ module.exports = async function (options) {
     );
   } else {
     Logger.error(
-      `🤔 Hmmm, this is not a Laravel or Expressjs project! The project will be exited.`
+      `🤔 Hmmm! This is neither a Laravel nor an Expressjs project! Please try again.`
     );
     process.exit(1);
   }

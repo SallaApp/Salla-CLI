@@ -25,10 +25,10 @@ class Push extends BaseClass {
     GithubAPI.gitSimple.checkIsRepo().then(async (isRepo) => {
       if (isRepo) {
         //this.success("Git repo existed.");
-        this.pushChanges("✨ New Awesome Developing Session", options.force);
+        this.pushChanges("✨ New Awesome Development Session", options.force);
         return;
       }
-      Logger.warn("Git repo not existed yet.");
+      Logger.warn("The Git repo does not exist, yet.");
 
       await this.initiateRepo(github);
     });
@@ -77,11 +77,11 @@ class Push extends BaseClass {
       .then(
         () =>
           files.length > 10 &&
-          Logger.info(`  Pushing (${files.length}) files  into git repo...`)
+          Logger.info(`✨ Pushing (${files.length}) files into git repo ...`)
       )
       .then(() =>
         Logger.success(
-          `🎉 Whoop! All done! Your files has been pushed to Github successfully.`
+          `🎉 Hooray! All done! Your files has been pushed to Github successfully.`
         )
       );
   }

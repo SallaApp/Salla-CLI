@@ -29,7 +29,7 @@ class InputsManager {
           if (errorMessage) {
             Logger.error(errorMessage);
           } else {
-            Logger.error(`Hmmm! ${name} is not valid! try again by entering a valid name.`);
+            Logger.error(`🤔 Hmmm! ${name} is not valid! Please try again.`);
           }
           //Logger.longLine();
           val = readlineSync.question(lable);
@@ -39,7 +39,7 @@ class InputsManager {
           if (errorMessage) {
             Logger.error(errorMessage);
           } else {
-            Logger.error(`You must enter a valid ${name}! Please, try again by entering a valid name.`);
+            Logger.error(`🤔 Hmmm! You must enter a valid ${name}! Please try again.`);
           }
           //Logger.longLine();
           val = readlineSync.question(lable);
@@ -69,29 +69,29 @@ class InputsManager {
   }
 
   getClientIDFromCLI() {
-    this.APP_CLIENT_ID = this.readLine("App Client ID: ");
+    this.APP_CLIENT_ID = this.readLine("? App Client ID: ");
     return this.APP_CLIENT_ID;
   }
   getClientSecretFromCLI() {
-    this.APP_CLIENT_SECRET = this.readLine("App Client Secret Key: ");
+    this.APP_CLIENT_SECRET = this.readLine("? App Client Secret Key: ");
     return this.APP_CLIENT_SECRET;
   }
   getWebhookSecretFromCLI() {
-    this.WEBHOOK_SECRET = this.readLine("App Webhook Secret Key: ");
+    this.WEBHOOK_SECRET = this.readLine("? App Webhook Secret Key: ");
     return this.WEBHOOK_SECRET;
   }
   async getDatabaseORMFromCLI() {
     let selectedORM = await this.selectInput(
-      "App Database ORM: ",
+      "? App Database ORM: ",
       DATABASE_ORM
     );
 
     return selectedORM;
   }
   async getAuthModeFromCLI() {
-    this.AUTH_MODE = await this.selectInput("App Authintication Mode: ", [
-      "easy",
-      "custom",
+    this.AUTH_MODE = await this.selectInput("? App Authorization Mode: (Use arrow keys) ", [
+      "Easy Mode | In House Authorization",
+      "Custom Mode | Custom Callback URL",
     ]);
     return this.AUTH_MODE;
   }
@@ -110,7 +110,7 @@ class InputsManager {
   }
 
   finalMessage(app_name) {
-    Logger.normal("You have successfully created a new Salla app! Please, run the following command to start your app:");
+    Logger.normal("🎉 Horay! You have successfully created a new Salla app! Please, run the following command to start your app:");
     // Logger.normal("You Can continue developing the app using this command  :");
 
     Logger.longLine();

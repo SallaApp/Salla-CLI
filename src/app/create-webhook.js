@@ -11,5 +11,5 @@ module.exports = async function (options) {
     // here create webhook for laravel
     return;
   }
-  Logger.error("🛑 Oops! The system couldn't recognize your app type. Ensure that you have chosen the right app type.");
+  Logger.error("🛑 Oops! The system couldn't recognize your app type. Ensure that you have chosen the right app type from the provided list.");
 };

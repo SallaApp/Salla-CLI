@@ -81,19 +81,19 @@ class Watch extends BaseClass {
       return null;
     }
     response.preview_url += "&assets_url=http://localhost:" + assetsPort;
-    Logger.success("Here goes the Preview Url:", response.preview_url);
+    Logger.success("✅ Here goes the Preview Url:", response.preview_url);
 
     // check if watch defined in package.json
     if (!packageJs.scripts.hasOwnProperty("watch")) {
       Logger.warn(
-        "🤔 Hmmm! The system couldn't detect any  watch script in the package.json file."
+        "🤔 Hmmm! The system couldn't detect any watch script in the package.json file."
       );
       return null;
     }
 
     if (!packageManager) {
       Logger.error(
-        "There is no package manager installed on your system. Please install" +
+        "🛑 Oops! We found that there is no package manager installed on your system. Please install" +
           "yarn/npm".bold +
           " in your system!"
       );
@@ -105,7 +105,7 @@ class Watch extends BaseClass {
 
     packageManager += packageManager === "npm" ? " run" : "";
     Logger.info(
-      `Currently running '${packageManager} watch'... Press Ctrl+C to stop or Ctrl+D to exit.`
+      `✅ Currently running '${packageManager} watch'... Press Ctrl+C to quit the process.`
     );
     this.runSysCommand(packageManager + " watch");
     //
@@ -140,13 +140,13 @@ class Watch extends BaseClass {
       return require(process.cwd() + "/package.json");
     } catch (e) {
       // There was no package.json
-      Logger.error("Hmmm! There is no package.json file in your project.");
+      Logger.error("🤔 Hmmm! There is no package.json file in your project. Please create one.");
       return null;
     }
   }
 
   async createDraftTheme() {
-    console.log("preparing your testing theme... Please wait!");
+    console.log("✨ Preparing your testing theme ...");
     const { repo_url, theme_name, theme_id } = this.configs();
     return (await this.sallaApi())
       .request("new_draft", {

@@ -46,7 +46,7 @@ class ConfigManager extends BaseClass {
       this._configs = undefined;
     } catch (e) {}
     throw (
-      "🛑 Oops! the theme.json config file is corrupted. Try: to\n" +
+      "🛑 Oops! the theme.json config file is corrupted. Try to: \n" +
       "  - Remove theme.json file.\n".red +
       " run $ salla theme start".cyan +
       " again.".red
