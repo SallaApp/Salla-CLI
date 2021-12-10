@@ -1,6 +1,6 @@
 {
   "name": "@salla.sa/cli",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "preferGlobal": true,
   "bin": {
     "salla": "bin/index.js"

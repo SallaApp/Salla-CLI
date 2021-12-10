@@ -140,7 +140,9 @@ class Watch extends BaseClass {
       return require(process.cwd() + "/package.json");
     } catch (e) {
       // There was no package.json
-      Logger.error("🤔 Hmmm! There is no package.json file in your project. Please create one.");
+      Logger.error(
+        "🤔 Hmmm! There is no package.json file in your project. Please create one."
+      );
       return null;
     }
   }
@@ -154,7 +156,10 @@ class Watch extends BaseClass {
         name: theme_name,
         theme_id: theme_id,
       })
-      .then((response) => response.data);
+      .then((response) => response.data)
+      .catch((err) => {
+        return null;
+      });
   }
 }
 

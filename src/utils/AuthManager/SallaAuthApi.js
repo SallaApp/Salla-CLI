@@ -12,6 +12,24 @@ class SallaAuthApi {
   setAuthManager(AuthManager) {
     this.AuthManager = AuthManager;
   }
+  async isSallaTokenValid(sallaConfigObj) {
+    if (!sallaConfigObj || !sallaConfigObj.access_token) {
+      return false;
+    }
+    const SallaApi = require("../../api/SallaApi");
+    const SallaApiObj = new SallaApi();
+
+    SallaApiObj.setAccessToken(sallaConfigObj.access_token);
+
+    try {
+      let user = await SallaApiObj.request("me");
+      if (user && user.success) {
+        return true;
+      }
+    } catch (err) {}
+
+    return false;
+  }
 }
 
 module.exports = SallaAuthApi;

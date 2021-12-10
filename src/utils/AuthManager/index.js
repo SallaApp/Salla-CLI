@@ -99,21 +99,7 @@ class AuthManager {
   }
 
   async isSallaTokenValid() {
-    if (!this.configData.salla || !this.configData.salla.access_token) {
-      return false;
-    }
-    const SallaApi = require("../../api/SallaApi");
-    const SallaApiObj = new SallaApi();
-
-    SallaApiObj.setAccessToken(this.configData.salla.access_token);
-
-    let user = await SallaApiObj.request("me");
-
-    if (user && user.success) {
-      return true;
-    }
-
-    return false;
+    return SallaAuthAPI.isSallaTokenValid(this.configData.salla);
   }
 
   /**
