@@ -12,7 +12,9 @@ module.exports = function themeCommands() {
   const publish = require("../src/theme/publish");
   /*******************************************/
 
-  const themeCommand = program.command("theme");
+  const themeCommand = program
+    .command("theme")
+    .description("start building your new salla theme ");
 
   themeCommand
     .command("start")

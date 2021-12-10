@@ -7,23 +7,29 @@ require("../constants");
 
 const commander = require("commander");
 const program = new commander.Command();
-if (!process.argv.includes("--nohead")) {
-  // print salla head text
-  require("../src/helpers/print-salla-headtext")(null);
-} else {
-  process.argv.splice(process.argv.indexOf("--nohead"), 1);
-}
-const packageJSON = JSON.parse(fs.readFileSync(`${__dirname}/../package.json`));
-program.version(packageJSON.version);
-program.showSuggestionAfterError();
-const themeCommands = require("./theme");
-const appCommands = require("./app");
-const loginCommands = require("./login");
-const devCommands = require("./dev");
+program.name("salla").usage("[command]");
 
-program.addCommand(themeCommands());
-program.addCommand(appCommands());
-program.addCommand(loginCommands());
-program.addCommand(devCommands());
+(async () => {
+  if (!process.argv.includes("--nohead")) {
+    // print salla head text
+    await require("../src/helpers/print-salla-headtext")(null);
+  } else {
+    process.argv.splice(process.argv.indexOf("--nohead"), 1);
+  }
+  const packageJSON = JSON.parse(
+    fs.readFileSync(`${__dirname}/../package.json`)
+  );
+  program.version(packageJSON.version);
+  program.showSuggestionAfterError();
+  const themeCommands = require("./theme");
+  const appCommands = require("./app");
+  const loginCommands = require("./login");
+  const devCommands = require("./dev");
+  program.addCommand(appCommands());
+  program.addCommand(loginCommands());
+  program.addCommand(themeCommands());
 
-program.parse(process.argv);
+  program.addCommand(devCommands());
+
+  program.parse(process.argv);
+})();

@@ -3,27 +3,32 @@ const program = new commander.Command();
 
 module.exports = function appCommands() {
   /*******************************************/
-  const _app = program.command("app");
+  const _app = program
+    .command("app")
+    .description("start building your new salla app ");
   // $ salla app create
   // $ salla app c
 
   _app
     .command("create")
-    .alias("c")
-    .description("ℹ️ Easily create a new Salla app using Salla CLI by running the following command:  salla app create  -n <appname>")
-    .option("-n, --name <name>", "name of project ")
+
+    .description(
+      "Create a new Salla application using the Salla CLI in this manner: salla app create "
+    )
     .action(require("../src/app/create"));
 
   _app
     .command("serve")
     .alias("s")
+    .description(
+      "Serve your Salla application using the Salla CLI in this manner: salla app serve "
+    )
     .option("-p, --port <name>", "port to listen to ")
     .action(require("../src/app/serve"));
 
   _app
     .command("create-webhook")
-    .alias("l")
-    .description("✨ Creating a new webhook event file ...")
+    .description("Creating a new webhook event file.")
     .action(require("../src/app/create-webhook"));
 
   _app.showSuggestionAfterError();

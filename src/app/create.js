@@ -9,12 +9,12 @@ const { AuthManager } = require("../utils/AuthManager")();
 
 // export function to Salla-cli
 module.exports = async function (options) {
-  Logger.info(
-    "✨ Getting your apps from Salla ... On the way ☕️"
-  );
-  // Logger.info("Getting your apps from Salla! Hold on until fully fetched ...");
+  Logger.succ("✨ Getting your apps from Salla ... On the way ☕️");
+
   if (!(await AuthManager.isSallaTokenValid())) {
-    Logger.error("🛑 Oops! Unable to authinticate. Try loggin again to Salla by running the following command: salla login");
+    Logger.error(
+      "🛑 Oops! Unable to authinticate. Try loggin again to Salla by running the following command: salla login"
+    );
     return;
   }
   let apps = [];
@@ -38,7 +38,8 @@ module.exports = async function (options) {
   let isNewApp = false;
   options.app_path = generateAppPath(options.app_name);
   // check if create new app or not
-  if (options.app_name.indexOf("Create New App") > -1) {
+  if (options.app_name.indexOf("Create New") > -1) {
+    console.log("🚀 Creating new app ...");
     isNewApp = true;
     options.app_name = InputsManager.readLine("? App Name:", {
       validate(value) {
@@ -48,7 +49,9 @@ module.exports = async function (options) {
         return true;
       },
       name: "App Name",
-      errorMessage: "ℹ️ For better visbility, your App Name must be between 10 and 50 characters long!",
+      errorMessage:
+        "ℹ️ For better visbility, your App Name must be between 10 and 50 characters long!",
+      desc: "The app name will be used to create a folder in your project root. It will also be used as the app name in the Salla Dashboard.",
     });
     options.app_path = generateAppPath(options.app_name);
 
@@ -72,7 +75,8 @@ module.exports = async function (options) {
         return true;
       },
 
-      errorMessage: "ℹ️ To attract merchants, ensure that your description is at least 100 characters long.",
+      errorMessage:
+        "ℹ️ To attract merchants, ensure that your description is at least 100 characters long.",
     });
     // get Email
     options.email = InputsManager.readLine("? Email Address:", {
@@ -92,21 +96,21 @@ module.exports = async function (options) {
   }
 
   // get project type
-  const projectType = await InputsManager.selectInput("? Select Framework: (Use arrow keys)", [
-    "Express",
-    "Laravel",
-  ]);
+  const projectType = await InputsManager.selectInput(
+    "? Select Framework: (Use arrow keys)",
+    ["Express", "Laravel"]
+  );
   if (projectType === "express") {
     // get database orm
     options.database_orm = await InputsManager.getDatabaseORMFromCLI();
   }
-
+  let AppData = null;
   if (isNewApp) {
     // we create a new app in salla cloud then we set the args to the new app
     Logger.info("✨ Initializing your app in Salla. On the way ☕️");
     Logger.info("Please Wait ...");
     try {
-      let res = await PartnerApi.addNewApp(
+      AppData = await PartnerApi.addNewApp(
         {
           name_ar: options.app_name,
         },
@@ -117,7 +121,7 @@ module.exports = async function (options) {
         options.app_type,
         options.app_url
       );
-      if (res == false) {
+      if (AppData == false) {
         Logger.error(
           "🤔 Hmmm! Something went wrong while creating your app. Please try again by running the following command: salla app create  -n <appname>"
         );
@@ -130,11 +134,15 @@ module.exports = async function (options) {
       Logger.error(
         "🤔 Hmmm! Something went wrong while creating your app. Run the following command to create your app: salla app create  -n <appname>"
       );
-      //process.exit(1);
+      process.exit(1);
     }
   }
-  let appData = await PartnerApi.getApp(options.app_name);
-  appData = await PartnerApi.getApp(appData.id);
+  if (!AppData) {
+    let appData = await PartnerApi.getApp(options.app_name);
+    AppData = await PartnerApi.getApp(appData.id);
+  } else {
+    AppData = AppData.data;
+  }
 
   // get Cliten ID etc
   options.app_client_id = appData.client_id;
@@ -167,7 +175,10 @@ module.exports = async function (options) {
     // run serve
     ServeCommand({ port: DEFAULT_APP_PORT });
   } catch (err) {
-    Logger.error("🛑 Oops! There is an error that occured! Please check it.", err);
+    Logger.error(
+      "🛑 Oops! There is an error that occured! Please check it.",
+      err
+    );
     Logger.printVisitTroubleshootingPage();
 
     process.exit(1);

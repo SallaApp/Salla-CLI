@@ -19,30 +19,37 @@ class InputsManager {
       AUTH_MODE: this.AUTH_MODE,
     };
   }
-  readLine(lable, { validate, name, errorMessage } = {}) {
-    //Logger.longLine();
-    let val = readlineSync.question(lable);
+  readLine(lable, { validate, name, errorMessage, desc } = {}) {
+    Logger.longLine();
+    if (desc) Logger.info(desc);
+
+    let val = readlineSync.question(lable + "\n> ");
+
     if (validate) {
       // try until validated
       if (typeof validate == "function") {
         while (!validate(val)) {
+          Logger.longLine();
           if (errorMessage) {
             Logger.error(errorMessage);
           } else {
             Logger.error(`🤔 Hmmm! ${name} is not valid! Please try again.`);
           }
-          //Logger.longLine();
-          val = readlineSync.question(lable);
+          Logger.longLine();
+          val = readlineSync.question(lable + "\n> ");
         }
       } else {
         while (!validate.test(val)) {
+          Logger.longLine();
           if (errorMessage) {
             Logger.error(errorMessage);
           } else {
-            Logger.error(`🤔 Hmmm! You must enter a valid ${name}! Please try again.`);
+            Logger.error(
+              `🤔 Hmmm! You must enter a valid ${name}! Please try again.`
+            );
           }
-          //Logger.longLine();
-          val = readlineSync.question(lable);
+          Logger.longLine();
+          val = readlineSync.question(lable + "\n> ");
         }
       }
 
@@ -53,8 +60,9 @@ class InputsManager {
   }
 
   async selectInput(lable, values) {
-    //Logger.longLine();
+    Logger.longLine();
     Logger.normal(lable);
+
     let selectedVal = await cliSelect({
       values,
       valueRenderer: (value, selected) => {
@@ -64,7 +72,7 @@ class InputsManager {
         return value;
       },
     });
-    Logger.normal(selectedVal.value);
+    Logger.info("> " + selectedVal.value);
     return selectedVal.value;
   }
 
@@ -89,10 +97,13 @@ class InputsManager {
     return selectedORM;
   }
   async getAuthModeFromCLI() {
-    this.AUTH_MODE = await this.selectInput("? App Authorization Mode: (Use arrow keys) ", [
-      "Easy Mode | In House Authorization",
-      "Custom Mode | Custom Callback URL",
-    ]);
+    this.AUTH_MODE = await this.selectInput(
+      "? App Authorization Mode: (Use arrow keys) ",
+      [
+        "Easy Mode | In House Authorization",
+        "Custom Mode | Custom Callback URL",
+      ]
+    );
     return this.AUTH_MODE;
   }
   checkProjectExists(folderPath, exit = false) {
@@ -100,9 +111,7 @@ class InputsManager {
       Logger.error(
         `🤔 Hmmm! Looks like you already have a project in ${folderPath}. Please, either delete it and try again or use a different folder name.`
       );
-      // Logger.error(
-      //   `App name "${folderPath}" already exists! ..  exiting setup .`
-      // );
+
       if (exit) {
         process.exit(1);
       }
@@ -110,16 +119,13 @@ class InputsManager {
   }
 
   finalMessage(app_name) {
-    Logger.normal("🎉 Horay! You have successfully created a new Salla app! Please, run the following command to start your app:");
+    Logger.normal(
+      "🎉 Horay! You have successfully created a new Salla app! Please, run the following command to start your app:"
+    );
     // Logger.normal("You Can continue developing the app using this command  :");
 
     Logger.longLine();
-    Logger.succ(
-      `~# cd ${app_name} && salla app serve --port 3000 --host`
-    );
-    // Logger.succ(
-    //   `                    ~# cd ${app_name} && salla app serve                    `
-    // );
+    Logger.succ(`~# cd ${app_name} && salla app serve --port 3000 --host`);
 
     Logger.longLine();
   }

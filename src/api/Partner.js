@@ -4,7 +4,7 @@ module.exports = class PartnerAPI extends SallaApi {
   constructor(args) {
     super(args);
 
-    this.app_types = ["app", "private", "shipping"];
+    this.app_types = ["public", "private", "shipping"];
   }
   addNewApp(
     { name_ar, name_en },

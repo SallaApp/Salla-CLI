@@ -26,6 +26,7 @@
   ],
   "dependencies": {
     "chalk": "^4.1.2",
+    "chalk-animation": "^1.6.0",
     "cli-select": "^1.1.2",
     "dotenv": "^10.0.0",
     "meant": "^2.0.1",
@@ -54,6 +55,7 @@
     "inquirer": "^8.2.0",
     "jsonlint": "^1.6.3",
     "minimist": "^1.2.5",
+    "mocha": "^8.2.1",
     "npm": "^8.1.4",
     "open": "^8.4.0",
     "parseurl": "^1.3.3",
@@ -63,11 +65,10 @@
     "semver": "^7.3.5",
     "serve-index": "^1.9.1",
     "serve-static": "^1.14.1",
-    "simple-git": "^2.47.0",
-    "web-dev-server": "^3.0.22",
-    "ws": "^8.3.0",
-    "mocha": "^8.2.1",
     "should": "13.2.3",
-    "sinon": "7.4.2"
+    "simple-git": "^2.47.0",
+    "sinon": "7.4.2",
+    "web-dev-server": "^3.0.22",
+    "ws": "^8.3.0"
   }
 }
