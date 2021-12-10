@@ -14,7 +14,7 @@ module.exports = async function (options) {
   );
   // Logger.info("Getting your apps from Salla! Hold on until fully fetched ...");
   if (!(await AuthManager.isSallaTokenValid())) {
-    Logger.error("🛑 Oops! Unable to authinticate. Try loggin again to Salla!");
+    Logger.error("🛑 Oops! Unable to authinticate. Try loggin again to Salla by running the following command: salla login");
     return;
   }
   let apps = [];
