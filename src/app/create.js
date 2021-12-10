@@ -55,7 +55,7 @@ module.exports = async function (options) {
     // check if app name is allowed to use
     if (FORBIDDEN_PROJECT_NAMES.includes(options.app_name)) {
       Logger.error(
-        `🛑 Oops! Seems like the App Name ${options.app_name} is not allowed to use. Please try with another name.`
+        `🛑 Oops! Seems like the App Name, ${options.app_name}, is not allowed to use. Please try creating your Salla App with another name.`
       );
       process.exit(1);
     }
@@ -72,7 +72,7 @@ module.exports = async function (options) {
         return true;
       },
 
-      errorMessage: "ℹ️ To compel merchants, ensure that your description is at least 100 characters long.",
+      errorMessage: "ℹ️ To attract merchants, ensure that your description is at least 100 characters long.",
     });
     // get Email
     options.email = InputsManager.readLine("? Email Address:", {
