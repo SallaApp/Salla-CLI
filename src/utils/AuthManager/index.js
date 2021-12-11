@@ -27,7 +27,7 @@ class AuthManager {
         null;
     } catch (error) {
       Logger.error(
-        "🤔 Hmmm! Something went wrong while reading config file: ",
+        "🤔 Hmmm! Something went wrong while writing config file: ",
         error.message
       );
     }
@@ -44,7 +44,7 @@ class AuthManager {
         null;
     } catch (error) {
       Logger.error(
-        "🤔 Hmmm! Something went wrong while reading config file: ",
+        "🤔 Hmmm! Something went wrong while writing config file: ",
         error.message
       );
       return null;
@@ -78,7 +78,7 @@ class AuthManager {
       return fs.writeJSONSync(CLI_CONFIG_FILE, configData);
     } catch (err) {
       Logger.error(
-        "🤔 Hmmm! Something went wrong while reading config file: ",
+        "🤔 Hmmm! Something went wrong while writing config file: ",
         err.message
       );
       return;

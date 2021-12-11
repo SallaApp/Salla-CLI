@@ -47,7 +47,7 @@ module.exports = async function (options) {
         ...apps.map((app) => app.name.en),
         "? Want to Create New Salla Partner App?",
       ],
-      "With few steps to follow, you can easily create a new Salla Partner App right away from the terminal."
+      "Listed below are the apps assoicated with your Salla Partners account .. You can either select an existing app or create a new app in simple steps"
     ));
   let isNewApp = false;
   options.app_path = generateAppPath(options.app_name);
@@ -63,8 +63,8 @@ module.exports = async function (options) {
         return true;
       },
       name: "App Name",
-      errorMessage: "ℹ️ For better visbility, your App Name must be between 10 and 50 characters long!",
-      desc: "The app name will be used to create a folder in your project root as well as in your Salla Partners Dashboard, so make sure it's unique, easy to understand, and straight-forward.",
+      errorMessage: "🛑 For better visbility, your App Name must be between 10 and 50 characters long!",
+      desc: "ℹ️ The app name will be used to create a folder in your project root as well as in your Salla Partners Dashboard, so make sure it's unique, easy to understand, and straight-forward.",
     });
     options.app_path = generateAppPath(options.app_name);
 
@@ -88,8 +88,8 @@ module.exports = async function (options) {
         return true;
       },
 
-      errorMessage: "ℹ️ To attract merchants, ensure that your description is at least 100 characters long.",
-      desc: "This description will be used in the Salla Dashboard to help you attract new merchants. Ensure that your short description is easy-to-understand by the merchants and non-technical personnel as it is the first thing they will see when they visit your app on Salla App Store.",
+      errorMessage: "🛑 To attract merchants, ensure that your description is at least 100 characters long.",
+      desc: "ℹ️ This description will be used in the Salla Dashboard to help you attract new merchants. Ensure that your short description is easy-to-understand by the merchants and non-technical personnel as it is the first thing they will see when they visit your app on Salla App Store.",
     });
     // get Email
     options.email = InputsManager.readLine("? Email Address:", {
@@ -101,7 +101,7 @@ module.exports = async function (options) {
       "Select App Type: (Use arrow keys)",
       PartnerApi.app_types,
 
-      "Salla Partners gives you the option to create your app in three types: Public for all Salla Merchants to download and use, Private for only merchants you choose to download and use. Private for only specific merchants you choose to download and use, and Shipping which are best suitable for shipping companies and delivery services"
+      "ℹ️ Salla Partners gives you the option to create your app in three types: Public for all Salla Merchants to download and use, Private for only merchants you choose to download and use. Private for only specific merchants you choose to download and use, and Shipping which are best suitable for shipping companies and delivery services"
     );
     options.app_url = InputsManager.readLine("? App Homepage URL:", {
       // TODO : improve it
@@ -109,9 +109,9 @@ module.exports = async function (options) {
         if (value.indexOf("http") > -1) return true;
         return false;
       },
-      errorMessage: "erorr mesage",
+      errorMessage: "🛑 Oops! Your App Home Page URL is not in a standard format, HTTP, which could result in merchants not visiting your app's home page website.",
 
-      desc: "DESC HERE ",
+      desc: "ℹ️ Add your app's home page URL where Salla merchants can learn more about your app's services and more."
     });
     options.auth_mode = await InputsManager.selectInput(
       "? App Authorization Mode: (Use arrow keys) ",
@@ -131,14 +131,14 @@ module.exports = async function (options) {
   const projectType = await InputsManager.selectInput(
     "Select Framework: (Use arrow keys)",
     ["Express", "Laravel"],
-    "DESC HERE "
+    "ℹ️ Select your preferred framework to develope your Salla App."
   );
   if (projectType === "Express") {
     // get database orm
     options.database_orm = await InputsManager.selectInput(
       "App Database ORM: ",
       DATABASE_ORM,
-      "DESC HERE "
+      "ℹ️ Select your prefred ORM to help you create and manage your database for your Salla App."
     );
   }
   let AppData = null;

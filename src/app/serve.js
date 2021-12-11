@@ -61,7 +61,7 @@ module.exports = async function (options) {
     Logger.longLine();
     fs.writeFileSync(".env", generateEnv(data, `${url}/oauth/callback`));
   } catch (err) {
-    Logger.error(`🛑 Oops! There is an error in reading .env file. Please check it.`);
+    Logger.error(`🛑 Oops! There is an error in writing .env file. Ensure that you have root/admin access on your end. Due to that, the system is terminating the process with code 1. Please try again.`);
   }
 
   // auto detect the project type
