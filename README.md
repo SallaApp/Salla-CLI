@@ -103,7 +103,7 @@ You can create a Salla Partners App by running the following command:
 salla create app <appName>
 ```
 
-![](InteractiveTerminalActivityPicture)
+<!-- ![](InteractiveTerminalActivityPicture) -->
 
 <table>
   <thead>
