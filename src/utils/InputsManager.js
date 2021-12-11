@@ -3,6 +3,7 @@ const Logger = require("../utils/LoggingManager");
 const cliSelect = require("cli-select");
 const chalk = require("chalk");
 const fs = require("fs");
+
 class InputsManager {
   APP_CLIENT_ID;
   APP_CLIENT_SECRET;
@@ -21,47 +22,38 @@ class InputsManager {
   }
   readLine(lable, { validate, name, errorMessage, desc } = {}) {
     Logger.longLine();
-    if (desc) Logger.info(desc);
+    if (desc) Logger.infoGray(desc);
 
-    let val = readlineSync.question(lable + "\n> ");
+    let val = readlineSync.question("? " + lable.bold + "\n> ");
 
     if (validate) {
+      let isValidated = false;
+      if (typeof validate == "function") isValidated = validate(val);
+      else isValidated = validate.test(val);
       // try until validated
-      if (typeof validate == "function") {
-        while (!validate(val)) {
-          Logger.longLine();
-          if (errorMessage) {
-            Logger.error(errorMessage);
-          } else {
-            Logger.error(`🤔 Hmmm! ${name} is not valid! Please try again.`);
-          }
-          Logger.longLine();
-          val = readlineSync.question(lable + "\n> ");
+      while (!isValidated) {
+        Logger.longLine();
+        if (errorMessage) {
+          Logger.error(errorMessage);
+        } else {
+          Logger.error(`🤔 Hmmm! ${name} is not valid! Please try again.`);
         }
-      } else {
-        while (!validate.test(val)) {
-          Logger.longLine();
-          if (errorMessage) {
-            Logger.error(errorMessage);
-          } else {
-            Logger.error(
-              `🤔 Hmmm! You must enter a valid ${name}! Please try again.`
-            );
-          }
-          Logger.longLine();
-          val = readlineSync.question(lable + "\n> ");
-        }
+        Logger.longLine();
+        if (desc) Logger.infoGray(desc);
+        val = readlineSync.question("? " + lable.bold + "\n> ");
+        if (typeof validate == "function") isValidated = validate(val);
+        else isValidated = validate.test(val);
       }
-
       return val;
     } else {
       return val;
     }
   }
 
-  async selectInput(lable, values) {
+  async selectInput(lable, values, desc) {
     Logger.longLine();
-    Logger.normal(lable);
+    if (desc) Logger.infoGray(desc);
+    Logger.normal("? " + lable.bold);
 
     let selectedVal = await cliSelect({
       values,
@@ -72,7 +64,7 @@ class InputsManager {
         return value;
       },
     });
-    Logger.info("> " + selectedVal.value);
+    Logger.normal(selectedVal.value);
     return selectedVal.value;
   }
 
@@ -88,24 +80,7 @@ class InputsManager {
     this.WEBHOOK_SECRET = this.readLine("? App Webhook Secret Key: ");
     return this.WEBHOOK_SECRET;
   }
-  async getDatabaseORMFromCLI() {
-    let selectedORM = await this.selectInput(
-      "? App Database ORM: ",
-      DATABASE_ORM
-    );
 
-    return selectedORM;
-  }
-  async getAuthModeFromCLI() {
-    this.AUTH_MODE = await this.selectInput(
-      "? App Authorization Mode: (Use arrow keys) ",
-      [
-        "Easy Mode | In House Authorization",
-        "Custom Mode | Custom Callback URL",
-      ]
-    );
-    return this.AUTH_MODE;
-  }
   checkProjectExists(folderPath, exit = false) {
     if (fs.existsSync(folderPath)) {
       Logger.error(

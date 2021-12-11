@@ -1,4 +1,5 @@
 const clc = require("cli-color");
+const loading = require("loading-cli");
 
 class LoggingManager {
   visitTroubleshootingPage =
@@ -7,6 +8,15 @@ class LoggingManager {
     "If this error persists, please visit https://github.com/sallaapp/salla-cli/issues and submit an issue.";
   constructor() {
     this.instant_print = false;
+  }
+  loading(text) {
+    return loading({
+      text: text,
+      color: "yellow",
+      interval: 100,
+      stream: process.stdout,
+      frames: [".", "o", "O", "°", "O", "o", "."],
+    }).start();
   }
   setInstantPrint(bool) {
     this.instant_print = bool;
@@ -85,10 +95,16 @@ class LoggingManager {
     if (type == "succ")
       msgObj = { msg: `[ok] ${msg}`, color: "greenBright", type, sideMessage };
     if (type == "info")
-      msgObj = { msg: `[!] ${msg}`, color: "blueBright", type, sideMessage };
+      msgObj = { msg: `[!] ${msg}`, color: "cyanBright", type, sideMessage };
     if (type == "warn")
       msgObj = { msg: `[!] ${msg}`, color: "yellow", type, sideMessage };
-
+    if (type == "gray")
+      msgObj = {
+        msg: `info : ${msg}`,
+        color: "blackBright",
+        type,
+        sideMessage,
+      };
     if (this.instant_print) this.printMessage(msgObj);
 
     return msgObj;
@@ -116,6 +132,12 @@ class LoggingManager {
     if (msgs.length > 0)
       msgs.map((msg) => this.printMessage(this.createMessage(msg, "info")));
     this.printMessage(this.createMessage(msg, "info"));
+    return;
+  }
+  infoGray(msg, ...msgs) {
+    if (msgs.length > 0)
+      msgs.map((msg) => this.printMessage(this.createMessage(msg, "gray")));
+    this.printMessage(this.createMessage(msg, "gray"));
     return;
   }
   normal(msg, ...msgs) {

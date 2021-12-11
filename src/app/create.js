@@ -10,6 +10,7 @@ const { AuthManager } = require("../utils/AuthManager")();
 // export function to Salla-cli
 module.exports = async function (options) {
   Logger.succ("✨ Getting your apps from Salla ... On the way ☕️");
+  const load = Logger.loading("Getting apps ...");
 
   if (!(await AuthManager.isSallaTokenValid())) {
     Logger.error(
@@ -26,22 +27,26 @@ module.exports = async function (options) {
     );
     return;
   }
-
+  load.stop();
   //  select app
   options.app_name =
     options.name ||
-    (await InputsManager.selectInput("✅ Select Your App:", [
-      /* apps from developer account */
-      ...apps.map((app) => app.name.en),
-      "? Want to Create New Salla Partner App?",
-    ]));
+    (await InputsManager.selectInput(
+      "✅ Select Your App:",
+      [
+        /* apps from developer account */
+        ...apps.map((app) => app.name.en),
+        "Want to Create New Salla Partner App?",
+      ],
+      "DESC HERE "
+    ));
   let isNewApp = false;
   options.app_path = generateAppPath(options.app_name);
   // check if create new app or not
   if (options.app_name.indexOf("Create New") > -1) {
     console.log("🚀 Creating new app ...");
     isNewApp = true;
-    options.app_name = InputsManager.readLine("? App Name:", {
+    options.app_name = InputsManager.readLine("App Name:", {
       validate(value) {
         if (value.length < 10 || value.length > 50) {
           return false;
@@ -67,7 +72,7 @@ module.exports = async function (options) {
     InputsManager.checkProjectExists(options.app_path, true);
 
     // get description
-    options.desc_english = InputsManager.readLine("? Short Description:", {
+    options.desc_english = InputsManager.readLine("Short Description:", {
       validate(value) {
         if (value.length < 100) {
           return false;
@@ -77,19 +82,38 @@ module.exports = async function (options) {
 
       errorMessage:
         "ℹ️ To attract merchants, ensure that your description is at least 100 characters long.",
+      desc: "DESC HERE ",
     });
     // get Email
-    options.email = InputsManager.readLine("? Email Address:", {
+    options.email = InputsManager.readLine("Email Address:", {
       validate: /\S+@\S+\.\S+/,
       name: "Email ",
     });
     // select app type
     options.app_type = await InputsManager.selectInput(
-      "? Select App Type: (Use arrow keys)",
-      PartnerApi.app_types
+      "Select App Type: (Use arrow keys)",
+      PartnerApi.app_types,
+
+      "DESC HERE "
     );
-    options.app_url = InputsManager.readLine("? App Homepage URL:");
-    options.auth_mode = await InputsManager.getAuthModeFromCLI();
+    options.app_url = InputsManager.readLine("App Homepage URL:", {
+      // TODO : improve it
+      validate: (value) => {
+        if (value.indexOf("http") > -1) return true;
+        return false;
+      },
+      errorMessage: "erorr mesage",
+
+      desc: "DESC HERE ",
+    });
+    options.auth_mode = await this.selectInput(
+      "? App Authorization Mode: (Use arrow keys) ",
+      [
+        "Easy Mode | In House Authorization",
+        "Custom Mode | Custom Callback URL",
+      ],
+      "DESC HERE "
+    );
   } else {
     // this will trigger process.exit(1) if the app name exists
     InputsManager.checkProjectExists(options.app_path, true);
@@ -97,12 +121,17 @@ module.exports = async function (options) {
 
   // get project type
   const projectType = await InputsManager.selectInput(
-    "? Select Framework: (Use arrow keys)",
-    ["Express", "Laravel"]
+    "Select Framework: (Use arrow keys)",
+    ["Express", "Laravel"],
+    "DESC HERE "
   );
   if (projectType === "express") {
     // get database orm
-    options.database_orm = await InputsManager.getDatabaseORMFromCLI();
+    options.database_orm = await InputsManager.selectInput(
+      "App Database ORM: ",
+      InputsManager.DATABASE_ORM,
+      "DESC HERE "
+    );
   }
   let AppData = null;
   if (isNewApp) {
@@ -145,10 +174,10 @@ module.exports = async function (options) {
   }
 
   // get Cliten ID etc
-  options.app_client_id = appData.client_id;
-  options.app_client_secret = appData.client_secret;
-  options.webhook_secret = appData.webhook_secret;
-  options.app_id = appData.id;
+  options.app_client_id = AppData.client_id;
+  options.app_client_secret = AppData.client_secret;
+  options.webhook_secret = AppData.webhook_secret;
+  options.app_id = AppData.id;
   // update webhooks and redirect urls IN serve
 
   Logger.longLine();

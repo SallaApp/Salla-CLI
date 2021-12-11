@@ -1,6 +1,6 @@
 const clc = require("cli-color");
 const chalkAnimation = require("chalk-animation");
-
+const Logger = require("../utils/LoggingManager");
 module.exports = async (program) => {
   let sallaText = `
     _____       _ _          _____ _      _____ 
@@ -17,17 +17,18 @@ module.exports = async (program) => {
   }
   return new Promise((resolve) => {
     const textAnimated = chalkAnimation.rainbow(
-      "     The Official Salla Command Line Interface"
+      "    The Official Salla Command Line Interface"
     );
     textAnimated.start();
 
     setTimeout(() => {
-      console.log("        ");
-      console.log("Read the docs: https://github.com/SallaApp/Salla-CLI/ ");
-      console.log(
+      Logger.longLine();
+      Logger.info("Read the docs: https://github.com/SallaApp/Salla-CLI/ ");
+      Logger.info(
         "Support and bugs: https://github.com/SallaApp/Salla-CLI/issues "
       );
-      console.log("        ");
+
+      Logger.longLine();
       textAnimated.stop();
       resolve();
     }, 1000);

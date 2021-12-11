@@ -29,6 +29,7 @@
     "chalk-animation": "^1.6.0",
     "cli-select": "^1.1.2",
     "dotenv": "^10.0.0",
+    "loading-cli": "^1.1.0",
     "meant": "^2.0.1",
     "ngrok": "^4.2.2",
     "request": "^2.88.2",
