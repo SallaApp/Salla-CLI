@@ -95,6 +95,7 @@ module.exports = async function (options) {
     options.email = InputsManager.readLine("? Email Address:", {
       validate: /\S+@\S+\.\S+/,
       name: "Email",
+      desc: "ℹ️ This email will be assoicated with your Salla Partners account. It will also be used to contact you in case of any issues or questions by the Salla Team.",
     });
     // select app type
     options.app_type = await InputsManager.selectInput(
