@@ -73,19 +73,61 @@
 ## Overview
 The Salla Command Line Interface (Salla CLI) is your way to create your starter Salla Apps which works with the [Salla APIs](https://docs.salla.dev/). Your App later can be published to the [Salla App Store](https://apps.salla.sa/) and be available for installation to any of Salla [Merchants Stores](https://s.salla.sa/).
 
-What can you use Salla CLI for?
-* Create your own Salla Theme
-* Single-taps to create your own Salla App
-* Login to your Salla Store
-
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
 ## Getting Started
 
+The Salla CLI (salla-cli) is packaged to be used globally. It is available via npm and is installed globally by running `npm install -g salla-cli`.
+
 Salla CLI comes with an easy to use, straight-forward commands that does the complete setup to either your Salla Theme or App. To be ready, you will need some prerequisites which will be listed hereafter.
 
+What can you use Salla CLI for?
+* Create your own Salla Theme
+* Single-taps to create your own Salla App
+* Login to your Salla Store
+
 <!-- The starter App comes with an easy _1-command step_ that does the complete setup for your starter App. To be ready, you will need some prerequisites which will be listed hereafter. -->
+
+### Salla CLI Commands
+
+The following commands using the prefix `salla` in order to excute the commands:
+- create app
+- create theme
+
+#### `create app`
+
+You can create a Salla Partners App by running the following command:
+
+```bash
+salla create app <appName>
+```
+
+![](InteractiveTerminalActivityPicture)
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>appName <appName></td>
+      <td>The app name will be used to create a folder in your project root as well as in the Salla Dashboard</td>
+    </tr>
+  </tbody>
+
+  > Note: The `appName` should only consist of letters and numbers. If you specify a `.`, `./` or a `<space>` in the name, `salla create app` will throw an error.
+
+##### Examples
+
+Create a Salla App named `my-awesome-app` using the `salla create app` command:
+
+```bash
+salla create app my-awesome-app
+```
 
 ### Prerequisites
 -   Create a Partner account at  [Salla Partner Portal](https://salla.partners/)
@@ -99,7 +141,7 @@ Salla CLI comes with an easy to use, straight-forward commands that does the com
 
 That is all!
 
-### Installation
+<!-- ### Installation -->
 The installation process is straightforward as you will see in the below steps.
 
 1. In your MySql Database: **create a database** with any name for example  `laravel`.
@@ -118,7 +160,7 @@ The above `create-project` will take you through a step-by-step process in which
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-## Usage
+<!-- ## Usage -->
 
 1. In your command line: **Run** `php artisan serve.remote` command
 
@@ -150,7 +192,7 @@ Now you can open your browser to view your App at `Remote App Url` in the [outpu
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-## Configure Authorization Modes <span id='auth-modes'>
+<!-- ## Configure Authorization Modes <span id='auth-modes'> -->
 
 While creating your App in the [Salla Partners Portal](https://salla.partners/), you will see that Salla provids two methods for the OAuth protocol, which are the `Easy Mode` and the `Custom Mode`.
     
@@ -175,7 +217,7 @@ You may refere to file [`app/Http/Controllers/OAuthController.php`](app/Http/Con
 
 <br />
     
-## Authorization Service
+<!-- ## Authorization Service -->
     
 This project comes with a simple singleton authorization service to help you with managing the access and refresh tokens
     
@@ -202,7 +244,7 @@ auth()->user()->token()->create([
 ]);
 ```
 
-### Refreshing a Token
+<!-- ### Refreshing a Token -->
 
 Access tokens expire after one week. Once expired, you will have to refresh a user’s access token. you can easily request a new access token via the current refresh token for any user like this
 
@@ -225,116 +267,11 @@ try {
 <br />
     
 <!-- Webhooks -->
-## Webhooks
+<!-- ## Webhooks -->
 [Webhooks](https://docs.salla.dev/docs/merchant/ZG9jOjI0NTE3NDg1-webhook) simplify the communication between your App and [Salla APIs](https://docs.salla.dev/). In this way, you will be notified whenever your app receives payload/data from the Salla APIs. These webhooks are triggered along with many actions such as an order or product being created, a customer logs in, a coupon is applied, and much more.
 
 Salla already defined a list of the webhooks/actions that are triggered automatically. The predefined webhooks/actions can be found in the folder [`app/Actions`](https://github.com/SallaApp/Laravel-Start-Kit/tree/master/app/Actions).
 
-### Order Related Webhooks/Actions
-
-| ** Action Name **                                                                 | ** Description **                                                              |
-|-----------------------------------------------------------------------------------|--------------------------------------------------------------------------------|
-| [order.created](app/Actions/Order/Created.php)                                    | This indicates a singular order has been created                               |
-| [order.updated](app/Actions/Order/Updated.php)                                    | Details, data and/or content of a specific order have been refreshed updated   |
-| [order.status.updated](app/Actions/Order/StatusUpdated.php)                       | Whenever there is an order status update, this is triggered                    |
-| [order.cancelled](app/Actions/Order/Cancelled.php)                                | This happens when an order is cancelled                                        |
-| [order.refunded](app/Actions/Order/Refunded.php)                                  | The refund action to refund the whole order is triggered.                      |
-| [order.deleted](app/Actions/Order/)                                               | This indicates an order has been deleted                                       |
-| [order.products.updated](app/Actions/Order/ProductsUpdated.php)                   | Order products is updated                                                      |
-| [order.payment.updated](app/Actions/Order/PaymentUpdated.php)                     | A payment method has been updated                                              |
-| [order.coupon.updated](app/Actions/Order/CouponUpdated.php)                       | This is triggered whenever a Coupon is updated                                 |
-| [order.total.price.updated](app/Actions/Order/TotalPriceUpdated.php)              | A total price of an order has been updated                                     |
-| [order.shipment.creating](app/Actions/Order/ShipmentCreating.php)                 | This indicates a new shipment is being created                                 |
-| [order.shipment.created](app/Actions/Order/ShipmentCreated.php)                   | This indicates a new shipment has been created                                 |
-| [order.shipment.cancelled](app/Actions/Order/ShipmentCancelled.php)               | This indicates a an order shipment has been cancelled                          |
-| [order.shipment.return.creating](app/Actions/Order/ShipmentReturnCreating.php)    | This is triggered when a returned order shipment is being created              |
-| [order.shipment.return.created](app/Actions/Order/ShipmentReturnCreated.php)      | This is triggered when a returned order shipment has been created              |
-| [order.shipment.return.cancelled](app/Actions/Order/ShipmentReturnCancelled.php)  | This is triggered when a returned order shipment has been cancelled            |
-| [order.shipping.address.updated](app/Actions/Order/ShippingAddressUpdated.php)    | Occurs when an Order shipping address is updated                               |
-
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-### Products Related Webhooks/Actions
-
-| ** Action Name **                                            | ** Description **                                                                     |
-|--------------------------------------------------------------|---------------------------------------------------------------------------------------|
-| [product.created](app/Actions/Product/Created.php)           | A new product is created. Payload of the new product are to accompanying the product  |
-| [product.updated](app/Actions/Product/Updated.php)           | Add/Modify details of a product                                                       |
-| [product.deleted](app/Actions/Product/Deleted.php)           | Delete a product along with all its variants and images                               |
-| [product.available](app/Actions/Product/Available.php)       | Flags a product as stock available                                                    |
-| [product.quantity.low](app/Actions/Product/QuantityLow.php)  | Shows warnings whenever a stock is of low quantity                                    |
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-### Customer Related Webhooks/Actions
-
-| ** Action Name **                                            | ** Description **                         |
-|--------------------------------------------------------------|-------------------------------------------|
-| [customer.created](app/Actions/Customer/Created.php)         | Create a new customer record              |
-| [customer.updated](app/Actions/Customer/Updated.php)         | Update details for a customer             |
-| [customer.login](app/Actions/Customer/Login.php)             | Triggered whenever a customer log in      |
-| [customer.otp.request](app/Actions/Customer/OtpRequest.php)  | One-Time Password request for a customer  |
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-### Category Related Webhooks/Actions
-
-
-| ** Action Name **                                     | ** Description **                                     |
-|-------------------------------------------------------|-------------------------------------------------------|
-| [category.created](app/Actions/Category/Created.php)  | Creates a new category for products to be put under   |
-| [category.updated](app/Actions/Category/Updated.php)  | Add new or reform existing category details           |
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-### Brand Related Webhooks/Actions
-
-| ** Action Name **                               | ** Description **                                                                      |
-|-------------------------------------------------|----------------------------------------------------------------------------------------|
-| [brand.created](app/Actions/Brand/Created.php)  | Creates a new Brand.                                                                   |
-| [brand.updated](app/Actions/Brand/Updated.php)  | Triggered when Information about a sepcific Brand is updated/refurbished/streamlined   |
-| [brand.deleted](app/Actions/Brand/Deleted.php)  | An existing brand is then deleted and removed from a store                             |
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-### Store Related Webhooks/Actions
-
-| ** Action Name **                                                  | ** Description **                    |
-|--------------------------------------------------------------------|--------------------------------------|
-| [store.branch.created](app/Actions/Store/BranchCreated.php)        | Creates a new store.                 |
-| [store.branch.updated](app/Actions/Store/BranchUpdated.php)        | Updates an existing branch           |
-| [store.branch.setDefault](app/Actions/Store/BranchSetDefault.php)  | Sets for default a specific branch   |
-| [store.branch.activated](app/Actions/Store/BranchActivated.php)    | Activates a disabled branch          |
-| [store.branch.deleted](app/Actions/Store/BranchDeleted.php)        | Deletes a branch                     |
-| [storetax.created](app/Actions/Store/TaxCreated.php)               | Creats a new Store Tax               |
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-    
-
-### Coupon Related Webhooks/Actions
-
-| ** Action Name **                                                          | ** Description **                                 |
-|----------------------------------------------------------------------------|---------------------------------------------------|
-| [coupon.applied](app/Actions/Miscellaneous/CouponApplied.php)              | Creates a discount code in the form of a coupon   |
-| [review.added](app/Actions/Miscellaneous/ReviewAdded.php)                  | A product review has been added                   |
-| [abandoned.cart](app/Actions/Miscellaneous/AbandonedCart.php)              | Outputs a list of abandoned carts                 |
-| [specialoffer.created](app/Actions/Miscellaneous/SpecialofferCreated.php)  | Creates a new special offer                       |
-| [specialoffer.updated](app/Actions/Miscellaneous/SpecialofferUpdated.php)  | Updates a special offer                           |
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- COMMANDS -->
-## Commands
-### Setup command
-The setup file can be found in [`app/Console/Commands/Setup.php`](https://github.com/SallaApp/Laravel-Start-Kit/blob/ffbed5807075e8da28dd445049ea3aaadf688c1a/app/Console/Commands/Setup.php).
-
-```sh
-php artisan setup
-```
-
-### Create new Webhook/Action command
 The predefined [Webhooks](#webhooks), events/actions, can be found in folder [`app/Actions`](https://github.com/SallaApp/Salla-CLI/tree/master/app/Actions).
 > You may define your own new webhook/action the way fits your App's requirments.
 ```sh

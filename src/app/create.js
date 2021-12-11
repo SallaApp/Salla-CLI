@@ -64,7 +64,7 @@ module.exports = async function (options) {
       },
       name: "App Name",
       errorMessage: "ℹ️ For better visbility, your App Name must be between 10 and 50 characters long!",
-      desc: "The app name will be used to create a folder in your project root as well as in the Salla Dashboard, so make sure it's unique, easy to understand, and straight-forward.",
+      desc: "The app name will be used to create a folder in your project root as well as in your Salla Partners Dashboard, so make sure it's unique, easy to understand, and straight-forward.",
     });
     options.app_path = generateAppPath(options.app_name);
 
