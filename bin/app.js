@@ -5,7 +5,7 @@ module.exports = function appCommands() {
   /*******************************************/
   const _app = program
     .command("app")
-    .description("start building your new salla app ");
+    .description("✨ Start building your New Salla Partners App");
   // $ salla app create
   // $ salla app c
 
@@ -21,7 +21,7 @@ module.exports = function appCommands() {
     .command("serve")
     .alias("s")
     .description(
-      " Serve your Salla application using the Salla CLI in this manner: salla app serve."
+      "ℹ️  Serve your Salla application using the Salla CLI in this manner: salla app serve."
     )
     .option("-p, --port <name>", "port to listen to")
     .action(require("../src/app/serve"));
