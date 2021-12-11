@@ -4,20 +4,27 @@ const Logger = require("../../../../../utils/LoggingManager");
 
 module.exports = async function (options) {
   const app_name = "./";
-  const webhook = process.argv[3];
+  const webhook = process.argv[4];
+
   if (!webhook || webhook.split(".").length == 1) {
-    Logger.error("🛑 Oops! An error occured. Please enter a valid webhook name. Example: 'app.installed'");
+    Logger.error(
+      "🛑 Oops! An error occured. Please enter a valid webhook name. Example: 'app.installed'"
+    );
 
     process.exit(1);
   }
   if (!app_name) {
-    Logger.error("🛑 Oops! An error occured. Please enter your project name in a proper way. Ensure that you are naming your project in a proper way. Example: 'myfunapp'");
+    Logger.error(
+      "🛑 Oops! An error occured. Please enter your project name in a proper way. Ensure that you are naming your project in a proper way. Example: 'myfunapp'"
+    );
     Logger.info("Usage : salla create-webhook {event.name}");
 
     process.exit(1);
   }
   if (!webhook) {
-    Logger.error("🛑 Oops! An error occured. Please enter the Webhook name you want to create. Example: 'app.installed'. Look up `docs.salla.dev` for detailed list of supported webhook events.");
+    Logger.error(
+      "🛑 Oops! An error occured. Please enter the Webhook name you want to create. Example: 'app.installed'. Look up `docs.salla.dev` for detailed list of supported webhook events."
+    );
     Logger.info("Usage : salla create-webhook {event.name}");
 
     process.exit(1);
@@ -33,7 +40,9 @@ module.exports = async function (options) {
         path.resolve(`./${app_name}/Actions/${folder}/${webhook_file}.js`)
       )
     ) {
-      Logger.error("🛑 Oops! An error occured. Please enter the Webhook name you want to create. Example: 'app.installed'. Look up `docs.salla.dev` for detailed list of supported webhook events.");
+      Logger.error(
+        "🛑 Oops! An error occured. Please enter the Webhook name you want to create. Example: 'app.installed'. Look up `docs.salla.dev` for detailed list of supported webhook events."
+      );
 
       process.exit(1);
     }
@@ -52,10 +61,14 @@ module.exports = async function (options) {
     );
   } catch (err) {
     console.log("err", err);
-    Logger.error("🛑 Oops! An error occured. Please enter the Webhook name you want to create. Example: 'app.installed'. Look up `docs.salla.dev` for detailed list of supported webhook events.");
+    Logger.error(
+      "🛑 Oops! An error occured. Please enter the Webhook name you want to create. Example: 'app.installed'. Look up `docs.salla.dev` for detailed list of supported webhook events."
+    );
   }
 
   process.on("unhandledRejection", function (err) {
-    Logger.error("🛑 Oops! An error occured. Please enter the Webhook name you want to create. Example: 'app.installed'. Look up `docs.salla.dev` for detailed list of supported webhook events.");
+    Logger.error(
+      "🛑 Oops! An error occured. Please enter the Webhook name you want to create. Example: 'app.installed'. Look up `docs.salla.dev` for detailed list of supported webhook events."
+    );
   });
 };

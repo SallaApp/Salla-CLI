@@ -120,6 +120,8 @@ module.exports = async function (options) {
       "With Easy Mode, you will recieve a webhook event when merchants install your app om their stores which contains all the information you need, such as access token, refresh token and more",
       "With Custom Mode, you will be able to set a custom callback URL for merchants to use to authorize your app. "
     );
+    if (options.auth_mode.indexOf("Easy") > -1) options.auth_mode = "easy";
+    else options.auth_mode = "custom";
   } else {
     // this will trigger process.exit(1) if the app name exists
     InputsManager.checkProjectExists(options.app_path, true);
