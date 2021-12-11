@@ -1,9 +1,14 @@
 const Logger = require("../utils/LoggingManager");
 
-const { AuthManager, SallaAuthApi } = require("../utils/AuthManager")();
+const {
+  AuthManager,
+  SallaAuthApi
+} = require("../utils/AuthManager")();
 
 const generateRandome = require("../helpers/generateRandom");
-const { WebSocket } = require("ws");
+const {
+  WebSocket
+} = require("ws");
 const request = require("request");
 
 module.exports = async function (options) {
@@ -25,7 +30,10 @@ module.exports = async function (options) {
 
   ws.on("open", function open() {
     setTimeout(() => {
-      ws.send(JSON.stringify({ msg: "get-token", identify: rand_idn }));
+      ws.send(JSON.stringify({
+        msg: "get-token",
+        identify: rand_idn
+      }));
     }, 3000);
   });
 

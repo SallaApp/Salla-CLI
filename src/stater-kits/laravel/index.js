@@ -9,10 +9,9 @@ module.exports.LaravelAppCreateor = async (options) => {
   const executor = new ExecutionManager();
   shell.exec(
     "composer create-project salla/laravel-starter-kit " +
-      options.app_name.split(" ").join("_")
+    options.app_name.split(" ").join("_")
   );
-  let messages = await executor.run([
-    {
+  let messages = await executor.run([{
       cmd: "create",
       path: `${options.app_path}/.env`,
       content: generateEnv(options),
@@ -36,6 +35,7 @@ process.on("unhandledRejection", function (err) {
 
   process.exit(0);
 });
+
 function generateEnv(args) {
   let envOjb = env.parse(fs.readFileSync(`${__dirname}/.env.example`));
   let outputEnv = "";

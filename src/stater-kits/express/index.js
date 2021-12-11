@@ -17,10 +17,10 @@ module.exports.ExpressAppCreateor = async (options) => {
   if (!options.auth_mode) options.auth_mode = "easy";
   // start executing the process
   return CreateApp({
-    src: `${SRC_TEMPLATE}`,
-    ...options,
-    app_path: options.app_path,
-  })
+      src: `${SRC_TEMPLATE}`,
+      ...options,
+      app_path: options.app_path,
+    })
     .then((msgs) => {
       if (msgs.filter((msg) => msg.type === "err").length > 0) {
         Logger.printMessages([

@@ -1,5 +1,8 @@
 const BaseClass = require("./utils/BaseClass");
-const { exec, execSync } = require("child_process");
+const {
+  exec,
+  execSync
+} = require("child_process");
 const commandExists = require("command-exists");
 const stream = require("stream");
 const Logger = require("../utils/LoggingManager");
@@ -94,8 +97,8 @@ class Watch extends BaseClass {
     if (!packageManager) {
       Logger.error(
         "🛑 Oops! We found that there is no package manager installed on your system. Please install" +
-          "yarn/npm".bold +
-          " in your system!"
+        "yarn/npm".bold +
+        " in your system!"
       );
 
       return null;
@@ -149,7 +152,11 @@ class Watch extends BaseClass {
 
   async createDraftTheme() {
     console.log("✨ Preparing your testing theme ...");
-    const { repo_url, theme_name, theme_id } = this.configs();
+    const {
+      repo_url,
+      theme_name,
+      theme_id
+    } = this.configs();
     return (await this.sallaApi())
       .request("new_draft", {
         repo_url: repo_url,

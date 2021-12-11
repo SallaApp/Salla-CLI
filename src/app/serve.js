@@ -1,12 +1,15 @@
 const commandExistsSync = require("command-exists").sync;
-const { execSync, exec } = require("child_process");
+const {
+  execSync,
+  exec
+} = require("child_process");
 const ngrok = require("ngrok");
 
 const Logger = require("../utils/LoggingManager");
 const checkFolder = require("../helpers/check-folder");
 const fs = require("fs-extra");
 const env = require("dotenv");
-const PartnerApi = new (require("../api/partner"))();
+const PartnerApi = new(require("../api/partner"))();
 module.exports = async function (options) {
   options.port = options.port || DEFAULT_APP_PORT;
   // check if ngrok is installed
@@ -64,8 +67,9 @@ module.exports = async function (options) {
   // auto detect the project type
   if (checkFolder() == "express") {
     exec(
-      "npm run start-app -p " + options.port,
-      { cwd: process.cwd() },
+      "npm run start-app -p " + options.port, {
+        cwd: process.cwd()
+      },
       (err, stdout, stderr) => {
         if (err) {
           Logger.error(
@@ -83,8 +87,9 @@ module.exports = async function (options) {
     );
   } else if (checkFolder() == "laravel") {
     exec(
-      "php artisan serve --port " + options.port,
-      { cwd: process.cwd() },
+      "php artisan serve --port " + options.port, {
+        cwd: process.cwd()
+      },
       (err, stdout, stderr) => {
         if (err) {
           Logger.error(`🤔 Hmmm! Laravel app coudln't be started ...`, err.message);

@@ -1,11 +1,17 @@
 const Logger = require("../utils/LoggingManager");
-const { ExpressAppCreateor } = require("../stater-kits/express");
-const { LaravelAppCreateor } = require("../stater-kits/laravel");
+const {
+  ExpressAppCreateor
+} = require("../stater-kits/express");
+const {
+  LaravelAppCreateor
+} = require("../stater-kits/laravel");
 
 const InputsManager = require("../utils/InputsManager");
 const ServeCommand = require("./serve");
-const PartnerApi = new (require("../api/partner"))();
-const { AuthManager } = require("../utils/AuthManager")();
+const PartnerApi = new(require("../api/partner"))();
+const {
+  AuthManager
+} = require("../utils/AuthManager")();
 
 // export function to Salla-cli
 module.exports = async function (options) {
@@ -57,8 +63,7 @@ module.exports = async function (options) {
         return true;
       },
       name: "App Name",
-      errorMessage:
-        "ℹ️ For better visbility, your App Name must be between 10 and 50 characters long!",
+      errorMessage: "ℹ️ For better visbility, your App Name must be between 10 and 50 characters long!",
       desc: "The app name will be used to create a folder in your project root as well as in the Salla Dashboard, so make sure it's unique, easy to understand, and straight-forward.",
     });
     options.app_path = generateAppPath(options.app_name);
@@ -83,8 +88,7 @@ module.exports = async function (options) {
         return true;
       },
 
-      errorMessage:
-        "ℹ️ To attract merchants, ensure that your description is at least 100 characters long.",
+      errorMessage: "ℹ️ To attract merchants, ensure that your description is at least 100 characters long.",
       desc: "This description will be used in the Salla Dashboard to help you attract new merchants. Ensure that your short description is easy-to-understand by the merchants and non-technical personnel as it is the first thing they will see when they visit your app on Salla App Store.",
     });
     // get Email
@@ -144,11 +148,9 @@ module.exports = async function (options) {
     const load_upload_app = Logger.loading("Please Wait ☕️");
 
     try {
-      AppData = await PartnerApi.addNewApp(
-        {
+      AppData = await PartnerApi.addNewApp({
           name_ar: options.app_name,
-        },
-        {
+        }, {
           short_description_ar: options.desc_english,
         },
         options.email,
@@ -209,7 +211,9 @@ module.exports = async function (options) {
     process.chdir(options.app_path.split(" ").join("_"));
     // after creating the project we run salla serve
     // run serve
-    ServeCommand({ port: DEFAULT_APP_PORT });
+    ServeCommand({
+      port: DEFAULT_APP_PORT
+    });
   } catch (err) {
     Logger.error(
       "🛑 Oops! There is an error that occured! Please check it.",

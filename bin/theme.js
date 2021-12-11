@@ -23,8 +23,8 @@ module.exports = function themeCommands() {
     .description("✅ Intiliazing a new theme ...")
     .action((options) =>
       new Start(options, "start")
-        .run()
-        .catch((err) => Logger.printCliResultErrorAndExit(err))
+      .run()
+      .catch((err) => Logger.printCliResultErrorAndExit(err))
     );
 
   themeCommand
@@ -33,19 +33,21 @@ module.exports = function themeCommands() {
     .option("-p,--port <port>", "Assets port")
     .action((options) =>
       new Serve(options, "serve")
-        .run()
-        .catch((err) => Logger.printCliResultErrorAndExit(err))
+      .run()
+      .catch((err) => Logger.printCliResultErrorAndExit(err))
     );
 
   themeCommand
-    .command("sync", { hidden: true })
+    .command("sync", {
+      hidden: true
+    })
     .requiredOption("-f,--file <file_path>", "File Path")
     .requiredOption("-t,--theme_id <theme_id>", "Theme ID")
     .description("")
     .action((options) =>
       new Sync(options, "sync")
-        .run()
-        .catch((err) => Logger.printCliResultErrorAndExit(err))
+      .run()
+      .catch((err) => Logger.printCliResultErrorAndExit(err))
     );
 
   themeCommand
@@ -56,8 +58,8 @@ module.exports = function themeCommands() {
     .description("✅ Watching the theme ...")
     .action((options) =>
       new Watch(options, "watch")
-        .run()
-        .catch((err) => Logger.printCliResultErrorAndExit(err))
+      .run()
+      .catch((err) => Logger.printCliResultErrorAndExit(err))
     );
 
   themeCommand
@@ -70,8 +72,8 @@ module.exports = function themeCommands() {
     .option("-m,--message <message>", "Commit Message")
     .action((options) =>
       new Push(options, "push")
-        .run()
-        .catch((err) => Logger.printCliResultErrorAndExit(err))
+      .run()
+      .catch((err) => Logger.printCliResultErrorAndExit(err))
     );
 
   themeCommand
@@ -80,8 +82,8 @@ module.exports = function themeCommands() {
     .description("✨ Publishing the theme ... Almost done!")
     .action((options) =>
       new publish(options, "publish")
-        .run()
-        .catch((err) => Logger.printCliResultErrorAndExit(err))
+      .run()
+      .catch((err) => Logger.printCliResultErrorAndExit(err))
     );
 
   return themeCommand;

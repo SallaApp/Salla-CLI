@@ -1,5 +1,7 @@
 const BaseClass = require("./utils/BaseClass");
-const { Octokit } = require("@octokit/rest");
+const {
+  Octokit
+} = require("@octokit/rest");
 const fetch = require("node-fetch");
 const AdmZip = require("adm-zip");
 const Logger = require("../utils/LoggingManager");
@@ -113,7 +115,9 @@ class Start extends BaseClass {
 
   async getAndUnZip(url, theme_name) {
     //TODO:: add progress bar
-    const response = await fetch(url, { headers: this.authHeader() });
+    const response = await fetch(url, {
+      headers: this.authHeader()
+    });
     if (!response.ok) {
       Logger.error(
         "🤔 Hmmm! Something went wrong while trying to get your base theme. Please try again."
@@ -127,9 +131,11 @@ class Start extends BaseClass {
     const zip = new AdmZip(await response.buffer());
     //const entries = zip.getEntries();
     const mainEntry = zip.getEntries()[0].entryName;
-    zip.extractAllTo(/*target path*/ BASE_PATH, /*overwrite*/ false);
+    zip.extractAllTo( /*target path*/ BASE_PATH, /*overwrite*/ false);
     const srcDir = this.path().join(BASE_PATH, mainEntry);
-    this.fileSys().copySync(srcDir, BASE_PATH, { overwrite: false }, (err) =>
+    this.fileSys().copySync(srcDir, BASE_PATH, {
+        overwrite: false
+      }, (err) =>
       err ? Logger.error(err) : Logger.success("🎉 Hooray!")
     );
     this.fileSys().removeSync(srcDir);
@@ -149,8 +155,7 @@ class Start extends BaseClass {
 
   getDefaultAnswers(sallaConfig) {
     return {
-      theme_name:
-        sallaConfig.theme_name ||
+      theme_name: sallaConfig.theme_name ||
         this.options.theme_name ||
         this.getDefaultThemeName(),
       author: sallaConfig.author || "",
@@ -164,9 +169,9 @@ class Start extends BaseClass {
    * @return {undefined|string}
    */
   getDefaultThemeName() {
-    return this._isEmptyDir
-      ? this.path().basename(BASE_PATH).replace(/\s/g, "-")
-      : undefined;
+    return this._isEmptyDir ?
+      this.path().basename(BASE_PATH).replace(/\s/g, "-") :
+      undefined;
   }
 
   isEmptyDirectory(path) {

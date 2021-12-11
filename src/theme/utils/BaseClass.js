@@ -17,8 +17,13 @@
 /** @typedef {AuthOptions|PublishOptions|PushOptions|ServeOptions|StartOptions|SyncOptions|WatchOptions|{}} ThemeCommandsOptions */
 
 const SallaApi = require("../../api/SallaApi");
-const { execSync } = require("child_process");
-const { AuthManager, GithubAPI } = require("../../utils/AuthManager")();
+const {
+  execSync
+} = require("child_process");
+const {
+  AuthManager,
+  GithubAPI
+} = require("../../utils/AuthManager")();
 
 /**
  * @property {ThemeCommandsOptions} options
@@ -145,7 +150,7 @@ class BaseClass {
     if (this._configManager) {
       return this._configManager;
     }
-    return (this._configManager = new (require("./ConfigManager"))(
+    return (this._configManager = new(require("./ConfigManager"))(
       this.options,
       this.commandName
     ));
@@ -173,7 +178,10 @@ class BaseClass {
   }
 
   runSysCommand(command) {
-    return execSync(command, { stdio: "inherit", cwd: BASE_PATH });
+    return execSync(command, {
+      stdio: "inherit",
+      cwd: BASE_PATH
+    });
   }
 
   async openBrowser(url) {

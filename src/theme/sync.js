@@ -41,22 +41,22 @@ class Sync extends BaseClass {
     let fileName = this.path().basename(this.options.file);
     let file = await this.fileSys().createReadStream(this.options.file);
 
-    const fromData = new (require("form-data"))();
+    const fromData = new(require("form-data"))();
     fromData.append("file", file, fileName);
     //TODO:: make sure that path is same in windows|mac|linux (back slash, forward slash)
 
     fromData.append("path", path.replace(fileName, ""));
     fromData.params = [this.options.theme_id];
-    await (await this.sallaApi(/*skip_tokens_check*/ true))
-      .request("upload_file", fromData, fromData.getHeaders())
+    await (await this.sallaApi( /*skip_tokens_check*/ true))
+    .request("upload_file", fromData, fromData.getHeaders())
       .then((res) => {
         if (res === false) {
           Logger.error(
             "🤔 Hmmm! The system failed to sync: " +
-              path.bold +
-              " to the theme: " +
-              this.options.theme_id.bold +
-              "Please try again."
+            path.bold +
+            " to the theme: " +
+            this.options.theme_id.bold +
+            "Please try again."
           );
         }
         if (res.status === 200) {

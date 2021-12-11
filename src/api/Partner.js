@@ -6,9 +6,13 @@ module.exports = class PartnerAPI extends SallaApi {
 
     this.app_types = ["public", "private", "shipping"];
   }
-  addNewApp(
-    { name_ar, name_en },
-    { short_description_ar, short_description_en },
+  addNewApp({
+      name_ar,
+      name_en
+    }, {
+      short_description_ar,
+      short_description_en
+    },
     email,
     type,
     app_url
@@ -16,7 +20,10 @@ module.exports = class PartnerAPI extends SallaApi {
     // TODO: add logo
     let NewAppObject = {
       logo: "",
-      name: { ar: name_ar || name_en, en: name_en || name_ar },
+      name: {
+        ar: name_ar || name_en,
+        en: name_en || name_ar
+      },
       short_description: {
         ar: short_description_ar || short_description_en,
         en: short_description_en || short_description_ar,
@@ -51,8 +58,7 @@ module.exports = class PartnerAPI extends SallaApi {
   async updateWebhookURL(app_id, webhook_url) {
     let results = await this.requestURL(
       this.baseEndpoint + "app/webhooks/" + app_id,
-      "POST",
-      {
+      "POST", {
         webhook_url: webhook_url,
         webhooks: [],
       }
@@ -64,8 +70,7 @@ module.exports = class PartnerAPI extends SallaApi {
   async updateRedirectURL(app_id, redirect_url) {
     let results = await this.requestURL(
       this.baseEndpoint + "app/redirect_url/" + app_id,
-      "PUT",
-      {
+      "PUT", {
         redirect_urls: [redirect_url],
       }
     );

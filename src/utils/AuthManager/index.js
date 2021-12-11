@@ -1,8 +1,8 @@
 const Logger = require("../LoggingManager");
 const fs = require("fs-extra");
 
-const GithubAPI = new (require("./Github"))();
-const SallaAuthAPI = new (require("./SallaAuthApi"))();
+const GithubAPI = new(require("./Github"))();
+const SallaAuthAPI = new(require("./SallaAuthApi"))();
 
 /**
  * @typedef {{
@@ -22,9 +22,9 @@ class AuthManager {
    */
   constructor() {
     try {
-      this.configData = fs.existsSync(CLI_CONFIG_FILE)
-        ? require(CLI_CONFIG_FILE)
-        : null;
+      this.configData = fs.existsSync(CLI_CONFIG_FILE) ?
+        require(CLI_CONFIG_FILE) :
+        null;
     } catch (error) {
       Logger.error(
         "🤔 Hmmm! Something went wrong while reading config file: ",
@@ -39,9 +39,9 @@ class AuthManager {
     }
 
     try {
-      this.configData = fs.existsSync(CLI_CONFIG_FILE)
-        ? require(CLI_CONFIG_FILE)
-        : null;
+      this.configData = fs.existsSync(CLI_CONFIG_FILE) ?
+        require(CLI_CONFIG_FILE) :
+        null;
     } catch (error) {
       Logger.error(
         "🤔 Hmmm! Something went wrong while reading config file: ",
@@ -55,7 +55,9 @@ class AuthManager {
     let github_token = await GithubAPI.askForGithubToken();
     if (!this.configData.github) this.configData.github = {};
     this.configData.github.access_token = github_token;
-    await this.set("github", { access_token: github_token });
+    await this.set("github", {
+      access_token: github_token
+    });
   }
   /**
    * @param {object|SallaConfig} token
@@ -109,7 +111,10 @@ class AuthManager {
   async set(key, value) {
     const config = await this.getTokens();
     if (config == null) config = {};
-    if (typeof value === "object") config[key] = { ...config[key], ...value };
+    if (typeof value === "object") config[key] = {
+      ...config[key],
+      ...value
+    };
     else config[key] = value;
     await this.save(config);
   }

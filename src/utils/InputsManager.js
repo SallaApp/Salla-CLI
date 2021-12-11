@@ -21,7 +21,12 @@ class InputsManager {
       AUTH_MODE: this.AUTH_MODE,
     };
   }
-  readLine(lable, { validate, name, errorMessage, desc } = {}) {
+  readLine(lable, {
+    validate,
+    name,
+    errorMessage,
+    desc
+  } = {}) {
     Logger.longLine();
     if (desc) Logger.infoGray(desc);
 

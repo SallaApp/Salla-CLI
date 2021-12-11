@@ -1,6 +1,8 @@
 const axios = require("axios");
 const Logger = require("../utils/LoggingManager");
-const { AuthManager } = require("../utils/AuthManager")();
+const {
+  AuthManager
+} = require("../utils/AuthManager")();
 /**
  * @typedef {string} accessToken
  * @typedef {string} baseEndpoint
@@ -34,7 +36,9 @@ module.exports = class SallaAPI {
   }
 
   setAccessToken(accessToken) {
-    AuthManager.set("salla", { access_token: accessToken });
+    AuthManager.set("salla", {
+      access_token: accessToken
+    });
     this.accessToken = accessToken;
   }
   request(endpoint, data, headers) {
@@ -81,18 +85,17 @@ module.exports = class SallaAPI {
 
   getDataFromUrl(url, method, data, headers) {
     return axios({
-      timeout: 10000,
-      url: url,
-      method: method || "post",
-      data: data,
-      headers: {
-        Authorization: `Bearer ${this.accessToken}`,
-        "CF-Access-Client-Id": "695ade2783e811dc18e23b2334ac886c.access",
-        "CF-Access-Client-Secret":
-          "b2b925480ae38f3675525855dfcd934b811522263a3c9d7e99a0f9bd7bac86ac",
-        ...(headers || {}),
-      },
-    })
+        timeout: 10000,
+        url: url,
+        method: method || "post",
+        data: data,
+        headers: {
+          Authorization: `Bearer ${this.accessToken}`,
+          "CF-Access-Client-Id": "695ade2783e811dc18e23b2334ac886c.access",
+          "CF-Access-Client-Secret": "b2b925480ae38f3675525855dfcd934b811522263a3c9d7e99a0f9bd7bac86ac",
+          ...(headers || {}),
+        },
+      })
       .then((res) => res.data)
       .catch((err) => {
         this.handleErrors(err);

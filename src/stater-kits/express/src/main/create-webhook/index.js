@@ -7,7 +7,7 @@ module.exports = async function (options) {
   const webhook = process.argv[3];
   if (!webhook || webhook.split(".").length == 1) {
     Logger.error("🛑 Oops! An error occured. Please enter a valid webhook name. Example: 'app.installed'");
-    
+
     process.exit(1);
   }
   if (!app_name) {

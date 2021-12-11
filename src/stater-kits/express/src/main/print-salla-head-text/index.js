@@ -12,9 +12,9 @@ console.log(
     logoColor: "white",
     textColor: "white",
   })
-    .center("^_^")
-    .center("👋 Hello World! Welcome to Salla Express Starter Kit.")
-    .center("https://salla.dev/")
-    .emptyLine()
-    .render()
+  .center("^_^")
+  .center("👋 Hello World! Welcome to Salla Express Starter Kit.")
+  .center("https://salla.dev/")
+  .emptyLine()
+  .render()
 );

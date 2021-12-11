@@ -90,15 +90,40 @@ class LoggingManager {
     let msgObj = {};
 
     if (type == "err")
-      msgObj = { msg: `[x] ${msg}`, color: "redBright", type, sideMessage };
+      msgObj = {
+        msg: `[x] ${msg}`,
+        color: "redBright",
+        type,
+        sideMessage
+      };
     if (type == "side-err")
-      msgObj = { msg: `[x] ${msg}`, color: "red", type, sideMessage };
+      msgObj = {
+        msg: `[x] ${msg}`,
+        color: "red",
+        type,
+        sideMessage
+      };
     if (type == "succ")
-      msgObj = { msg: `[✓] ${msg}`, color: "greenBright", type, sideMessage };
+      msgObj = {
+        msg: `[✓] ${msg}`,
+        color: "greenBright",
+        type,
+        sideMessage
+      };
     if (type == "info")
-      msgObj = { msg: `[!] ${msg}`, color: "cyanBright", type, sideMessage };
+      msgObj = {
+        msg: `[!] ${msg}`,
+        color: "cyanBright",
+        type,
+        sideMessage
+      };
     if (type == "warn")
-      msgObj = { msg: `[!] ${msg}`, color: "yellow", type, sideMessage };
+      msgObj = {
+        msg: `[!] ${msg}`,
+        color: "yellow",
+        type,
+        sideMessage
+      };
     if (type == "gray")
       msgObj = {
         msg: `info : ${msg}`,

@@ -1,8 +1,14 @@
 const BaseClass = require("./utils/BaseClass");
-const { exec, execSync } = require("child_process");
+const {
+  exec,
+  execSync
+} = require("child_process");
 const Logger = require("../utils/LoggingManager");
 
-const { AuthManager, GithubAPI } = require("../utils/AuthManager")();
+const {
+  AuthManager,
+  GithubAPI
+} = require("../utils/AuthManager")();
 
 /**
  * @property {PublishOptions} options
@@ -25,8 +31,10 @@ class Publish extends BaseClass {
     let command = `push --force --token ${tokens.github.access_token} --name ${tokens.github.login}`;
 
     this.runTheme(command + ' --minor --message "New Release 🚀"');
-    await (await this.sallaApi(/*skip_tokens_check*/ true))
-      .request("publish", { params: [this.configs().draft_id] })
+    await (await this.sallaApi( /*skip_tokens_check*/ true))
+    .request("publish", {
+        params: [this.configs().draft_id]
+      })
       .then(async (res) => {
         if (res === false) {
           Logger.error(

@@ -1,9 +1,13 @@
 // * @property {Octokit|undefined} gitApi
-const { Octokit } = require("@octokit/rest");
+const {
+  Octokit
+} = require("@octokit/rest");
 const Logger = require("../LoggingManager");
 const InputsManager = require("../../utils/InputsManager");
 const fs = require("fs-extra");
-const { execSync } = require("child_process");
+const {
+  execSync
+} = require("child_process");
 /**
  * @typedef {{access_token: string, login: string,email: string}} GithubConfig
  */
@@ -12,7 +16,9 @@ class GithubAPI {
   gitSimple;
   AuthManager;
   constructor() {
-    this.gitSimple = require("simple-git/promise")({ baseDir: BASE_PATH });
+    this.gitSimple = require("simple-git/promise")({
+      baseDir: BASE_PATH
+    });
   }
   setGithubConfigData(GithubConfig) {
     this.GithubConfig = GithubConfig;
@@ -20,17 +26,31 @@ class GithubAPI {
   setAuthManager(AuthManager) {
     this.AuthManager = AuthManager;
   }
-  createRepo({ repo_url, access_token, repo_name, isPrivate, message }) {
+  createRepo({
+    repo_url,
+    access_token,
+    repo_name,
+    isPrivate,
+    message
+  }) {
     return this.gitSimple
       .init()
-      .then(() => this._createRepo({ access_token, repo_name, isPrivate }))
+      .then(() => this._createRepo({
+        access_token,
+        repo_name,
+        isPrivate
+      }))
       .then(() => this.gitSimple.addRemote("origin", repo_url + ".git"));
   }
   /**
    *
    * @param  {GithubConfig} GithubConfig
    */
-  async _createRepo({ access_token, repo_name, isPrivate }) {
+  async _createRepo({
+    access_token,
+    repo_name,
+    isPrivate
+  }) {
     try {
       await new Octokit({
         auth: `token ${access_token}`,
@@ -40,9 +60,9 @@ class GithubAPI {
       });
       Logger.success("🎉 Hooray! Your Github repository is created successfully.");
     } catch (err) {
-      let errorMessage = err.message.includes("name already exists")
-        ? `Github repository (${repo_name}) already exists.`
-        : `Failed to create github repository, ${err.name}: ${err.message}`;
+      let errorMessage = err.message.includes("name already exists") ?
+        `Github repository (${repo_name}) already exists.` :
+        `Failed to create github repository, ${err.name}: ${err.message}`;
       Logger.error(errorMessage);
       throw err;
     }
@@ -91,7 +111,11 @@ class GithubAPI {
   async getGitEmail() {
     return execSync("git config user.email").toString().replace("\n", "");
   }
-  async addAndCommit({ path, message, tagName }) {
+  async addAndCommit({
+    path,
+    message,
+    tagName
+  }) {
     return this.gitSimple
       .add(path || "./*")
       .then(() => this.gitSimple.commit(message))
@@ -149,11 +173,14 @@ class GithubAPI {
    * @param  {GithubConfig} GithubConfig
    * @return {Promise<void>}
    */
-  async initiateRepo({ message, isPrivate }) {
+  async initiateRepo({
+    message,
+    isPrivate
+  }) {
     if (!this.GithubConfig) {
-      let configData = fs.existsSync(CLI_CONFIG_FILE)
-        ? require(CLI_CONFIG_FILE)
-        : null;
+      let configData = fs.existsSync(CLI_CONFIG_FILE) ?
+        require(CLI_CONFIG_FILE) :
+        null;
 
       this.GithubConfig = configData.github || {};
       if (!(await this.isTokenValid(configData.github))) {
@@ -190,7 +217,10 @@ class GithubAPI {
         isPrivate,
         ...this.GithubConfig,
       });
-      return { remoteRepo, repoName };
+      return {
+        remoteRepo,
+        repoName
+      };
     } catch (err) {
       Logger.error(`🤔 Hmmm! Something went wrong. ${err.message}`);
 

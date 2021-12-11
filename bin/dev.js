@@ -4,7 +4,9 @@ module.exports = function DevCommands() {
   const Dev = require("../src/dev/dev");
 
   return new commander.Command()
-    .command("dev", { hidden: true })
+    .command("dev", {
+      hidden: true
+    })
     .option(
       "-b,--base <working_base>",
       "✨ Changing the base url for all endpoints ..."

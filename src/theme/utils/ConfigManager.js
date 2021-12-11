@@ -70,7 +70,10 @@ class ConfigManager extends BaseClass {
   saveUnder(config) {
     return this.fileSys().writeFile(
       this.configPath(),
-      JSON.stringify({ ...this.all(), ...config }, null, 4)
+      JSON.stringify({
+        ...this.all(),
+        ...config
+      }, null, 4)
     );
   }
 
