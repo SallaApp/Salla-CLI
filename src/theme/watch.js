@@ -37,7 +37,7 @@ class Watch extends BaseClass {
         this.path().join(BASE_PATH, "node_modules")
       ))
     ) {
-      Logger.info(`  running '${packageManager} install'...`);
+      Logger.info(`✅ Running '${packageManager} install' ...`);
       // Logger.error('Folder (node_modules) is not exists! It looks that you didn\'t run (' + (packageManager + ' install').bold + ') yet.')
       this.runSysCommand(packageManager + " install");
       // return null;
@@ -61,7 +61,7 @@ class Watch extends BaseClass {
     }
 
     await this.configManager().set("draft_id", response.id);
-    Logger.success("🎉Hooray! Your theme is ready to test!");
+    Logger.success("🔬 Hooray! Your theme is ready to test!");
 
     let assetsPort =
       this.options.port || process.env.ASSETS_PORT || ASSETS_PORT;

@@ -124,7 +124,7 @@ function getPakcagejson(args) {
     "start-app": "node app.js"
   };
   packageJSON.description =
-    "New Awesome Application using Salla API and NodeJS";
+    "✨ New Awesome Application using Salla API and NodeJS";
   packageJSON.dependencies = packages.reduce(
     (a, v) => ({
       ...a,

@@ -10,6 +10,6 @@ module.exports = function DevCommands() {
       "✨ Changing the base url for all endpoints ..."
     )
     .option("-c,--config", "Show config file.")
-    .description("Development Command for the Internal team.")
+    .description("💻 Development Command for the Internal team.")
     .action((options) => new Dev(options, "dev").run());
 };

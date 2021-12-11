@@ -39,9 +39,9 @@ module.exports = async function (options) {
       [
         /* apps from developer account */
         ...apps.map((app) => app.name.en),
-        "Want to Create New Salla Partner App?",
+        "? Want to Create New Salla Partner App?",
       ],
-      "DESC HERE "
+      "With few steps to follow, you can easily create a new Salla Partner App right away from the terminal."
     ));
   let isNewApp = false;
   options.app_path = generateAppPath(options.app_name);
@@ -59,7 +59,7 @@ module.exports = async function (options) {
       name: "App Name",
       errorMessage:
         "ℹ️ For better visbility, your App Name must be between 10 and 50 characters long!",
-      desc: "The app name will be used to create a folder in your project root. It will also be used as the app name in the Salla Dashboard.",
+      desc: "The app name will be used to create a folder in your project root as well as in the Salla Dashboard, so make sure it's unique, easy to understand, and straight-forward.",
     });
     options.app_path = generateAppPath(options.app_name);
 
@@ -75,7 +75,7 @@ module.exports = async function (options) {
     InputsManager.checkProjectExists(options.app_path, true);
 
     // get description
-    options.desc_english = InputsManager.readLine("Short Description:", {
+    options.desc_english = InputsManager.readLine("? Short Description:", {
       validate(value) {
         if (value.length < 100) {
           return false;
@@ -85,21 +85,21 @@ module.exports = async function (options) {
 
       errorMessage:
         "ℹ️ To attract merchants, ensure that your description is at least 100 characters long.",
-      desc: "DESC HERE ",
+      desc: "This description will be used in the Salla Dashboard to help you attract new merchants. Ensure that your short description is easy-to-understand by the merchants and non-technical personnel as it is the first thing they will see when they visit your app on Salla App Store.",
     });
     // get Email
-    options.email = InputsManager.readLine("Email Address:", {
+    options.email = InputsManager.readLine("? Email Address:", {
       validate: /\S+@\S+\.\S+/,
-      name: "Email ",
+      name: "Email",
     });
     // select app type
     options.app_type = await InputsManager.selectInput(
       "Select App Type: (Use arrow keys)",
       PartnerApi.app_types,
 
-      "DESC HERE "
+      "Salla Partners gives you the option to create your app in three types: Public for all Salla Merchants to download and use, Private for only merchants you choose to download and use. Private for only specific merchants you choose to download and use, and Shipping which are best suitable for shipping companies and delivery services"
     );
-    options.app_url = InputsManager.readLine("App Homepage URL:", {
+    options.app_url = InputsManager.readLine("? App Homepage URL:", {
       // TODO : improve it
       validate: (value) => {
         if (value.indexOf("http") > -1) return true;
@@ -115,7 +115,8 @@ module.exports = async function (options) {
         "Easy Mode | In House Authorization",
         "Custom Mode | Custom Callback URL",
       ],
-      "DESC HERE "
+      "ℹ️ With Easy Mode, you will recieve a webhook event when merchants install your app om their stores which contains all the information you need, such as access token, refresh token and more",
+      "ℹ️ With Custom Mode, you will be able to set a custom callback URL for merchants to use to authorize your app. "
     );
   } else {
     // this will trigger process.exit(1) if the app name exists
@@ -140,7 +141,7 @@ module.exports = async function (options) {
   if (isNewApp) {
     // we create a new app in salla cloud then we set the args to the new app
     Logger.info("✨ Initializing your app in Salla. On the way ☕️");
-    const load_upload_app = Logger.loading("Please Wait ...");
+    const load_upload_app = Logger.loading("Please Wait ☕️");
 
     try {
       AppData = await PartnerApi.addNewApp(

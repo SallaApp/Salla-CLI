@@ -100,7 +100,7 @@ class InputsManager {
 
   finalMessage(app_name) {
     Logger.normal(
-      "🎉 Horay! You have successfully created a new Salla app! Please, run the following command to start your app:"
+      "🎉 Hooray! You have successfully created a new Salla app! Please, run the following command to start your app:"
     );
     // Logger.normal("You Can continue developing the app using this command  :");
 

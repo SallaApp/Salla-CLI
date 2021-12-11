@@ -103,7 +103,7 @@ class GithubAPI {
   }
   async checkChanges() {
     Logger.info(
-      "Please make sure you have made all the changes you want to commit, and check for any changed and uncommitted files"
+      "ℹ️ Please make sure you have made all the changes you want to commit, and check for any changed and uncommitted files"
     );
     const status = await this.gitSimple.status();
     const checked = status.files.length > 0;

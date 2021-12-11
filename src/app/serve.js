@@ -19,7 +19,7 @@ module.exports = async function (options) {
   }
   Logger.info(
     `✨ Starting your project on PORT:${options.port} ... `,
-    `✨ Starting ngrok ngrok ... `
+    `✨ Starting ngrok. Please hold on ... `
   );
   const url = await ngrok.connect({
     addr: options.port,

@@ -28,7 +28,7 @@ class Push extends BaseClass {
         this.pushChanges("✨ New Awesome Development Session", options.force);
         return;
       }
-      Logger.warn("The Git repo does not exist, yet.");
+      Logger.warn("🛑 Oops! The Git repo does not exist, yet.");
 
       await this.initiateRepo(github);
     });

@@ -17,7 +17,7 @@ module.exports = async (program) => {
   }
   return new Promise((resolve) => {
     const textAnimated = chalkAnimation.rainbow(
-      "    The Official Salla Command Line Interface"
+      "The Official Salla Command Line Interface"
     );
     textAnimated.start();
 

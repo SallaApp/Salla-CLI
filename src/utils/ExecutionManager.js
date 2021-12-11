@@ -103,15 +103,13 @@ module.exports = class ExecutionManager {
 
               messages.push(
                 Logger.createMessage(
-                  `🎉 Hooray! The following Command ${command.name} has been found.`,
-                  "success!"
+                  `🎉 Hooray! The following Command ${command.name} has been found.`                  
                 )
               );
             } else {
               messages.push(
                 Logger.createMessage(
-                  `🛑 Oops! The following Command ${command.name} has not been found.`,
-                  "err"
+                  `🛑 Oops! The following Command ${command.name} has not been found.`
                 )
               );
             }
@@ -180,7 +178,7 @@ module.exports = class ExecutionManager {
         cmd: "check",
         name: "node",
         version: version,
-        msg: "Looking up Node's Version.",
+        msg: "🔍 Looking up Node's Version.",
       },
       {
         progress: false,

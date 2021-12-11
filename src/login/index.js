@@ -33,7 +33,7 @@ module.exports = async function (options) {
     console.log("received: %s", data);
     data = JSON.parse(data);
     if (data.msg == "ok") {
-      console.log("Here is the Token: ", data.token);
+      console.log("✅ Here is the Token: ", data.token);
     }
   });
   Logger.succ("`👋 Hello World! You have landed successfully at Salla 🤓`");
