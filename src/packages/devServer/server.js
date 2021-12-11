@@ -24,12 +24,8 @@ function onRequest(config) {
     //   res.write(content);
     //   res.end();
     // } else {
-    const index = serveIndex(config.root, {
-      icons: true
-    });
-    const serve = serveStatic(config.root, {
-      index: false
-    });
+    const index = serveIndex(config.root, { icons: true });
+    const serve = serveStatic(config.root, { index: false });
 
     serve(
       req,

@@ -2,7 +2,8 @@ const ExecutionManager = require("../../../../../utils/ExecutionManager");
 const fs = require("fs");
 module.exports = function (args) {
   const executor = new ExecutionManager();
-  return executor.run([{
+  return executor.run([
+    {
       cmd: "check",
       name: "node",
       version: NODE_ENGINES,
@@ -17,7 +18,7 @@ module.exports = function (args) {
     {
       cmd: "makedir",
       path: args.app_path,
-      msg: "Creating the Project's Folder"
+      msg: "Creating the Project's Folder",
     },
 
     {
@@ -26,7 +27,6 @@ module.exports = function (args) {
       src: `${args.src}`,
       dest: `${args.app_path}`,
       msg: "Copying the Main Files and Folders to the newly created Project ...",
-
     },
     {
       cmd: "create",
@@ -34,14 +34,12 @@ module.exports = function (args) {
       path: `${args.app_path}/.env`,
       content: generateEnv(args),
       msg: "Creating the .env file",
-
     },
     {
       cmd: "copy",
       src: `${args.src}/ORMs/${args.database_orm}`,
       dest: `${args.app_path}/database/${args.database_orm}`,
       msg: "Setting up the Preferred Database ORM Files ...",
-
     },
     {
       cmd: "copy",
@@ -55,13 +53,20 @@ module.exports = function (args) {
       path: `${args.app_path}`,
       msg: "✨ Initializing the Project's NPM file ...",
     },
+    // FOR TESTING ONLY
+    {
+      cmd: "exec",
+      command: "npm link @salla.sa/webhooks-actions",
+      path: `${args.app_path}`,
+      msg: "✨ Linking webhooks-actions package ...",
+    },
     {
       cmd: "create",
       content: () => {
         return getPakcagejson(args);
       },
       path: `${args.app_path}/package.json`,
-      msg: "✨ nstalling all package.json dependencies ...",
+      msg: "✨ Installing all package.json dependencies ...",
     },
     {
       cmd: "exec",
@@ -121,15 +126,16 @@ function getPakcagejson(args) {
   }
 
   packageJSON.scripts = {
-    "start-app": "node app.js"
+    "start-app": "node app.js",
   };
   packageJSON.description =
     "✨ New Awesome Application using Salla API and NodeJS";
   packageJSON.dependencies = packages.reduce(
     (a, v) => ({
       ...a,
-      [v[0]]: v[1]
-    }), {}
+      [v[0]]: v[1],
+    }),
+    {}
   );
   return JSON.stringify(packageJSON, null, 2);
 }

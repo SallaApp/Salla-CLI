@@ -17,16 +17,20 @@ module.exports.ExpressAppCreateor = async (options) => {
   if (!options.auth_mode) options.auth_mode = "easy";
   // start executing the process
   return CreateApp({
-      src: `${SRC_TEMPLATE}`,
-      ...options,
-      app_path: options.app_path,
-    })
+    src: `${SRC_TEMPLATE}`,
+    ...options,
+    app_path: options.app_path,
+  })
     .then((msgs) => {
       if (msgs.filter((msg) => msg.type === "err").length > 0) {
         Logger.printMessages([
           ...msgs,
-          Logger.createMessage(`🛑 Oops! An error occured while creating your project. Please try again ...`, "err"),
+          Logger.createMessage(
+            `🛑 Oops! An error occured while creating your project. Please try again ...`,
+            "err"
+          ),
         ]);
+        process.exit(1);
       } else {
         PrintFinalOutput({
           msgs: msgs || [],
@@ -42,7 +46,10 @@ module.exports.ExpressAppCreateor = async (options) => {
     })
     .catch((msgs) => {
       Logger.longLine();
-      Logger.error(`🛑 Oops! An error occured while creating your project. Please try again ...`);
+      Logger.error(
+        `🛑 Oops! An error occured while creating your project. Please try again ...`
+      );
+      process.exit(1);
     });
 };
 
@@ -51,6 +58,8 @@ process.on("unhandledRejection", function (err) {
   Logger.longLine();
   Logger.normal(err);
 
-  Logger.error(`🛑 Oops! An error occured while creating your project. Please try again ...`);
-  process.exit(0);
+  Logger.error(
+    `🛑 Oops! An error occured while creating your project. Please try again ...`
+  );
+  process.exit(1);
 });
