@@ -1,22 +1,18 @@
 const commandExistsSync = require("command-exists").sync;
-const {
-  execSync,
-  exec
-} = require("child_process");
+const { execSync, exec } = require("child_process");
 const ngrok = require("ngrok");
 
 const Logger = require("../utils/LoggingManager");
 const checkFolder = require("../helpers/check-folder");
 const fs = require("fs-extra");
 const env = require("dotenv");
-const PartnerApi = new(require("../api/partner"))();
+const PartnerApi = new (require("../api/partner"))();
 module.exports = async function (options) {
+  Logger.longLine();
   options.port = options.port || DEFAULT_APP_PORT;
   // check if ngrok is installed
   if (!commandExistsSync("ngrok")) {
-    Logger.info(
-      "✨ Installing ngrok library as a one-time installation..."
-    );
+    Logger.info("✨ Installing ngrok library as a one-time installation...");
 
     execSync("npm install -g ngrok");
   }
@@ -26,6 +22,9 @@ module.exports = async function (options) {
   );
   const url = await ngrok.connect({
     addr: options.port,
+    authtoken:
+      process.env.NGROK_TOKEN ||
+      "228l6GcFdMoGrXzSia73IFbvZ3f_7VMZvSvSnG4g2FvN3yP4q",
   });
   Logger.longLine();
   Logger.succ(`✅ Remote URL : ${url} `);
@@ -37,7 +36,7 @@ module.exports = async function (options) {
   // give sometime to ngrok to connect and expressjs to start
   setTimeout(() => {
     require("open")(url);
-  }, 1000);
+  }, 3000);
 
   // get app id from env file
   // update urls of the app
@@ -67,9 +66,8 @@ module.exports = async function (options) {
   // auto detect the project type
   if (checkFolder() == "express") {
     exec(
-      "npm run start-app -p " + options.port, {
-        cwd: process.cwd()
-      },
+      "npm run start-app -p " + options.port,
+      { cwd: process.cwd() },
       (err, stdout, stderr) => {
         if (err) {
           Logger.error(
@@ -87,12 +85,14 @@ module.exports = async function (options) {
     );
   } else if (checkFolder() == "laravel") {
     exec(
-      "php artisan serve --port " + options.port, {
-        cwd: process.cwd()
-      },
+      "php artisan serve --port " + options.port,
+      { cwd: process.cwd() },
       (err, stdout, stderr) => {
         if (err) {
-          Logger.error(`🤔 Hmmm! Laravel app coudln't be started ...`, err.message);
+          Logger.error(
+            `🤔 Hmmm! Laravel app coudln't be started ...`,
+            err.message
+          );
           return;
         }
         Logger.normal(stdout);

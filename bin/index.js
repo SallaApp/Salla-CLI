@@ -8,17 +8,18 @@ require("../constants");
 const commander = require("commander");
 const program = new commander.Command();
 program.name("salla").usage("[command]");
-
+const packageJSON = JSON.parse(fs.readFileSync(`${__dirname}/../package.json`));
 (async () => {
   if (!process.argv.includes("--nohead")) {
     // print salla head text
-    await require("../src/helpers/print-salla-headtext")(null);
+    await require("../src/helpers/print-salla-headtext")(
+      null,
+      packageJSON.version
+    );
   } else {
     process.argv.splice(process.argv.indexOf("--nohead"), 1);
   }
-  const packageJSON = JSON.parse(
-    fs.readFileSync(`${__dirname}/../package.json`)
-  );
+
   program.version(packageJSON.version);
 
   const themeCommands = require("./theme");
@@ -30,6 +31,10 @@ program.name("salla").usage("[command]");
   program.addCommand(themeCommands());
 
   program.addCommand(devCommands());
+  program.configureHelp({
+    sortSubcommands: false,
 
+    subcommandTerm: (cmd) => cmd.name(), // Just show the name, instead of short usage.
+  });
   program.parse(process.argv);
 })();

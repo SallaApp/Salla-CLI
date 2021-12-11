@@ -1,7 +1,7 @@
 const fs = require("fs-extra");
 global.BASE_PATH = process.cwd();
-global.NODE_ENGINES = "^10 || ^12 || ^14";
-global.NPM_ENGINES = "^6 || ^7";
+global.NODE_ENGINES = "^10 || ^12 || ^14 || ^16";
+global.NPM_ENGINES = "^6 || ^7 || ^8";
 global.CLI_CONFIG_DIR = require("os").homedir() + "/.salla";
 global.CLI_CONFIG_FILE = require("path").join(CLI_CONFIG_DIR, "config.json");
 global.BASE_URL = "";
