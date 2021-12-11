@@ -104,6 +104,7 @@ module.exports = class SallaAPI {
     if (error && error.response && error.response.data) {
       let data = error.response.data;
       let errorMessage = `${error.name}: ${error.message}`;
+      Logger.longLine();
       if (!data || !data.error) {
         Logger.error(errorMessage);
         return false;
@@ -126,6 +127,7 @@ module.exports = class SallaAPI {
 
         return false;
       }
+
       if (data.error.message) {
         Logger.error(`${data.error.message}`);
 

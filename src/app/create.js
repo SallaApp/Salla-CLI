@@ -9,6 +9,7 @@ const { AuthManager } = require("../utils/AuthManager")();
 
 // export function to Salla-cli
 module.exports = async function (options) {
+  InputsManager.errorCatch();
   Logger.succ("✨ Getting your apps from Salla ... On the way ☕️");
   const load = Logger.loading("Getting apps ...");
 
@@ -16,7 +17,7 @@ module.exports = async function (options) {
     Logger.error(
       "🛑 Oops! Unable to authinticate. Try loggin again to Salla by running the following command: salla login"
     );
-    return;
+    process.exit(1);
   }
   let apps = [];
   try {
@@ -25,9 +26,11 @@ module.exports = async function (options) {
     Logger.error(
       "🤔 Hmmm! Something went wrong while fetching your apps from Salla. Please try again later."
     );
-    return;
+
+    process.exit(1);
   }
   load.stop();
+
   //  select app
   options.app_name =
     options.name ||
@@ -106,7 +109,7 @@ module.exports = async function (options) {
 
       desc: "DESC HERE ",
     });
-    options.auth_mode = await this.selectInput(
+    options.auth_mode = await InputsManager.selectInput(
       "? App Authorization Mode: (Use arrow keys) ",
       [
         "Easy Mode | In House Authorization",
@@ -125,11 +128,11 @@ module.exports = async function (options) {
     ["Express", "Laravel"],
     "DESC HERE "
   );
-  if (projectType === "express") {
+  if (projectType === "Express") {
     // get database orm
     options.database_orm = await InputsManager.selectInput(
       "App Database ORM: ",
-      InputsManager.DATABASE_ORM,
+      DATABASE_ORM,
       "DESC HERE "
     );
   }
@@ -137,7 +140,8 @@ module.exports = async function (options) {
   if (isNewApp) {
     // we create a new app in salla cloud then we set the args to the new app
     Logger.info("✨ Initializing your app in Salla. On the way ☕️");
-    Logger.info("Please Wait ...");
+    const load_upload_app = Logger.loading("Please Wait ...");
+
     try {
       AppData = await PartnerApi.addNewApp(
         {
@@ -150,9 +154,10 @@ module.exports = async function (options) {
         options.app_type,
         options.app_url
       );
+
       if (AppData == false) {
         Logger.error(
-          "🤔 Hmmm! Something went wrong while creating your app. Please try again by running the following command: salla app create  -n <appname>"
+          "🤔 Hmmm! Something went wrong while creating your app. Please try again by running the following command: salla app create "
         );
         Logger.printVisitTroubleshootingPage();
         process.exit(1);
@@ -161,10 +166,11 @@ module.exports = async function (options) {
       Logger.succ("🎉 Hooray! Your app has been created successfully.");
     } catch (err) {
       Logger.error(
-        "🤔 Hmmm! Something went wrong while creating your app. Run the following command to create your app: salla app create  -n <appname>"
+        "🤔 Hmmm! Something went wrong while creating your app. Run the following command to create your app: salla app create "
       );
       process.exit(1);
     }
+    load_upload_app.stop();
   }
   if (!AppData) {
     let appData = await PartnerApi.getApp(options.app_name);
@@ -186,10 +192,10 @@ module.exports = async function (options) {
   // check if the project is expressjs or laravel
 
   try {
-    if (projectType === "express") {
+    if (projectType === "Express") {
       // Create Express APP
       await ExpressAppCreateor(options);
-    } else if (projectType === "laravel") {
+    } else if (projectType === "Laravel") {
       // Create Laravel APP
       await LaravelAppCreateor(options);
     } else {

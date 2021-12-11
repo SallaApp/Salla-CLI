@@ -3,6 +3,7 @@ const Logger = require("../utils/LoggingManager");
 const cliSelect = require("cli-select");
 const chalk = require("chalk");
 const fs = require("fs");
+const clc = require("cli-color");
 
 class InputsManager {
   APP_CLIENT_ID;
@@ -24,7 +25,9 @@ class InputsManager {
     Logger.longLine();
     if (desc) Logger.infoGray(desc);
 
-    let val = readlineSync.question("? " + lable.bold + "\n> ");
+    let val = readlineSync.question(
+      "? " + lable.bold + clc.greenBright("\n>") + " "
+    );
 
     if (validate) {
       let isValidated = false;
@@ -40,7 +43,9 @@ class InputsManager {
         }
         Logger.longLine();
         if (desc) Logger.infoGray(desc);
-        val = readlineSync.question("? " + lable.bold + "\n> ");
+        val = readlineSync.question(
+          "? " + lable.bold + clc.greenBright("\n>") + " "
+        );
         if (typeof validate == "function") isValidated = validate(val);
         else isValidated = validate.test(val);
       }
@@ -107,6 +112,13 @@ class InputsManager {
   catchCtrlC(app_name) {
     process.on("SIGINT", () => {
       this.finalMessage(app_name);
+      process.exit(1);
+    });
+  }
+  errorCatch() {
+    process.on("exit", () => {
+      Logger.longLine();
+      Logger.printVisitTroubleshootingPage();
       process.exit(1);
     });
   }

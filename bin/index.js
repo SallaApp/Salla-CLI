@@ -20,7 +20,7 @@ program.name("salla").usage("[command]");
     fs.readFileSync(`${__dirname}/../package.json`)
   );
   program.version(packageJSON.version);
-  program.showSuggestionAfterError();
+
   const themeCommands = require("./theme");
   const appCommands = require("./app");
   const loginCommands = require("./login");

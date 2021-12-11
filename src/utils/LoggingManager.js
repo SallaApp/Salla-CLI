@@ -12,10 +12,11 @@ class LoggingManager {
   loading(text) {
     return loading({
       text: text,
-      color: "yellow",
-      interval: 100,
+
+      interval: 80,
       stream: process.stdout,
-      frames: [".", "o", "O", "°", "O", "o", "."],
+
+      frames: ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"],
     }).start();
   }
   setInstantPrint(bool) {
@@ -39,8 +40,8 @@ class LoggingManager {
     this.printVisitTroubleshootingPage();
   }
   printVisitTroubleshootingPage() {
-    this.info(this.visitTroubleshootingPage);
-    this.info(this.submitGithubIssue);
+    this.warn(this.visitTroubleshootingPage);
+    this.warn(this.submitGithubIssue);
   }
   // print array of messages
   printMessages(msgs) {
@@ -93,7 +94,7 @@ class LoggingManager {
     if (type == "side-err")
       msgObj = { msg: `[x] ${msg}`, color: "red", type, sideMessage };
     if (type == "succ")
-      msgObj = { msg: `[ok] ${msg}`, color: "greenBright", type, sideMessage };
+      msgObj = { msg: `[✓] ${msg}`, color: "greenBright", type, sideMessage };
     if (type == "info")
       msgObj = { msg: `[!] ${msg}`, color: "cyanBright", type, sideMessage };
     if (type == "warn")
