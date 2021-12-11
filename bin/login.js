@@ -5,6 +5,6 @@ module.exports = function appCommands() {
   return program
     .command("login")
 
-    .description("✨ Login to your Salla Partners account.")
+    .description("Login to your Salla Partners account.")
     .action(require("../src/login"));
 };

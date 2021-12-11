@@ -27,10 +27,10 @@ module.exports = async function (options) {
       "228l6GcFdMoGrXzSia73IFbvZ3f_7VMZvSvSnG4g2FvN3yP4q",
   });
   Logger.longLine();
-  Logger.succ(`✅ Remote URL : ${url} `);
-  Logger.succ(`✅ Local  URL : http://localhost:${options.port} `);
-  Logger.succ(`✅ Webhook URL : ${url}/webhook/ `);
-  Logger.succ(`✅ OAuth Callback URL : ${url}/oauth/callback/ `);
+  Logger.succ(`Remote URL : ${url} `);
+  Logger.succ(`Local  URL : http://localhost:${options.port} `);
+  Logger.succ(`Webhook URL : ${url}/webhook/ `);
+  Logger.succ(`OAuth Callback URL : ${url}/oauth/callback/ `);
 
   Logger.longLine();
   // give sometime to ngrok to connect and expressjs to start
@@ -60,7 +60,9 @@ module.exports = async function (options) {
     Logger.longLine();
     fs.writeFileSync(".env", generateEnv(data, `${url}/oauth/callback`));
   } catch (err) {
-    Logger.error(`🛑 Oops! There is an error in writing .env file. Ensure that you have root/admin access on your end. Due to that, the system is terminating the process with code 1. Please try again.`);
+    Logger.error(
+      `🛑 Oops! There is an error in writing .env file. Ensure that you have root/admin access on your end. Due to that, the system is terminating the process with code 1. Please try again.`
+    );
   }
 
   // auto detect the project type

@@ -94,39 +94,39 @@ class LoggingManager {
         msg: `[x] ${msg}`,
         color: "redBright",
         type,
-        sideMessage
+        sideMessage,
       };
     if (type == "side-err")
       msgObj = {
         msg: `[x] ${msg}`,
         color: "red",
         type,
-        sideMessage
+        sideMessage,
       };
     if (type == "succ")
       msgObj = {
         msg: `[✓] ${msg}`,
         color: "greenBright",
         type,
-        sideMessage
+        sideMessage,
       };
     if (type == "info")
       msgObj = {
         msg: `[!] ${msg}`,
         color: "cyanBright",
         type,
-        sideMessage
+        sideMessage,
       };
     if (type == "warn")
       msgObj = {
         msg: `[!] ${msg}`,
         color: "yellow",
         type,
-        sideMessage
+        sideMessage,
       };
     if (type == "gray")
       msgObj = {
-        msg: `info : ${msg}`,
+        msg: `[!] ${msg}`,
         color: "blackBright",
         type,
         sideMessage,

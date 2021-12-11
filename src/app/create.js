@@ -1,17 +1,11 @@
 const Logger = require("../utils/LoggingManager");
-const {
-  ExpressAppCreateor
-} = require("../stater-kits/express");
-const {
-  LaravelAppCreateor
-} = require("../stater-kits/laravel");
+const { ExpressAppCreateor } = require("../stater-kits/express");
+const { LaravelAppCreateor } = require("../stater-kits/laravel");
 
 const InputsManager = require("../utils/InputsManager");
 const ServeCommand = require("./serve");
-const PartnerApi = new(require("../api/partner"))();
-const {
-  AuthManager
-} = require("../utils/AuthManager")();
+const PartnerApi = new (require("../api/partner"))();
+const { AuthManager } = require("../utils/AuthManager")();
 
 // export function to Salla-cli
 module.exports = async function (options) {
@@ -45,7 +39,7 @@ module.exports = async function (options) {
       [
         /* apps from developer account */
         ...apps.map((app) => app.name.en),
-        "? Want to Create New Salla Partner App?",
+        "Want to Create New Salla Partner App?",
       ],
       "Listed below are the apps assoicated with your Salla Partners account .. You can either select an existing app or create a new app in simple steps"
     ));
@@ -63,8 +57,9 @@ module.exports = async function (options) {
         return true;
       },
       name: "App Name",
-      errorMessage: "🛑 For better visbility, your App Name must be between 10 and 50 characters long!",
-      desc: "ℹ️ The app name will be used to create a folder in your project root as well as in your Salla Partners Dashboard, so make sure it's unique, easy to understand, and straight-forward.",
+      errorMessage:
+        "🛑 For better visbility, your App Name must be between 10 and 50 characters long!",
+      desc: "The app name will be used to create a folder in your project root as well as in your Salla Partners Dashboard, so make sure it's unique, easy to understand, and straight-forward.",
     });
     options.app_path = generateAppPath(options.app_name);
 
@@ -80,7 +75,7 @@ module.exports = async function (options) {
     InputsManager.checkProjectExists(options.app_path, true);
 
     // get description
-    options.desc_english = InputsManager.readLine("? Short Description:", {
+    options.desc_english = InputsManager.readLine("Short Description:", {
       validate(value) {
         if (value.length < 100) {
           return false;
@@ -88,40 +83,42 @@ module.exports = async function (options) {
         return true;
       },
 
-      errorMessage: "🛑 To attract merchants, ensure that your description is at least 100 characters long.",
-      desc: "ℹ️ This description will be used in the Salla Dashboard to help you attract new merchants. Ensure that your short description is easy-to-understand by the merchants and non-technical personnel as it is the first thing they will see when they visit your app on Salla App Store.",
+      errorMessage:
+        "🛑 To attract merchants, ensure that your description is at least 100 characters long.",
+      desc: "This description will be used in the Salla Dashboard to help you attract new merchants. Ensure that your short description is easy-to-understand by the merchants and non-technical personnel as it is the first thing they will see when they visit your app on Salla App Store.",
     });
     // get Email
-    options.email = InputsManager.readLine("? Email Address:", {
+    options.email = InputsManager.readLine("Email Address:", {
       validate: /\S+@\S+\.\S+/,
       name: "Email",
-      desc: "ℹ️ This email will be assoicated with your Salla Partners account. It will also be used to contact you in case of any issues or questions by the Salla Team.",
+      desc: "This email will be assoicated with your Salla Partners account. It will also be used to contact you in case of any issues or questions by the Salla Team.",
     });
     // select app type
     options.app_type = await InputsManager.selectInput(
       "Select App Type: (Use arrow keys)",
       PartnerApi.app_types,
 
-      "ℹ️ Salla Partners gives you the option to create your app in three types: Public for all Salla Merchants to download and use, Private for only merchants you choose to download and use. Private for only specific merchants you choose to download and use, and Shipping which are best suitable for shipping companies and delivery services"
+      "Salla Partners gives you the option to create your app in three types: Public for all Salla Merchants to download and use, Private for only merchants you choose to download and use. Private for only specific merchants you choose to download and use, and Shipping which are best suitable for shipping companies and delivery services"
     );
-    options.app_url = InputsManager.readLine("? App Homepage URL:", {
+    options.app_url = InputsManager.readLine("App Homepage URL:", {
       // TODO : improve it
       validate: (value) => {
         if (value.indexOf("http") > -1) return true;
         return false;
       },
-      errorMessage: "🛑 Oops! Your App Home Page URL is not in a standard format, HTTP, which could result in merchants not visiting your app's home page website.",
+      errorMessage:
+        "🛑 Oops! Your App Home Page URL is not in a standard format, HTTP, which could result in merchants not visiting your app's home page website.",
 
-      desc: "ℹ️ Add your app's home page URL where Salla merchants can learn more about your app's services and more."
+      desc: "Add your app's home page URL where Salla merchants can learn more about your app's services and more.",
     });
     options.auth_mode = await InputsManager.selectInput(
-      "? App Authorization Mode: (Use arrow keys) ",
+      "App Authorization Mode: (Use arrow keys) ",
       [
         "Easy Mode | In House Authorization",
         "Custom Mode | Custom Callback URL",
       ],
-      "ℹ️ With Easy Mode, you will recieve a webhook event when merchants install your app om their stores which contains all the information you need, such as access token, refresh token and more",
-      "ℹ️ With Custom Mode, you will be able to set a custom callback URL for merchants to use to authorize your app. "
+      "With Easy Mode, you will recieve a webhook event when merchants install your app om their stores which contains all the information you need, such as access token, refresh token and more",
+      "With Custom Mode, you will be able to set a custom callback URL for merchants to use to authorize your app. "
     );
   } else {
     // this will trigger process.exit(1) if the app name exists
@@ -132,14 +129,14 @@ module.exports = async function (options) {
   const projectType = await InputsManager.selectInput(
     "Select Framework: (Use arrow keys)",
     ["Express", "Laravel"],
-    "ℹ️ Select your preferred framework to develope your Salla App."
+    "Select your preferred framework to develope your Salla App."
   );
   if (projectType === "Express") {
     // get database orm
     options.database_orm = await InputsManager.selectInput(
       "App Database ORM: ",
       DATABASE_ORM,
-      "ℹ️ Select your prefred ORM to help you create and manage your database for your Salla App."
+      "Select your prefred ORM to help you create and manage your database for your Salla App."
     );
   }
   let AppData = null;
@@ -149,9 +146,11 @@ module.exports = async function (options) {
     const load_upload_app = Logger.loading("Please Wait ☕️");
 
     try {
-      AppData = await PartnerApi.addNewApp({
+      AppData = await PartnerApi.addNewApp(
+        {
           name_ar: options.app_name,
-        }, {
+        },
+        {
           short_description_ar: options.desc_english,
         },
         options.email,
@@ -213,7 +212,7 @@ module.exports = async function (options) {
     // after creating the project we run salla serve
     // run serve
     ServeCommand({
-      port: DEFAULT_APP_PORT
+      port: DEFAULT_APP_PORT,
     });
   } catch (err) {
     Logger.error(

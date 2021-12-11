@@ -5,11 +5,11 @@ module.exports = function DevCommands() {
 
   return new commander.Command()
     .command("dev", {
-      hidden: true
+      hidden: true,
     })
     .option(
       "-b,--base <working_base>",
-      "✨ Changing the base url for all endpoints ..."
+      "Changing the base url for all endpoints ..."
     )
     .option("-c,--config", "Show config file.")
     .description("💻 Development Command for the Internal team.")
