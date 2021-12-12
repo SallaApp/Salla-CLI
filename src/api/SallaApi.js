@@ -8,9 +8,12 @@ const { AuthManager } = require("../utils/AuthManager")();
 module.exports = class SallaAPI {
   constructor() {
     this.baseEndpoint = BASE_URL + "/api/";
-    this.baseEndpointTheme = THEME_END_POINT + "/api/";
+    this.baseEndpointTheme = THEME_END_POINT + "/admin/v2/";
     (async () => {
       this.accessToken = (await AuthManager.getTokens()).salla.access_token;
+      this.themeAccessToken = (
+        await AuthManager.getTokens()
+      ).salla.theme_access_token;
     })();
     this.endpoints = {
       user: "oauth2/user/info",
@@ -37,7 +40,11 @@ module.exports = class SallaAPI {
     AuthManager.set("salla", { access_token: accessToken });
     this.accessToken = accessToken;
   }
-  request(endpoint, data, headers) {
+  setThemeAccessToken(themeAccessToken) {
+    AuthManager.set("salla", { theme_access_token: themeAccessToken });
+    this.themeAccessToken = themeAccessToken;
+  }
+  request(endpoint, data, headers, accessToken) {
     if (!this.endpoints[endpoint]) {
       throw "🛑 Oops! The system failed to find endpoint for: " + endpoint;
     }
@@ -47,11 +54,12 @@ module.exports = class SallaAPI {
       url,
       this.endpointsMethods[endpoint],
       data,
-      headers
+      headers,
+      accessToken
     );
   }
-  requestURL(url, method, data, headers) {
-    return this.getDataFromUrl(url, method, data, headers);
+  requestURL(url, method, data, headers, accessToken) {
+    return this.getDataFromUrl(url, method, data, headers, accessToken);
   }
   /**
    * pass all endpoints from here to be free changing endpoints without breakChange
@@ -61,7 +69,8 @@ module.exports = class SallaAPI {
    */
   getUrlForEndpoint(endpoint, data) {
     let url = this.baseEndpoint + this.endpoints[endpoint];
-    if (endpoint.includes("theme"))
+
+    if (this.endpoints[endpoint].includes("theme"))
       url = this.baseEndpointTheme + this.endpoints[endpoint];
 
     if (!data || !data.params || !Array.isArray(data.params)) {
@@ -82,14 +91,16 @@ module.exports = class SallaAPI {
     return url;
   }
 
-  getDataFromUrl(url, method, data, headers) {
+  getDataFromUrl(url, method, data, headers, accessToken) {
     return axios({
       timeout: 10000,
       url: url,
       method: method || "post",
       data: data,
       headers: {
-        Authorization: `Bearer ${this.accessToken}`,
+        Authorization: `Bearer ${
+          accessToken || this.accessToken || this.themeAccessToken
+        }`,
         "CF-Access-Client-Id": "695ade2783e811dc18e23b2334ac886c.access",
         "CF-Access-Client-Secret":
           "b2b925480ae38f3675525855dfcd934b811522263a3c9d7e99a0f9bd7bac86ac",

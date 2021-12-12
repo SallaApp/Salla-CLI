@@ -1,11 +1,10 @@
 const BaseClass = require("./utils/BaseClass");
-const {
-  exec,
-  execSync
-} = require("child_process");
+const { exec, execSync } = require("child_process");
 const commandExists = require("command-exists");
-const stream = require("stream");
+
 const Logger = require("../utils/LoggingManager");
+const watch = require("node-watch");
+const path = require("path");
 /**
  * @property {WatchOptions} options
  */
@@ -25,6 +24,7 @@ class Watch extends BaseClass {
      * @type {SallaConfig}
      */
     let tokens = await this.getTokens();
+
     this.runTheme(
       `push --token ${tokens.github.access_token} --name ${tokens.github.login}`
     );
@@ -35,6 +35,7 @@ class Watch extends BaseClass {
     } else if (await this.isCommandExists("npm")) {
       packageManager = "npm";
     }
+
     if (
       !(await this.fileSys().pathExists(
         this.path().join(BASE_PATH, "node_modules")
@@ -62,13 +63,14 @@ class Watch extends BaseClass {
 
       return null;
     }
+    let draft_id = response.id;
 
-    await this.configManager().set("draft_id", response.id);
+    await this.configManager().set("draft_id", draft_id);
     Logger.success("🔬 Hooray! Your theme is ready to test!");
 
     let assetsPort =
       this.options.port || process.env.ASSETS_PORT || ASSETS_PORT;
-    let serve = exec(`salla theme serve --port=${assetsPort}`, {
+    let serve = exec(`salla theme serve --port=${assetsPort} --nohead`, {
       cwd: BASE_PATH,
     });
     serve.stdout.on("data", (data) => {
@@ -76,7 +78,7 @@ class Watch extends BaseClass {
       if (data.toLowerCase().includes("Error")) {
         return (this.isNotReadyGoOut = true);
       }
-      if (data.includes("Local server is running")) {
+      if (data.includes("running")) {
         this.readyToReturn = true;
       }
     });
@@ -97,8 +99,8 @@ class Watch extends BaseClass {
     if (!packageManager) {
       Logger.error(
         "🛑 Oops! We found that there is no package manager installed on your system. Please install" +
-        "yarn/npm".bold +
-        " in your system!"
+          "yarn/npm".bold +
+          " in your system!"
       );
 
       return null;
@@ -110,24 +112,32 @@ class Watch extends BaseClass {
     Logger.info(
       `✅ Currently running '${packageManager} watch'... Press Ctrl+C to quit the process.`
     );
-    this.runSysCommand(packageManager + " watch");
-    //
-    // var spawn = require('child_process').spawn;
-    // var browserOpened = false;
-    // var watch = spawn(packageManager, ['watch'], { stdio: [process.stdin, process.stdout, 'pipe'] });
-    // var customStream = new stream.Writable();
-    // customStream._write = function (data, ...argv) {
-    //     console.log('your notation');
-    //     process.stderr._write(data, ...argv);
-    //     if (data.includes('compiled successfully in') && !browserOpened) {
-    //         browserOpened = true;
-    //         this.openBrowser(response.preview_url);
-    //     }
-    // };
-    // watch.stderr.pipe(customStream);
+    let that = this;
+    watch(
+      path.resolve(BASE_PATH + "/views"),
+      { recursive: true },
+      async function (evt, name) {
+        // push things
+        that.runTheme(
+          `push --token ${tokens.github.access_token} --name ${tokens.github.login}`
+        );
+        let res = await that.createDraftTheme();
+        await that.configManager().set("draft_id", res.id);
+        let themeSyncProcess = exec(
+          `salla theme sync -f "${name}" -t ${res.id}  --nohead`,
+          {
+            cwd: BASE_PATH,
+          }
+        );
 
-    //let npmWatch = exec(packageManager + ' watch'); //don't run it sync to avoid server stop serving
-    //npmWatch.stdout.on('data', data => console.log(data));
+        that.openBrowser(res.preview_url);
+        themeSyncProcess.stdout.pipe(process.stdout);
+      }
+    );
+    let watchProcess = exec(packageManager + " watch", {
+      cwd: BASE_PATH,
+    });
+    watchProcess.stdout.pipe(process.stdout);
   }
 
   async isCommandExists(command) {
@@ -152,18 +162,22 @@ class Watch extends BaseClass {
 
   async createDraftTheme() {
     console.log("✨ Preparing your testing theme ...");
-    const {
-      repo_url,
-      theme_name,
-      theme_id
-    } = this.configs();
+    const { repo_url, theme_name, theme_id } = this.configs();
+
     return (await this.sallaApi())
-      .request("new_draft", {
-        repo_url: repo_url,
-        name: theme_name,
-        theme_id: theme_id,
+      .request(
+        "new_draft",
+        {
+          repo_url: repo_url,
+          name: theme_name,
+          theme_id: theme_id,
+        },
+        null,
+        (await this.sallaApi()).themeAccessToken
+      )
+      .then((response) => {
+        return response.data;
       })
-      .then((response) => response.data)
       .catch((err) => {
         return null;
       });

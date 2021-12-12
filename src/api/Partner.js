@@ -54,7 +54,10 @@ module.exports = class PartnerAPI extends SallaApi {
     } else {
       let results = await this.requestURL(
         this.baseEndpoint + "app/" + app_name,
-        "get"
+        "get",
+        null,
+        null,
+        this.accessToken
       );
       if (results.status === 200) {
         return results.data;
@@ -68,7 +71,9 @@ module.exports = class PartnerAPI extends SallaApi {
       {
         webhook_url: webhook_url,
         webhooks: [],
-      }
+      },
+      null,
+      this.accessToken
     );
 
     if (results.status === 200) {
@@ -81,7 +86,9 @@ module.exports = class PartnerAPI extends SallaApi {
       "PUT",
       {
         redirect_urls: [redirect_url],
-      }
+      },
+      null,
+      this.accessToken
     );
     if (results.status === 200) {
       return results.data;

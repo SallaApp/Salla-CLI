@@ -32,6 +32,7 @@
     "loading-cli": "^1.1.0",
     "meant": "^2.0.1",
     "ngrok": "^4.2.2",
+    "node-watch": "^0.7.2",
     "request": "^2.88.2",
     "shelljs": "^0.8.4"
   },

@@ -1,12 +1,12 @@
 const Logger = require("../LoggingManager");
 const fs = require("fs-extra");
 
-const GithubAPI = new(require("./Github"))();
-const SallaAuthAPI = new(require("./SallaAuthApi"))();
+const GithubAPI = new (require("./Github"))();
+const SallaAuthAPI = new (require("./SallaAuthApi"))();
 
 /**
  * @typedef {{
- *            salla     : {access_token: string, store_id: number, store_url: string},
+ *            salla     : {theme_access_token:string,access_token: string, store_id: number, store_url: string},
  *            github    : {access_token: string, login: string|undefined},
  *            BASE_URL  : string|undefined
  *          }} SallaConfig
@@ -22,9 +22,9 @@ class AuthManager {
    */
   constructor() {
     try {
-      this.configData = fs.existsSync(CLI_CONFIG_FILE) ?
-        require(CLI_CONFIG_FILE) :
-        null;
+      this.configData = fs.existsSync(CLI_CONFIG_FILE)
+        ? require(CLI_CONFIG_FILE)
+        : null;
     } catch (error) {
       Logger.error(
         "🤔 Hmmm! Something went wrong while writing config file: ",
@@ -39,9 +39,9 @@ class AuthManager {
     }
 
     try {
-      this.configData = fs.existsSync(CLI_CONFIG_FILE) ?
-        require(CLI_CONFIG_FILE) :
-        null;
+      this.configData = fs.existsSync(CLI_CONFIG_FILE)
+        ? require(CLI_CONFIG_FILE)
+        : null;
     } catch (error) {
       Logger.error(
         "🤔 Hmmm! Something went wrong while writing config file: ",
@@ -49,6 +49,7 @@ class AuthManager {
       );
       return null;
     }
+    console.log("this.configData", this.configData);
     return this.configData;
   }
   async askForGithubToken() {
@@ -56,7 +57,7 @@ class AuthManager {
     if (!this.configData.github) this.configData.github = {};
     this.configData.github.access_token = github_token;
     await this.set("github", {
-      access_token: github_token
+      access_token: github_token,
     });
   }
   /**
@@ -111,10 +112,11 @@ class AuthManager {
   async set(key, value) {
     const config = await this.getTokens();
     if (config == null) config = {};
-    if (typeof value === "object") config[key] = {
-      ...config[key],
-      ...value
-    };
+    if (typeof value === "object")
+      config[key] = {
+        ...config[key],
+        ...value,
+      };
     else config[key] = value;
     await this.save(config);
   }

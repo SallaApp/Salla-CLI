@@ -17,13 +17,8 @@
 /** @typedef {AuthOptions|PublishOptions|PushOptions|ServeOptions|StartOptions|SyncOptions|WatchOptions|{}} ThemeCommandsOptions */
 
 const SallaApi = require("../../api/SallaApi");
-const {
-  execSync
-} = require("child_process");
-const {
-  AuthManager,
-  GithubAPI
-} = require("../../utils/AuthManager")();
+const { execSync } = require("child_process");
+const { AuthManager, GithubAPI } = require("../../utils/AuthManager")();
 
 /**
  * @property {ThemeCommandsOptions} options
@@ -120,9 +115,11 @@ class BaseClass {
       return this._sallaApi;
     }
     this._sallaApi = new SallaApi();
-    this._sallaApi.accessToken = (
-      await this.getTokens(skip_tokens_check)
-    ).salla.access_token;
+
+    this._sallaApi.setThemeAccessToken(
+      (await this.getTokens(skip_tokens_check)).salla.theme_access_token
+    );
+
     return this._sallaApi;
   }
 
@@ -150,7 +147,7 @@ class BaseClass {
     if (this._configManager) {
       return this._configManager;
     }
-    return (this._configManager = new(require("./ConfigManager"))(
+    return (this._configManager = new (require("./ConfigManager"))(
       this.options,
       this.commandName
     ));
@@ -180,7 +177,7 @@ class BaseClass {
   runSysCommand(command) {
     return execSync(command, {
       stdio: "inherit",
-      cwd: BASE_PATH
+      cwd: BASE_PATH,
     });
   }
 
