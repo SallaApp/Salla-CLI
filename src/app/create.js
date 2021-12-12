@@ -148,7 +148,7 @@ module.exports = async function (options) {
         desc: "ℹ️ Laravel is a web application framework with expressive, elegant syntax.",
       },
     ],
-    "Select your preferred framework to develope your Salla App: (Use arrow keys)"
+    "Select your preferred framework to develope your Salla App"
   );
   if (projectType === "Express") {
     // get database orm
