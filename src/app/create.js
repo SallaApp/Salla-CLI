@@ -10,7 +10,7 @@ const { AuthManager } = require("../utils/AuthManager")();
 // export function to Salla-cli
 module.exports = async function (options) {
   InputsManager.errorCatch();
-  Logger.succ("✨ Getting your apps from Salla ... On the way ☕️");
+  Logger.succ("✨ Getting your apps from Salla ...");
   const load = Logger.loading("Getting apps ...");
 
   if (!(await AuthManager.isSallaTokenValid())) {
