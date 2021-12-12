@@ -5,11 +5,18 @@ global.NPM_ENGINES = "^6 || ^7 || ^8";
 global.CLI_CONFIG_DIR = require("os").homedir() + "/.salla";
 global.CLI_CONFIG_FILE = require("path").join(CLI_CONFIG_DIR, "config.json");
 global.BASE_URL = "";
-
+const Logger = require("./src/utils/LoggingManager");
 // get the config file
 try {
-  global.BASE_URL = require(CLI_CONFIG_FILE).BASE_URL;
+  let config_file = require(CLI_CONFIG_FILE);
+  global.BASE_URL = config_file.BASE_URL;
+
+  if (typeof config_file.salla == "undefined")
+    Logger.showHeadWithWelcomeMessage(true);
+  else if (!config_file.salla.access_token)
+    Logger.showHeadWithWelcomeMessage(true);
 } catch (e) {
+  Logger.showHeadWithWelcomeMessage(true);
   //create config file with dir
   fs.mkdirSync(require("os").homedir() + "/.salla");
   fs.writeJSONSync(CLI_CONFIG_FILE, {

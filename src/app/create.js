@@ -41,7 +41,7 @@ module.exports = async function (options) {
         ...apps.map((app) => {
           return { val: app.name.en, desc: app.type };
         }),
-        " 🖊  Want to Create New Salla Partner App?",
+        "🖊  Want to Create New Salla Partner App?",
       ],
       "Listed below are the apps assoicated with your Salla Partners account .. You can either select an existing app or create a new app in simple steps"
     ));

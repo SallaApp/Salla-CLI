@@ -4,18 +4,14 @@
 require("https").globalAgent.options.rejectUnauthorized = false;
 const fs = require("fs");
 require("../constants");
-
+const Logger = require("../src/utils/LoggingManager");
 const commander = require("commander");
 const program = new commander.Command();
 program.name("salla").usage("[command]");
 const packageJSON = JSON.parse(fs.readFileSync(`${__dirname}/../package.json`));
 (async () => {
   if (!process.argv.includes("--nohead")) {
-    // print salla head text
-    await require("../src/helpers/print-salla-headtext")(
-      null,
-      packageJSON.version
-    );
+    await Logger.printHead(null, packageJSON.version);
   } else {
     process.argv.splice(process.argv.indexOf("--nohead"), 1);
   }

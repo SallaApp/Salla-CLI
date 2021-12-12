@@ -1,6 +1,7 @@
 const clc = require("cli-color");
 const loading = require("loading-cli");
 
+const chalkAnimation = require("chalk-animation");
 class LoggingManager {
   visitTroubleshootingPage =
     "Please visit the troubleshooting page https://dev.salla.sa/";
@@ -170,6 +171,52 @@ class LoggingManager {
     if (msgs.length > 0) console.log(msg, msgs);
     else console.log(msg);
     return;
+  }
+  showHeadWithWelcomeMessage(val) {
+    this.showWelcomeMessage = val;
+  }
+  printHead(program, version) {
+    let sallaText = `
+        _____       _ _          _____ _      _____ 
+       / ____|     | | |        / ____| |    |_   _|
+      | (___   __ _| | | __ _  | |    | |      | |  
+       \\___ \\ / _\` | | |/ _\` | | |    | |      | |  
+       ____) | (_| | | | (_| | | |____| |____ _| |_ 
+      |_____/ \\__,_|_|_|\\__,_|  \\_____|______|_____|
+    `;
+
+    if (!program) {
+      console.log(clc.greenBright(sallaText));
+    } else {
+      program.addHelpText("before", sallaText.green);
+    }
+    console.log(clc.greenBright("                     Version: " + version));
+
+    return new Promise((resolve) => {
+      const textAnimated = chalkAnimation.rainbow(
+        "        The Official Salla Command Line Interface"
+      );
+      textAnimated.start();
+
+      setTimeout(() => {
+        this.longLine();
+        this.info("Read the docs: https://github.com/SallaApp/Salla-CLI/ ");
+        this.info(
+          "Support and bugs: https://github.com/SallaApp/Salla-CLI/issues "
+        );
+
+        this.longLine();
+        textAnimated.stop();
+        if (this.showWelcomeMessage) {
+          this.infoGray(
+            "Welcome 🤗 to The Official Salla Command Line Interface ..\nmake sure you login to your Salla Account by running: " +
+              clc.bgWhite("salla login")
+          );
+          this.longLine();
+        }
+        resolve();
+      }, 1000);
+    });
   }
 }
 module.exports = new LoggingManager();
