@@ -43,7 +43,7 @@ module.exports = async function (options) {
         }),
         " 🖊  Want to Create New Salla Partner App?",
       ],
-      "Listed below are the apps assoicated with your Salla Partners account .. You can either select an existing app or create a new app in simple steps"
+      "⬇️ Listed below are the apps assoicated with your Salla Partners account .. You can either select an existing app or create a new app in simple steps"
     ));
   let isNewApp = false;
   options.app_path = generateAppPath(options.app_name);
@@ -61,7 +61,7 @@ module.exports = async function (options) {
       name: "App Name",
       errorMessage:
         "🛑 For better visbility, your App Name must be between 10 and 50 characters long!",
-      desc: "The app name will be used to create a folder in your project root as well as in your Salla Partners Dashboard, so make sure it's unique, easy to understand, and straight-forward.",
+      desc: "ℹ️ The app name will be used to create a folder in your project root as well as in your Salla Partners Dashboard, so make sure it's unique, easy to understand, and straight-forward.",
     });
     options.app_path = generateAppPath(options.app_name);
 
@@ -87,20 +87,20 @@ module.exports = async function (options) {
 
       errorMessage:
         "🛑 To attract merchants, ensure that your description is at least 100 characters long.",
-      desc: "This description will be used in the Salla Dashboard to help you attract new merchants. Ensure that your short description is easy-to-understand by the merchants and non-technical personnel as it is the first thing they will see when they visit your app on Salla App Store.",
+      desc: "ℹ️ This description will be used in the Salla Dashboard to help you attract new merchants. Ensure that your short description is easy-to-understand by the merchants and non-technical personnel as it is the first thing they will see when they visit your app on Salla App Store.",
     });
     // get Email
     options.email = InputsManager.readLine("Email Address:", {
       validate: /\S+@\S+\.\S+/,
       name: "Email",
-      desc: "This email will be assoicated with your Salla Partners account. It will also be used to contact you in case of any issues or questions by the Salla Team.",
+      desc: "ℹ️ This email will be assoicated with your Salla Partners account. It will also be used to contact you in case of any issues or questions by the Salla Team.",
     });
     // select app type
     options.app_type = await InputsManager.selectInput(
       "Select App Type: (Use arrow keys)",
       PartnerApi.app_types,
 
-      "Salla Partners gives you the option to create your app in three types: Public for all Salla Merchants to download and use, Private for only merchants you choose to download and use. Private for only specific merchants you choose to download and use, and Shipping which are best suitable for shipping companies and delivery services"
+      "ℹ️ Salla Partners gives you the option to create your app in three types: Public for all Salla Merchants to download and use, Private for only merchants you choose to download and use. Private for only specific merchants you choose to download and use, and Shipping which are best suitable for shipping companies and delivery services"
     );
     options.app_url = InputsManager.readLine("App Homepage URL:", {
       // TODO : improve it
@@ -111,21 +111,21 @@ module.exports = async function (options) {
       errorMessage:
         "🛑 Oops! Your App Home Page URL is not in a standard format, HTTP, which could result in merchants not visiting your app's home page website.",
 
-      desc: "Add your app's home page URL where Salla merchants can learn more about your app's services and more.",
+      desc: "ℹ️ Add your app's home page URL where Salla merchants can learn more about your app's services and more.",
     });
     options.auth_mode = await InputsManager.selectInput(
       "App Authorization Mode: (Use arrow keys) ",
       [
         {
           val: "Easy Mode",
-          desc: "Salla in-house authorization where you listen automatically to a webhook event.",
+          desc: "ℹ️ Salla in-house authorization where you listen automatically to a webhook event.",
         },
         {
           val: "Custom Mode",
-          desc: "Your custom web page to handle the callback URLs.",
+          desc: "ℹ️ Your custom web page to handle the callback URLs.",
         },
       ],
-      "With Easy Mode, you will recieve a webhook event when merchants install your app om their stores which contains all the information you need, such as access token, refresh token and more\n" +
+      "ℹ️ With Easy Mode, you will recieve a webhook event when merchants install your app om their stores which contains all the information you need, such as access token, refresh token and more\n" +
         "With Custom Mode, you will be able to set a custom callback URL for merchants to use to authorize your app. "
     );
     if (options.auth_mode.indexOf("Easy") > -1) options.auth_mode = "easy";
@@ -141,14 +141,14 @@ module.exports = async function (options) {
     [
       {
         val: "Express",
-        desc: "Express is Fast, unopinionated, minimalist web framework for Node.js",
+        desc: "ℹ️ Express is Fast, unopinionated, minimalist web framework for Node.js",
       },
       {
         val: "Laravel",
-        desc: "Laravel is a web application framework with expressive, elegant syntax.",
+        desc: "ℹ️ Laravel is a web application framework with expressive, elegant syntax.",
       },
     ],
-    "Select your preferred framework to develope your Salla App."
+    "Select your preferred framework to develope your Salla App: (Use arrow keys)"
   );
   if (projectType === "Express") {
     // get database orm
