@@ -8,7 +8,7 @@ const { AuthManager } = require("../utils/AuthManager")();
 module.exports = class SallaAPI {
   constructor() {
     this.baseEndpoint = BASE_URL + "/api/";
-
+    this.baseEndpointTheme = THEME_END_POINT + "/api/";
     (async () => {
       this.accessToken = (await AuthManager.getTokens()).salla.access_token;
     })();
@@ -61,6 +61,9 @@ module.exports = class SallaAPI {
    */
   getUrlForEndpoint(endpoint, data) {
     let url = this.baseEndpoint + this.endpoints[endpoint];
+    if (endpoint.includes("theme"))
+      url = this.baseEndpointTheme + this.endpoints[endpoint];
+
     if (!data || !data.params || !Array.isArray(data.params)) {
       return url;
     }

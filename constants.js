@@ -5,6 +5,8 @@ global.NPM_ENGINES = "^6 || ^7 || ^8";
 global.CLI_CONFIG_DIR = require("os").homedir() + "/.salla";
 global.CLI_CONFIG_FILE = require("path").join(CLI_CONFIG_DIR, "config.json");
 global.BASE_URL = "";
+global.THEME_END_POINT =
+  "https://dashboard-26c3cd35add3468fc189c714bd1a1345.salla.group";
 const Logger = require("./src/utils/LoggingManager");
 // get the config file
 try {
