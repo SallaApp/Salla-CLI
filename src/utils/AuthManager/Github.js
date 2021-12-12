@@ -205,7 +205,7 @@ class GithubAPI {
     });
 
     Logger.succ(
-      `✨ Initializing a new Github repository (${repoName}) for you. On the way ☕️`
+      `✨ Initializing a new Github repository (${repoName}) for you ...`
     );
     const remoteRepo = `https://github.com/${this.GithubConfig.login}/${repoName}`;
 
