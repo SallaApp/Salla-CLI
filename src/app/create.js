@@ -38,8 +38,10 @@ module.exports = async function (options) {
       "✅ Select Your App:",
       [
         /* apps from developer account */
-        ...apps.map((app) => app.name.en),
-        "Want to Create New Salla Partner App?",
+        ...apps.map((app) => {
+          return { val: app.name.en, desc: app.type };
+        }),
+        " 🖊  Want to Create New Salla Partner App?",
       ],
       "Listed below are the apps assoicated with your Salla Partners account .. You can either select an existing app or create a new app in simple steps"
     ));
@@ -114,11 +116,17 @@ module.exports = async function (options) {
     options.auth_mode = await InputsManager.selectInput(
       "App Authorization Mode: (Use arrow keys) ",
       [
-        "Easy Mode | In House Authorization",
-        "Custom Mode | Custom Callback URL",
+        {
+          val: "Easy Mode",
+          desc: "A custom web page needs to be created to handle the callback URLs.",
+        },
+        {
+          val: "Custom Mode",
+          desc: "The Access Token (and Refresh Token) can be retrieved using the webhook event from Salla .",
+        },
       ],
-      "With Easy Mode, you will recieve a webhook event when merchants install your app om their stores which contains all the information you need, such as access token, refresh token and more",
-      "With Custom Mode, you will be able to set a custom callback URL for merchants to use to authorize your app. "
+      "With Easy Mode, you will recieve a webhook event when merchants install your app om their stores which contains all the information you need, such as access token, refresh token and more\n" +
+        "With Custom Mode, you will be able to set a custom callback URL for merchants to use to authorize your app. "
     );
     if (options.auth_mode.indexOf("Easy") > -1) options.auth_mode = "easy";
     else options.auth_mode = "custom";
@@ -130,7 +138,16 @@ module.exports = async function (options) {
   // get project type
   const projectType = await InputsManager.selectInput(
     "Select Framework: (Use arrow keys)",
-    ["Express", "Laravel"],
+    [
+      {
+        val: "Express",
+        desc: "Express is Fast, unopinionated, minimalist web framework for Node.js",
+      },
+      {
+        val: "Laravel",
+        desc: "Laravel is a web application framework with expressive, elegant syntax.",
+      },
+    ],
     "Select your preferred framework to develope your Salla App."
   );
   if (projectType === "Express") {

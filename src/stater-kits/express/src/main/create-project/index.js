@@ -45,20 +45,20 @@ module.exports = function (args) {
       cmd: "copy",
       src: `${args.src}/app.${args.database_orm}.js`,
       dest: `${args.app_path}/app.js`,
-      msg: "✨ Setting up the Preferred Database ORM app.js file ...",
+      msg: "Setting up the Preferred Database ORM app.js file ...",
     },
     {
       cmd: "exec",
       command: "npm init -y",
       path: `${args.app_path}`,
-      msg: "✨ Initializing the Project's NPM file ...",
+      msg: "Initializing the Project's NPM file ...",
     },
     // FOR TESTING ONLY
     {
       cmd: "exec",
       command: "npm link @salla.sa/webhooks-actions",
       path: `${args.app_path}`,
-      msg: "✨ Linking webhooks-actions package ...",
+      msg: "Linking webhooks-actions package ...",
     },
     {
       cmd: "create",
@@ -66,13 +66,13 @@ module.exports = function (args) {
         return getPakcagejson(args);
       },
       path: `${args.app_path}/package.json`,
-      msg: "✨ Installing all package.json dependencies ...",
+      msg: "Installing all package.json dependencies ...",
     },
     {
       cmd: "exec",
       command: "npm install",
       path: `${args.app_path}`,
-      msg: "✨ Installing Project dependencies with NPM ...",
+      msg: "Installing Project dependencies with NPM ...",
     },
   ]);
 };
@@ -129,7 +129,7 @@ function getPakcagejson(args) {
     "start-app": "node app.js",
   };
   packageJSON.description =
-    "✨ New Awesome Application using Salla API and NodeJS";
+    "New Awesome Application using Salla API and NodeJS";
   packageJSON.dependencies = packages.reduce(
     (a, v) => ({
       ...a,

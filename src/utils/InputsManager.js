@@ -21,14 +21,12 @@ class InputsManager {
       AUTH_MODE: this.AUTH_MODE,
     };
   }
-  readLine(lable, {
-    validate,
-    name,
-    errorMessage,
-    desc
-  } = {}) {
+  readLine(lable, { validate, name, errorMessage, desc } = {}) {
     Logger.longLine();
-    if (desc) Logger.infoGray(desc);
+    if (desc) {
+      Logger.infoGray(desc);
+      Logger.longLine();
+    }
 
     let val = readlineSync.question(
       "? " + lable.bold + clc.greenBright("\n>") + " "
@@ -47,7 +45,10 @@ class InputsManager {
           Logger.error(`🤔 Hmmm! ${name} is not valid! Please try again.`);
         }
         Logger.longLine();
-        if (desc) Logger.infoGray(desc);
+        if (desc) {
+          Logger.infoGray(desc);
+          Logger.longLine();
+        }
         val = readlineSync.question(
           "? " + lable.bold + clc.greenBright("\n>") + " "
         );
@@ -62,9 +63,23 @@ class InputsManager {
 
   async selectInput(lable, values, desc) {
     Logger.longLine();
-    if (desc) Logger.infoGray(desc);
+    if (desc) {
+      Logger.infoGray(desc);
+      Logger.longLine();
+    }
     Logger.normal("? " + lable.bold);
-
+    values = values.map((v) => {
+      if (v.val) {
+        if (!v.desc) v.desc = "";
+        else v.desc = " | " + clc.greenBright(v.desc);
+        if (v.color) {
+          return v.val + clc[v.color](v.desc);
+        } else {
+          return v.val + v.desc;
+        }
+      }
+      return v;
+    });
     let selectedVal = await cliSelect({
       values,
       valueRenderer: (value, selected) => {

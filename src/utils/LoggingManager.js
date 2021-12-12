@@ -126,7 +126,7 @@ class LoggingManager {
       };
     if (type == "gray")
       msgObj = {
-        msg: `[!] ${msg}`,
+        msg: `${msg}`,
         color: "blackBright",
         type,
         sideMessage,

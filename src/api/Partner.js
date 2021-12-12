@@ -4,7 +4,20 @@ module.exports = class PartnerAPI extends SallaApi {
   constructor(args) {
     super(args);
 
-    this.app_types = ["public", "private", "shipping"];
+    this.app_types = [
+      {
+        val: "Public",
+        desc: "Your app can go into public usage and display for those users who browse the Salla App Store.",
+      },
+      {
+        val: "Private",
+        desc: "Privately built and developed apps for integration to either larger scaled or individual merchants.",
+      },
+      {
+        val: "Shipping",
+        desc: "Best suitable for shipping companies and delivery services as more additional are provided.",
+      },
+    ];
   }
   addNewApp(
     { name_ar, name_en },
