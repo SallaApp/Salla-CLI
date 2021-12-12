@@ -56,7 +56,7 @@ module.exports = async function (options) {
       `🎉 Hooray! OAuth Callback and Webhook URLs have been updated successfully.`
     );
     Logger.longLine();
-    Logger.normal("💻 As always, happy coding! 💻");
+    Logger.normal("💻 As always, Happy Coding! 💻");
     Logger.longLine();
     fs.writeFileSync(".env", generateEnv(data, `${url}/oauth/callback`));
   } catch (err) {

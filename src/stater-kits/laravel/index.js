@@ -32,7 +32,7 @@ process.on("unhandledRejection", function (err) {
   Logger.longLine();
   Logger.normal(err);
 
-  Logger.error(`🤔 Hmmm! Something went wrong while creating your app. Please try again by running the following command: salla app create  -n <appname>`);
+  Logger.error(`🤔 Hmmm! Something went wrong while creating your app. Please try again by running the following command: salla app create`);
 
   process.exit(0);
 });

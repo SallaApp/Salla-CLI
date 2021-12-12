@@ -41,7 +41,7 @@ module.exports = async function (options) {
         ...apps.map((app) => {
           return { val: app.name.en, desc: app.type };
         }),
-        "🖊  Want to Create New Salla Partner App?",
+        " 🖊  Want to Create New Salla Partner App?",
       ],
       "Listed below are the apps assoicated with your Salla Partners account .. You can either select an existing app or create a new app in simple steps"
     ));
@@ -118,11 +118,11 @@ module.exports = async function (options) {
       [
         {
           val: "Easy Mode",
-          desc: "A custom web page needs to be created to handle the callback URLs.",
+          desc: "Salla in-house authorization where you listen automatically to a webhook event.",
         },
         {
           val: "Custom Mode",
-          desc: "The Access Token (and Refresh Token) can be retrieved using the webhook event from Salla .",
+          desc: "Your custom web page to handle the callback URLs.",
         },
       ],
       "With Easy Mode, you will recieve a webhook event when merchants install your app om their stores which contains all the information you need, such as access token, refresh token and more\n" +
@@ -161,8 +161,8 @@ module.exports = async function (options) {
   let AppData = null;
   if (isNewApp) {
     // we create a new app in salla cloud then we set the args to the new app
-    Logger.info("✨ Initializing your app in Salla. On the way ☕️");
-    const load_upload_app = Logger.loading("Please Wait ☕️");
+    Logger.info("✨ Initializing your app in Salla.");
+    const load_upload_app = Logger.loading("Please Wait ☕️ ...");
 
     try {
       AppData = await PartnerApi.addNewApp(

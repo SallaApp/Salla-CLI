@@ -7,18 +7,18 @@ module.exports = function (args) {
       cmd: "check",
       name: "node",
       version: NODE_ENGINES,
-      msg: "Looking up for NodeJS's version ...",
+      msg: "🔍 Looking up for NodeJS's version ...",
     },
     {
       cmd: "check",
       name: "npm",
       version: NPM_ENGINES,
-      msg: "Looking up for NPM's version ...",
+      msg: "🔍 Looking up for NPM's version ...",
     },
     {
       cmd: "makedir",
       path: args.app_path,
-      msg: "Creating the Project's Folder",
+      msg: "✨ Creating the Project's Folder ...",
     },
 
     {
@@ -26,39 +26,39 @@ module.exports = function (args) {
       files: [".gitignore", "views", "helpers", "Actions"],
       src: `${args.src}`,
       dest: `${args.app_path}`,
-      msg: "Copying the Main Files and Folders to the newly created Project ...",
+      msg: "📄 Copying the Main Files and Folders to the newly created Project ...",
     },
     {
       cmd: "create",
 
       path: `${args.app_path}/.env`,
       content: generateEnv(args),
-      msg: "Creating the .env file",
+      msg: "✨ Creating the .env file ...",
     },
     {
       cmd: "copy",
       src: `${args.src}/ORMs/${args.database_orm}`,
       dest: `${args.app_path}/database/${args.database_orm}`,
-      msg: "Setting up the Preferred Database ORM Files ...",
+      msg: "✨ Setting up the Preferred Database ORM Files ...",
     },
     {
       cmd: "copy",
       src: `${args.src}/app.${args.database_orm}.js`,
       dest: `${args.app_path}/app.js`,
-      msg: "Setting up the Preferred Database ORM app.js file ...",
+      msg: "✨ Setting up the Preferred Database ORM app.js file ...",
     },
     {
       cmd: "exec",
       command: "npm init -y",
       path: `${args.app_path}`,
-      msg: "Initializing the Project's NPM file ...",
+      msg: "✨ Initializing the Project's NPM file ...",
     },
     // FOR TESTING ONLY
     {
       cmd: "exec",
       command: "npm link @salla.sa/webhooks-actions",
       path: `${args.app_path}`,
-      msg: "Linking webhooks-actions package ...",
+      msg: "🔗 Linking webhooks-actions package ...",
     },
     {
       cmd: "create",
@@ -66,13 +66,13 @@ module.exports = function (args) {
         return getPakcagejson(args);
       },
       path: `${args.app_path}/package.json`,
-      msg: "Installing all package.json dependencies ...",
+      msg: "✨ Installing all package.json dependencies ...",
     },
     {
       cmd: "exec",
       command: "npm install",
       path: `${args.app_path}`,
-      msg: "Installing Project dependencies with NPM ...",
+      msg: "✨ Installing Project dependencies with NPM ...",
     },
   ]);
 };
@@ -129,7 +129,7 @@ function getPakcagejson(args) {
     "start-app": "node app.js",
   };
   packageJSON.description =
-    "New Awesome Application using Salla API and NodeJS";
+    "📦 New Awesome Application using Salla API and NodeJS";
   packageJSON.dependencies = packages.reduce(
     (a, v) => ({
       ...a,

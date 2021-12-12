@@ -14,13 +14,13 @@ module.exports = function themeCommands() {
 
   const themeCommand = program
     .command("theme")
-    .description("Your enrty way to create a Salla Theme has just started ...");
+    .description("✨ Your enrty way to create a Salla Theme has just started ...");
 
   themeCommand
     .command("start")
     .alias("s")
     //.option('-n,--name <theme_name>', 'Theme name')
-    .description("Intiliazing a new theme ...")
+    .description("✨ Intiliazing a new theme ...")
     .action((options) =>
       new Start(options, "start")
         .run()
@@ -64,7 +64,7 @@ module.exports = function themeCommands() {
 
   themeCommand
     .command("push")
-    .description("Pushing the theme ...")
+    .description("✨ Pushing the theme ...")
     .option("-f,--force", "Force push all files, not only twig files.")
     .option("-t,--token <github_token>", "Github Token")
     .option("-n,--name <github_name>", "Github User Name")
@@ -79,7 +79,7 @@ module.exports = function themeCommands() {
   themeCommand
     .command("publish")
     .alias("p")
-    .description("Publishing the theme ... Almost done!")
+    .description("✅ Publishing the theme ... Almost done!")
     .action((options) =>
       new publish(options, "publish")
         .run()
