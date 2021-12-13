@@ -31,7 +31,7 @@ class Push extends BaseClass {
         this.pushChanges("✨ New Awesome Development Session", options.force);
         return;
       }
-      Logger.warn("🛑 Oops! The Git repo does not exist, yet.");
+      Logger.warn("Oops! The Git repo does not exist, yet.");
 
       await this.initiateRepo(github);
     });
@@ -88,6 +88,7 @@ class Push extends BaseClass {
         Logger.success(
           `🎉 Hooray! All done! Your files has been pushed to Github successfully.`
         );
+        Logger.longLine();
       })
       .catch(() => {
         commitLoader.stop();

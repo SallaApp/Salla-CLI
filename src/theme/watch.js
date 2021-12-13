@@ -41,10 +41,14 @@ class Watch extends BaseClass {
         this.path().join(BASE_PATH, "node_modules")
       ))
     ) {
-      Logger.info(`✅ Running '${packageManager} install' ...`);
+      let installLoader = Logger.loading(
+        `✅ Running '${packageManager} install' ...`
+      );
       // Logger.error('Folder (node_modules) is not exists! It looks that you didn\'t run (' + (packageManager + ' install').bold + ') yet.')
       this.runSysCommand(packageManager + " install");
       // return null;
+      installLoader.stop();
+      Logger.longLine();
     }
 
     let packageJs = this.packageData();
@@ -66,6 +70,7 @@ class Watch extends BaseClass {
     let draft_id = response.id;
 
     await this.configManager().set("draft_id", draft_id);
+    Logger.longLine();
     Logger.success("🔬 Hooray! Your theme is ready to test!");
 
     let assetsPort =
@@ -140,7 +145,10 @@ class Watch extends BaseClass {
   }
 
   async createDraftTheme() {
-    console.log("✨ Preparing your testing theme ...");
+    let createDraftLoader = Logger.loading(
+      "✨ Preparing your testing theme ..."
+    );
+
     const { repo_url, theme_name, theme_id } = this.configs();
 
     return (await this.sallaApi())
@@ -155,9 +163,12 @@ class Watch extends BaseClass {
         (await this.sallaApi()).themeAccessToken
       )
       .then((response) => {
+        Logger.longLine();
+        createDraftLoader.stop();
         return response.data;
       })
       .catch((err) => {
+        createDraftLoader.stop();
         return null;
       });
   }
