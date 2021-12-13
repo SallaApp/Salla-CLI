@@ -11,7 +11,8 @@ program.name("salla").usage("[command]");
 const packageJSON = JSON.parse(fs.readFileSync(`${__dirname}/../package.json`));
 (async () => {
   if (!process.argv.includes("--nohead")) {
-    await Logger.printHead(null, packageJSON.version);
+    if (!process.argv.includes("sync"))
+      await Logger.printHead(null, packageJSON.version);
   } else {
     process.argv.splice(process.argv.indexOf("--nohead"), 1);
   }

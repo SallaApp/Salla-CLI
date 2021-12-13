@@ -112,28 +112,7 @@ class Watch extends BaseClass {
     Logger.info(
       `✅ Currently running '${packageManager} watch'... Press Ctrl+C to quit the process.`
     );
-    let that = this;
-    watch(
-      path.resolve(BASE_PATH + "/views"),
-      { recursive: true },
-      async function (evt, name) {
-        // push things
-        that.runTheme(
-          `push --token ${tokens.github.access_token} --name ${tokens.github.login}`
-        );
-        let res = await that.createDraftTheme();
-        await that.configManager().set("draft_id", res.id);
-        let themeSyncProcess = exec(
-          `salla theme sync -f "${name}" -t ${res.id}  --nohead`,
-          {
-            cwd: BASE_PATH,
-          }
-        );
 
-        that.openBrowser(res.preview_url);
-        themeSyncProcess.stdout.pipe(process.stdout);
-      }
-    );
     let watchProcess = exec(packageManager + " watch", {
       cwd: BASE_PATH,
     });
