@@ -46,9 +46,6 @@ class GithubAPI {
         name: repo_name,
         private: isPrivate,
       });
-      Logger.success(
-        "🎉 Hooray! Your Github repository is created successfully."
-      );
     } catch (err) {
       let errorMessage = err.message.includes("name already exists")
         ? `Github repository (${repo_name}) already exists.`
@@ -105,7 +102,10 @@ class GithubAPI {
     return this.gitSimple
       .add(path || "./*")
       .then(() => this.gitSimple.commit(message))
-      .then(() => Logger.succ(`✅ New Version: ${tagName}`))
+      .then(() => {
+        Logger.longLine();
+        Logger.succ(`✅ New Version: ${tagName}`);
+      })
 
       .then(() => this.gitSimple.addTag(tagName))
       .then(() => this.gitSimple.pushTags("origin", "master"))
@@ -182,16 +182,16 @@ class GithubAPI {
         });
       }
     }
-    const repoName = InputsManager.readLine("? Repository Name:", {
+    const repoName = InputsManager.readLine("Repository Name:", {
       validate: /^[a-zA-Z0-9\s_-]+$/,
       name: "repository name",
     });
+    Logger.longLine();
 
-    Logger.succ(
+    const remoteRepo = `https://github.com/${this.GithubConfig.login}/${repoName}`;
+    let loaderRepo = Logger.loading(
       `✨ Initializing a new Github repository (${repoName}) for you ...`
     );
-    const remoteRepo = `https://github.com/${this.GithubConfig.login}/${repoName}`;
-
     try {
       await this.createRepo({
         repo_url: remoteRepo,
@@ -200,6 +200,11 @@ class GithubAPI {
         isPrivate,
         ...this.GithubConfig,
       });
+      Logger.longLine();
+      Logger.success(
+        "🎉 Hooray! Your Github repository is created successfully."
+      );
+      loaderRepo.stop();
       return {
         remoteRepo,
         repoName,
@@ -208,6 +213,7 @@ class GithubAPI {
       Logger.error(`🤔 Hmmm! Something went wrong. ${err.message}`);
 
       fs.removeSync(".git");
+      loaderRepo.stop();
       return null;
     }
   }

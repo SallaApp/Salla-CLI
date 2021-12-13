@@ -44,7 +44,9 @@ class ConfigManager extends BaseClass {
         return this._configs;
       }
       this._configs = undefined;
-    } catch (e) {}
+    } catch (e) {
+      //console.log(e);
+    }
     throw (
       "🛑 Oops! the theme.json config file is corrupted. Try to: \n" +
       "  - Remove theme.json file.\n".red +
@@ -70,10 +72,14 @@ class ConfigManager extends BaseClass {
   saveUnder(config) {
     return this.fileSys().writeFile(
       this.configPath(),
-      JSON.stringify({
-        ...this.all(),
-        ...config
-      }, null, 4)
+      JSON.stringify(
+        {
+          ...this.all(),
+          ...config,
+        },
+        null,
+        4
+      )
     );
   }
 

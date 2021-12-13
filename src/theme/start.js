@@ -1,11 +1,10 @@
 const BaseClass = require("./utils/BaseClass");
-const {
-  Octokit
-} = require("@octokit/rest");
+const { Octokit } = require("@octokit/rest");
 const fetch = require("node-fetch");
 const AdmZip = require("adm-zip");
 const Logger = require("../utils/LoggingManager");
 const ExecutionManager = require("../utils/ExecutionManager");
+const InputsManager = require("../utils/InputsManager");
 const executor = new ExecutionManager();
 /**
  * @property {StartOptions} options
@@ -34,17 +33,18 @@ class Start extends BaseClass {
       answers,
       this.options
     );
+
     themeConfig.theme_name = themeConfig.theme_name.replace(/\s/g, "-"); //replace spaces to underscore
 
     await this.createSubFolderIfNeeded(themeConfig.theme_name);
 
     await this.cloneRepo(themeConfig.theme_name)
       .then(async () => await this.configManager().saveUnder(themeConfig))
-      .then(() =>
+      .then(() => {
         Logger.success(
           `🎉 Hooray! Theme ${themeConfig.theme_name} has been created successfully.`
-        )
-      );
+        );
+      });
 
     return this.runTheme("watch --skip-start");
   }
@@ -65,6 +65,7 @@ class Start extends BaseClass {
       throw message;
     }
     await this.fileSys().mkdirs(BASE_PATH);
+    Logger.longLine();
     Logger.success(
       `🎉 Hooray! The folder (${theme_name.bold}) has been created successfully.`
     );
@@ -88,20 +89,27 @@ class Start extends BaseClass {
   }
 
   async cloneRepo(theme_name) {
-    Logger.info("✨ Downloading Base Theme ...");
+    let downloadinLoader = Logger.loading("✨ Downloading Base Theme ...");
+    Logger.longLine();
     const latestRelease = await this.getTheLatestRelease();
     if (
       latestRelease.status === 404 ||
       !latestRelease.data ||
       !latestRelease.data[0]
     ) {
+      downloadinLoader.stop();
       Logger.error(
         "🛑 Oops! The system failed to get latest Release. Please try again, ",
         latestRelease
       );
       throw "";
     }
-    await this.getAndUnZip(latestRelease.data[0].zipball_url, theme_name);
+
+    await this.getAndUnZip(
+      latestRelease.data[0].zipball_url,
+      theme_name,
+      downloadinLoader
+    );
   }
 
   async getTheLatestRelease() {
@@ -113,10 +121,10 @@ class Start extends BaseClass {
     });
   }
 
-  async getAndUnZip(url, theme_name) {
+  async getAndUnZip(url, theme_name, downloadinLoader) {
     //TODO:: add progress bar
     const response = await fetch(url, {
-      headers: this.authHeader()
+      headers: this.authHeader(),
     });
     if (!response.ok) {
       Logger.error(
@@ -125,22 +133,27 @@ class Start extends BaseClass {
       Logger.error(await response.json());
       throw "🤔 Hmmm! Something went wrong while trying to get your base theme. Please try again.);";
     }
-
+    downloadinLoader.stop();
     Logger.success("🎉 Hooray! Base theme downloaded successfully.");
-    Logger.info("✨ Extracting base theme files ...");
+    Logger.longLine();
+    let ExtractingLoader = Logger.loading("✨ Extracting base theme files ...");
     const zip = new AdmZip(await response.buffer());
     //const entries = zip.getEntries();
     const mainEntry = zip.getEntries()[0].entryName;
-    zip.extractAllTo( /*target path*/ BASE_PATH, /*overwrite*/ false);
+    zip.extractAllTo(/*target path*/ BASE_PATH, /*overwrite*/ false);
     const srcDir = this.path().join(BASE_PATH, mainEntry);
-    this.fileSys().copySync(srcDir, BASE_PATH, {
-        overwrite: false
-      }, (err) =>
-      err ? Logger.error(err) : Logger.success("🎉 Hooray!")
+    this.fileSys().copySync(
+      srcDir,
+      BASE_PATH,
+      {
+        overwrite: false,
+      },
+      (err) => (err ? Logger.error(err) : Logger.success("🎉 Hooray!"))
     );
     this.fileSys().removeSync(srcDir);
     this.fileSys().removeSync(this.path().join(BASE_PATH, ".github"));
     //Logger.success('Base theme is ready.');
+    ExtractingLoader.stop();
     return true;
   }
 
@@ -148,14 +161,16 @@ class Start extends BaseClass {
     try {
       return this.configs();
     } catch (err) {
-      Logger.info(`********** Building New ${"Salla".bold} Theme **********`);
+      Logger.info(`Building New ${"Salla".bold} Theme   `);
+
       return {};
     }
   }
 
   getDefaultAnswers(sallaConfig) {
     return {
-      theme_name: sallaConfig.theme_name ||
+      theme_name:
+        sallaConfig.theme_name ||
         this.options.theme_name ||
         this.getDefaultThemeName(),
       author: sallaConfig.author || "",
@@ -169,9 +184,9 @@ class Start extends BaseClass {
    * @return {undefined|string}
    */
   getDefaultThemeName() {
-    return this._isEmptyDir ?
-      this.path().basename(BASE_PATH).replace(/\s/g, "-") :
-      undefined;
+    return this._isEmptyDir
+      ? this.path().basename(BASE_PATH).replace(/\s/g, "-")
+      : undefined;
   }
 
   isEmptyDirectory(path) {
@@ -187,9 +202,10 @@ class Start extends BaseClass {
       prompts.push({
         type: "input",
         name: "theme_name",
-        message: "? What would you like to name your theme?",
+        message: "What would you like to name your theme?",
         validate: (val) =>
-          /^[a-zA-Z0-9\s_-]+$/.test(val) || "🛑 Oops! An error occured. Please enter a valid theme name",
+          /^[a-zA-Z0-9\s_-]+$/.test(val) ||
+          "🛑 Oops! An error occured. Please enter a valid theme name",
         default: defaultAnswers.theme_name,
       });
     }
@@ -232,7 +248,24 @@ class Start extends BaseClass {
    * @returns {Promise<object>}
    */
   async askQuestions(questions) {
-    return questions.length ? this.inquirer().prompt(questions) : {};
+    let ans = {};
+    for (let i = 0; i < questions.length; i++) {
+      if (questions[i].type == "input") {
+        ans[questions[i].name] = InputsManager.readLine(questions[i].message, {
+          validate: questions[i].validate,
+          name: questions[i].name,
+          errorMessage: questions[i].errorMessage,
+          desc: questions[i].desc,
+        });
+      } else {
+        ans[questions[i].name] = await InputsManager.selectInput(
+          questions[i].message,
+          questions[i].options,
+          questions[i].desc
+        );
+      }
+    }
+    return ans;
   }
 
   /**

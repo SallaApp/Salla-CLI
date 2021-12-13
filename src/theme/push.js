@@ -1,8 +1,5 @@
 const BaseClass = require("./utils/BaseClass");
-const {
-  AuthManager,
-  GithubAPI
-} = require("../utils/AuthManager")();
+const { AuthManager, GithubAPI } = require("../utils/AuthManager")();
 
 const Logger = require("../utils/LoggingManager");
 
@@ -21,11 +18,12 @@ class Push extends BaseClass {
      * @type {GithubConfig}
      */
     const github =
-      options.token && options.name ? {
-        access_token: options.token,
-        login: options.name
-      } :
-      (await this.getTokens()).github;
+      options.token && options.name
+        ? {
+            access_token: options.token,
+            login: options.name,
+          }
+        : (await this.getTokens()).github;
 
     GithubAPI.gitSimple.checkIsRepo().then(async (isRepo) => {
       if (isRepo) {
@@ -73,22 +71,27 @@ class Push extends BaseClass {
       return;
     }
     let tagName = await GithubAPI.getTagName(this.options.minor);
-
+    let commitLoader = Logger.loading("Commiting :" + message);
     GithubAPI.addAndCommit({
-        path: "./*",
-        message: this.options.message || message,
-        tagName,
-      })
+      path: "./*",
+      message: this.options.message || message,
+      tagName,
+    })
       .then(
         () =>
-        files.length > 10 &&
-        Logger.info(`✨ Pushing (${files.length}) files into git repo ...`)
+          files.length > 10 &&
+          Logger.info(`✨ Pushing (${files.length}) files into git repo ...`)
       )
-      .then(() =>
+      .then(() => {
+        commitLoader.stop();
+        Logger.longLine();
         Logger.success(
           `🎉 Hooray! All done! Your files has been pushed to Github successfully.`
-        )
-      );
+        );
+      })
+      .catch(() => {
+        commitLoader.stop();
+      });
   }
 }
 

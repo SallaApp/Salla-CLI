@@ -14,7 +14,7 @@ class LoggingManager {
     return loading({
       text: text,
 
-      interval: 80,
+      interval: 140,
       stream: process.stdout,
 
       frames: ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"],
