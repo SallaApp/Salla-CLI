@@ -16,7 +16,7 @@
 /** @typedef {{base:string, config:CheckOption}} DevOptions */
 /** @typedef {AuthOptions|PublishOptions|PushOptions|ServeOptions|StartOptions|SyncOptions|WatchOptions|{}} ThemeCommandsOptions */
 
-const SallaApi = require("../../api/SallaApi");
+const ThemeAPI = require("../../api/Theme");
 const { execSync } = require("child_process");
 const { AuthManager, GithubAPI } = require("../../utils/AuthManager")();
 
@@ -24,7 +24,7 @@ const { AuthManager, GithubAPI } = require("../../utils/AuthManager")();
  * @property {ThemeCommandsOptions} options
  * @property {Commands|undefined} commandName
  * @property {SallaConfig} tokens
- * @property {SallaApi} _sallaApi
+ * @property {ThemeAPI} _themeAPI
  * @property {Inquirer|undefined} _inquirer
  */
 class BaseClass {
@@ -45,11 +45,17 @@ class BaseClass {
       //throw "Theme not exists";
       process.exit();
     }
-    this.tokens = AuthManager.getTokens();
+
     this.options = options || {};
     this.commandName = commandName;
     this.readyToReturn = false;
     this.isNotReadyGoOut = false;
+    (async () => {
+      this.tokens = await AuthManager.getTokens();
+      this._themeAPI = new ThemeAPI();
+      this._themeAPI.setThemeAccessToken(this.tokens.salla.theme_access_token);
+      this._themeAPI.setAccessToken(this.tokens.salla.access_token);
+    })();
   }
 
   /******* Common Helper Classes & Objects *******/
@@ -108,19 +114,19 @@ class BaseClass {
 
   /**
    * @param {boolean} skip_tokens_check
-   * @return {Promise<SallaApi>}
+   * @return {Promise<ThemeAPI>}
    */
-  async sallaApi(skip_tokens_check = false) {
-    if (this._sallaApi) {
-      return this._sallaApi;
+  async ThemeAPI(skip_tokens_check = false) {
+    if (this._themeAPI) {
+      return this._themeAPI;
     }
-    this._sallaApi = new SallaApi();
+    this._themeAPI = new ThemeAPI();
 
-    this._sallaApi.setThemeAccessToken(
+    this._themeAPI.setThemeAccessToken(
       (await this.getTokens(skip_tokens_check)).salla.theme_access_token
     );
 
-    return this._sallaApi;
+    return this._themeAPI;
   }
 
   /**

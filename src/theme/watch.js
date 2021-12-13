@@ -79,7 +79,7 @@ class Watch extends BaseClass {
       cwd: BASE_PATH,
     });
     serve.stdout.on("data", (data) => {
-      Logger.info((data = data.replace("\n", "")));
+      console.log("\n" + (data = data.replace("\n", "")));
       if (data.toLowerCase().includes("Error")) {
         return (this.isNotReadyGoOut = true);
       }
@@ -91,8 +91,8 @@ class Watch extends BaseClass {
       return null;
     }
     response.preview_url += "&assets_url=http://localhost:" + assetsPort;
-    Logger.success("✅ Here goes the Preview Url:", response.preview_url);
-
+    Logger.success("✅ Here goes the Preview Url: " + response.preview_url);
+    Logger.longLine();
     // check if watch defined in package.json
     if (!packageJs.scripts.hasOwnProperty("watch")) {
       Logger.warn(
@@ -117,7 +117,7 @@ class Watch extends BaseClass {
     Logger.info(
       `✅ Currently running '${packageManager} watch'... Press Ctrl+C to quit the process.`
     );
-
+    Logger.longLine();
     let watchProcess = exec(packageManager + " watch", {
       cwd: BASE_PATH,
     });
@@ -151,17 +151,12 @@ class Watch extends BaseClass {
 
     const { repo_url, theme_name, theme_id } = this.configs();
 
-    return (await this.sallaApi())
-      .request(
-        "new_draft",
-        {
-          repo_url: repo_url,
-          name: theme_name,
-          theme_id: theme_id,
-        },
-        null,
-        (await this.sallaApi()).themeAccessToken
-      )
+    return (await this.ThemeAPI())
+      .new_draft({
+        repo_url: repo_url,
+        name: theme_name,
+        theme_id: theme_id,
+      })
       .then((response) => {
         Logger.longLine();
         createDraftLoader.stop();

@@ -45,7 +45,7 @@ class Push extends BaseClass {
   async initiateRepo(github) {
     let result = await GithubAPI.initiateRepo({
       message: "🎉 New Awesome Theme For 🛒",
-      isPrivate: true,
+      isPrivate: false,
       ...github,
     });
     if (result) {
@@ -71,7 +71,9 @@ class Push extends BaseClass {
       return;
     }
     let tagName = await GithubAPI.getTagName(this.options.minor);
-    let commitLoader = Logger.loading("Commiting :" + message);
+    let commitLoader = Logger.loading(
+      "Commiting :" + message + " Please Wait ..."
+    );
     GithubAPI.addAndCommit({
       path: "./*",
       message: this.options.message || message,

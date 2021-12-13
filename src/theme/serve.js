@@ -18,6 +18,7 @@ class Serve extends BaseClass {
       verbose: true,
     }).on("listening", () => {
       Logger.success("🎉 Hooray! Local server is currently running.");
+      Logger.longLine();
     });
   }
 }

@@ -8,12 +8,6 @@ class Sync extends BaseClass {
    * @return {Promise<{}|boolean>}
    */
   async run() {
-    let tokens = await this.getTokens();
-
-    (await this.sallaApi()).setThemeAccessToken(
-      tokens.salla.theme_access_token
-    );
-    (await this.sallaApi()).setAccessToken(tokens.salla.access_token);
     if (!this.options.theme_id) {
       Logger.error(
         "🤔 Hmmm! You need to specify a valid Theme ID, as theme_id didn't pass! Please try again."
@@ -54,13 +48,8 @@ class Sync extends BaseClass {
     fromData.append("path", path.replace(fileName, ""));
     fromData.params = [this.options.theme_id];
 
-    await (await this.sallaApi(/*skip_tokens_check*/ true))
-      .request(
-        "upload_file",
-        fromData,
-        fromData.getHeaders(),
-        tokens.salla.theme_access_token
-      )
+    await (await this.ThemeAPI(/*skip_tokens_check*/ true))
+      .upload_file(fromData)
       .then((res) => {
         if (res === false) {
           Logger.error(

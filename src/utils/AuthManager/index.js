@@ -25,6 +25,7 @@ class AuthManager {
       this.configData = fs.existsSync(CLI_CONFIG_FILE)
         ? require(CLI_CONFIG_FILE)
         : null;
+      GithubAPI.setGithubConfigData(this.configData.github || {});
     } catch (error) {
       Logger.error(
         "🤔 Hmmm! Something went wrong while writing config file: ",
@@ -34,10 +35,8 @@ class AuthManager {
   }
   async getTokens() {
     if (this.configData) {
-      GithubAPI.setGithubConfigData(this.configData.github || {});
       return this.configData;
     }
-
     try {
       this.configData = fs.existsSync(CLI_CONFIG_FILE)
         ? require(CLI_CONFIG_FILE)

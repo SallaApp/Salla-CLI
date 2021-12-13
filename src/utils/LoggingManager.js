@@ -12,7 +12,7 @@ class LoggingManager {
   }
   loading(text) {
     return loading({
-      text: text,
+      text: clc.blackBright(text),
 
       interval: 140,
       stream: process.stdout,
