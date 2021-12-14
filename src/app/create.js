@@ -41,15 +41,14 @@ module.exports = async function (options) {
         ...apps.map((app) => {
           return { val: app.name.en, desc: app.type };
         }),
-        " 🖊  Want to Create New Salla Partner App?",
+        "🚀 I Want to Create New Salla Partner App .",
       ],
-      "⬇️ Listed below are the apps assoicated with your Salla Partners account .. You can either select an existing app or create a new app in simple steps"
+      "Listed below are the apps assoicated with your Salla Partners account ..\nYou can either select an existing app or create a new app in simple steps"
     ));
   let isNewApp = false;
   options.app_path = generateAppPath(options.app_name);
   // check if create new app or not
-  if (options.app_name.indexOf("Create New") > -1) {
-    console.log("🚀 Creating new app ...");
+  if (options.app_name.indexOf("create") > -1) {
     isNewApp = true;
     options.app_name = InputsManager.readLine("App Name:", {
       validate(value) {
@@ -61,14 +60,14 @@ module.exports = async function (options) {
       name: "App Name",
       errorMessage:
         "🛑 For better visbility, your App Name must be between 10 and 50 characters long!",
-      desc: "ℹ️ The app name will be used to create a folder in your project root as well as in your Salla Partners Dashboard, so make sure it's unique, easy to understand, and straight-forward.",
+      desc: "The app name will be used to create a folder in your project root as well as in your Salla Partners Dashboard,\nso make sure it's unique, easy to understand, and straight-forward.",
     });
     options.app_path = generateAppPath(options.app_name);
 
     // check if app name is allowed to use
     if (FORBIDDEN_PROJECT_NAMES.includes(options.app_name)) {
       Logger.error(
-        `🛑 Oops! Seems like the App Name, ${options.app_name}, is not allowed to use. Please try creating your Salla App with another name.`
+        `🛑 Oops! Seems like the App Name, ${options.app_name}, is not allowed to use.\nPlease try creating your Salla App with another name.`
       );
       process.exit(1);
     }
@@ -87,20 +86,20 @@ module.exports = async function (options) {
 
       errorMessage:
         "🛑 To attract merchants, ensure that your description is at least 100 characters long.",
-      desc: "ℹ️ This description will be used in the Salla Dashboard to help you attract new merchants. Ensure that your short description is easy-to-understand by the merchants and non-technical personnel as it is the first thing they will see when they visit your app on Salla App Store.",
+      desc: "This description will be used in the Salla Dashboard to help you attract new merchants.\nEnsure that your short description is easy-to-understand by the merchants and non-technical personnel\nas it is the first thing they will see when they visit your app on Salla App Store.",
     });
     // get Email
     options.email = InputsManager.readLine("Email Address:", {
       validate: /\S+@\S+\.\S+/,
       name: "Email",
-      desc: "ℹ️ This email will be assoicated with your Salla Partners account. It will also be used to contact you in case of any issues or questions by the Salla Team.",
+      desc: "This email will be assoicated with your Salla Partners account.\nIt will also be used to contact you in case of any issues or questions by the Salla Team.",
     });
     // select app type
     options.app_type = await InputsManager.selectInput(
       "Select App Type: (Use arrow keys)",
       PartnerApi.app_types,
 
-      "ℹ️ Salla Partners gives you the option to create your app in three types: Public for all Salla Merchants to download and use, Private for only merchants you choose to download and use. Private for only specific merchants you choose to download and use, and Shipping which are best suitable for shipping companies and delivery services"
+      "Salla Partners gives you the option to create your app in three types:\nPublic for all Salla Merchants to download and use,\nPrivate for only merchants you choose to download and use.\nShipping which are best suitable for shipping companies and delivery services"
     );
     options.app_url = InputsManager.readLine("App Homepage URL:", {
       // TODO : improve it
@@ -111,24 +110,25 @@ module.exports = async function (options) {
       errorMessage:
         "🛑 Oops! Your App Home Page URL is not in a standard format, HTTP, which could result in merchants not visiting your app's home page website.",
 
-      desc: "ℹ️ Add your app's home page URL where Salla merchants can learn more about your app's services and more.",
+      desc: "Add your app's home page URL where Salla merchants can learn more about your app's services and more.",
     });
     options.auth_mode = await InputsManager.selectInput(
       "App Authorization Mode: (Use arrow keys) ",
       [
         {
           val: "Easy Mode",
-          desc: "ℹ️ Salla in-house authorization where you listen automatically to a webhook event.",
+          desc: "Salla in-house authorization where you listen automatically to a webhook event.",
         },
         {
           val: "Custom Mode",
-          desc: "ℹ️ Your custom web page to handle the callback URLs.",
+          desc: "Your custom web page to handle the callback URLs.",
         },
       ],
-      "ℹ️ With Easy Mode, you will recieve a webhook event when merchants install your app om their stores which contains all the information you need, such as access token, refresh token and more\n" +
+      "With Easy Mode, you will recieve a webhook event when merchants install your app om their stores which contains all the information you need,\nSuch as access token, refresh token and more\n" +
         "With Custom Mode, you will be able to set a custom callback URL for merchants to use to authorize your app. "
     );
-    if (options.auth_mode.indexOf("Easy") > -1) options.auth_mode = "easy";
+
+    if (options.auth_mode.indexOf("easy") > -1) options.auth_mode = "easy";
     else options.auth_mode = "custom";
   } else {
     // this will trigger process.exit(1) if the app name exists
@@ -141,16 +141,16 @@ module.exports = async function (options) {
     [
       {
         val: "Express",
-        desc: "ℹ️ Express is Fast, unopinionated, minimalist web framework for Node.js",
+        desc: "Express is Fast, unopinionated, minimalist web framework for Node.js",
       },
       {
         val: "Laravel",
-        desc: "ℹ️ Laravel is a web application framework with expressive, elegant syntax.",
+        desc: "Laravel is a web application framework with expressive, elegant syntax.",
       },
     ],
     "Select your preferred framework to develope your Salla App"
   );
-  if (projectType === "Express") {
+  if (projectType === "express") {
     // get database orm
     options.database_orm = await InputsManager.selectInput(
       "App Database ORM: ",

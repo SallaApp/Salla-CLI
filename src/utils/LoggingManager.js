@@ -125,9 +125,10 @@ class LoggingManager {
         type,
         sideMessage,
       };
+
     if (type == "gray")
       msgObj = {
-        msg: `${msg}`,
+        msg: clc.italic(`${msg}`),
         color: "blackBright",
         type,
         sideMessage,
@@ -137,9 +138,10 @@ class LoggingManager {
     return msgObj;
   }
   error(msg, ...msgs) {
+    this.printMessage(this.createMessage(msg, "err"));
     if (msgs.length > 0)
       msgs.map((msg) => this.printMessage(this.createMessage(msg, "side-err")));
-    return this.printMessage(this.createMessage(msg, "err"));
+    return;
   }
   warn(msg, ...msgs) {
     if (msgs.length > 0)

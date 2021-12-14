@@ -72,11 +72,6 @@ class InputsManager {
       if (v.val) {
         if (!v.desc) v.desc = "";
         else v.desc = " | " + clc.greenBright(v.desc);
-        if (v.color) {
-          return v.val + clc[v.color](v.desc);
-        } else {
-          return v.val + v.desc;
-        }
       }
       return v;
     });
@@ -84,13 +79,27 @@ class InputsManager {
       values,
       valueRenderer: (value, selected) => {
         if (selected) {
-          return chalk.bold(value);
+          if (typeof value == "string") return chalk.bold(value);
+          return chalk.bold(value.val) + (value.desc || "");
         }
-        return value;
+        if (typeof value == "string") return value;
+        if (value.color) return value.val + clc[value.color](value.desc || "");
+
+        return value.val + value.desc;
       },
     });
-    Logger.normal(selectedVal.value);
-    return selectedVal.value;
+
+    if (!selectedVal.value) {
+      Logger.normal(selectedVal);
+      return selectedVal.toLowerCase();
+    }
+    if (!selectedVal.value.val) {
+      Logger.normal(selectedVal.value);
+      return selectedVal.value.toLowerCase();
+    }
+
+    Logger.normal(selectedVal.value.val);
+    return selectedVal.value.val.toLowerCase();
   }
 
   getClientIDFromCLI() {
