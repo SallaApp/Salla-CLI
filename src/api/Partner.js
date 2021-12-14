@@ -7,7 +7,7 @@ module.exports = class PartnerAPI extends SallaApi {
     this.app_types = [
       {
         val: "Public",
-        desc: "Available for all Salla Merchants to download and use",
+        desc: "Available for all Salla Merchants to download and use.",
       },
       {
         val: "Private",
