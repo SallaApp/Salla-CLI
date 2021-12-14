@@ -59,7 +59,7 @@ Salla CLI comes with an easy to use, straight-forward commands that does the com
 What can you use Salla CLI for?
 
 - Create your own Salla Theme
-- Single-taps to create your own Salla App
+- Single-taps to create your own Salla App on Salla Partners
 - Login to your Salla Store
 
 <!-- The starter App comes with an easy _1-command step_ that does the complete setup for your starter App. To be ready, you will need some prerequisites which will be listed hereafter. -->

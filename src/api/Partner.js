@@ -7,18 +7,19 @@ module.exports = class PartnerAPI extends SallaApi {
     this.app_types = [
       {
         val: "Public",
-        desc: "Your app can go into public usage and display for those users who browse the Salla App Store.",
+        desc: "Available for all Salla Merchants to download and use",
       },
       {
         val: "Private",
-        desc: "Privately built and developed apps for integration to either larger scaled or individual merchants.",
+        desc: "Privately built apps for integration to larger scaled and individual merchants.",
       },
       {
         val: "Shipping",
-        desc: "Best suitable for shipping companies and delivery services as more additional are provided.",
+        desc: "Best suitable for shipping companies and delivery services.",
       },
     ];
   }
+
   addNewApp(
     { name_ar, name_en },
     { short_description_ar, short_description_en },
