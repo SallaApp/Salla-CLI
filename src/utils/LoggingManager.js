@@ -58,6 +58,9 @@ class LoggingManager {
 
   // print a long line
   longLine = (n) => {
+    while (--n > 0) console.log("                     ");
+
+    if (n) return;
     return console.log("                     ");
   };
 

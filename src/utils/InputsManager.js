@@ -134,18 +134,21 @@ class InputsManager {
     // Logger.normal("You Can continue developing the app using this command  :");
 
     Logger.longLine();
-    Logger.succ(`~# cd ${app_name} && salla app serve --port 3000 --host`);
+    Logger.succ(`~# cd ${app_name} && salla app serve --port 8081 `);
 
     Logger.longLine();
   }
   catchCtrlC(app_name) {
     process.on("SIGINT", () => {
+      this.exitingNormal = true;
       this.finalMessage(app_name);
+
       process.exit(1);
     });
   }
   errorCatch() {
     process.on("exit", () => {
+      if (this.exitingNormal) return;
       Logger.longLine();
       Logger.printVisitTroubleshootingPage();
       process.exit(1);

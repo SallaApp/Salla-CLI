@@ -20,18 +20,21 @@ module.exports = async function (options) {
     `✨ Starting your project on PORT:${options.port} ... `,
     `✨ Starting ngrok. Please hold on ... `
   );
+  Logger.longLine();
+  const load_upload_app = Logger.loading("Please Wait ☕️ ...");
+
   const url = await ngrok.connect({
     addr: options.port,
     authtoken:
       process.env.NGROK_TOKEN ||
       "228l6GcFdMoGrXzSia73IFbvZ3f_7VMZvSvSnG4g2FvN3yP4q",
   });
-  Logger.longLine();
+  Logger.longLine(2);
   Logger.succ(`Remote URL : ${url} `);
   Logger.succ(`Local  URL : http://localhost:${options.port} `);
   Logger.succ(`Webhook URL : ${url}/webhook/ `);
   Logger.succ(`OAuth Callback URL : ${url}/oauth/callback/ `);
-
+  load_upload_app.stop();
   Logger.longLine();
   // give sometime to ngrok to connect and expressjs to start
   setTimeout(() => {

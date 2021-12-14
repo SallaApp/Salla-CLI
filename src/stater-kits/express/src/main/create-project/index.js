@@ -112,15 +112,16 @@ function getPakcagejson(args) {
     ["nunjucks", "^3.2.1"],
     ["passport", "^0.1.0"],
   ];
-  if (args.database_orm == "Sequelize") {
+
+  if (args.database_orm == "sequelize") {
     packages.push(["sequelize", "^6.12.0-alpha.1"]);
     packages.push(["mysql2", "^2.3.3"]);
   }
-  if (args.database_orm == "Mongoose") {
+  if (args.database_orm == "mongoose") {
     packages.push(["mongoose", "6.0.13"]);
     packages.push(["validator", "^10.0.0"]);
   }
-  if (args.database_orm == "TypeORM") {
+  if (args.database_orm == "typeorm") {
     packages.push(["typeorm", "0.2.41"]);
     packages.push(["mysql2", "^2.3.3"]);
   }

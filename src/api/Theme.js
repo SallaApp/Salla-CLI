@@ -25,13 +25,14 @@ module.exports = class ThemeAPI extends SallaApi {
       this.theme_access_token
     );
   }
-  new_draft({ repo_url, name, theme_id }) {
+  new_draft({ repo_url, name, theme_id, features }) {
     return this.request(
       "new_draft",
       {
         repo_url: repo_url,
         name: name,
         theme_id: theme_id,
+        features: features,
       },
       null,
       this.theme_access_token

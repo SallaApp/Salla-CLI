@@ -151,13 +151,14 @@ class Watch extends BaseClass {
       "✨ Preparing your testing theme ..."
     );
 
-    const { repo_url, theme_name, theme_id } = this.configs();
+    const { repo_url, theme_name, theme_id, features } = this.configs();
 
     return (await this.ThemeAPI())
       .new_draft({
         repo_url: repo_url,
         name: theme_name,
         theme_id: theme_id,
+        features: features,
       })
       .then((response) => {
         Logger.longLine();

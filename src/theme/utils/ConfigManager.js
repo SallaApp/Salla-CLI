@@ -8,7 +8,9 @@
  *              theme_id: string,
  *              draft_id: number,
  *              version: string,
- *              email: string}} ThemeConfigs
+ *              email: string,
+ *              features: [string],
+ *              }} ThemeConfigs
  */
 /**
  * @typedef {string|boolean|number} BaseJsonValue
