@@ -8,9 +8,14 @@ module.exports = class ThemeAPI extends SallaApi {
     this.theme_access_token = theme_access_token;
   }
   publishTheme(draft_id) {
-    return this.request("publish", {
-      params: [draft_id],
-    });
+    return this.request(
+      "publish",
+      {
+        params: [draft_id],
+      },
+      null,
+      this.theme_access_token
+    );
   }
   upload_file(fromData) {
     return this.request(

@@ -2,7 +2,7 @@ const BaseClass = require("./utils/BaseClass");
 const Logger = require("../utils/LoggingManager");
 
 const { AuthManager, GithubAPI } = require("../utils/AuthManager")();
-
+const InputsManager = require("../utils/InputsManager");
 /**
  * @property {PublishOptions} options
  */
@@ -20,7 +20,7 @@ class Publish extends BaseClass {
      * @type {SallaConfig}
      */
     let tokens = await this.getTokens();
-    GithubAPI.setConfigData(tokens.github);
+    GithubAPI.setGithubConfigData(tokens.github);
     let command = `push --force --token ${tokens.github.access_token} --name ${tokens.github.login}`;
 
     this.runTheme(command + ' --minor --message "New Release 🚀"');

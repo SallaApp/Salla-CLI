@@ -110,8 +110,10 @@ class Watch extends BaseClass {
 
       return null;
     }
-
-    await this.openBrowser(response.preview_url);
+    // give sometime to the server to start
+    setTimeout(async () => {
+      await this.openBrowser(response.preview_url);
+    }, 1000);
 
     packageManager += packageManager === "npm" ? " run" : "";
     Logger.info(
