@@ -111,7 +111,7 @@ module.exports = class SallaAPI {
       .catch((err) => {
         Logger.longLine();
 
-        Logger.error("Error in Endpoint:" + url);
+        Logger.error("Error in Endpoint: " + url);
         this.handleErrors(err);
         throw err;
       });
