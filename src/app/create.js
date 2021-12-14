@@ -41,7 +41,7 @@ module.exports = async function (options) {
         ...apps.map((app) => {
           return { val: app.name.en, desc: app.type };
         }),
-        "🚀 I Want to Create New Salla Partner App .",
+        "🚀 I Want to Create New Salla Partner App.",
       ],
       "Listed below are the apps assoicated with your Salla Partners account ..\nYou can either select an existing app or create a new app in simple steps"
     ));
@@ -99,7 +99,7 @@ module.exports = async function (options) {
       "Select App Type: (Use arrow keys)",
       PartnerApi.app_types,
 
-      "Salla Partners gives you the option to create your app in three types:\nPublic for all Salla Merchants to download and use,\nPrivate for only merchants you choose to download and use.\nShipping which are best suitable for shipping companies and delivery services"
+      "Salla Partners gives you the option to create your app in three types. Choose the one that suits your needs."
     );
     options.app_url = InputsManager.readLine("App Homepage URL:", {
       // TODO : improve it
@@ -117,15 +117,17 @@ module.exports = async function (options) {
       [
         {
           val: "Easy Mode",
-          desc: "Salla in-house authorization where you listen automatically to a webhook event.",
+          desc: "Salla in-house authorization where you listen automatically to webhook events.",
         },
         {
           val: "Custom Mode",
           desc: "Your custom web page to handle the callback URLs.",
         },
       ],
-      "With Easy Mode, you will recieve a webhook event when merchants install your app om their stores which contains all the information you need,Such as access token, refresh token and more\n" +
-        "With Custom Mode, you will be able to set a custom callback URL for merchants to use to authorize your app. "
+
+      "Choose your app's authorization mode that is supported by Salla. You can either use the easy mode or custom mode.",
+      // "With Easy Mode, you will recieve a webhook event when merchants install your app om their stores which contains all the information you need,Such as access token, refresh token and more\n" +
+      //   "With Custom Mode, you will be able to set a custom callback URL for merchants to use to authorize your app. "
     );
 
     if (options.auth_mode.indexOf("easy") > -1) options.auth_mode = "easy";
@@ -155,7 +157,7 @@ module.exports = async function (options) {
     options.database_orm = await InputsManager.selectInput(
       "App Database ORM: ",
       DATABASE_ORM,
-      "Select your prefred ORM to help you create and manage your database for your Salla App."
+      "Object-Relational Mapping (ORM) is a technique that lets you query and manipulate data from a database using an object-oriented paradigm. Select your prefred ORM to help you create and manage your database for your Salla App."
     );
   }
   let AppData = null;
@@ -187,7 +189,7 @@ module.exports = async function (options) {
         process.exit(1);
       }
 
-      Logger.succ("🎉 Hooray! Your app has been created successfully.");
+      Logger.succ("🎉 Your app has been created successfully.");
     } catch (err) {
       Logger.longLine();
       Logger.longLine();

@@ -13,7 +13,7 @@ module.exports = function appCommands() {
     .command("create")
 
     .description(
-      "Create a new Salla application using the Salla CLI in this manner: salla app create."
+      "Wizard to help you create a new Salla Partners App."
     )
     .action(require("../src/app/create"));
 
@@ -21,14 +21,14 @@ module.exports = function appCommands() {
     .command("serve")
     .alias("s")
     .description(
-      "Serve your Salla application using the Salla CLI in this manner: salla app serve."
+      "Serve, test, and view your Salla Partners App."
     )
     .option("-p, --port <name>", "port to listen to")
     .action(require("../src/app/serve"));
 
   _app
     .command("create-webhook")
-    .description(" Creating a new webhook event file.")
+    .description("Creates a new webhook events file.")
     .action(require("../src/app/create-webhook"));
 
   _app.showSuggestionAfterError();
