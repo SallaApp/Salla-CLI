@@ -3,13 +3,12 @@ const commandExistsSync = require("command-exists").sync;
 const fs = require("fs-extra");
 const Logger = require("./LoggingManager");
 const replace = require("replace-in-file");
-const {
-  execSync
-} = require("child_process");
+const { execSync } = require("child_process");
 const cliProgress = require("cli-progress");
 const semver = require("semver");
 // create a new progress bar instance and use shades_classic theme
-const progressBar = new cliProgress.SingleBar({
+const progressBar = new cliProgress.SingleBar(
+  {
     format: " {process} [{bar}] {percentage}% | ETA: {eta}s | {value}/{total}",
   },
   cliProgress.Presets.shades_grey
@@ -67,7 +66,8 @@ module.exports = class ExecutionManager {
     };
   }
   async __start(commands, progress) {
-    if (!Array.isArray(commands)) {}
+    if (!Array.isArray(commands)) {
+    }
     let messages = [];
 
     if (progress && progressBar) progressBar.start(commands.length, 0);
@@ -93,9 +93,8 @@ module.exports = class ExecutionManager {
                 if (!satisfies)
                   messages.push(
                     Logger.error(
-                      '🤔 Hmmm! The ${command.name} version must be ${command.version} or newer. Your version is ${version}, please either please update or install it manually.'
+                      "🤔 Hmmm! The ${command.name} version must be ${command.version} or newer. Your version is ${version}, please either please update or install it manually."
                       // `${command.name} version is not compatible with Salla. Please update your ${command.name} version to ${command.version}`
-
                     )
                   );
                 continue;
@@ -155,9 +154,7 @@ module.exports = class ExecutionManager {
 
             break;
         }
-        messages.push(
-          Logger.createMessage(`🎉 Hooray! Success ${command.msg} `, "succ")
-        );
+        messages.push(Logger.createMessage(`${command.msg} `, "succ"));
       } catch (err) {
         messages.push(
           Logger.createMessage(
@@ -173,18 +170,19 @@ module.exports = class ExecutionManager {
   }
 
   checkNodeVersion(version) {
-    return this.run({
-      cmd: "check",
-      name: "node",
-      version: version,
-      msg: "🔍 Looking up Node's Version.",
-    }, {
-      progress: false,
-    });
+    return this.run(
+      {
+        cmd: "check",
+        name: "node",
+        version: version,
+        msg: "🔍 Looking up Node's Version.",
+      },
+      {
+        progress: false,
+      }
+    );
   }
-  run(arrayOFcommands, {
-    progress = true
-  } = {}) {
+  run(arrayOFcommands, { progress = true } = {}) {
     if (!Array.isArray(arrayOFcommands)) arrayOFcommands = [arrayOFcommands];
     return new Promise(async (resolve, reject) => {
       const messages = await this.__start(arrayOFcommands, progress);

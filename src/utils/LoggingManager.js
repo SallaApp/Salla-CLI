@@ -57,7 +57,9 @@ class LoggingManager {
   }
 
   // print a long line
-  longLine = () => console.log("                     ");
+  longLine = (n) => {
+    return console.log("                     ");
+  };
 
   __flatArray(arr) {
     if (typeof arr === "object" && !arr.length) return [arr];

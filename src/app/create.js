@@ -124,7 +124,7 @@ module.exports = async function (options) {
           desc: "Your custom web page to handle the callback URLs.",
         },
       ],
-      "With Easy Mode, you will recieve a webhook event when merchants install your app om their stores which contains all the information you need,\nSuch as access token, refresh token and more\n" +
+      "With Easy Mode, you will recieve a webhook event when merchants install your app om their stores which contains all the information you need,Such as access token, refresh token and more\n" +
         "With Custom Mode, you will be able to set a custom callback URL for merchants to use to authorize your app. "
     );
 
@@ -160,6 +160,7 @@ module.exports = async function (options) {
   }
   let AppData = null;
   if (isNewApp) {
+    Logger.longLine();
     // we create a new app in salla cloud then we set the args to the new app
     Logger.info("✨ Initializing your app in Salla.");
     const load_upload_app = Logger.loading("Please Wait ☕️ ...");
@@ -176,7 +177,8 @@ module.exports = async function (options) {
         options.app_type,
         options.app_url
       );
-
+      Logger.longLine();
+      Logger.longLine();
       if (AppData == false) {
         Logger.error(
           "🤔 Hmmm! Something went wrong while creating your app. Please try again by running the following command: salla app create "
@@ -187,6 +189,8 @@ module.exports = async function (options) {
 
       Logger.succ("🎉 Hooray! Your app has been created successfully.");
     } catch (err) {
+      Logger.longLine();
+      Logger.longLine();
       Logger.error(
         "🤔 Hmmm! Something went wrong while creating your app. Run the following command to create your app: salla app create "
       );
@@ -214,10 +218,10 @@ module.exports = async function (options) {
   // check if the project is expressjs or laravel
 
   try {
-    if (projectType === "Express") {
+    if (projectType === "express") {
       // Create Express APP
       await ExpressAppCreateor(options);
-    } else if (projectType === "Laravel") {
+    } else if (projectType === "laravel") {
       // Create Laravel APP
       await LaravelAppCreateor(options);
     } else {
