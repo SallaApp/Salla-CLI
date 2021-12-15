@@ -58,47 +58,52 @@ Salla CLI comes with an easy to use, straight-forward commands that does the com
 
 What can you use Salla CLI for?
 
-- Create your own Salla Theme
-- Single-taps to create your own Salla App on Salla Partners
 - Login to your Salla Store
+- Single-taps to create your own Salla App on Salla Partners
+- Create your own Salla Theme
 
 <!-- The starter App comes with an easy _1-command step_ that does the complete setup for your starter App. To be ready, you will need some prerequisites which will be listed hereafter. -->
 
 ### Prerequisites
 
 - Create a Partner account at [Salla Partner Portal](https://salla.partners/)
-- Create your App in [Salla Partner Portal](https://salla.dev/blog/create-your-first-app-on-salla-developer-portal/)
-
-  > From your App dashboard at [Salla Partner Portal](https://salla.partners/), you will be able to get your App's _Client ID, Client Secret Key and Webhook Secret Key_ which you will use later duraing the setup process.
-
-- For Laravel compatibility: `PHP >= 7.4, Composer package manager and MySql Database`
-- Install [ngrok](https://www.npmjs.com/package/ngrok): `npm install ngrok -g`
-- Other requirments: `Nodejs and npm`
-
-That is all!
+- Get your hands-on around creating a [Salla Partner Portal](https://salla.dev/blog/create-your-first-app-on-salla-developer-portal/) app.
+- For Salla CLI's compatibility: `PHP >= 7.4, Composer package manager.`
+- Other requirments: `Nodejs >=10.15.0 and npm 6.14.0`
 
 ### Installation
 
 <!-- ### Installation -->
 
-The installation process is straightforward as you will see in the below steps.
+TBD
 
 ## Salla CLI Commands
 
 The following commands can be executed via Salla CLI:
 
-- salla
-- salla app
-- salla app create
-- salla app create-webhook
-- salla app serve
-- salla theme
-- salla theme start
-- salla theme serve
-- salla theme sync
-- salla theme watch
-- salla theme push
-- salla theme publish
+<table>
+  <thead>
+    <tr>
+      <th>Commands</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>salla</td>
+      <td>salla login</td>
+      <td>salla app</td>
+      <td>salla app create</td>
+      <td>salla app create-webhook</td>
+      <td>salla app serve</td>
+      <td>salla theme</td>
+      <td>salla theme start</td>
+      <td>salla theme serve</td>
+      <td>salla theme start sync</td>
+      <td>salla theme start watch</td>
+      <td>salla theme start push</td>
+      <td>salla theme start publish</td>
+      </tr>
+  </tbody>
 
 ### `salla`
 
@@ -122,6 +127,33 @@ salla
     <tr>
       <td>salla</td>
       <td>-</td>
+      <td>TBD</td>
+    </tr>
+  </tbody>
+
+
+### `salla login`
+
+TBD
+
+```bash
+salla login
+```
+
+<!-- ![](InteractiveTerminalActivityPicture) -->
+
+<table>
+  <thead>
+    <tr>
+      <th>Prefix</th>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>salla</td>
+      <td>login</td>
       <td>TBD</td>
     </tr>
   </tbody>
@@ -151,8 +183,6 @@ salla app
       <td>TBD</td>
     </tr>
   </tbody>
-
-  
 
 ### `salla create app`
 
