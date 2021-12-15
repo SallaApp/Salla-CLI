@@ -59,6 +59,22 @@ class AuthManager {
       access_token: github_token,
     });
   }
+  saveUserInfo(userInfo) {
+    this.set("salla", {
+      ...this.configData.salla,
+      userInfo: {
+        id: userInfo.id,
+        email: userInfo.email,
+      },
+    });
+  }
+  getUserInfo() {
+    try {
+      return this.configData.salla.userInfo;
+    } catch (err) {
+      return null;
+    }
+  }
   /**
    * @param {object|SallaConfig} token
    * @param withLog

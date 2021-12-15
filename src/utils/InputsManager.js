@@ -21,15 +21,21 @@ class InputsManager {
       AUTH_MODE: this.AUTH_MODE,
     };
   }
-  readLine(lable, { validate, name, errorMessage, desc } = {}) {
+  readLine(lable, { validate, name, errorMessage, desc, defaultVal } = {}) {
     Logger.longLine();
     if (desc) {
       Logger.infoGray(desc);
       Logger.longLine();
     }
-
+    let defInput = "";
+    if (defaultVal) {
+      defInput = clc.italic(clc.blackBright(" ${([)defaultInput(])} "));
+    }
     let val = readlineSync.question(
-      "? " + lable.bold + clc.greenBright("\n>") + " "
+      "? " + lable.bold + clc.greenBright("\n>") + defInput + " ",
+      {
+        defaultInput: defaultVal,
+      }
     );
 
     if (validate) {
@@ -37,23 +43,21 @@ class InputsManager {
       if (typeof validate == "function") isValidated = validate(val);
       else isValidated = validate.test(val);
       // try until validated
-      while (!isValidated) {
+      if (!isValidated) {
         Logger.longLine();
         if (errorMessage) {
           Logger.error(errorMessage);
         } else {
           Logger.error(`🤔 Hmmm! ${name} is not valid! Please try again.`);
         }
-        Logger.longLine();
-        if (desc) {
-          Logger.infoGray(desc);
-          Logger.longLine();
-        }
-        val = readlineSync.question(
-          "? " + lable.bold + clc.greenBright("\n>") + " "
-        );
-        if (typeof validate == "function") isValidated = validate(val);
-        else isValidated = validate.test(val);
+
+        return this.readLine(lable, {
+          validate,
+          name,
+          errorMessage,
+          desc: null,
+          defaultVal,
+        });
       }
       return val;
     } else {
@@ -71,7 +75,10 @@ class InputsManager {
     values = values.map((v) => {
       if (v.val) {
         if (!v.desc) v.desc = "";
-        else v.desc = " | " + clc.greenBright(v.desc);
+        else
+          v.desc =
+            " - " +
+            clc.greenBright(v.desc.charAt(0).toUpperCase() + v.desc.slice(1));
       }
       return v;
     });

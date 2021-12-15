@@ -65,6 +65,20 @@ module.exports = class PartnerAPI extends SallaApi {
       }
     }
   }
+  async getUserInfo() {
+    let results = await this.requestURL(
+      this.baseEndpoint + "me",
+      "get",
+      null,
+      null,
+      this.accessToken
+    );
+
+    if (results.status === 200) {
+      return results.data;
+    }
+    return null;
+  }
   async updateWebhookURL(app_id, webhook_url) {
     let results = await this.requestURL(
       this.baseEndpoint + "app/webhooks/url/" + app_id,

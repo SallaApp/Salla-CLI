@@ -20,8 +20,11 @@ module.exports = async function (options) {
     process.exit(1);
   }
   let apps = [];
+  let userInfo = {};
   try {
     apps = await PartnerApi.getAllApps();
+    userInfo = AuthManager.getUserInfo();
+    if (userInfo == null) userInfo = await PartnerApi.getUserInfo();
   } catch (err) {
     Logger.error(
       "🤔 Hmmm! Something went wrong while fetching your apps from Salla. Please try again later."
@@ -55,13 +58,18 @@ module.exports = async function (options) {
         if (value.length < 10 || value.length > 50) {
           return false;
         }
+
         return true;
       },
       name: "App Name",
+
       errorMessage:
         "🛑 For better visbility, your App Name must be between 10 and 50 characters long!",
       desc: "The app name will be used to create a folder in your project root as well as in your Salla Partners Dashboard,\nso make sure it's unique, easy to understand, and straight-forward.",
     });
+    // make first char capital
+    options.app_name =
+      options.app_name.charAt(0).toUpperCase() + options.app_name.slice(1);
     options.app_path = generateAppPath(options.app_name);
 
     // check if app name is allowed to use
@@ -92,6 +100,7 @@ module.exports = async function (options) {
     options.email = InputsManager.readLine("Email Address:", {
       validate: /\S+@\S+\.\S+/,
       name: "Email",
+      defaultVal: userInfo.email,
       desc: "This email will be assoicated with your Salla Partners account.\nIt will also be used to contact you in case of any issues or questions by the Salla Team.",
     });
     // select app type
@@ -107,6 +116,7 @@ module.exports = async function (options) {
         if (value.indexOf("http") > -1) return true;
         return false;
       },
+      defaultVal: "https://example.com",
       errorMessage:
         "🛑 Oops! Your App Home Page URL is not in a standard format, HTTP, which could result in merchants not visiting your app's home page website.",
 
