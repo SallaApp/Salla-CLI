@@ -85,12 +85,76 @@ The installation process is straightforward as you will see in the below steps.
 
 ## Salla CLI Commands
 
-The following commands using the prefix `salla` in order to excute the commands:
+The following commands can be executed via Salla CLI:
 
-- create app
-- create theme
+- salla
+- salla app
+- salla app create
+- salla app create-webhook
+- salla app serve
+- salla theme
+- salla theme start
+- salla theme serve
+- salla theme sync
+- salla theme watch
+- salla theme push
+- salla theme publish
 
-### `create app`
+### `salla`
+
+TBD
+
+```bash
+salla
+```
+
+<!-- ![](InteractiveTerminalActivityPicture) -->
+
+<table>
+  <thead>
+    <tr>
+      <th>Prefix</th>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>salla</td>
+      <td>-</td>
+      <td>TBD</td>
+    </tr>
+  </tbody>
+
+### `salla app`
+
+TBD
+
+```bash
+salla app
+```
+
+<!-- ![](InteractiveTerminalActivityPicture) -->
+
+<table>
+  <thead>
+    <tr>
+      <th>Prefix</th>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>salla</td>
+      <td>app</td>
+      <td>TBD</td>
+    </tr>
+  </tbody>
+
+  
+
+### `salla create app`
 
 You can create a Salla Partners App by running the following command:
 
@@ -113,6 +177,58 @@ salla create app
       <td>salla</td>
       <td>create app</td>
       <td>This command will take you through a wizard to easily create your Salla Partners App in a smooth way.</td>
+    </tr>
+  </tbody>
+
+### `salla app serve`
+
+TBD
+
+```bash
+salla salla app serve
+```
+
+<!-- ![](InteractiveTerminalActivityPicture) -->
+
+<table>
+  <thead>
+    <tr>
+      <th>Prefix</th>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>salla</td>
+      <td>app serve</td>
+      <td>TBD</td>
+    </tr>
+  </tbody>
+
+### `salla app create-webhook`
+
+TBD
+
+```bash
+salla app create-webhook
+```
+
+<!-- ![](InteractiveTerminalActivityPicture) -->
+
+<table>
+  <thead>
+    <tr>
+      <th>Prefix</th>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>salla</td>
+      <td>app create-webhook</td>
+      <td>TBD</td>
     </tr>
   </tbody>
 
