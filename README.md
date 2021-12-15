@@ -32,7 +32,7 @@
       </ul>
       <li><a href="#contributing">Salla CLI Commands</a></li>
       <ul>
-        <li><a href="#prerequisites">create app</a></li>
+        <li><a href="#prerequisites">tbd</a></li>
         </ul>
     </li>
     <li><a href="#contributing">Contributing</a></li>
@@ -58,18 +58,18 @@ Salla CLI comes with an easy to use, straight-forward commands that does the com
 
 What can you use Salla CLI for?
 
-- Login to your Salla Store
-- Single-taps to create your own Salla App on Salla Partners
-- Create your own Salla Theme
+- Login to your Salla Store.
+- Single-taps to create your own Salla App on Salla Partners.
+- Create your own Salla Theme.
 
 <!-- The starter App comes with an easy _1-command step_ that does the complete setup for your starter App. To be ready, you will need some prerequisites which will be listed hereafter. -->
 
 ### Prerequisites
 
-- Create a Partner account at [Salla Partner Portal](https://salla.partners/)
-- Get your hands-on around creating a [Salla Partner Portal](https://salla.dev/blog/create-your-first-app-on-salla-developer-portal/) app.
-- For Salla CLI's compatibility: `PHP >= 7.4, Composer package manager.`
-- Other requirments: `Nodejs >=10.15.0 and npm 6.14.0`
+- Create a Partner account at [Salla Partners Portal](https://salla.partners/).
+- Get your hands-on around creating an app on [Salla Partners Portal](https://salla.dev/blog/create-your-first-app-on-salla-developer-portal/).
+- For Salla CLI's compatibility: [`PHP`](https://www.php.net/) `>= 7.4`, [`Composer`](https://getcomposer.org/) `package manager`.
+- Other requirments: [`Nodejs`](https://nodejs.org/en/)`>= 10.15.0` and [`npm`](https://www.npmjs.com/)`>= 6.14.0`.
 
 ### Installation
 
@@ -107,7 +107,7 @@ The following commands can be executed via Salla CLI:
 
 ### `salla`
 
-TBD
+This command lists down the available commands using the `salla` prefix, such as `app` for creating [Salla Partners](http://salla.partners/) Apps, `theme` for creating Salla custom themes, and `login` to sigin to your [Salla Stores](http://salla.sa/). You can write it in your terminal in such a way:
 
 ```bash
 salla
@@ -127,14 +127,13 @@ salla
     <tr>
       <td>salla</td>
       <td>-</td>
-      <td>TBD</td>
+      <td>Used to prevail commands supported by Salla, such as `app`, `theme`, and `login`</td>
     </tr>
   </tbody>
 
-
 ### `salla login`
 
-TBD
+This command allows you to login and be authinticated with your own [stores](http://salla.sa/) at Salla. You can write it in your terminal in such a way:
 
 ```bash
 salla login
@@ -154,13 +153,13 @@ salla login
     <tr>
       <td>salla</td>
       <td>login</td>
-      <td>TBD</td>
+      <td>Used to allow logging in to your Salla Stores. The stores can either be demo stores or real stores.</td>
     </tr>
   </tbody>
 
 ### `salla app`
 
-TBD
+This command lists down the available commands using the `salla app` prefix, such as `create app` for creating [Salla Partners](http://salla.partners/) Apps, `serve` for serving your Salla Partners Apps, and `create-webhook` which enables you to create your selected webhook event file. You can write it in your terminal in such a way:
 
 ```bash
 salla app
@@ -180,13 +179,13 @@ salla app
     <tr>
       <td>salla</td>
       <td>app</td>
-      <td>TBD</td>
+      <td>Used to prevail commands supported by `salla app`, such as `create app`, `serve`, and `create-webhook`.</td>
     </tr>
   </tbody>
 
 ### `salla create app`
 
-You can create a Salla Partners App by running the following command:
+This command allows you to create a Salla Partners App by going through a simple, intuitive, and effortless way. You can write it in your terminal in such a way:
 
 ```bash
 salla create app
@@ -206,13 +205,13 @@ salla create app
     <tr>
       <td>salla</td>
       <td>create app</td>
-      <td>This command will take you through a wizard to easily create your Salla Partners App in a smooth way.</td>
+      <td>Used to take you through a wizard to easily create your Salla Partners App.</td>
     </tr>
   </tbody>
 
 ### `salla app serve`
 
-TBD
+This command allows you to serve your Salla apps on a dedicated local port. You can write it in your terminal in such a way:
 
 ```bash
 salla salla app serve
@@ -232,16 +231,16 @@ salla salla app serve
     <tr>
       <td>salla</td>
       <td>app serve</td>
-      <td>TBD</td>
+      <td>Used to run a Salla App on a local server.</td>
     </tr>
   </tbody>
 
 ### `salla app create-webhook`
 
-TBD
+This command allows you to create a webhook event file by choosing what event to listen to, as you may look up more on the [official documentation](https://docs.salla.dev/docs/merchant/ZG9jOjI0NTE3NDg1-webhook#list-of-events) for supported webhook events. You can write it in your terminal in such a way:
 
 ```bash
-salla app create-webhook
+salla app create-webhook <event.name>
 ```
 
 <!-- ![](InteractiveTerminalActivityPicture) -->
@@ -258,7 +257,7 @@ salla app create-webhook
     <tr>
       <td>salla</td>
       <td>app create-webhook</td>
-      <td>TBD</td>
+      <td>Used to create a webhook event file for streaming supported Salla events, such as `order.created`, `product.available`, `review.added` and more.</td>
     </tr>
   </tbody>
 
