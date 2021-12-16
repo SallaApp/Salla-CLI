@@ -290,6 +290,22 @@ salla app create-webhook <event.name>
 
 <!-- ![](InteractiveTerminalActivityPicture) -->
 
+<table>
+  <thead>
+    <tr>
+      <th>Binary</th>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>salla</td>
+      <td>app create-webhook</td>
+      <td>Used to create a webhook event file for streaming supported Salla events, such as `order.created`, `product.available`, `review.added` and more.</td>
+    </tr>
+  </tbody>
+
 <!-- CONTRIBUTING -->
 
 ## Contributing
