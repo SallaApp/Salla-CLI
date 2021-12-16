@@ -103,6 +103,7 @@ To upgrade the global Vue CLI package, you need to run:
 
 The following commands can be executed via Salla CLI:
 
+<<<<<<< HEAD
   <table>
      <thead>
           <tr>
@@ -152,6 +153,56 @@ The following commands can be executed via Salla CLI:
           </tr>
      </tbody>
 </table>
+=======
+<table>
+  <thead>
+    <tr>
+      <th>Commands</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>salla</td>
+    </tr>
+    <tr>
+      <td>salla login</td>
+      </tr>
+      <tr>
+      <td>salla app</td>
+      </tr>
+      <tr>
+      <td>salla app create</td>
+      </tr>
+      <tr>
+      <td>salla app create-webhook</td>
+      </tr>
+      <tr>
+      <td>salla app serve</td>
+      </tr>
+      <tr>
+      <td>salla theme</td>
+      </tr>
+      <tr>
+      <td>salla theme start</td>
+      </tr>
+      <tr>
+      <td>salla theme serve</td>
+      </tr>
+      <tr>
+      <td>salla theme sync</td>
+      </tr>
+      <tr>
+      <td>salla theme watch</td>
+      </tr>
+      <tr>
+      <td>salla theme push</td>
+      </tr>
+      <tr>
+      <td>salla theme publish</td>
+      <tr>
+      </tr>
+  </tbody>
+>>>>>>> 1f33d34c9c3336853e2a8342a532740791933e8a
 
 ### `salla`
 
