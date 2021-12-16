@@ -41,8 +41,8 @@
         <li><a href="#salla-theme">salla theme</a></li>
         <li><a href="#salla-theme-start">salla theme start</a></li>
         <li><a href="#salla-theme-serve">salla theme serve</a></li>
-        <li><a href="#salla-theme-start-sync">salla theme start sync</a></li>
-        <li><a href="#salla-theme-start-watch">salla theme start watch</a></li>
+        <li><a href="#salla-theme-sync">salla theme sync</a></li>
+        <li><a href="#salla-theme-watch">salla theme watch</a></li>
         </ul>
     </li>
     <li><a href="#contributing">Contributing</a></li>
@@ -136,16 +136,16 @@ The following commands can be executed via Salla CLI:
       <td>salla theme serve</td>
       </tr>
       <tr>
-      <td>salla theme start sync</td>
+      <td>salla theme sync</td>
       </tr>
       <tr>
-      <td>salla theme start watch</td>
+      <td>salla theme watch</td>
       </tr>
       <tr>
-      <td>salla theme start push</td>
+      <td>salla theme push</td>
       </tr>
       <tr>
-      <td>salla theme start publish</td>
+      <td>salla theme publish</td>
       <tr>
       </tr>
   </tbody>
