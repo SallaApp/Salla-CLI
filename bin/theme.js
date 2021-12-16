@@ -14,7 +14,7 @@ module.exports = function themeCommands() {
 
   const themeCommand = program
     .command("theme")
-    .description("Your enrty way to create a Salla Theme has just started ...");
+    .description("Your enrty way to create a Salla Theme");
 
   themeCommand
     .command("start")

@@ -1,54 +1,56 @@
 <div id="top"></div>
 
 <br />
-<div align="center"> 
-  <a href="https://salla.dev"> 
-    <img src="https://salla.dev/wp-content/themes/salla-portal/dist/img/salla-logo.svg" alt="Logo" width="80" height="80"> 
-  </a>
-  <h1 align="center">Salla CLI</h1>
-  <p align="center">
-    Free and Open Source, Bringing You the Power of Salla to Your Terminal.
-    <br />
-    <a href="https://salla.dev/"><strong>Explore our blogs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/SallaApp/Salla-CLI/issues/new">Report Bug</a> · 
-    <a href="https://github.com/SallaApp/Salla-CLI/discussions/new">Request Feature</a> . <a href="https://t.me/salladev">&lt;/Salla Developers&gt;</a>
-  </p>
+<div align="center">
+     <a href="https://salla.dev">
+          <img src="https://salla.dev/wp-content/themes/salla-portal/dist/img/salla-logo.svg" alt="Logo" width="80"
+               height="80">
+     </a>
+     <h1 align="center">Salla CLI</h1>
+     <p align="center">
+          Free and Open Source, Bringing You the Power of Salla to Your Terminal.
+          <br />
+          <a href="https://salla.dev/"><strong>Explore our blogs »</strong></a>
+          <br />
+          <br />
+          <a href="https://github.com/SallaApp/Salla-CLI/issues/new">Report Bug</a> ·
+          <a href="https://github.com/SallaApp/Salla-CLI/discussions/new">Request Feature</a> . <a
+               href="https://t.me/salladev">&lt;/Salla Developers&gt;</a>
+     </p>
 </div>
 
 <!-- TABLE OF CONTENTS -->
 <details open>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#overview">Overview</a>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-      <li><a href="#salla-cli-commands">Salla CLI Commands</a></li>
-      <ul>
-        <li><a href="#salla">salla</a></li>
-        <li><a href="#salla-login">salla login</a></li>
-        <li><a href="#salla-app">salla app</a></li>
-        <li><a href="#salla-app-create">salla app create</a></li>
-        <li><a href="#salla-app-create-webhook">salla app create-webhook</a></li>
-        <li><a href="#salla-app-serve">salla app serve</a></li>
-        <li><a href="#salla-theme">salla theme</a></li>
-        <li><a href="#salla-theme-start">salla theme start</a></li>
-        <li><a href="#salla-theme-serve">salla theme serve</a></li>
-        <li><a href="#salla-theme-sync">salla theme sync</a></li>
-        <li><a href="#salla-theme-watch">salla theme watch</a></li>
-        </ul>
-    </li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    </li>
-  </ol>
+     <summary>Table of Contents</summary>
+     <ol>
+          <li>
+               <a href="#overview">Overview</a>
+          </li>
+          <li>
+               <a href="#getting-started">Getting Started</a>
+               <ul>
+                    <li><a href="#prerequisites">Prerequisites</a></li>
+                    <li><a href="#installation">Installation</a></li>
+               </ul>
+          <li><a href="#salla-cli-commands">Salla CLI Commands</a></li>
+          <ul>
+               <li><a href="#salla">salla</a></li>
+               <li><a href="#salla-login">salla login</a></li>
+               <li><a href="#salla-app">salla app</a></li>
+               <li><a href="#salla-app-create">salla app create</a></li>
+               <li><a href="#salla-app-create-webhook">salla app create-webhook</a></li>
+               <li><a href="#salla-app-serve">salla app serve</a></li>
+               <li><a href="#salla-theme">salla theme</a></li>
+               <li><a href="#salla-theme-start">salla theme start</a></li>
+               <li><a href="#salla-theme-serve">salla theme serve</a></li>
+               <li><a href="#salla-theme-sync">salla theme sync</a></li>
+               <li><a href="#salla-theme-watch">salla theme watch</a></li>
+          </ul>
+          </li>
+          <li><a href="#contributing">Contributing</a></li>
+          <li><a href="#license">License</a></li>
+          </li>
+     </ol>
 </details>
 <!-- Overview -->
 
@@ -101,54 +103,55 @@ To upgrade the global Vue CLI package, you need to run:
 
 The following commands can be executed via Salla CLI:
 
-<table>
-  <thead>
-    <tr>
-      <th>Commands</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>salla</td>
-    </tr>
-    <tr>
-      <td>salla login</td>
-      </tr>
-      <tr>
-      <td>salla app</td>
-      </tr>
-      <tr>
-      <td>salla app create</td>
-      </tr>
-      <tr>
-      <td>salla app create-webhook</td>
-      </tr>
-      <tr>
-      <td>salla app serve</td>
-      </tr>
-      <tr>
-      <td>salla theme</td>
-      </tr>
-      <tr>
-      <td>salla theme start</td>
-      </tr>
-      <tr>
-      <td>salla theme serve</td>
-      </tr>
-      <tr>
-      <td>salla theme sync</td>
-      </tr>
-      <tr>
-      <td>salla theme watch</td>
-      </tr>
-      <tr>
-      <td>salla theme push</td>
-      </tr>
-      <tr>
-      <td>salla theme publish</td>
-      <tr>
-      </tr>
-  </tbody>
+  <table>
+     <thead>
+          <tr>
+               <th>Commands</th>
+          </tr>
+     </thead>
+     <tbody>
+          <tr>
+               <td>salla</td>
+          </tr>
+          <tr>
+               <td>salla login</td>
+          </tr>
+          <tr>
+               <td>salla app</td>
+          </tr>
+          <tr>
+               <td>salla app create</td>
+          </tr>
+          <tr>
+               <td>salla app create-webhook</td>
+          </tr>
+          <tr>
+               <td>salla app serve</td>
+          </tr>
+          <tr>
+               <td>salla theme</td>
+          </tr>
+          <tr>
+               <td>salla theme start</td>
+          </tr>
+          <tr>
+               <td>salla theme serve</td>
+          </tr>
+          <tr>
+               <td>salla theme sync</td>
+          </tr>
+          <tr>
+               <td>salla theme watch</td>
+          </tr>
+          <tr>
+               <td>salla theme push</td>
+          </tr>
+          <tr>
+               <td>salla theme publish</td>
+          <tr>
+          </tr>
+     </tbody>
+</table>
 
 ### `salla`
 
@@ -175,6 +178,7 @@ salla
       <td>Used to prevail commands supported by Salla, such as `app`, `theme`, and `login`</td>
     </tr>
   </tbody>
+  <table>
 
 ### `salla login`
 
@@ -201,6 +205,7 @@ salla login
       <td>Used to allow logging in to your Salla Stores. The stores can either be demo stores or real stores.</td>
     </tr>
   </tbody>
+  <table>
 
 ### `salla app`
 
@@ -227,6 +232,7 @@ salla app
       <td>Used to prevail commands supported by `salla app`, such as `create`, `serve`, and `create-webhook`.</td>
     </tr>
   </tbody>
+  <table>
 
 ### `salla app create`
 
@@ -253,6 +259,7 @@ salla app create
       <td>Used to take you through a wizard to easily create your Salla Partners App.</td>
     </tr>
   </tbody>
+  <table>
 
 ### `salla app serve`
 
@@ -279,6 +286,7 @@ salla salla app serve
       <td>Used to run a Salla App on a local server.</td>
     </tr>
   </tbody>
+  <table>
 
 ### `salla app create-webhook`
 
@@ -305,6 +313,7 @@ salla app create-webhook <event.name>
       <td>Used to create a webhook event file for streaming supported Salla events, such as `order.created`, `product.available`, `review.added` and more.</td>
     </tr>
   </tbody>
+  <table>
 
 <!-- CONTRIBUTING -->
 
