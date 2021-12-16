@@ -30,9 +30,19 @@
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
-      <li><a href="#contributing">Salla CLI Commands</a></li>
+      <li><a href="#salla-cli-commands">Salla CLI Commands</a></li>
       <ul>
-        <li><a href="#prerequisites">tbd</a></li>
+        <li><a href="#salla">salla</a></li>
+        <li><a href="#salla-login">salla login</a></li>
+        <li><a href="#salla-app">salla app</a></li>
+        <li><a href="#salla-app-create">salla app create</a></li>
+        <li><a href="#salla-app-create-webhook">salla app create-webhook</a></li>
+        <li><a href="#salla-app-serve">salla app serve</a></li>
+        <li><a href="#salla-theme">salla theme</a></li>
+        <li><a href="#salla-theme-start">salla theme start</a></li>
+        <li><a href="#salla-theme-serve">salla theme serve</a></li>
+        <li><a href="#salla-theme-start-sync">salla theme start sync</a></li>
+        <li><a href="#salla-theme-start-watch">salla theme start watch</a></li>
         </ul>
     </li>
     <li><a href="#contributing">Contributing</a></li>
@@ -61,8 +71,6 @@ What can you use Salla CLI for?
 - Login to your Salla Store.
 - Single-taps to create your own Salla App on Salla Partners.
 - Create your own Salla Theme.
-
-<!-- The starter App comes with an easy _1-command step_ that does the complete setup for your starter App. To be ready, you will need some prerequisites which will be listed hereafter. -->
 
 ### Prerequisites
 
@@ -102,18 +110,43 @@ The following commands can be executed via Salla CLI:
   <tbody>
     <tr>
       <td>salla</td>
+    </tr>
+    <tr>
       <td>salla login</td>
+      </tr>
+      <tr>
       <td>salla app</td>
+      </tr>
+      <tr>
       <td>salla app create</td>
+      </tr>
+      <tr>
       <td>salla app create-webhook</td>
+      </tr>
+      <tr>
       <td>salla app serve</td>
+      </tr>
+      <tr>
       <td>salla theme</td>
+      </tr>
+      <tr>
       <td>salla theme start</td>
+      </tr>
+      <tr>
       <td>salla theme serve</td>
+      </tr>
+      <tr>
       <td>salla theme start sync</td>
+      </tr>
+      <tr>
       <td>salla theme start watch</td>
+      </tr>
+      <tr>
       <td>salla theme start push</td>
+      </tr>
+      <tr>
       <td>salla theme start publish</td>
+      <tr>
       </tr>
   </tbody>
 
