@@ -52,7 +52,7 @@ The Salla Command Line Interface (Salla CLI) is your way to create your starter 
 
 ## Getting Started
 
-The Salla CLI (salla-cli) is packaged to be used globally. It is available via npm and is installed globally by running `npm install -g salla-cli`.
+The Salla CLI (salla-cli) is packaged to be used globally. It is available via npm and is installed globally by running `npm install salla-cli -g`.
 
 Salla CLI comes with an easy to use, straight-forward commands that does the complete setup to either your Salla Theme or App. To be ready, you will need some prerequisites which will be listed hereafter.
 
@@ -73,9 +73,21 @@ What can you use Salla CLI for?
 
 ### Installation
 
-<!-- ### Installation -->
+<!-- ### Installation -->:
 
-TBD
+To install Salla CLI, you need administrator privileges to execute the following command
+
+`npm install @salla.sa/cli -g`
+
+After installation, you will have access to the `salla` binary in your command line. You can verify that it is properly installed by simply running salla, which should present you with a help message listing all available commands.
+
+You can check you have the right version with this command:
+
+`salla --version`
+
+To upgrade the global Vue CLI package, you need to run:
+
+`npm update @salla.sa/cli -g`
 
 ## Salla CLI Commands
 
@@ -107,7 +119,7 @@ The following commands can be executed via Salla CLI:
 
 ### `salla`
 
-This command lists down the available commands using the `salla` prefix, such as `app` for creating [Salla Partners](http://salla.partners/) Apps, `theme` for creating Salla custom themes, and `login` to sigin to your [Salla Stores](http://salla.sa/). You can write it in your terminal in such a way:
+This command lists down the available commands using the `salla` binary, such as `app` for creating [Salla Partners](http://salla.partners/) Apps, `theme` for creating Salla custom themes, and `login` to sigin to your [Salla Stores](http://salla.sa/). You can write it in your terminal in such a way:
 
 ```bash
 salla
@@ -118,7 +130,7 @@ salla
 <table>
   <thead>
     <tr>
-      <th>Prefix</th>
+      <th>Binary</th>
       <th>Parameter</th>
       <th>Description</th>
     </tr>
@@ -144,7 +156,7 @@ salla login
 <table>
   <thead>
     <tr>
-      <th>Prefix</th>
+      <th>Binary</th>
       <th>Parameter</th>
       <th>Description</th>
     </tr>
@@ -159,7 +171,7 @@ salla login
 
 ### `salla app`
 
-This command lists down the available commands using the `salla app` prefix, such as `create app` for creating [Salla Partners](http://salla.partners/) Apps, `serve` for serving your Salla Partners Apps, and `create-webhook` which enables you to create your selected webhook event file. You can write it in your terminal in such a way:
+This command lists down the available commands using the `salla app` binary, such as `create` for creating [Salla Partners](http://salla.partners/) Apps, `serve` for serving your Salla Partners Apps, and `create-webhook` which enables you to create your selected webhook event file. You can write it in your terminal in such a way:
 
 ```bash
 salla app
@@ -170,7 +182,7 @@ salla app
 <table>
   <thead>
     <tr>
-      <th>Prefix</th>
+      <th>Binary</th>
       <th>Parameter</th>
       <th>Description</th>
     </tr>
@@ -179,16 +191,16 @@ salla app
     <tr>
       <td>salla</td>
       <td>app</td>
-      <td>Used to prevail commands supported by `salla app`, such as `create app`, `serve`, and `create-webhook`.</td>
+      <td>Used to prevail commands supported by `salla app`, such as `create`, `serve`, and `create-webhook`.</td>
     </tr>
   </tbody>
 
-### `salla create app`
+### `salla app create`
 
 This command allows you to create a Salla Partners App by going through a simple, intuitive, and effortless way. You can write it in your terminal in such a way:
 
 ```bash
-salla create app
+salla app create
 ```
 
 <!-- ![](InteractiveTerminalActivityPicture) -->
@@ -196,7 +208,7 @@ salla create app
 <table>
   <thead>
     <tr>
-      <th>Prefix</th>
+      <th>Binary</th>
       <th>Parameter</th>
       <th>Description</th>
     </tr>
@@ -204,7 +216,7 @@ salla create app
   <tbody>
     <tr>
       <td>salla</td>
-      <td>create app</td>
+      <td>app create</td>
       <td>Used to take you through a wizard to easily create your Salla Partners App.</td>
     </tr>
   </tbody>
@@ -222,7 +234,7 @@ salla salla app serve
 <table>
   <thead>
     <tr>
-      <th>Prefix</th>
+      <th>Binary</th>
       <th>Parameter</th>
       <th>Description</th>
     </tr>
@@ -248,7 +260,7 @@ salla app create-webhook <event.name>
 <table>
   <thead>
     <tr>
-      <th>Prefix</th>
+      <th>Binary</th>
       <th>Parameter</th>
       <th>Description</th>
     </tr>
