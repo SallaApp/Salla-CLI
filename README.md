@@ -136,16 +136,16 @@ The following commands can be executed via Salla CLI:
       <td>salla theme serve</td>
       </tr>
       <tr>
-      <td>salla theme start sync</td>
+      <td>salla theme sync</td>
       </tr>
       <tr>
-      <td>salla theme start watch</td>
+      <td>salla theme watch</td>
       </tr>
       <tr>
-      <td>salla theme start push</td>
+      <td>salla theme push</td>
       </tr>
       <tr>
-      <td>salla theme start publish</td>
+      <td>salla theme publish</td>
       <tr>
       </tr>
   </tbody>
