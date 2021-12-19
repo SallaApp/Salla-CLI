@@ -38,6 +38,7 @@
                <li><a href="#salla-login">salla login</a></li>
                <li><a href="#salla-app">salla app</a></li>
                <li><a href="#salla-app-create">salla app create</a></li>
+               <li><a href="#salla-app-create">salla app list</a></li>
                <li><a href="#salla-app-create-webhook">salla app create-webhook</a></li>
                <li><a href="#salla-app-serve">salla app serve</a></li>
                <li><a href="#salla-theme">salla theme</a></li>
@@ -121,6 +122,9 @@ The following commands can be executed via Salla CLI:
           </tr>
           <tr>
                <td>salla app create</td>
+          </tr>
+          <tr>
+               <td>salla app list</td>
           </tr>
           <tr>
                <td>salla app create-webhook</td>
@@ -261,12 +265,12 @@ salla app create
   </tbody>
   <table>
 
-### `salla app serve`
+### `salla app list`
 
-This command allows you to serve your Salla apps on a dedicated local port. You can write it in your terminal in such a way:
+This command lists down all the apps, alnogside their type and status, that are associated with your [Salla Partners](https://salla.partners/) account in a table formatted style. You can write it in your terminal in such a way:
 
 ```bash
-salla salla app serve
+salla app list
 ```
 
 <!-- ![](InteractiveTerminalActivityPicture) -->
@@ -282,8 +286,8 @@ salla salla app serve
   <tbody>
     <tr>
       <td>salla</td>
-      <td>app serve</td>
-      <td>Used to run a Salla App on a local server.</td>
+      <td>app list</td>
+      <td>Used to show you all your Salla Partner Apps.</td>
     </tr>
   </tbody>
   <table>
@@ -314,6 +318,35 @@ salla app create-webhook <event.name>
     </tr>
   </tbody>
   <table>
+
+
+### `salla app serve`
+
+This command allows you to serve your Salla apps on a dedicated local port. You can write it in your terminal in such a way:
+
+```bash
+salla salla app serve
+```
+
+<!-- ![](InteractiveTerminalActivityPicture) -->
+
+<table>
+  <thead>
+    <tr>
+      <th>Binary</th>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>salla</td>
+      <td>app serve</td>
+      <td>Used to run a Salla App on a local server.</td>
+    </tr>
+  </tbody>
+  <table>
+
 
 <!-- CONTRIBUTING -->
 
