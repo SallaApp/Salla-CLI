@@ -12,7 +12,10 @@ module.exports = async function (options) {
   // update urls of the app
   try {
     let data = env.parse(fs.readFileSync(".env"));
-    await PartnerApi.deleteApp(options.id || data.SALLA_APP_ID);
+
+    if (options.id) await PartnerApi.deleteApp(options.id);
+    else await PartnerApi.deleteApp(data.SALLA_APP_ID);
+
     Logger.succ("App Deleted Successfully");
     load_upload_app.stop();
   } catch (err) {
