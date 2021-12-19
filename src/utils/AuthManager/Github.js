@@ -151,6 +151,7 @@ class GithubAPI {
   askForGithubToken() {
     let github_token = InputsManager.readLine("Github token: ", {
       name: "github_token",
+      desc: " you can generate github token from https://github.com/settings/tokens",
     });
     return github_token;
   }
