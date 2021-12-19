@@ -160,5 +160,28 @@ class InputsManager {
       process.exit(1);
     });
   }
+
+  async getAppIDFromApps(title, desc, apps) {
+    try {
+      //  select app
+      let SallaAppName = await this.selectInput(
+        title,
+        [
+          /* apps from developer account */
+          ...apps.map((app) => {
+            return { val: app.name.en, desc: app.type };
+          }),
+        ],
+        desc
+      );
+
+      return apps.find(
+        (app) =>
+          app.name.en.toLocaleLowerCase() === SallaAppName.toLocaleLowerCase()
+      );
+    } catch (err) {
+      return null;
+    }
+  }
 }
 module.exports = new InputsManager();

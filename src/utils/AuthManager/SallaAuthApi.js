@@ -1,12 +1,7 @@
-const Logger = require("../LoggingManager");
-const InputsManager = require("../InputsManager");
-const fs = require("fs-extra");
-const {
-  execSync
-} = require("child_process");
 /**
  * @typedef {{access_token: string, store_id: number, store_url: string}} SallaAuthConfig
  */
+
 class SallaAuthApi {
   AuthManager;
   constructor() {}
@@ -14,18 +9,40 @@ class SallaAuthApi {
   setAuthManager(AuthManager) {
     this.AuthManager = AuthManager;
   }
+  async generateConnectionTokenEndpoint(randromIdentify) {
+    try {
+      const res = await this.SallaApi().requestURL(
+        `${BASE_URL}/auth/generate-connection-token?identify=${randromIdentify}`,
+        "POST",
+        { identify: randromIdentify },
+        null,
+        null
+      );
+      if (res.status == 200) {
+        return res.data.token;
+      } else {
+        return null;
+      }
+    } catch (err) {
+      return null;
+    }
+  }
+  SallaApi() {
+    if (!this.SallaApiObj) {
+      const SallaAPI = require("../../api/SallaApi");
+      this.SallaApiObj = new SallaAPI();
+    }
+    return this.SallaApiObj;
+  }
   async isSallaTokenValid(sallaConfigObj) {
     if (!sallaConfigObj || !sallaConfigObj.access_token) {
       return false;
     }
-    const SallaApi = require("../../api/SallaApi");
-    const SallaApiObj = new SallaApi();
-
-    SallaApiObj.setAccessToken(sallaConfigObj.access_token);
 
     try {
-      let user = await SallaApiObj.request("me");
+      let user = await this.SallaApi().request("me");
       if (user && user.success) {
+        this.SallaApi().setAccessToken(sallaConfigObj.access_token);
         return true;
       }
     } catch (err) {}

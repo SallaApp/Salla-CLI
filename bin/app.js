@@ -1,13 +1,10 @@
 const commander = require("commander");
 const program = new commander.Command();
-
 module.exports = function appCommands() {
   /*******************************************/
   const _app = program
     .command("app")
     .description("Start building your New Salla Partners App");
-  // $ salla app create
-  // $ salla app c
 
   _app
     .command("create")

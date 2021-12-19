@@ -33,13 +33,14 @@ class AuthManager {
       );
     }
   }
-  async getTokens() {
+
+  getTokens() {
     if (this.configData) {
       return this.configData;
     }
     try {
       this.configData = fs.existsSync(CLI_CONFIG_FILE)
-        ? require(CLI_CONFIG_FILE)
+        ? fs.readJSONSync(CLI_CONFIG_FILE)
         : null;
     } catch (error) {
       Logger.error(
@@ -48,7 +49,7 @@ class AuthManager {
       );
       return null;
     }
-    console.log("this.configData", this.configData);
+
     return this.configData;
   }
   async askForGithubToken() {

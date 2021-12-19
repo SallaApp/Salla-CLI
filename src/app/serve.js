@@ -7,8 +7,17 @@ const checkFolder = require("../helpers/check-folder");
 const fs = require("fs-extra");
 const env = require("dotenv");
 const PartnerApi = new (require("../api/partner"))();
+const InputsManager = require("../utils/InputsManager");
+const { AuthManager } = require("../utils/AuthManager")();
+
 module.exports = async function (options) {
   Logger.longLine();
+  if (!(await AuthManager.isSallaTokenValid())) {
+    Logger.error(
+      "🛑 Oops! Unable to authinticate. Try loggin again to Salla by running the following command: salla login"
+    );
+    process.exit(1);
+  }
   options.port = options.port || DEFAULT_APP_PORT;
   // check if ngrok is installed
   if (!commandExistsSync("ngrok")) {
@@ -16,45 +25,87 @@ module.exports = async function (options) {
 
     execSync("npm install -g ngrok");
   }
+  if (checkFolder() != "express" && checkFolder() != "laravel") {
+    Logger.error(
+      `🤔 Hmmm! This is neither a Laravel nor an Expressjs project! Please try again.`
+    );
+    process.exit(1);
+  }
   Logger.info(
     `✨ Starting your project on PORT:${options.port} ... `,
     `✨ Starting ngrok. Please hold on ... `
   );
   Logger.longLine();
-  const load_upload_app = Logger.loading("Please Wait ☕️ ...");
-
-  const url = await ngrok.connect({
-    addr: options.port,
-    authtoken:
-      process.env.NGROK_TOKEN ||
-      "228l6GcFdMoGrXzSia73IFbvZ3f_7VMZvSvSnG4g2FvN3yP4q",
-  });
-  Logger.longLine(2);
-  Logger.succ(`Remote URL : ${url} `);
-  Logger.succ(`Local  URL : http://localhost:${options.port} `);
-  Logger.succ(`Webhook URL : ${url}/webhook/ `);
-  Logger.succ(`OAuth Callback URL : ${url}/oauth/callback/ `);
-  load_upload_app.stop();
-  Logger.longLine();
-  // give sometime to ngrok to connect and expressjs to start
-  setTimeout(() => {
-    require("open")(url);
-  }, 3000);
 
   // get app id from env file
   // update urls of the app
   try {
     let data = env.parse(fs.readFileSync(".env"));
+    if (
+      !data.SALLA_APP_ID ||
+      !(await PartnerApi.isAppExist(data.SALLA_APP_ID))
+    ) {
+      Logger.warn("SALLA_APP_ID in .env file not found!");
+
+      let APP = await InputsManager.getAppIDFromApps(
+        "✅ Select an app to link it to your project folder :",
+        "Listed below are the apps assoicated with your Salla Partners account ..\nYou can select an existing app to link it to your project folder ",
+        await PartnerApi.getAllApps()
+      );
+
+      if (APP == null) {
+        Logger.error(
+          "🤔 Hmmm! Something went wrong while fetching your apps from Salla. Please try again later."
+        );
+
+        process.exit(1);
+      }
+      data.SALLA_APP_ID = APP.id;
+    }
+
+    const load_upload_app = Logger.loading("Please Wait ☕️ ...");
+
+    const url = await ngrok.connect({
+      addr: options.port,
+      authtoken:
+        process.env.NGROK_TOKEN ||
+        "228l6GcFdMoGrXzSia73IFbvZ3f_7VMZvSvSnG4g2FvN3yP4q",
+    });
+
+    Logger.longLine(2);
+    Logger.succ(`Remote URL : ${url} `);
+    Logger.succ(`Local  URL : http://localhost:${options.port} `);
+    Logger.succ(`Webhook URL : ${url}/webhook/ `);
+    Logger.succ(`OAuth Callback URL : ${url}/oauth/callback/ `);
+    load_upload_app.stop();
+
+    Logger.longLine();
+    // give sometime to ngrok to connect and expressjs to start
+    setTimeout(() => {
+      require("open")(url);
+    }, 3000);
 
     try {
       await PartnerApi.updateWebhookURL(data.SALLA_APP_ID, `${url}/webhook/`);
-    } catch (e) {}
+    } catch (e) {
+      Logger.error(
+        "🤔 Hmmm! Something went wrong while updating webhook URL! Please try again later."
+      );
+
+      process.exit(1);
+    }
     try {
       await PartnerApi.updateRedirectURL(
         data.SALLA_APP_ID,
         `${url}/oauth/callback/`
       );
-    } catch (e) {}
+    } catch (e) {
+      Logger.error(
+        "🤔 Hmmm! Something went wrong while updating Redirect URL! Please try again later."
+      );
+
+      process.exit(1);
+    }
     Logger.succ(
       `🎉 Hooray! OAuth Callback and Webhook URLs have been updated successfully.`
     );
@@ -107,11 +158,6 @@ module.exports = async function (options) {
         );
       }
     );
-  } else {
-    Logger.error(
-      `🤔 Hmmm! This is neither a Laravel nor an Expressjs project! Please try again.`
-    );
-    process.exit(1);
   }
 
   function generateEnv(envOjb, SALLA_OAUTH_CLIENT_REDIRECT_URI) {

@@ -5,16 +5,17 @@ const { AuthManager } = require("../utils/AuthManager")();
  * @typedef {string} accessToken
  * @typedef {string} baseEndpoint
  */
+
 module.exports = class SallaAPI {
   constructor() {
     this.baseEndpoint = BASE_URL + "/api/";
     this.baseEndpointTheme = THEME_END_POINT + "/admin/v2/";
-    (async () => {
-      this.accessToken = (await AuthManager.getTokens()).salla.access_token;
-      this.themeAccessToken = (
-        await AuthManager.getTokens()
-      ).salla.theme_access_token;
-    })();
+
+    let tokens = AuthManager.getTokens();
+
+    this.accessToken = tokens.salla.access_token;
+    this.themeAccessToken = tokens.salla.theme_access_token;
+
     this.endpoints = {
       user: "oauth2/user/info",
       // theme endpoints

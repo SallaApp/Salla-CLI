@@ -143,4 +143,18 @@ module.exports = class PartnerAPI extends SallaApi {
     // save demo store data pass and user
     // install app in demo store
   }
+  async isAppExist(app_id) {
+    try {
+      await this.requestURL(
+        this.baseEndpoint + "app/" + app_id,
+        "get",
+        null,
+        null,
+        this.accessToken
+      );
+      return true;
+    } catch (err) {
+      return false;
+    }
+  }
 };
