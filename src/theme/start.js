@@ -42,7 +42,7 @@ class Start extends BaseClass {
       .then(async () => await this.configManager().saveUnder(themeConfig))
       .then(() => {
         Logger.success(
-          `🎉 Hooray! Theme ${themeConfig.theme_name} has been created successfully.`
+          `Theme ${themeConfig.theme_name} has been created successfully.`
         );
       });
 
@@ -67,7 +67,7 @@ class Start extends BaseClass {
     await this.fileSys().mkdirs(BASE_PATH);
     Logger.longLine();
     Logger.success(
-      `🎉 Hooray! The folder (${theme_name.bold}) has been created successfully.`
+      `The folder (${theme_name.bold}) has been created successfully.`
     );
     //Logger.info(`  Changing working directory to (${theme_name.bold})...`);
     process.chdir(theme_name);
@@ -134,7 +134,7 @@ class Start extends BaseClass {
       throw "🤔 Hmmm! Something went wrong while trying to get your base theme. Please try again.);";
     }
     downloadinLoader.stop();
-    Logger.success("🎉 Hooray! Base theme downloaded successfully.");
+    Logger.success("Base theme downloaded successfully.");
     Logger.longLine();
     let ExtractingLoader = Logger.loading("✨ Extracting base theme files ...");
     const zip = new AdmZip(await response.buffer());
