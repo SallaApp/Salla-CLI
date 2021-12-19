@@ -124,6 +124,9 @@ The following commands can be executed via Salla CLI:
                <td>salla app create</td>
           </tr>
           <tr>
+               <td>salla app delete</td>
+          </tr>
+          <tr>
                <td>salla app list</td>
           </tr>
           <tr>
@@ -261,6 +264,33 @@ salla app create
       <td>salla</td>
       <td>app create</td>
       <td>Used to take you through a wizard to easily create your Salla Partners App.</td>
+    </tr>
+  </tbody>
+  <table>
+
+### `salla app delete`
+
+This command allows you to delete your Salla Partners App both locally and remotely. You can write it in your terminal in such a way:
+
+```bash
+salla app delete <app.id>
+```
+
+<!-- ![](InteractiveTerminalActivityPicture) -->
+
+<table>
+  <thead>
+    <tr>
+      <th>Binary</th>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>salla</td>
+      <td>app delete</td>
+      <td>Used to delete your Salla Partners App.</td>
     </tr>
   </tbody>
   <table>
