@@ -2,6 +2,8 @@ const clc = require("cli-color");
 const loading = require("loading-cli");
 
 const chalkAnimation = require("chalk-animation");
+var Table = require("cli-table");
+
 class LoggingManager {
   visitTroubleshootingPage =
     "Please visit the troubleshooting page https://dev.salla.sa/";
@@ -224,6 +226,16 @@ class LoggingManager {
         resolve();
       }, 1000);
     });
+  }
+  PrintTable(headArray, tableData) {
+    this.longLine();
+    var table = new Table({
+      head: headArray.map((h) => clc.greenBright(h)),
+      colWidths: [13, 30, 10, 15],
+    });
+    tableData.map((td) => table.push(td));
+
+    console.log(table.toString());
   }
 }
 module.exports = new LoggingManager();

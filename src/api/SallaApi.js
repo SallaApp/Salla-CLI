@@ -109,6 +109,8 @@ module.exports = class SallaAPI {
     })
       .then((res) => res.data)
       .catch((err) => {
+        // just in dev mode
+        //console.log("results", err);
         Logger.longLine();
 
         Logger.error("Error in Endpoint: " + url);

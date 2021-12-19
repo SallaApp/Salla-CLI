@@ -109,7 +109,19 @@ module.exports = class PartnerAPI extends SallaApi {
       return results.data;
     }
   }
+  async deleteApp(app_id) {
+    let results = await this.requestURL(
+      this.baseEndpoint + "app/" + app_id,
+      "DELETE",
+      null,
+      null,
+      this.accessToken
+    );
 
+    if (results.status === 200) {
+      return results.data;
+    }
+  }
   addDemoStore(name, password) {
     let NewDemoStore = {
       name,
