@@ -158,67 +158,11 @@ To communicate with your Salla Partners Apps, you will need to be authenticated.
 salla login
 ```
 
-That will handle all authentication and authorization process with your Salla App on [Salla Partners Portal](https://salla.partners/). 
-
-### `salla`
-
-This command lists down the available commands using the `salla` binary, such as `app` for creating [Salla Partners Portal](http://salla.partners/) Apps, `theme` for creating Salla custom themes, and `login` to sigin to your [Salla Stores](http://salla.sa/). You can write it in your terminal in such a way:
-
-```bash
-salla
-```
+That will handle all authentication and authorization process with your Salla App on [Salla Partners Portal](https://salla.partners/).
 
 <!-- ![](InteractiveTerminalActivityPicture) -->
-
-<table>
-  <thead>
-    <tr>
-      <th>Binary</th>
-      <th>Parameter</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>salla</td>
-      <td>-</td>
-      <td>Used to prevail commands supported by Salla, such as `app`, `theme`, and `login`</td>
-    </tr>
-  </tbody>
-  <table>
-
-
-
-This command allows you to serve your Salla apps on a dedicated local port. You can write it in your terminal in such a way:
-
-```bash
-salla salla app serve
-```
-
-<!-- ![](InteractiveTerminalActivityPicture) -->
-
-<table>
-  <thead>
-    <tr>
-      <th>Binary</th>
-      <th>Parameter</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>salla</td>
-      <td>app serve</td>
-      <td>Used to run a Salla App on a local server.</td>
-    </tr>
-  </tbody>
-  <table>
-
 
 <!-- CONTRIBUTING -->
-
-
-
 
 ## Upgrade
 
