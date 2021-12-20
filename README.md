@@ -100,21 +100,21 @@ You can check you have the right version with this command:
 
 `salla --version`
 
-``` bash
+```bash
 The convention followed to execute Salla CLI Commands is:
 
 salla <command>
 
 Available Commands:
   Command:                  Description:                      Properties:
-  salla app                 Show list of the binary `app`              
-  salla app create          Create a new Salla App            
-  salla app create-webhook  Create a new Salla App Webhook    [event.name] 
+  salla app                 Show list of the binary `app`
+  salla app create          Create a new Salla App
+  salla app create-webhook  Create a new Salla App Webhook    [event.name]
   salla app delete          Delete an existing Salla App      [app.id]
-  salla app list            List all your Salla Apps          
-  salla app serve           Serve an existing Salla App       [--port] 
-  salla login               Login to your Salla Store         
-  salla version             Show the version of Salla CLI     
+  salla app list            List all your Salla Apps
+  salla app serve           Serve an existing Salla App       [--port]
+  salla login               Login to your Salla Store
+  salla version             Show the version of Salla CLI
 ```
 
 ## Create Application
@@ -126,7 +126,6 @@ salla app create
 ```
 
 List of existing apps assocaited to your account will be displayed as well as an option to create your app on Salla Partners Portal.
-
 
 <!-- ![](InteractiveTerminalActivityPicture) -->
 
@@ -165,8 +164,6 @@ salla login
 That will handle all authentication and authorization process with your Salla App on [Salla Partners Portal](https://salla.partners/).
 
 <!-- ![](InteractiveTerminalActivityPicture) -->
-
-<!-- CONTRIBUTING -->
 
 ## Upgrade
 
