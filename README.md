@@ -62,9 +62,9 @@
 
 ## Getting Started
 
-The Salla CLI (salla-cli) is available via npm and is packaged to be used globally so you can access it everywhere.
+The [Salla CLI](https://github.com/SallaApp/Salla-CLI) (salla-cli) is available via npm and is packaged to be used globally so you can access it everywhere.
 
-Salla CLI comes with an easy to use, straight-forward commands that does the complete setup to your Salla App. To be ready, you will need some prerequisites which will be listed hereafter.
+[Salla CLI](https://github.com/SallaApp/Salla-CLI) comes with an easy to use, straight-forward commands that does the complete setup to your Salla App. To be ready, you will need some prerequisites which will be listed hereafter.
 
 What can you use [Salla CLI](https://github.com/SallaApp/Salla-CLI) for?
 
@@ -81,7 +81,7 @@ What can you use [Salla CLI](https://github.com/SallaApp/Salla-CLI) for?
 
 <!-- ### Installation -->
 
-To install Salla CLI, you need administrator privileges to execute the following command
+To install [Salla CLI](https://github.com/SallaApp/Salla-CLI), you need administrator privileges to execute the following command
 
 `npm install @salla.sa/cli -g`
 
@@ -116,7 +116,7 @@ Available Commands:
 
 ## Create Application
 
-Creating your Salla Partners Portal App is much easier with Salla CLI. Run the following command to create your app:
+Creating your Salla Partners Portal App is much easier with [Salla CLI](https://github.com/SallaApp/Salla-CLI). Run the following command to create your app:
 
 ```bash
 salla app create
@@ -164,7 +164,7 @@ That will handle all authentication and authorization process with your Salla Ap
 
 ## Upgrade
 
-To upgrade Salla CLI package globally, you need to run:
+To upgrade [Salla CLI](https://github.com/SallaApp/Salla-CLI) package globally, you need to run:
 
 `npm update @salla.sa/cli -g`
 
