@@ -88,6 +88,8 @@ To install Salla CLI, you need administrator privileges to execute the following
 
 `npm install @salla.sa/cli -g`
 
+And you're now ready to start building!
+
 <!-- Image Workflow -->
 
 <!-- ![](https://salla.dev/wp-content/uploads/2020/05/salla-cli-install.png) -->
@@ -147,6 +149,8 @@ For utmost flexibility, you can stream a webhook for any event you want to recei
 ```bash
 salla app create-webhook
 ```
+
+<!-- ![](InteractiveTerminalActivityPicture) -->
 
 ## Auth
 
