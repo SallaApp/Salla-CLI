@@ -30,25 +30,22 @@
                <a href="#getting-started">Getting Started</a>
                <ul>
                     <li><a href="#prerequisites">Prerequisites</a></li>
-                    <li><a href="#installation">Installation</a></li>
+                    <li><a href="#usage">Usage</a></li>
                </ul>
-          <li><a href="#salla-cli-commands">Salla CLI Commands</a></li>
+          <li><a href="#create-application">Create Appliaction</a></li>
           <ul>
-               <li><a href="#salla">salla</a></li>
-               <li><a href="#salla-login">salla login</a></li>
-               <li><a href="#salla-app">salla app</a></li>
-               <li><a href="#salla-app-create">salla app create</a></li>
-               <li><a href="#salla-app-create">salla app list</a></li>
-               <li><a href="#salla-app-create-webhook">salla app create-webhook</a></li>
-               <li><a href="#salla-app-serve">salla app serve</a></li>
-               <li><a href="#salla-theme">salla theme</a></li>
-               <li><a href="#salla-theme-start">salla theme start</a></li>
-               <li><a href="#salla-theme-serve">salla theme serve</a></li>
-               <li><a href="#salla-theme-sync">salla theme sync</a></li>
-               <li><a href="#salla-theme-watch">salla theme watch</a></li>
+                    <li><a href="#serve-application">Serve Application</a></li>
+                    <li><a href="#create-webhook">Create Webhook</a></li>
+               </ul>
+          <li><a href="#auth">Auth</a></li>
+          <ul>
+                    <li><a href="#login">Login</a></li>
           </ul>
+          <li><a href="#upgrade">Upgrade</a></li>
           </li>
           <li><a href="#contributing">Contributing</a></li>
+          <li><a href="#security">Security</a></li>
+          <li><a href="#credits">Credits</a></li>
           <li><a href="#license">License</a></li>
           </li>
      </ol>
