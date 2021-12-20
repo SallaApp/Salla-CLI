@@ -10,13 +10,15 @@ module.exports = async function (options) {
   //   return;
   // }
   let randromIdentify = generateRandom(64);
-  let generateConnectionTokenEndpoint =
-    await SallaAuthAPI.generateConnectionTokenEndpoint(randromIdentify);
+  let connectionToken = await SallaAuthAPI.generateConnectionTokenEndpoint(
+    randromIdentify
+  );
 
   SallaWS.websocket
     .init({
-      connectionEndpoint: WS_ENDPOINT,
-      connectionToken: generateConnectionTokenEndpoint,
+      connectionEndpoint: WS_ENDPOINT + "/connection/websocket",
+      //authEndpoint: "/connection/websocket/",
+      connectionToken: connectionToken,
     })
     .connect()
     .subscribe("salla:cli#" + randromIdentify, function (event) {
@@ -24,10 +26,9 @@ module.exports = async function (options) {
       console.log("data", data);
 
       // store the token in the auth file
+      Logger.succ("`👋 Hello World! You have landed successfully at Salla 🤓`");
+      Logger.error(
+        `🛑 Oops! There is an error logging to Salla. Please try loggin again by running the following command: salla login`
+      );
     });
-
-  Logger.succ("`👋 Hello World! You have landed successfully at Salla 🤓`");
-  Logger.error(
-    `🛑 Oops! There is an error logging to Salla. Please try loggin again by running the following command: salla login`
-  );
 };
