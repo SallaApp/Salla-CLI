@@ -51,7 +51,11 @@ module.exports = class PartnerAPI extends SallaApi {
   async getApp(app_name) {
     if (typeof app_name === "string") {
       let apps = await this.getAllApps();
-      return apps.filter((app) => app.name.en === app_name)[0];
+
+      return apps.filter(
+        (app) =>
+          app.name.en.toLocaleLowerCase() === app_name.toLocaleLowerCase()
+      )[0];
     } else {
       let results = await this.requestURL(
         this.baseEndpoint + "app/" + app_name,
