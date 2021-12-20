@@ -99,18 +99,20 @@ You can check you have the right version with this command:
 `salla --version`
 
 ``` bash
+The convention followed to execute Salla CLI Commands is:
+
 salla <command>
 
 Available Commands:
   Command:                  Description:                      Properties:
-  salla app                 Manage your Salla Apps            [app]
+  salla app                 Manage your Salla Apps            [app] 
   salla app create          Create a new Salla App            [app]
-  salla app create-webhook  Create a new Salla App Webhook    [app] 
-  salla app delete          Delete an existing Salla App      [app]
+  salla app create-webhook  Create a new Salla App Webhook    [event.name] 
+  salla app delete          Delete an existing Salla App      [--id]
   salla app list            List all your Salla Apps          [app]
-  salla app serve           Serve an existing Salla App       [app]
-  salla login               Login to your Salla Store         [app]
-  salla version             Show the version of Salla CLI     [app]
+  salla app serve           Serve an existing Salla App       [--port] 
+  salla login               Login to your Salla Store         [app] 
+  salla version             Show the version of Salla CLI     [app] 
 ```
 
 ## Create Application
