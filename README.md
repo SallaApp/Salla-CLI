@@ -57,7 +57,7 @@
 
 ## Overview
 
-The Salla Command Line Interface (Salla CLI) is your way to create your starter Salla Apps which works with the [Salla APIs](https://docs.salla.dev/). Your App later can be published to the [Salla App Store](https://apps.salla.sa/) and be available for installation to any of Salla [Merchants Stores](https://s.salla.sa/).
+[The Salla Command Line Interface (Salla CLI)](https://github.com/SallaApp/Salla-CLI) is your way to create your starter Salla Apps which works with the [Salla APIs](https://docs.salla.dev/). Your App later can be published to the [Salla App Store](https://apps.salla.sa/) and be available for installation to any of Salla [Merchants Stores](https://salla.sa/).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -65,24 +65,22 @@ The Salla Command Line Interface (Salla CLI) is your way to create your starter 
 
 ## Getting Started
 
-The Salla CLI (salla-cli) is packaged to be used globally. It is available via npm and is installed globally by running `npm install salla-cli -g`.
+The Salla CLI (salla-cli) is available via npm and is packaged to be used globally so you can access it everywhere.
 
 Salla CLI comes with an easy to use, straight-forward commands that does the complete setup to either your Salla Theme or App. To be ready, you will need some prerequisites which will be listed hereafter.
 
-What can you use Salla CLI for?
+What can you use [Salla CLI](https://github.com/SallaApp/Salla-CLI) for?
 
 - Login to your Salla Store.
-- Single-taps to create your own Salla App on Salla Partners.
-- Create your own Salla Theme.
+- Single-taps to create your own Salla App on Salla Partners Portal.
 
 ### Prerequisites
 
 - Create a Partner account at [Salla Partners Portal](https://salla.partners/).
-- Get your hands-on around creating an app on [Salla Partners Portal](https://salla.dev/blog/create-your-first-app-on-salla-developer-portal/).
 - For Salla CLI's compatibility: [`PHP`](https://www.php.net/) `>= 7.4`, [`Composer`](https://getcomposer.org/) `package manager`.
 - Other requirments: [`Nodejs`](https://nodejs.org/en/)`>= 10.15.0` and [`npm`](https://www.npmjs.com/)`>= 6.14.0`.
 
-### Installation
+### Usage
 
 <!-- ### Installation -->
 
@@ -90,79 +88,81 @@ To install Salla CLI, you need administrator privileges to execute the following
 
 `npm install @salla.sa/cli -g`
 
+<!-- Image Workflow -->
+
+<!-- ![](https://salla.dev/wp-content/uploads/2020/05/salla-cli-install.png) -->
+
 After installation, you will have access to the `salla` binary in your command line. You can verify that it is properly installed by simply running salla, which should present you with a help message listing all available commands.
 
 You can check you have the right version with this command:
 
 `salla --version`
 
-To upgrade the global Vue CLI package, you need to run:
+``` bash
+The convention followed to execute Salla CLI Commands is:
 
-`npm update @salla.sa/cli -g`
+salla <command>
 
-## Salla CLI Commands
+Available Commands:
+  Command:                  Description:                      Properties:
+  salla app                 Manage your Salla Apps            [app] 
+  salla app create          Create a new Salla App            [app]
+  salla app create-webhook  Create a new Salla App Webhook    [event.name] 
+  salla app delete          Delete an existing Salla App      [--id]
+  salla app list            List all your Salla Apps          [app]
+  salla app serve           Serve an existing Salla App       [--port] 
+  salla login               Login to your Salla Store         [app] 
+  salla version             Show the version of Salla CLI     [app] 
+```
 
-The following commands can be executed via Salla CLI:
+## Create Application
 
-  <table>
-     <thead>
-          <tr>
-               <th>Commands</th>
-          </tr>
-     </thead>
-     <tbody>
-          <tr>
-               <td>salla</td>
-          </tr>
-          <tr>
-               <td>salla login</td>
-          </tr>
-          <tr>
-               <td>salla app</td>
-          </tr>
-          <tr>
-               <td>salla app create</td>
-          </tr>
-          <tr>
-               <td>salla app delete</td>
-          </tr>
-          <tr>
-               <td>salla app list</td>
-          </tr>
-          <tr>
-               <td>salla app create-webhook</td>
-          </tr>
-          <tr>
-               <td>salla app serve</td>
-          </tr>
-          <tr>
-               <td>salla theme</td>
-          </tr>
-          <tr>
-               <td>salla theme start</td>
-          </tr>
-          <tr>
-               <td>salla theme serve</td>
-          </tr>
-          <tr>
-               <td>salla theme sync</td>
-          </tr>
-          <tr>
-               <td>salla theme watch</td>
-          </tr>
-          <tr>
-               <td>salla theme push</td>
-          </tr>
-          <tr>
-               <td>salla theme publish</td>
-          <tr>
-          </tr>
-     </tbody>
-</table>
+Creating your Salla Partners Portal App is much easier with Salla CLI. Run the following command to create your app:
+
+```bash
+salla app create
+```
+
+List of existing apps assocaited to your account will be displayed as well as an option to create your app on Salla Partners Portal.
+
+
+<!-- ![](InteractiveTerminalActivityPicture) -->
+
+### Serve Application
+
+To run and test an existing Salla App, run the following command:
+
+```bash
+salla app serve
+```
+
+<!-- ![](InteractiveTerminalActivityPicture) -->
+
+### Create Webhook
+
+Webhooks are a way to receive notifications from Salla when an event happens in your Salla App. For example, when a new order is placed, you can receive a notification via your own webhook.
+
+For utmost flexibility, you can stream a webhook for any event you want to receive. Run the following command to create a webhook:
+
+```bash
+salla app create-webhook
+```
+
+## Auth
+
+### Login
+
+To communicate with your Salla Partners Apps, you will need to be authenticated. To do so, run the following command:
+
+```bash
+salla login
+```
+
+That will handle all authentication and authorization process with your Salla App on [Salla Partners Portal](https://salla.partners/). 
 
 ### `salla`
 
-This command lists down the available commands using the `salla` binary, such as `app` for creating [Salla Partners](http://salla.partners/) Apps, `theme` for creating Salla custom themes, and `login` to sigin to your [Salla Stores](http://salla.sa/). You can write it in your terminal in such a way:
+This command lists down the available commands using the `salla` binary, such as `app` for creating [Salla Partners Portal](http://salla.partners/) Apps, `theme` for creating Salla custom themes, and `login` to sigin to your [Salla Stores](http://salla.sa/). You can write it in your terminal in such a way:
 
 ```bash
 salla
@@ -187,170 +187,7 @@ salla
   </tbody>
   <table>
 
-### `salla login`
 
-This command allows you to login and be authinticated with your own [stores](http://salla.sa/) at Salla. You can write it in your terminal in such a way:
-
-```bash
-salla login
-```
-
-<!-- ![](InteractiveTerminalActivityPicture) -->
-
-<table>
-  <thead>
-    <tr>
-      <th>Binary</th>
-      <th>Parameter</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>salla</td>
-      <td>login</td>
-      <td>Used to allow logging in to your Salla Stores. The stores can either be demo stores or real stores.</td>
-    </tr>
-  </tbody>
-  <table>
-
-### `salla app`
-
-This command lists down the available commands using the `salla app` binary, such as `create` for creating [Salla Partners](http://salla.partners/) Apps, `serve` for serving your Salla Partners Apps, and `create-webhook` which enables you to create your selected webhook event file. You can write it in your terminal in such a way:
-
-```bash
-salla app
-```
-
-<!-- ![](InteractiveTerminalActivityPicture) -->
-
-<table>
-  <thead>
-    <tr>
-      <th>Binary</th>
-      <th>Parameter</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>salla</td>
-      <td>app</td>
-      <td>Used to prevail commands supported by `salla app`, such as `create`, `serve`, and `create-webhook`.</td>
-    </tr>
-  </tbody>
-  <table>
-
-### `salla app create`
-
-This command allows you to create a Salla Partners App by going through a simple, intuitive, and effortless way. You can write it in your terminal in such a way:
-
-```bash
-salla app create
-```
-
-<!-- ![](InteractiveTerminalActivityPicture) -->
-
-<table>
-  <thead>
-    <tr>
-      <th>Binary</th>
-      <th>Parameter</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>salla</td>
-      <td>app create</td>
-      <td>Used to take you through a wizard to easily create your Salla Partners App.</td>
-    </tr>
-  </tbody>
-  <table>
-
-### `salla app delete`
-
-This command allows you to delete your Salla Partners App both locally and remotely. You can write it in your terminal in such a way:
-
-```bash
-salla app delete <app.id>
-```
-
-<!-- ![](InteractiveTerminalActivityPicture) -->
-
-<table>
-  <thead>
-    <tr>
-      <th>Binary</th>
-      <th>Parameter</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>salla</td>
-      <td>app delete</td>
-      <td>Used to delete your Salla Partners App.</td>
-    </tr>
-  </tbody>
-  <table>
-
-### `salla app list`
-
-This command lists down all the apps, alnogside their type and status, that are associated with your [Salla Partners](https://salla.partners/) account in a table formatted style. You can write it in your terminal in such a way:
-
-```bash
-salla app list
-```
-
-<!-- ![](InteractiveTerminalActivityPicture) -->
-
-<table>
-  <thead>
-    <tr>
-      <th>Binary</th>
-      <th>Parameter</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>salla</td>
-      <td>app list</td>
-      <td>Used to show you all your Salla Partner Apps.</td>
-    </tr>
-  </tbody>
-  <table>
-
-### `salla app create-webhook`
-
-This command allows you to create a webhook event file by choosing what event to listen to, as you may look up more on the [official documentation](https://docs.salla.dev/docs/merchant/ZG9jOjI0NTE3NDg1-webhook#list-of-events) for supported webhook events. You can write it in your terminal in such a way:
-
-```bash
-salla app create-webhook <event.name>
-```
-
-<!-- ![](InteractiveTerminalActivityPicture) -->
-
-<table>
-  <thead>
-    <tr>
-      <th>Binary</th>
-      <th>Parameter</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>salla</td>
-      <td>app create-webhook</td>
-      <td>Used to create a webhook event file for streaming supported Salla events, such as `order.created`, `product.available`, `review.added` and more.</td>
-    </tr>
-  </tbody>
-  <table>
-
-
-### `salla app serve`
 
 This command allows you to serve your Salla apps on a dedicated local port. You can write it in your terminal in such a way:
 
@@ -379,6 +216,15 @@ salla salla app serve
 
 
 <!-- CONTRIBUTING -->
+
+
+
+
+## Upgrade
+
+To upgrade Salla CLI package globally, you need to run:
+
+`npm update @salla.sa/cli -g`
 
 ## Contributing
 
