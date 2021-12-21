@@ -91,7 +91,7 @@ And you're now ready to start building your apps with [Salla Partners Portal](ht
 
 <!-- ![](https://salla.dev/wp-content/uploads/2020/05/salla-cli-install.png) -->
 
-After installation, you will have access to the `salla` binary in your command line. You can verify that it is properly installed by simply running salla, which should present you with a help message listing all available commands.
+After installation, you will have access to the `salla` binary in your command line. You can verify that the CLI is properly installed by simply running the binary command, `salla`, which should present you with a help message listing all available commands.
 
 You can check you have the right version with this command:
 
