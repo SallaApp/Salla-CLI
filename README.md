@@ -68,8 +68,8 @@ The [Salla CLI](https://github.com/SallaApp/Salla-CLI) (salla-cli) is available 
 
 What can you use [Salla CLI](https://github.com/SallaApp/Salla-CLI) for?
 
-- Login to your Salla Store.
-- Single-taps to create your own Salla App on Salla Partners Portal.
+- Login to your [Salla Store]().
+- Single-taps to create your own Salla App on [Salla Partners Portal](https://salla.partners/).
 
 ### Prerequisites
 
@@ -117,13 +117,13 @@ Available Commands:
 
 ## Create Application
 
-Creating your Salla Partners Portal App is much easier with [Salla CLI](https://github.com/SallaApp/Salla-CLI). Run the following command to create your app:
+Creating your [Salla Partners Portal](https://salla.partners/) App is much easier with [Salla CLI](https://github.com/SallaApp/Salla-CLI). Run the following command to go through the wizard that would help you create your app:
 
 ```bash
 salla app create
 ```
 
-List of existing apps assocaited to your account will be displayed as well as an option to create your app on Salla Partners Portal.
+List of existing apps assocaited to your account will be displayed as well as an option to create your app on [Salla Partners Portal](https://salla.partners/).
 
 <!-- ![](InteractiveTerminalActivityPicture) -->
 
@@ -139,7 +139,7 @@ salla app serve
 
 ### Create Webhook
 
-Webhooks are a way to receive notifications from Salla when an event happens in your Salla App. For example, when a new order is placed, you can receive a notification via your own webhook.
+Webhooks are a way to receive notifications from Salla when an event happens in your Salla App. For example, when a new order is placed, you can receive a notification via your own webhook. Read more on [the Official Docs](https://docs.salla.dev/docs/merchant/ZG9jOjI0NTE3NDg1-webhook).
 
 For utmost flexibility, you can stream a webhook for any event you want to receive. Run the following command to create a webhook:
 
@@ -153,7 +153,7 @@ salla app create-webhook
 
 ### Login
 
-To communicate with your Salla Partners Apps, you will need to be authenticated. To do so, run the following command:
+To communicate with your [Salla Partners Portal](https://salla.partners/) Apps, you will need to be authenticated. To do so, run the following command:
 
 ```bash
 salla login
