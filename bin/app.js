@@ -38,5 +38,12 @@ module.exports = function appCommands() {
     .action(require("../src/app/list"));
   _app.showSuggestionAfterError();
 
+  _app
+    .command("info")
+    .alias("l")
+    .description("Show detailed app information.")
+    .action(require("../src/app/info"));
+  _app.showSuggestionAfterError();
+
   return _app;
 };

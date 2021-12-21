@@ -110,6 +110,7 @@ Available Commands:
   salla app create-webhook         Create a new Salla App Webhook                    [event.name]
   salla app delete                 Delete an existing Salla App                      [app.id]
   salla app list                   List all your Salla Apps                          -
+  salla app info                   Show detailed app information                     -
   salla app serve                  Serve an existing Salla App                       [--port]
   salla login                      Login to your Salla Store                         -
   salla version                    Show the version of Salla CLI                     -

@@ -62,7 +62,7 @@ class Watch extends BaseClass {
     let response = await this.createDraftTheme();
     if (!response || !response.preview_url || !response.id) {
       Logger.error(
-        "🛑 Oops! Something went wrong while creating the testing theme. Please try again later."
+        "🛑 Oops! Something went wrong while creating the testing draft theme. Please try again later."
       );
 
       return null;

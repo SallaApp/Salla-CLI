@@ -170,6 +170,9 @@ class LoggingManager {
     this.printMessage(this.createMessage(msg, "info"));
     return;
   }
+  val2(msg1, msg2) {
+    console.log(clc["blackBright"](msg1) + " " + clc["greenBright"](msg2));
+  }
   infoGray(msg, ...msgs) {
     if (msgs.length > 0)
       msgs.map((msg) => this.printMessage(this.createMessage(msg, "gray")));
