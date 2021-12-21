@@ -1,8 +1,8 @@
 const clc = require("cli-color");
 const loading = require("loading-cli");
 
-const chalkAnimation = require("chalk-animation");
 var Table = require("cli-table");
+const chalkAnimation = require("chalkercli");
 
 class LoggingManager {
   visitTroubleshootingPage =
@@ -205,7 +205,7 @@ class LoggingManager {
     console.log(clc.greenBright("                     Version: " + version));
 
     return new Promise((resolve) => {
-      const textAnimated = chalkAnimation.rainbow(
+      const textAnimated = chalkAnimation.karaoke(
         "        The Official Salla Command Line Interface"
       );
       textAnimated.start();
@@ -227,7 +227,7 @@ class LoggingManager {
           this.longLine();
         }
         resolve();
-      }, 1000);
+      }, 10);
     });
   }
   PrintTable(headArray, tableData) {
@@ -239,6 +239,15 @@ class LoggingManager {
     tableData.map((td) => table.push(td));
 
     console.log(table.toString());
+  }
+  clearAndPrint(msgs) {
+    console.clear();
+    if (!NO_HEAD) {
+      this.printHead();
+    }
+    msgs.map((a) => {
+      console.log(a[0], a[1]);
+    });
   }
 }
 module.exports = new LoggingManager();

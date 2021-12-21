@@ -14,6 +14,7 @@ const packageJSON = JSON.parse(fs.readFileSync(`${__dirname}/../package.json`));
     if (!process.argv.includes("sync"))
       await Logger.printHead(null, packageJSON.version);
   } else {
+    global.NO_HEAD = true;
     process.argv.splice(process.argv.indexOf("--nohead"), 1);
   }
 
