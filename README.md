@@ -3,7 +3,7 @@
 <br />
 <div align="center">
      <a href="https://salla.dev">
-          <img src="https://salla.dev/wp-content/themes/salla-portal/dist/img/salla-logo.svg" alt="Logo" width="80"
+          <img src="https://i.ibb.co/sCy5PHc/salla-cli-github-banner-1.png" alt="Logo" width="80"
                height="80">
      </a>
      <h1 align="center">Salla CLI</h1>
