@@ -83,7 +83,9 @@ What can you use [Salla CLI](https://github.com/SallaApp/Salla-CLI) for?
 
 To install [Salla CLI](https://github.com/SallaApp/Salla-CLI), you need administrator privileges to execute the following command
 
-`npm install @salla.sa/cli -g`
+```bash
+npm install @salla.sa/cli -g
+```
 
 And you're now ready to start building your apps with [Salla Partners Portal](https://salla.partners/)!
 
@@ -95,7 +97,9 @@ After installation, you will have access to the `salla` binary in your command l
 
 You can check you have the right version with this command:
 
-`salla --version`
+```bash
+salla --version
+```
 
 The convention followed to execute Salla CLI Commands is:
 
@@ -167,7 +171,9 @@ That will handle all authentication and authorization process with your Salla Ap
 
 To upgrade [Salla CLI](https://github.com/SallaApp/Salla-CLI) package globally, you need to run:
 
-`npm update @salla.sa/cli -g`
+``` bash
+npm update @salla.sa/cli -g
+```
 
 ## Contributing
 
