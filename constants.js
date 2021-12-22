@@ -45,6 +45,7 @@ global.FORBIDDEN_PROJECT_NAMES = ["node_modules", "src", "public"];
 global.DATABASE_ORM = ["Sequelize", "Mongoose", "TypeORM"];
 global.DEFAULT_APP_PORT = 8081;
 global.WS_ENDPOINT = "ws://ws.salla.group";
+global.NO_HEAD = false;
 // load strings file
 /**
 
