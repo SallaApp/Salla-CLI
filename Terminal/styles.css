@@ -1,6 +1,6 @@
 body {
-    --color-bg: #252a33;
-    --color-text: #eee;
+    --color-bg: #040d21;
+    --color-text: #5cd5c4;
     --color-text-subtle: #a2a2a2;
 
     padding: 0; margin: 0;
@@ -91,6 +91,7 @@ body {
             animation: blink 1s infinite;
 }
 
+
 .link {
     color: #c48366
 }
@@ -100,7 +101,7 @@ body {
 }
 
 .note{
-    color: #d5b765;
+    color: #eee;
 }
 /* Cursor animation */
 
