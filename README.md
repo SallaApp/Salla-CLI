@@ -75,7 +75,7 @@ What can you use [Salla CLI](https://github.com/SallaApp/Salla-CLI) for?
 
 - Create a Partner account at [Salla Partners Portal](https://salla.partners/).
 - For Salla CLI's compatibility: [`PHP`](https://www.php.net/) `>= 7.4`, [`Composer`](https://getcomposer.org/) `package manager`.
-- Other requirments: [`Nodejs`](https://nodejs.org/en/)`>= 10.15.0` and [`npm`](https://www.npmjs.com/)`>= 6.14.0`.
+- Other requirments: [`Nodejs LTS`](https://nodejs.org/en/)`>= 16.13.1` and [`npm`](https://www.npmjs.com/)`>= 6.14.0`.
 
 ### Usage
 
@@ -128,7 +128,7 @@ Creating your [Salla Partners Portal](https://salla.partners/) App is much easie
 salla app create
 ```
 
-List of existing apps assocaited to your account will be displayed as well as an option to create your app on [Salla Partners Portal](https://salla.partners/).
+List of existing apps assocaited to your account will be displayed as well as an option to create your app on [Salla Partners Portal](https://salla.partners/). Afterwards, you will be presented with easy-to
 
 <!-- ![](InteractiveTerminalActivityPicture) -->
 
