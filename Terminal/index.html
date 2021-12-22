@@ -10,7 +10,7 @@
       href="https://fonts.googleapis.com/css?family=Fira+Mono"
     />
     <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/316871/termynal.min.js"></script>
-
+    <link rel="stylesheet" href="./cli.css" />
     <title>Test</title>
   </head>
   <body>
@@ -21,6 +21,22 @@
       data-ty-typeDelay="40"
       data-ty-lineDelay="700"
     >
+      <textarea data-ty class="note head">
+  _____       _ _        _____ _      _____ 
+ / ____|     | | |      / ____| |    |_   _|
+| (___   __ _| | | __ _| |    | |      | |  
+ \___ \ / _` | | |/ _` | |    | |      | |  
+ ____) | (_| | | | (_| | |____| |____ _| |_ 
+|_____/ \__,_|_|_|\__,_|\_____|______|_____|                                
+      </textarea>
+      <span data-ty class="note info"
+        >[!] Read the docs: https://github.com/SallaApp/Salla-CLI/
+      </span>
+      <span data-ty class="note info"
+        >[!] Support and bugs:
+        https://github.com/SallaApp/Salla-CLI/issues</span
+      >
+
       <span data-ty="input">php artisan serve.remote</span>
       <span data-ty
         ><span class="link-label">Local App URL:</span>
@@ -32,6 +48,7 @@
         >Please go to "Salla Partners Portal" And copy the following "Webhook
         Url"</span
       >
+
       <span data-ty class="note"
         >to the Callback URL field in the "App Details ->
         Webhooks/Notifications" section:
