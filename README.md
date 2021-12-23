@@ -41,6 +41,7 @@
           <ul>
                     <li><a href="#login">Login</a></li>
           </ul>
+          <li><a href="#delete">Delete</a></li>
           <li><a href="#upgrade">Upgrade</a></li>
           </li>
           <li><a href="#contributing">Contributing</a></li>
@@ -130,7 +131,7 @@ salla app create
 
 List of existing apps assocaited to your account will be displayed as well as an option to create your app on [Salla Partners Portal](https://salla.partners/). Afterwards, you will be presented with easy-to
 
-<!-- ![](InteractiveTerminalActivityPicture) -->
+![Salla App Create Command](https://i.ibb.co/zmYhK9Q/salla-app-create.gif)
 
 ### Serve Application
 
@@ -140,7 +141,7 @@ To run and test an existing Salla App, run the following command:
 salla app serve
 ```
 
-![App Serve](https://i.ibb.co/jVn17pd/salla-app-serve.gif)
+![Salla App Serve Command](https://i.ibb.co/jVn17pd/salla-app-serve.gif)
 
 ### Create Webhook
 
@@ -152,7 +153,7 @@ For utmost flexibility, you can stream a webhook for any event you want to recei
 salla app create-webhook
 ```
 
-<!-- ![](InteractiveTerminalActivityPicture) -->
+![Salla App Create-Webhook Command](https://i.ibb.co/vkKbTXD/salla-app-create-webhook.gif)
 
 ## Auth
 
@@ -168,6 +169,16 @@ That will handle all authentication and authorization process with your Salla Ap
 
 <!-- ![](InteractiveTerminalActivityPicture) -->
 
+## Delete
+
+To delete your Salla Partners Portal app directly from the CLI, you need to run:
+
+``` bash
+salla app delete --id <app_id>
+```
+
+![Salla App Delete Command](https://i.ibb.co/zJc9w1R/salla-app-delete.gif)
+
 ## Upgrade
 
 To upgrade [Salla CLI](https://github.com/SallaApp/Salla-CLI) package globally, you need to run:
@@ -175,6 +186,8 @@ To upgrade [Salla CLI](https://github.com/SallaApp/Salla-CLI) package globally, 
 ``` bash
 npm update @salla.sa/cli -g
 ```
+
+
 
 ## Contributing
 
