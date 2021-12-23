@@ -9,7 +9,7 @@
      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono" />
      <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/316871/termynal.min.js"></script>
      <link rel="stylesheet" href="./assets/cli.css" />
-     <title>Salla App Serve</title>
+     <title>Salla App List</title>
 </head>
 
 <body>
@@ -30,34 +30,50 @@
         https://github.com/SallaApp/Salla-CLI/issues</span
       > -->
 
-          <span data-ty="input">salla app serve</span>
-
+          <span data-ty="input">salla app list</span>
           <span data-ty>
-               <span class="link-label">✨ Starting ngrok. Please hold on ...</span>
+               <span class="link-label">✨ Getting your apps from Salla ...</span>
           </span>
 
           <span data-ty="progress" data-ty-progressChar="#"></span>
 
-          <span data-ty>
-               <span class="link-label">✅ Starting your project on PORT:8081</span>
+          <span data-ty>✅ Here is a list of your apps:</span>
+          <span data-ty class="note">
+               <table>
+                    <tr>
+                         <th>ID</th>
+                         <th>Name</th>
+                         <th>Type</th>
+                         <th>Status</th>
+                    </tr>
+                    <tr>
+                         <td>123</td>
+                         <td>Your Awesome App 001</td>
+                         <td>public</td>
+                         <td>development</td>
+                    </tr>
+                    <tr>
+                         <td>456</td>
+                         <td>Your Awesome App 002</td>
+                         <td>private</td>
+                         <td>live</td>
+                    </tr>
+                    <tr>
+                         <td>789</td>
+                         <td>Your Awesome App 003</td>
+                         <td>shipping</td>
+                         <td>development</td>
+                    </tr>
+               </table>
           </span>
-
-          <span data-ty="progress" data-ty-progressChar="#"></span>
-
-          <span data-ty><span class="link-label"> 🕹 Remote URL : <span
-                         class="note">https://your-url.ngrok.io</span></span></span>
-          <span data-ty><span class="link-label"> 📠 Local URL : <span
-                         class="note">http://localhost:8081</span></span></span>
-          <span data-ty><span class="link-label"> 🔗 Webhook URL : <span
-                         class="note">https://your-url.ngrok.io/webhook/</span></span></span>
-          <span data-ty><span class="link-label"> 🤖 OAuth Callback URL : <span
-                         class="note">https://your-url.ngrok.io/oauth/callback</span></span></span>
 
           <span data-ty></span>
-
           <span data-ty>
                <span class="note" data-ty-cursor=">>>">💻 As always, Happy Coding! 💻</span>
           </span>
+
+
+
      </div>
      <script src="./assets/script.js"></script>
 </body>
