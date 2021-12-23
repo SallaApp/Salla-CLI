@@ -1,27 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./styles.css" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Fira+Mono"
-    />
-    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/316871/termynal.min.js"></script>
-    <link rel="stylesheet" href="./cli.css" />
-    <title>Test</title>
-  </head>
-  <body>
-    <div
-      id="termynal"
-      data-termynal
-      data-termynal
-      data-ty-typeDelay="40"
-      data-ty-lineDelay="700"
-    >
-      <textarea data-ty class="note head">
+
+<head>
+     <meta charset="UTF-8" />
+     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <link rel="stylesheet" href="./styles.css" />
+     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono" />
+     <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/316871/termynal.min.js"></script>
+     <link rel="stylesheet" href="./cli.css" />
+     <title>Test</title>
+</head>
+
+<body>
+     <div id="termynal" data-termynal data-termynal data-ty-typeDelay="40" data-ty-lineDelay="700">
+          <textarea data-ty class="note head">
   _____       _ _        _____ _      _____ 
  / ____|     | | |      / ____| |    |_   _|
 | (___   __ _| | | __ _| |    | |      | |  
@@ -29,46 +22,78 @@
  ____) | (_| | | | (_| | |____| |____ _| |_ 
 |_____/ \__,_|_|_|\__,_|\_____|______|_____|                                
       </textarea>
-      <span data-ty class="note info"
+          <!-- <span data-ty class="note" 
         >[!] Read the docs: https://github.com/SallaApp/Salla-CLI/
       </span>
-      <span data-ty class="note info"
+      <span data-ty class="note"
         >[!] Support and bugs:
         https://github.com/SallaApp/Salla-CLI/issues</span
-      >
+      > -->
 
-      <span data-ty="input">php artisan serve.remote</span>
-      <span data-ty
-        ><span class="link-label">Local App URL:</span>
-        <span class="link">http://localhost:8000</span></span
-      >
-      <span data-ty></span>
-          <span data-ty="progress"></span>
-      <span data-ty>Successfully installed spacy</span>
-      <span data-ty class="note"
-        >Please go to "Salla Partners Portal" And copy the following "Webhook
-        Url"</span
-      >
+          <span data-ty="input">salla app create</span>
+          <span data-ty>
+               <span class="link-label">✨ Getting your apps from Salla ...</span>
+          </span>
 
-      <span data-ty class="note"
-        >to the Callback URL field in the "App Details ->
-        Webhooks/Notifications" section:
-      </span>
-      <span data-ty
-        ><span class="link-label">Webhook URL:</span>
-        <span class="link"
-          >https://432f-5-110-165-102.ngrok.io/api/webhook</span
-        ></span
-      >
-      <span data-ty></span>
-      <span data-ty>🎉 Now you can open your broswer to view your App at </span>
-      <span data-ty
-        ><span class="link-label">Remote App URL:</span>
-        <span class="link">https://432f-5-110-165-102.ngrok.io</span></span
-      >
-      <span data-ty class="note">As always, happy hacking! 🙌</span>
-      <span data-ty data-ty-cursor="▋"></span>
-    </div>
-    <script src="./script.js"></script>
-  </body>
+          <span data-ty="progress" data-ty-progressChar="#"></span>
+
+          <span data-ty>✅ Here is a list of your apps:</span>
+          <span data-ty class="note">
+               <span class="link-label">~ My Awesome App 001</span>
+          </span>
+          <span data-ty class="note">
+               <span class="link-label">~ My Awesome App 002</span>
+          </span>
+          <span data-ty>🚀 Want to Create New Salla Partners App?</span>
+          <span data-ty="input" data-ty-typeDelay="1000" data-ty-prompt="(y/n)">y</span>
+          </span>
+
+          <span data-ty class="note">?App Name: </span>
+          <span data-ty="input" data-ty-prompt=">">My Awesome App 003</span>
+
+          <span data-ty class="note">?Short Description: </span>
+          <span data-ty="input" data-ty-prompt=">">My New Salla App 🥳</span>
+
+          <span data-ty class="note">?Select Your App Type: </span>
+
+
+
+          <span data-ty="input" data-ty-prompt=">">Shipping</span>
+
+
+
+          <span data-ty class="note">?App Authorization Mode: </span>
+
+
+          <span data-ty="input" data-ty-prompt=">">Easy Mode</span>
+
+
+
+
+          <span data-ty class="note">?Select Framework Mode: </span>
+
+
+          <span data-ty="input" data-ty-prompt=">">Laravel</span>
+
+
+          <span data-ty>
+               <span class="link-label">✨ Initializing your app in Salla. Please Wait ☕️ ...</span>
+          </span>
+
+          <span data-ty="progress" data-ty-progressChar="#"></span>
+
+          <span data-ty>
+               <span class="note">🎉 Hooray! You have successfully created a new Salla App!</span>
+          </span>
+
+          <span data-ty>
+               <span class="note" data-ty-cursor=">>>">💻 As always, Happy Coding! 💻</span>
+          </span>
+
+
+
+     </div>
+     <script src="./script.js"></script>
+</body>
+
 </html>
