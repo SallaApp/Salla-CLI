@@ -140,7 +140,7 @@ To run and test an existing Salla App, run the following command:
 salla app serve
 ```
 
-<!-- ![](InteractiveTerminalActivityPicture) -->
+![App Serve](https://i.ibb.co/jVn17pd/salla-app-serve.gif)
 
 ### Create Webhook
 
