@@ -110,15 +110,15 @@ class InputsManager {
   }
 
   getClientIDFromCLI() {
-    this.APP_CLIENT_ID = this.readLine("? App Client ID: ");
+    this.APP_CLIENT_ID = this.readLine("App Client ID: ");
     return this.APP_CLIENT_ID;
   }
   getClientSecretFromCLI() {
-    this.APP_CLIENT_SECRET = this.readLine("? App Client Secret Key: ");
+    this.APP_CLIENT_SECRET = this.readLine("App Client Secret Key: ");
     return this.APP_CLIENT_SECRET;
   }
   getWebhookSecretFromCLI() {
-    this.WEBHOOK_SECRET = this.readLine("? App Webhook Secret Key: ");
+    this.WEBHOOK_SECRET = this.readLine("App Webhook Secret Key: ");
     return this.WEBHOOK_SECRET;
   }
 

@@ -133,7 +133,7 @@ salla app create
 
 List of existing apps assocaited to your account will be displayed as well as an option to create your app on [Salla Partners Portal](https://salla.partners/). Afterwards, you will be presented with easy-to
 
-![Salla App Create Command](https://i.ibb.co/zmYhK9Q/salla-app-create.gif)
+![Salla App Create Command](https://i.ibb.co/HXpMdqx/Clean-Shot-2021-12-26-at-21-58-00.gif)
 
 ### Serve Application
 
@@ -143,7 +143,7 @@ To run and test an existing Salla App, run the following command:
 salla app serve
 ```
 
-![Salla App Serve Command](https://i.ibb.co/jVn17pd/salla-app-serve.gif)
+![Salla App Serve Command](https://i.ibb.co/Ny9sL3T/Clean-Shot-2021-12-26-at-21-59-21.gif)
 
 ### Create Webhook
 

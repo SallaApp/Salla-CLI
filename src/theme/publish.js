@@ -53,7 +53,7 @@ class Publish extends BaseClass {
 
     // check author name
     if (!config.author) {
-      const author = InputsManager.readLine("? Author name: ", {
+      const author = InputsManager.readLine("Author name: ", {
         name: "author name",
         validate: /^[a-zA-Z0-9\s_-]+$/,
       });
@@ -62,7 +62,7 @@ class Publish extends BaseClass {
 
     // check email
     if (!config.email) {
-      const email = InputsManager.readLine("? Email Address: ", {
+      const email = InputsManager.readLine("Email Address: ", {
         name: "email",
         validate: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
       });
@@ -71,7 +71,7 @@ class Publish extends BaseClass {
 
     // check the support url
     if (!config.support_url) {
-      const support_url = InputsManager.readLine("? Support Url: ", {
+      const support_url = InputsManager.readLine("Support Url: ", {
         name: "support url",
         validate: /^https?:\/\//,
       });
