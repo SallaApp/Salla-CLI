@@ -124,7 +124,7 @@ Available Commands:
 
 ## Create Application
 
-Creating your [Salla Partners Portal](https://salla.partners/) App is much easier with [Salla CLI](https://github.com/SallaApp/Salla-CLI). Run the following command to go through the wizard that would help you create your app:
+Creating your [Salla App](https://salla.partners/) App is much easier with [Salla CLI](https://github.com/SallaApp/Salla-CLI). Run the following command to go through the wizard that would help you create your app:
 
 ```bash
 salla app create
