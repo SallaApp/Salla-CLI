@@ -166,7 +166,7 @@ To communicate with your [Salla Partners Portal](https://salla.partners/) Apps, 
 salla login
 ```
 
-That will handle all authentication and authorization process with your Salla App on [Salla Partners Portal](https://salla.partners/).
+That will handle all authentication and authorization process with your account on [Salla Partners Portal](https://salla.partners/).
 
 <!-- ![](InteractiveTerminalActivityPicture) -->
 
