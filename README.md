@@ -75,8 +75,9 @@ What can you use [Salla CLI](https://github.com/SallaApp/Salla-CLI) for?
 ### Prerequisites
 
 - Create a Partner account at [Salla Partners Portal](https://salla.partners/).
-- Other requirments: [`Nodejs LTS`](https://nodejs.org/en/)`>= 16.13.1` and [`npm`](https://www.npmjs.com/)`>= 6.14.0`.
-- For Salla CLI's compatibility: [`PHP`](https://www.php.net/) `>= 7.4`, [`Composer`](https://getcomposer.org/) `package manager`.
+- For Salla CLI's compatibility: [`Nodejs LTS`](https://nodejs.org/en/)`>= 16.13.1` and [`npm`](https://www.npmjs.com/)`>= 6.14.0`.
+- Other requirments:[`PHP`](https://www.php.net/) `>= 7.4`, [`Composer`](https://getcomposer.org/) `package manager`.
+
 
 
 ### Usage
