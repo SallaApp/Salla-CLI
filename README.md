@@ -172,7 +172,7 @@ That will handle all authentication and authorization process with your account 
 
 ## Delete
 
-To delete your Salla Partners Portal app directly from the CLI, you need to run:
+To delete your app directly from the CLI, you need to run:
 
 ``` bash
 salla app delete --id <app_id>
