@@ -30,9 +30,24 @@
         https://github.com/SallaApp/Salla-CLI/issues</span
       > -->
 
-          <span data-ty="input">salla app delete --id 123</span>
+          <span data-ty="input">salla app delete</span>
           <span data-ty>
-               <span class="link-label">❌ Deleting your app from Salla ...</span>
+               <span class="link-label">❌ Select App to Delete: </span>
+          </span>
+
+          <span data-ty class="note">
+               <span>() My Awesome App 001    -    Shipping</span>
+          </span>
+          <span data-ty class="note">
+               <span>(x) My Awesome App 002    -    Shipping</span>
+          </span>
+
+          <span data-ty>
+               <span class="link-label">ℹ️ You won't be able to retrive the App once removed!</span>
+          </span>
+
+          <span data-ty>Are you sure you want to delete your App? </span>
+          <span data-ty="input" data-ty-typeDelay="1000" data-ty-prompt="(y/n)">y</span>
           </span>
 
           <span data-ty="progress" data-ty-progressChar="#"></span>
