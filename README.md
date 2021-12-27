@@ -177,7 +177,7 @@ To delete your app directly from the CLI, you need to run:
 salla app delete
 ```
 
-![Salla App Delete Command](https://i.ibb.co/ynBf4vD/Clean-Shot-2021-12-27-at-15-06-20.gif)
+![Salla App Delete Command](https://i.ibb.co/PNqMWwk/Clean-Shot-2021-12-27-at-16-12-57.gif)
 
 ## Upgrade
 
