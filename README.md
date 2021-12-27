@@ -174,7 +174,7 @@ That will handle all authentication and authorization process with your account 
 To delete your app directly from the CLI, you need to run:
 
 ```bash
-salla app delete --id
+salla app delete
 ```
 
 ![Salla App Delete Command](https://i.ibb.co/ynBf4vD/Clean-Shot-2021-12-27-at-15-06-20.gif)
