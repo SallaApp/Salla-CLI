@@ -131,7 +131,7 @@ salla app create
 
 List of existing apps assocaited to your account will be displayed as well as an option to create your app on [Salla Partners Portal](https://salla.partners/). Afterwards, you will be presented with easy-to
 
-![Salla App Create Command](https://i.ibb.co/dgtpchh/Clean-Shot-2021-12-27-at-21-13-35.gif)
+![Salla App Create Command](https://i.ibb.co/92tKgZz/Clean-Shot-2021-12-27-at-21-31-15.gif)
 
 ### Serve Application
 
