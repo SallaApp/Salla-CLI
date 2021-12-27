@@ -35,4 +35,6 @@ const packageJSON = JSON.parse(fs.readFileSync(`${__dirname}/../package.json`));
     subcommandTerm: (cmd) => cmd.name(), // Just show the name, instead of short usage.
   });
   program.parse(process.argv);
+
+  // start notifications listener
 })();

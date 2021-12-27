@@ -3,7 +3,7 @@ const Logger = require("../utils/LoggingManager");
 const { AuthManager } = require("../utils/AuthManager")();
 const env = require("dotenv");
 const fs = require("fs-extra");
-const PartnerApi = new (require("../api/partner"))();
+const PartnerApi = new (require("../api/Partner"))();
 module.exports = async function (options) {
   try {
     let data = env.parse(fs.readFileSync(".env"));
@@ -17,7 +17,7 @@ module.exports = async function (options) {
       data.SALLA_OAUTH_CLIENT_REDIRECT_URI
     );
   } catch (err) {
-    console.log(err);
+    Logger.error(err);
     Logger.warn("Please make sure you type the command in a Salla project");
   }
 };

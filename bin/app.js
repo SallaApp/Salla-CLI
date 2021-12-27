@@ -17,6 +17,7 @@ module.exports = function appCommands() {
     .alias("s")
     .description("Serve, test, and view your Salla Partners App.")
     .option("-p, --port <name>", "port to listen to")
+    .option("-l, --local", "run it locally without ngrok")
     .action(require("../src/app/serve"));
 
   _app
@@ -27,7 +28,6 @@ module.exports = function appCommands() {
   _app
     .command("delete")
     .alias("d")
-    .option("-id, --id <app_id>", "app id to delete")
     .description("Delete your Salla Partners App locally and Remote .")
     .action(require("../src/app/delete"));
 
@@ -43,6 +43,13 @@ module.exports = function appCommands() {
     .alias("l")
     .description("Show detailed app information.")
     .action(require("../src/app/info"));
+
+  _app
+    .command("publish")
+    .alias("l")
+    .description("Publish your app to salla .")
+    .action(require("../src/app/publish"));
+
   _app.showSuggestionAfterError();
 
   return _app;

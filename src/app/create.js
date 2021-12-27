@@ -4,7 +4,7 @@ const { LaravelAppCreateor } = require("../stater-kits/laravel");
 
 const InputsManager = require("../utils/InputsManager");
 const ServeCommand = require("./serve");
-const PartnerApi = new (require("../api/partner"))();
+const PartnerApi = new (require("../api/Partner"))();
 const { AuthManager } = require("../utils/AuthManager")();
 
 // export function to Salla-cli
@@ -42,7 +42,7 @@ module.exports = async function (options) {
       [
         /* apps from developer account */
         ...apps.map((app) => {
-          return { val: app.name.en, desc: app.type };
+          return { lable: app.name.en, desc: app.type };
         }),
         "🚀 I Want to Create New Salla Partner App .",
       ],
@@ -126,11 +126,11 @@ module.exports = async function (options) {
       "App Authorization Mode: (Use arrow keys) ",
       [
         {
-          val: "Easy Mode",
+          lable: "Easy Mode",
           desc: "Salla in-house authorization where you listen automatically to webhook events.",
         },
         {
-          val: "Custom Mode",
+          lable: "Custom Mode",
           desc: "Your custom web page to handle the callback URLs.",
         },
       ],
@@ -152,11 +152,11 @@ module.exports = async function (options) {
     "Select Framework: (Use arrow keys)",
     [
       {
-        val: "Express",
+        lable: "Express",
         desc: "Express is Fast, unopinionated, minimalist web framework for Node.js",
       },
       {
-        val: "Laravel",
+        lable: "Laravel",
         desc: "Laravel is a web application framework with expressive, elegant syntax.",
       },
     ],

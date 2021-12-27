@@ -11,7 +11,6 @@ const InputsManager = require("../utils/InputsManager");
 const { AuthManager } = require("../utils/AuthManager")();
 
 module.exports = async function (options) {
-  Logger.longLine();
   if (!(await AuthManager.isSallaTokenValid())) {
     Logger.error(
       "🛑 Oops! Unable to authinticate. Try loggin again to Salla by running the following command: salla login"
@@ -31,10 +30,7 @@ module.exports = async function (options) {
     );
     process.exit(1);
   }
-  Logger.info(
-    `✨ Starting your project on PORT:${options.port} ... `,
-    `✨ Starting ngrok. Please hold on ... `
-  );
+  Logger.info(`✨ Starting your project on PORT:${options.port} ... `);
   Logger.longLine();
 
   // get app id from env file
@@ -63,56 +59,69 @@ module.exports = async function (options) {
       data.SALLA_APP_ID = APP.id;
     }
 
-    const load_upload_app = Logger.loading("Please Wait ☕️ ...");
+    //check if serve is local or with ngrok setup
+    if (!options.local) {
+      Logger.info(`✨ Starting ngrok. Please hold on ... `);
+      Logger.longLine();
+      const load_upload_app = Logger.loading("Please Wait ☕️ ...");
 
-    const url = await ngrok.connect({
-      addr: options.port,
-      authtoken:
-        process.env.NGROK_TOKEN ||
-        "228l6GcFdMoGrXzSia73IFbvZ3f_7VMZvSvSnG4g2FvN3yP4q",
-    });
+      const url = await ngrok.connect({
+        addr: options.port,
+        authtoken:
+          process.env.NGROK_TOKEN ||
+          "228l6GcFdMoGrXzSia73IFbvZ3f_7VMZvSvSnG4g2FvN3yP4q",
+      });
 
-    Logger.longLine(2);
-    Logger.succ(`Remote URL : ${url} `);
-    Logger.succ(`Local  URL : http://localhost:${options.port} `);
-    Logger.succ(`Webhook URL : ${url}/webhook/ `);
-    Logger.succ(`OAuth Callback URL : ${url}/oauth/callback/ `);
-    load_upload_app.stop();
+      Logger.longLine(2);
+      Logger.succ(`Remote URL : ${url} `);
+      Logger.succ(`Local  URL : http://localhost:${options.port} `);
+      Logger.succ(`Webhook URL : ${url}/webhook/ `);
+      Logger.succ(`OAuth Callback URL : ${url}/oauth/callback/ `);
+      load_upload_app.stop();
 
-    Logger.longLine();
-    // give sometime to ngrok to connect and expressjs to start
-    setTimeout(() => {
-      require("open")(url);
-    }, 3000);
+      Logger.longLine();
+      // give sometime to ngrok to connect and expressjs to start
+      setTimeout(() => {
+        require("open")(url);
+      }, 3000);
 
-    try {
-      await PartnerApi.updateWebhookURL(data.SALLA_APP_ID, `${url}/webhook/`);
-    } catch (e) {
-      Logger.error(
-        "🤔 Hmmm! Something went wrong while updating webhook URL! Please try again later."
+      try {
+        await PartnerApi.updateWebhookURL(data.SALLA_APP_ID, `${url}/webhook/`);
+      } catch (e) {
+        Logger.error(
+          "🤔 Hmmm! Something went wrong while updating webhook URL! Please try again later."
+        );
+
+        process.exit(1);
+      }
+      try {
+        await PartnerApi.updateRedirectURL(
+          data.SALLA_APP_ID,
+          `${url}/oauth/callback/`
+        );
+      } catch (e) {
+        Logger.error(
+          "🤔 Hmmm! Something went wrong while updating Redirect URL! Please try again later."
+        );
+
+        process.exit(1);
+      }
+      Logger.succ(
+        `🎉 Hooray! OAuth Callback and Webhook URLs have been updated successfully.`
       );
-
-      process.exit(1);
+      Logger.longLine();
+      Logger.normal("💻 As always, Happy Coding! 💻");
+      Logger.longLine();
+      fs.writeFileSync(".env", generateEnv(data, `${url}/oauth/callback`));
+    } else {
+      Logger.succ(`Local  URL : http://localhost:${options.port} `);
+      Logger.succ(
+        `OAuth Callback URL : http://localhost:${options.port}/oauth/callback/ `
+      );
+      setTimeout(() => {
+        require("open")(`http://localhost:${options.port}`);
+      }, 1000);
     }
-    try {
-      await PartnerApi.updateRedirectURL(
-        data.SALLA_APP_ID,
-        `${url}/oauth/callback/`
-      );
-    } catch (e) {
-      Logger.error(
-        "🤔 Hmmm! Something went wrong while updating Redirect URL! Please try again later."
-      );
-
-      process.exit(1);
-    }
-    Logger.succ(
-      `🎉 Hooray! OAuth Callback and Webhook URLs have been updated successfully.`
-    );
-    Logger.longLine();
-    Logger.normal("💻 As always, Happy Coding! 💻");
-    Logger.longLine();
-    fs.writeFileSync(".env", generateEnv(data, `${url}/oauth/callback`));
   } catch (err) {
     Logger.error(
       `🛑 Oops! There is an error in writing .env file. Ensure that you have root/admin access on your end. Due to that, the system is terminating the process with code 1. Please try again.`

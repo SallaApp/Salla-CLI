@@ -2,7 +2,7 @@ const Logger = require("../utils/LoggingManager");
 
 const { AuthManager } = require("../utils/AuthManager")();
 
-const PartnerApi = new (require("../api/partner"))();
+const PartnerApi = new (require("../api/Partner"))();
 module.exports = async function (options) {
   Logger.info("✨ Getting your apps from Salla ...");
   const load = Logger.loading("Getting apps ...");

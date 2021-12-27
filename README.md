@@ -78,8 +78,6 @@ What can you use [Salla CLI](https://github.com/SallaApp/Salla-CLI) for?
 - For Salla CLI's compatibility: [`Nodejs LTS`](https://nodejs.org/en/)`>= 16.13.1` and [`npm`](https://www.npmjs.com/)`>= 6.14.0`.
 - Other requirments:[`PHP`](https://www.php.net/) `>= 7.4`, [`Composer`](https://getcomposer.org/) `package manager`.
 
-
-
 ### Usage
 
 <!-- ### Installation -->
@@ -118,7 +116,7 @@ Available Commands:
   salla app delete                 Delete an existing Salla App                      [app.id]
   salla app list                   List all your Salla Apps                          -
   salla app info                   Show detailed app information                     -
-  salla app serve                  Serve an existing Salla App                       [--port]
+  salla app serve                  Serve an existing Salla App                       [-p,-l]
   salla login                      Login to your Salla Store                         -
   salla version                    Show the version of Salla CLI                     -
 ```
@@ -175,7 +173,7 @@ That will handle all authentication and authorization process with your account 
 
 To delete your app directly from the CLI, you need to run:
 
-``` bash
+```bash
 salla app delete --id <app_id>
 ```
 
@@ -185,11 +183,9 @@ salla app delete --id <app_id>
 
 To upgrade [Salla CLI](https://github.com/SallaApp/Salla-CLI) package globally, you need to run:
 
-``` bash
+```bash
 npm update @salla.sa/cli -g
 ```
-
-
 
 ## Contributing
 

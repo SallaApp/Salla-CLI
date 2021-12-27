@@ -16,8 +16,8 @@ module.exports = async function (options) {
 
   SallaWS.websocket
     .init({
-      connectionEndpoint: WS_ENDPOINT + "/connection/websocket",
-      //authEndpoint: "/connection/websocket/",
+      connectionEndpoint: WS_ENDPOINT,
+      authEndpoint: "/connection/websocket/",
       connectionToken: connectionToken,
     })
     .connect()

@@ -4,6 +4,8 @@ const cliSelect = require("cli-select");
 const chalk = require("chalk");
 const fs = require("fs");
 const clc = require("cli-color");
+const { MultiSelect } = require("enquirer");
+const { selectFiles } = require("select-files-cli");
 
 class InputsManager {
   APP_CLIENT_ID;
@@ -20,6 +22,38 @@ class InputsManager {
 
       AUTH_MODE: this.AUTH_MODE,
     };
+  }
+  selectMulti(choices, lable, desc, required = false) {
+    Logger.longLine();
+    if (desc) {
+      Logger.infoGray(desc);
+      Logger.longLine();
+    }
+    const prompt = new MultiSelect({
+      name: lable,
+      message: lable,
+      limit: choices.length,
+      choices: choices,
+
+      result(names) {
+        return this.map(names);
+      },
+      required,
+    });
+
+    return prompt.run();
+  }
+  selectFile(desc) {
+    Logger.longLine();
+    if (desc) {
+      Logger.infoGray(desc);
+    }
+    return selectFiles({
+      directoryFilter: (directoryName) => {
+        return !/node_modules$/gi.test(directoryName);
+      },
+      pageSize: 15,
+    });
   }
   readLine(lable, { validate, name, errorMessage, desc, defaultVal } = {}) {
     Logger.longLine();
@@ -71,9 +105,10 @@ class InputsManager {
       Logger.infoGray(desc);
       Logger.longLine();
     }
+
     Logger.normal("? " + lable.bold);
     values = values.map((v) => {
-      if (v.val) {
+      if (v.lable) {
         if (!v.desc) v.desc = "";
         else
           v.desc =
@@ -87,28 +122,38 @@ class InputsManager {
       valueRenderer: (value, selected) => {
         if (selected) {
           if (typeof value == "string") return chalk.bold(value);
-          return chalk.bold(value.val) + (value.desc || "");
+          return chalk.bold(value.lable) + (value.desc || "");
         }
         if (typeof value == "string") return value;
-        if (value.color) return value.val + clc[value.color](value.desc || "");
+        if (value.color)
+          return value.lable + clc[value.color](value.desc || "");
 
-        return value.val + value.desc;
+        return value.lable + value.desc;
       },
     });
 
+    if (selectedVal.value.value) {
+      Logger.normal(selectedVal.value.value);
+      return selectedVal.value.value;
+    }
     if (!selectedVal.value) {
       Logger.normal(selectedVal);
       return selectedVal.toLowerCase();
     }
-    if (!selectedVal.value.val) {
+    if (!selectedVal.value.lable) {
       Logger.normal(selectedVal.value);
       return selectedVal.value.toLowerCase();
     }
 
-    Logger.normal(selectedVal.value.val);
-    return selectedVal.value.val.toLowerCase();
+    Logger.normal(selectedVal.value.lable);
+    return selectedVal.value.lable.toLowerCase();
   }
-
+  askYesNo(desc, warningDesc) {
+    Logger.longLine();
+    Logger.warn(warningDesc);
+    Logger.longLine();
+    return readlineSync.keyInYN(desc);
+  }
   getClientIDFromCLI() {
     this.APP_CLIENT_ID = this.readLine("App Client ID: ");
     return this.APP_CLIENT_ID;
@@ -169,7 +214,7 @@ class InputsManager {
         [
           /* apps from developer account */
           ...apps.map((app) => {
-            return { val: app.name.en, desc: app.type };
+            return { lable: app.name.en, desc: app.type };
           }),
         ],
         desc

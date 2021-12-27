@@ -227,7 +227,7 @@ class LoggingManager {
           this.longLine();
         }
         resolve();
-      }, 10);
+      }, 1700);
     });
   }
   PrintTable(headArray, tableData) {

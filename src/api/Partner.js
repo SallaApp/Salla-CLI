@@ -6,20 +6,22 @@ module.exports = class PartnerAPI extends SallaApi {
 
     this.app_types = [
       {
-        val: "Public",
+        lable: "Public",
         desc: "Available for all Salla Merchants to download and use.",
       },
       {
-        val: "Private",
+        lable: "Private",
         desc: "Privately built apps for integration to larger scaled and individual merchants.",
       },
       {
-        val: "Shipping",
+        lable: "Shipping",
         desc: "Best suitable for shipping companies and delivery services.",
       },
     ];
   }
-
+  getAppUrl(app_id) {
+    return BASE_URL + `/apps/${app_id}/listings`;
+  }
   addNewApp(
     { name_ar, name_en },
     { short_description_ar, short_description_en },
@@ -122,6 +124,18 @@ module.exports = class PartnerAPI extends SallaApi {
       this.accessToken
     );
 
+    if (results.status === 200) {
+      return results.data;
+    }
+  }
+  async publishApp(app_id) {
+    let results = await this.requestURL(
+      this.baseEndpoint + "app/publish/" + app_id,
+      "POST",
+      null,
+      null,
+      this.accessToken
+    );
     if (results.status === 200) {
       return results.data;
     }
