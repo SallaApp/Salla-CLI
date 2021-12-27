@@ -44,16 +44,5 @@ global.AUTHENTICATION_PORT = "9898";
 global.FORBIDDEN_PROJECT_NAMES = ["node_modules", "src", "public"];
 global.DATABASE_ORM = ["Sequelize", "Mongoose", "TypeORM"];
 global.DEFAULT_APP_PORT = 8081;
-global.WS_ENDPOINT = "ws://ws.salla.group";
+global.WS_ENDPOINT = "wss://ws.salla.group";
 global.NO_HEAD = false;
-// load strings file
-/**
-
-try {
-  global.STRINGS = require("./strings.json");
-} catch (e) {
-  console.log("ERROR READING STRINGS FILE", e);
-  process.exit(1);
-}
-
- */

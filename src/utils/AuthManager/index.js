@@ -76,6 +76,12 @@ class AuthManager {
       return null;
     }
   }
+  saveNewToken(token) {
+    this.set("salla", {
+      ...this.configData.salla,
+      access_token: token,
+    });
+  }
   /**
    * @param {object|SallaConfig} token
    * @param withLog
