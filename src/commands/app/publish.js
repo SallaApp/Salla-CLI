@@ -12,7 +12,7 @@ module.exports = async function (options) {
       Logger.printVisitTroubleshootingPageAndExit();
     }
 
-    Logger.succ("Redrcting you to Salla Publish Page...");
+    Logger.succ("Redirecting you to Salla Publish Page...");
     require("open")(PartnerApi.getAppUrl(data.SALLA_APP_ID));
   } catch (err) {
     Logger.error(
