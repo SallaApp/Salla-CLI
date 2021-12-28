@@ -1,6 +1,6 @@
-var shell = require("shelljs");
-var opsys = process.platform;
-
+const shell = require("shelljs");
+let opsys = process.platform;
+const path = require("path");
 if (opsys === "darwin") {
   opsys = "macos";
 } else if (opsys === "win32" || opsys === "win64") {
@@ -9,4 +9,4 @@ if (opsys === "darwin") {
   opsys = "linux";
 }
 var myArgs = process.argv.slice(2);
-shell.exec("salla-" + opsys + " " + myArgs.join(" "));
+shell.exec(path.resolve("./salla-" + opsys + " " + myArgs.join(" ")));
