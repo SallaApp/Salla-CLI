@@ -167,7 +167,7 @@ salla login
 
 That will handle all authentication and authorization process with your account on [Salla Partners Portal](https://salla.partners/).
 
-![Salla App Login](https://i.ibb.co/XLszCgb/Clean-Shot-2021-12-28-at-17-04-26.gif)
+![Salla App Login](https://i.ibb.co/202HDR0/Clean-Shot-2021-12-28-at-17-07-25.gif)
 
 ## Delete
 
