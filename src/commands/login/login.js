@@ -10,7 +10,7 @@ module.exports = async function (options) {
     randromIdentify
   );
 
-  const load = Logger.loading("Refreshing your accessToken ...");
+  const load = Logger.loading("🔁 Refreshing your access token ...");
   setTimeout(() => {
     require("open")(BASE_URL + "/auth/cli?identify=" + randromIdentify);
   }, 2000);
