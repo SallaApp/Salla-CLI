@@ -11,9 +11,9 @@ module.exports = async function (options) {
   );
 
   // TODO: nabil here
-  Logger.info("");
+  Logger.info("You will now be redirected to your browser to complete the login process.");
   Logger.longLine();
-  const load = Logger.loading("Refreshing your access token ...");
+  const load = Logger.loading("Waiting for authentication ...");
 
   setTimeout(() => {
     require("open")(BASE_URL + "/auth/cli?identify=" + randromIdentify);
