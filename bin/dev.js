@@ -1,7 +1,7 @@
 const commander = require("commander");
 
 module.exports = function DevCommands() {
-  const Dev = require("../src/dev/dev");
+  const Dev = require("../src/commands/dev/dev");
 
   return new commander.Command()
     .command("dev", {

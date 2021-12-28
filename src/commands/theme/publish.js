@@ -1,8 +1,8 @@
 const BaseClass = require("./utils/BaseClass");
-const Logger = require("../utils/LoggingManager");
+const Logger = require("../../utils/LoggingManager");
 
-const { AuthManager, GithubAPI } = require("../utils/AuthManager")();
-const InputsManager = require("../utils/InputsManager");
+const { AuthManager, GithubAPI } = require("../../utils/AuthManager")();
+const InputsManager = require("../../utils/InputsManager");
 /**
  * @property {PublishOptions} options
  */

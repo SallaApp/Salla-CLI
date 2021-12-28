@@ -76,9 +76,9 @@ class AuthManager {
       return null;
     }
   }
-  saveNewToken(token) {
-    this.set("salla", {
-      ...this.configData.salla,
+  async saveNewToken(token) {
+    await this.set("salla", {
+      ...(this.configData.salla || {}),
       access_token: token,
     });
   }
@@ -124,7 +124,14 @@ class AuthManager {
   }
 
   async isSallaTokenValid() {
-    return SallaAuthAPI.isSallaTokenValid(this.configData.salla);
+    let isVaild = SallaAuthAPI.isSallaTokenValid(this.configData.salla);
+    if (!isVaild) {
+      Logger.error(
+        "🛑 Oops! Unable to authinticate. Try loggin again to Salla by running the following command: salla login"
+      );
+      Logger.printVisitTroubleshootingPageAndExit();
+    }
+    return true;
   }
 
   /**
@@ -133,13 +140,15 @@ class AuthManager {
    */
   async set(key, value) {
     const config = await this.getTokens();
+
     if (config == null) config = {};
     if (typeof value === "object")
       config[key] = {
-        ...config[key],
+        ...(config[key] || {}),
         ...value,
       };
     else config[key] = value;
+
     await this.save(config);
   }
 }

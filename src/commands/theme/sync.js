@@ -1,5 +1,5 @@
 const BaseClass = require("./utils/BaseClass");
-const Logger = require("../utils/LoggingManager");
+const Logger = require("../../utils/LoggingManager");
 /**
  * @property {SyncOptions} options
  */

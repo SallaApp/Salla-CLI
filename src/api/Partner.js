@@ -50,6 +50,15 @@ module.exports = class PartnerAPI extends SallaApi {
       return results.data;
     }
   }
+
+  async getAppByName(app_name) {
+    let apps = await this.getAllApps();
+
+    let app_data = apps.filter(
+      (app) => app.name.en.toLocaleLowerCase() === app_name.toLocaleLowerCase()
+    )[0];
+    return await this.getApp(app_data.id);
+  }
   async getApp(app_name) {
     if (typeof app_name === "string") {
       let apps = await this.getAllApps();

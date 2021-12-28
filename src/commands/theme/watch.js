@@ -2,7 +2,7 @@ const BaseClass = require("./utils/BaseClass");
 const { exec, execSync } = require("child_process");
 const commandExists = require("command-exists");
 
-const Logger = require("../utils/LoggingManager");
+const Logger = require("../../utils/LoggingManager");
 const watch = require("node-watch");
 const path = require("path");
 /**

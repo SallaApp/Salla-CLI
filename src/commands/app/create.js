@@ -1,24 +1,29 @@
-const Logger = require("../utils/LoggingManager");
-const { ExpressAppCreateor } = require("../stater-kits/express");
-const { LaravelAppCreateor } = require("../stater-kits/laravel");
+const { ExpressAppCreateor } = require("../../stater-kits/express");
+const { LaravelAppCreateor } = require("../../stater-kits/laravel");
 
-const InputsManager = require("../utils/InputsManager");
+const Logger = require("../../utils/LoggingManager");
+const InputsManager = require("../../utils/InputsManager");
 const ServeCommand = require("./serve");
-const PartnerApi = new (require("../api/Partner"))();
-const { AuthManager } = require("../utils/AuthManager")();
 
-// export function to Salla-cli
+const PartnerApi = new (require("../../api/Partner"))();
+const { AuthManager } = require("../../utils/AuthManager")();
+
+/**
+ * create project function
+ */
 module.exports = async function (options) {
+  //add catch errors listner
   InputsManager.errorCatch();
-  Logger.succ("✨ Getting your apps from Salla ...");
-  const load = Logger.loading("Getting apps ...");
 
-  if (!(await AuthManager.isSallaTokenValid())) {
-    Logger.error(
-      "🛑 Oops! Unable to authinticate. Try loggin again to Salla by running the following command: salla login"
-    );
-    process.exit(1);
-  }
+  // check and exit if access token not vaild
+  await AuthManager.isSallaTokenValid();
+
+  // start create app
+  Logger.succ("✨ Getting your apps from Salla ...");
+
+  /// STEPS
+  // 01 ###   GETTING APPS AND USER INFO FROM SALLA ACCOUNT
+  const load = Logger.loading("Getting apps ...");
   let apps = [];
   let userInfo = {};
   try {
@@ -30,11 +35,11 @@ module.exports = async function (options) {
       "🤔 Hmmm! Something went wrong while fetching your apps from Salla. Please try again later."
     );
 
-    process.exit(1);
+    Logger.printVisitTroubleshootingPageAndExit();
   }
   load.stop();
 
-  //  select app
+  // 02 ###  SELECTING APP NAME FROM LIST
   options.app_name =
     options.name ||
     (await InputsManager.selectInput(
@@ -50,7 +55,8 @@ module.exports = async function (options) {
     ));
   let isNewApp = false;
   options.app_path = generateAppPath(options.app_name);
-  // check if create new app or not
+
+  // 02.1 ###  IF CREATE NEW APP THEN GO TO CREATE NEW APP PROCESS
   if (options.app_name.indexOf("create") > -1) {
     isNewApp = true;
     options.app_name = InputsManager.readLine("App Name:", {
@@ -77,7 +83,7 @@ module.exports = async function (options) {
       Logger.error(
         `🛑 Oops! Seems like the App Name, ${options.app_name}, is not allowed to use.\nPlease try creating your Salla App with another name.`
       );
-      process.exit(1);
+      Logger.printVisitTroubleshootingPageAndExit();
     }
 
     // this will trigger process.exit(1) if the app name exists
@@ -147,7 +153,7 @@ module.exports = async function (options) {
     InputsManager.checkProjectExists(options.app_path, true);
   }
 
-  // get project type
+  // 03 ###  GET PROJECT TYPE
   const projectType = await InputsManager.selectInput(
     "Select Framework: (Use arrow keys)",
     [
@@ -170,6 +176,8 @@ module.exports = async function (options) {
       "Object-Relational Mapping (ORM) is a technique that lets you query and manipulate data from a database using an object-oriented paradigm. Select your prefred ORM to help you create and manage your database for your Salla App."
     );
   }
+
+  // 04 ###  CREATE THE APP PROJECT IN SALLA
   let AppData = null;
   if (isNewApp) {
     Logger.longLine();
@@ -196,8 +204,7 @@ module.exports = async function (options) {
         Logger.error(
           "🤔 Hmmm! Something went wrong while creating your app. Please try again by running the following command: salla app create "
         );
-        Logger.printVisitTroubleshootingPage();
-        process.exit(1);
+        Logger.printVisitTroubleshootingPageAndExit();
       }
 
       Logger.succ("🎉 Your app has been created successfully.");
@@ -207,29 +214,25 @@ module.exports = async function (options) {
       Logger.error(
         "🤔 Hmmm! Something went wrong while creating your app. Run the following command to create your app: salla app create "
       );
-      process.exit(1);
+      Logger.printVisitTroubleshootingPageAndExit();
     }
     load_upload_app.stop();
   }
   if (!AppData) {
-    let appData = await PartnerApi.getApp(options.app_name);
-    AppData = await PartnerApi.getApp(appData.id);
+    AppData = await PartnerApi.getAppByName(options.app_name);
   } else {
     AppData = AppData.data;
   }
 
-  // get Cliten ID etc
+  // 05 ###  SET ENV VARIABLES
   options.app_client_id = AppData.client_id;
   options.app_client_secret = AppData.client_secret;
   options.webhook_secret = AppData.webhook_secret;
   options.app_id = AppData.id;
-  // update webhooks and redirect urls IN serve
 
   Logger.longLine();
 
-  // start creating the project
-  // check if the project is expressjs or laravel
-
+  // 06 ###  START CREATING THE APP PROJECT FOLDER WITH .env FILE
   try {
     if (projectType === "express") {
       // Create Express APP
@@ -241,12 +244,12 @@ module.exports = async function (options) {
       Logger.error(
         "🤔 Hmmm! The Framework selected is not supported ... From the provided list, please choose a valid framework."
       );
-      process.exit(1);
+      Logger.printVisitTroubleshootingPageAndExit();
     }
 
     process.chdir(options.app_path.split(" ").join("_"));
-    // after creating the project we run salla serve
-    // run serve
+
+    // 07 ###  START SERVE COMMAND
     ServeCommand({
       port: DEFAULT_APP_PORT,
     });
@@ -255,9 +258,7 @@ module.exports = async function (options) {
       "🛑 Oops! There is an error that occured! Please check it.",
       err
     );
-    Logger.printVisitTroubleshootingPage();
-
-    process.exit(1);
+    Logger.printVisitTroubleshootingPageAndExit();
   }
 
   // catch Ctrl+C

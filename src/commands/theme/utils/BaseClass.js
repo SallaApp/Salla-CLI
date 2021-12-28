@@ -16,9 +16,9 @@
 /** @typedef {{base:string, config:CheckOption}} DevOptions */
 /** @typedef {AuthOptions|PublishOptions|PushOptions|ServeOptions|StartOptions|SyncOptions|WatchOptions|{}} ThemeCommandsOptions */
 
-const ThemeAPI = require("../../api/Theme");
+const ThemeAPI = require("../../../api/Theme");
 const { execSync } = require("child_process");
-const { AuthManager, GithubAPI } = require("../../utils/AuthManager")();
+const { AuthManager, GithubAPI } = require("../../../utils/AuthManager")();
 
 /**
  * @property {ThemeCommandsOptions} options

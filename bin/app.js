@@ -10,7 +10,7 @@ module.exports = function appCommands() {
     .command("create")
 
     .description("Wizard to help you create a new Salla Partners App.")
-    .action(require("../src/app/create"));
+    .action(require("../src/commands/app/create"));
 
   _app
     .command("serve")
@@ -18,37 +18,37 @@ module.exports = function appCommands() {
     .description("Serve, test, and view your Salla Partners App.")
     .option("-p, --port <name>", "port to listen to")
     .option("-l, --local", "run it locally without ngrok")
-    .action(require("../src/app/serve"));
+    .action(require("../src/commands/app/serve"));
 
   _app
     .command("create-webhook")
     .description("Creates a new webhook events file.")
-    .action(require("../src/app/create-webhook"));
+    .action(require("../src/commands/app/create-webhook"));
 
   _app
     .command("delete")
     .alias("d")
     .description("Delete your Salla Partners App locally and Remote .")
-    .action(require("../src/app/delete"));
+    .action(require("../src/commands/app/delete"));
 
   _app
     .command("list")
     .alias("l")
     .description("List your Salla Partners Apps .")
-    .action(require("../src/app/list"));
+    .action(require("../src/commands/app/list"));
   _app.showSuggestionAfterError();
 
   _app
     .command("info")
     .alias("l")
     .description("Show detailed app information.")
-    .action(require("../src/app/info"));
+    .action(require("../src/commands/app/info"));
 
   _app
     .command("publish")
     .alias("l")
     .description("Publish your app to salla .")
-    .action(require("../src/app/publish"));
+    .action(require("../src/commands/app/publish"));
 
   _app.showSuggestionAfterError();
 

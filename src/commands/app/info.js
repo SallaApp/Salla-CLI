@@ -1,9 +1,8 @@
-const Logger = require("../utils/LoggingManager");
+const Logger = require("../../utils/LoggingManager");
 
-const { AuthManager } = require("../utils/AuthManager")();
 const env = require("dotenv");
 const fs = require("fs-extra");
-const PartnerApi = new (require("../api/Partner"))();
+
 module.exports = async function (options) {
   try {
     let data = env.parse(fs.readFileSync(".env"));
@@ -19,5 +18,6 @@ module.exports = async function (options) {
   } catch (err) {
     Logger.error(err);
     Logger.warn("Please make sure you type the command in a Salla project");
+    Logger.printVisitTroubleshootingPageAndExit();
   }
 };

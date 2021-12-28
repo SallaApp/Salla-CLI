@@ -2,9 +2,9 @@ const BaseClass = require("./utils/BaseClass");
 const { Octokit } = require("@octokit/rest");
 const fetch = require("node-fetch");
 const AdmZip = require("adm-zip");
-const Logger = require("../utils/LoggingManager");
-const ExecutionManager = require("../utils/ExecutionManager");
-const InputsManager = require("../utils/InputsManager");
+const Logger = require("../../utils/LoggingManager");
+const ExecutionManager = require("../../utils/ExecutionManager");
+const InputsManager = require("../../utils/InputsManager");
 const executor = new ExecutionManager();
 /**
  * @property {StartOptions} options

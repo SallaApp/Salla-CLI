@@ -1,6 +1,6 @@
 const BaseClass = require("./utils/BaseClass");
-const Servino = require("../packages/devServer/servino");
-const Logger = require("../utils/LoggingManager");
+const Servino = require("../../packages/devServer/servino");
+const Logger = require("../../utils/LoggingManager");
 
 /**
  * @property {ServeOptions} options

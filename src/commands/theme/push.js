@@ -1,7 +1,7 @@
 const BaseClass = require("./utils/BaseClass");
-const { AuthManager, GithubAPI } = require("../utils/AuthManager")();
+const { AuthManager, GithubAPI } = require("../../utils/AuthManager")();
 
-const Logger = require("../utils/LoggingManager");
+const Logger = require("../../utils/LoggingManager");
 
 /**
  * @typedef {{access_token: string, login: string}} GithubConfig

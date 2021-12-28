@@ -40,11 +40,15 @@ class LoggingManager {
         }
       }
     }
-    this.printVisitTroubleshootingPage();
+    this.printVisitTroubleshootingPageAndExit();
   }
-  printVisitTroubleshootingPage() {
+  printVisitTroubleshootingPageAndExit() {
+    if (this.PRINTED) return;
+    this.PRINTED = true;
+    this.longLine();
     this.warn(this.visitTroubleshootingPage);
     this.warn(this.submitGithubIssue);
+    process.exit(1);
   }
   // print array of messages
   printMessages(msgs) {

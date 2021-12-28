@@ -2,21 +2,18 @@ const commandExistsSync = require("command-exists").sync;
 const { execSync, exec } = require("child_process");
 const ngrok = require("ngrok");
 
-const Logger = require("../utils/LoggingManager");
-const checkFolder = require("../helpers/check-folder");
+const Logger = require("../../utils/LoggingManager");
+const checkFolder = require("../../helpers/check-folder");
 const fs = require("fs-extra");
 const env = require("dotenv");
-const PartnerApi = new (require("../api/partner"))();
-const InputsManager = require("../utils/InputsManager");
-const { AuthManager } = require("../utils/AuthManager")();
+const PartnerApi = new (require("../../api/partner"))();
+const InputsManager = require("../../utils/InputsManager");
+const { AuthManager } = require("../../utils/AuthManager")();
 
 module.exports = async function (options) {
-  if (!(await AuthManager.isSallaTokenValid())) {
-    Logger.error(
-      "🛑 Oops! Unable to authinticate. Try loggin again to Salla by running the following command: salla login"
-    );
-    process.exit(1);
-  }
+  // check and exit if access token not vaild
+  await AuthManager.isSallaTokenValid();
+
   options.port = options.port || DEFAULT_APP_PORT;
   // check if ngrok is installed
   if (!commandExistsSync("ngrok")) {
@@ -28,7 +25,7 @@ module.exports = async function (options) {
     Logger.error(
       `🤔 Hmmm! This is neither a Laravel nor an Expressjs project! Please try again.`
     );
-    process.exit(1);
+    Logger.printVisitTroubleshootingPageAndExit();
   }
   Logger.info(`✨ Starting your project on PORT:${options.port} ... `);
   Logger.longLine();
@@ -54,7 +51,7 @@ module.exports = async function (options) {
           "🤔 Hmmm! Something went wrong while fetching your apps from Salla. Please try again later."
         );
 
-        process.exit(1);
+        Logger.printVisitTroubleshootingPageAndExit();
       }
       data.SALLA_APP_ID = APP.id;
     }
@@ -92,7 +89,7 @@ module.exports = async function (options) {
           "🤔 Hmmm! Something went wrong while updating webhook URL! Please try again later."
         );
 
-        process.exit(1);
+        Logger.printVisitTroubleshootingPageAndExit();
       }
       try {
         await PartnerApi.updateRedirectURL(
@@ -104,7 +101,7 @@ module.exports = async function (options) {
           "🤔 Hmmm! Something went wrong while updating Redirect URL! Please try again later."
         );
 
-        process.exit(1);
+        Logger.printVisitTroubleshootingPageAndExit();
       }
       Logger.succ(
         `🎉 Hooray! OAuth Callback and Webhook URLs have been updated successfully.`

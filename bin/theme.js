@@ -3,13 +3,13 @@ const program = new commander.Command();
 const Logger = require("../src/utils/LoggingManager");
 
 module.exports = function themeCommands() {
-  const Start = require("../src/theme/start");
+  const Start = require("../src/commands/theme/start");
 
-  const Serve = require("../src/theme/serve");
-  const Watch = require("../src/theme/watch");
-  const Sync = require("../src/theme/sync");
-  const Push = require("../src/theme/push");
-  const publish = require("../src/theme/publish");
+  const Serve = require("../src/commands/theme/serve");
+  const Watch = require("../src/commands/theme/watch");
+  const Sync = require("../src/commands/theme/sync");
+  const Push = require("../src/commands/theme/push");
+  const publish = require("../src/commands/theme/publish");
   /*******************************************/
 
   const themeCommand = program

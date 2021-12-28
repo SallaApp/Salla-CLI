@@ -201,7 +201,7 @@ class InputsManager {
     process.on("exit", () => {
       if (this.exitingNormal) return;
       Logger.longLine();
-      Logger.printVisitTroubleshootingPage();
+      Logger.printVisitTroubleshootingPageAndExit();
       process.exit(1);
     });
   }
