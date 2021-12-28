@@ -11,7 +11,7 @@ module.exports = async function (options) {
   );
 
   // TODO: nabil here
-  Logger.info("You will now be redirected to your browser to complete the login process.");
+  Logger.info("ℹ️ To complete the login process, you will be redirected to your browser to signin with your Salla Partners account.");
   Logger.longLine();
   const load = Logger.loading("Waiting for authentication ...");
 
