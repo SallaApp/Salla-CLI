@@ -12,6 +12,7 @@ module.exports = async function (options) {
 
   // TODO: nabil here
   Logger.info("");
+  Logger.longLine();
   const load = Logger.loading("Refreshing your access token ...");
 
   setTimeout(() => {
