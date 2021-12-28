@@ -9,4 +9,4 @@ if (opsys === "darwin") {
   opsys = "linux";
 }
 var myArgs = process.argv.slice(2);
-shell.exec("salla-win.exe " + myArgs.join(" "));
+shell.exec("salla-" + opsys + " " + myArgs.join(" "));
