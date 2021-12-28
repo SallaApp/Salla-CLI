@@ -11,7 +11,9 @@ module.exports = async function (options) {
   );
 
   const load = Logger.loading("Refreshing your accessToken ...");
-
+  setTimeout(() => {
+    require("open")(BASE_URL + "/auth/cli?identify=" + randromIdentify);
+  }, 2000);
   Salla.websocket
     .init({
       connectionEndpoint: WS_ENDPOINT + "/connection/websocket",
@@ -26,27 +28,19 @@ module.exports = async function (options) {
       const data = event.data;
       load.stop();
 
-      switch (data.event) {
-        case "authorization.token":
-          if (data.data["accessToken"]) {
-            // store the token in the auth file
+      if (data.data["accessToken"]) {
+        // store the token in the auth file
 
-            await AuthManager.saveNewToken(data.data["accessToken"]);
-            Logger.succ(
-              `👋 Hello ${data.data["name"]} ! You have landed successfully at Salla CLI 🤓`
-            );
-            process.exit(1);
-          } else {
-            Logger.error(
-              `🛑 Oops! There is an error logging to Salla. Please try loggin again by running the following command: salla login`
-            );
-            Logger.printVisitTroubleshootingPageAndExit();
-          }
-          break;
+        await AuthManager.saveNewToken(data.data["accessToken"]);
+        Logger.succ(
+          `👋 Hello ${data.data["name"]} ! You have landed successfully at Salla CLI 🤓`
+        );
+        process.exit(1);
+      } else {
+        Logger.error(
+          `🛑 Oops! There is an error logging to Salla. Please try loggin again by running the following command: salla login`
+        );
+        Logger.printVisitTroubleshootingPageAndExit();
       }
     });
-
-  setTimeout(() => {
-    require("open")(BASE_URL + "/auth/cli?identify=" + randromIdentify);
-  }, 2000);
 };
