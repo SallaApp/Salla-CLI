@@ -11,7 +11,7 @@ module.exports = async function (options) {
   );
 
   // TODO: nabil here
-  Logger.info("ℹ️ To complete the login process, you will be redirected to your browser to signin with your Salla Partners account.");
+  Logger.info("ℹ️ To complete the login process, you will be redirected to your browser to signin with your Salla Partner account.");
   Logger.longLine();
   const load = Logger.loading("Waiting for authentication ...");
 
@@ -37,7 +37,7 @@ module.exports = async function (options) {
 
         await AuthManager.saveNewToken(data.data["accessToken"]);
         Logger.succ(
-          `👋 Hello ${data.data["name"]} ! You have landed successfully at Salla CLI 🤓`
+          `👋 Howdy ${data.data["name"]} ! You have landed successfully at Salla CLI 🤓`
         );
         process.exit(1);
       } else {

@@ -38,9 +38,6 @@
                     <li><a href="#create-webhook">Create Webhook</a></li>
                </ul>
           <li><a href="#auth">Auth</a></li>
-          <ul>
-                    <li><a href="#login">Login</a></li>
-          </ul>
           <li><a href="#delete">Delete</a></li>
           <li><a href="#upgrade">Upgrade</a></li>
           </li>
@@ -155,9 +152,7 @@ salla app create-webhook
 
 ![Salla App Create-Webhook Command](https://i.ibb.co/yBstbgx/Clean-Shot-2021-12-27-at-16-16-47.gif)
 
-## Auth
-
-### Login
+## Authintication
 
 To communicate with your [Salla Partners Portal](https://salla.partners/) Apps, you will need to be authenticated. To do so, run the following command:
 
@@ -186,22 +181,6 @@ To upgrade [Salla CLI](https://github.com/SallaApp/Salla-CLI) package globally, 
 ```bash
 npm update @salla.sa/cli -g
 ```
-
-## Contributing
-
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create.
-Any contributions you make are **greatly appreciated**.
-
-If you have a suggestion that would make this better, please fork the repo and create a pull request.
-You can also simply open an issue with the tag "enhancement". Don't forget to give the project a star! Thanks again!
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Security
 
