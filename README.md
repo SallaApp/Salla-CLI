@@ -32,15 +32,6 @@
                     <li><a href="#prerequisites">Prerequisites</a></li>
                     <li><a href="#usage">Usage</a></li>
                </ul>
-          <li><a href="#create-application">Create Appliaction</a></li>
-          <ul>
-                    <li><a href="#serve-application">Serve Application</a></li>
-                    <li><a href="#create-webhook">Create Webhook</a></li>
-               </ul>
-          <li><a href="#auth">Auth</a></li>
-          <li><a href="#link">Link</a></li>
-          <li><a href="#delete">Delete</a></li>
-          <li><a href="#upgrade">Upgrade</a></li>
           </li>
           <li><a href="#contributing">Contributing</a></li>
           <li><a href="#support">Support</a></li>
@@ -62,14 +53,14 @@
 
 ## Getting Started
 
-The [Salla CLI](https://github.com/SallaApp/Salla-CLI) is available via npm and is packaged to be used globally so you can access it everywhere.
+The [Salla CLI](https://github.com/SallaApp/Salla-CLI) is available via npm and is packaged to be used globally so you can access it everywhere. With the [official documentation](https://docs.salla.dev/docs/salla-cli), take the terminal experience to the next level
 
 [Salla CLI](https://github.com/SallaApp/Salla-CLI) comes with an easy to use, straight-forward commands that does the complete setup to your Salla App. To be ready, you will need some prerequisites which will be listed hereafter.
 
 What can you use [Salla CLI](https://github.com/SallaApp/Salla-CLI) for?
 
 - Single-taps to create your Salla App on [Salla Partners Portal](https://salla.partners/).
-- Alternatively, use the Starter Kits to create your app. 
+- Alternatively, use the Starter Kits to create your app.
 - Serve the local app to the public for testing purposes.
 - Publish the app to [Salla App Store](https://apps.salla.sa/).
 
@@ -119,73 +110,7 @@ Available Commands:
   salla version                    Show the version of Salla CLI                     -
 ```
 
-## Create Application
-
-Creating your [Salla App](https://salla.partners/) App is much easier with [Salla CLI](https://github.com/SallaApp/Salla-CLI). Run the following command to go through the wizard that would help you create your app:
-
-```bash
-salla app create
-```
-
-List of existing apps assocaited to your account will be displayed as well as an option to create your app on [Salla Partners Portal](https://salla.partners/). Afterwards, you will be presented with easy-to fill in information to create your app.
-
-![Salla App Create Command](https://i.ibb.co/92tKgZz/Clean-Shot-2021-12-27-at-21-31-15.gif)
-
-### Serve Application
-
-To run and test an existing Salla App, run the following command:
-
-```bash
-salla app serve
-```
-
-![Salla App Serve Command](https://i.ibb.co/vHXPGMJ/Clean-Shot-2021-12-27-at-21-24-18.gif)
-
-### Create Webhook
-
-Webhooks are a way to receive notifications from Salla when an event happens in your Salla App. For example, when a new order is placed, you can receive a notification via your own webhook. Read more on [the Official Docs](https://docs.salla.dev/docs/merchant/ZG9jOjI0NTE3NDg1-webhook).
-
-For utmost flexibility, you can stream a webhook for any event you want to receive. Run the following command to create a webhook:
-
-```bash
-salla app create-webhook
-```
-
-![Salla App Create-Webhook Command](https://i.ibb.co/yBstbgx/Clean-Shot-2021-12-27-at-16-16-47.gif)
-
-## Authintication
-
-To communicate with your [Salla Partners Portal](https://salla.partners/) Apps, you will need to be authenticated. To do so, run the following command:
-
-```bash
-salla login
-```
-
-That will handle all authentication and authorization process with your account on [Salla Partners Portal](https://salla.partners/).
-
-![Salla App Login](https://i.ibb.co/Pmwzm0R/Clean-Shot-2021-12-28-at-17-11-57.gif)
-
-## Link
-
-To link your local app with Salla Partners, you need to run:
-
-```bash
-salla app link
-```
-
-List of existing apps assocaited to your account will be displayed where you will need to choose one application to link to your local app to.
-
-![Salla App Link Command](https://i.ibb.co/bbFVX9r/Clean-Shot-2022-01-04-at-09-26-28.gif)
-
-## Delete
-
-To delete your app directly from the CLI, you need to run:
-
-```bash
-salla app delete
-```
-
-![Salla App Delete Command](https://i.ibb.co/hWSfN95/Clean-Shot-2021-12-27-at-21-27-34.gif)
+> Explore about Theme Commands through the [official documentation](https://docs.salla.dev/docs/twilight-themes-documentation)
 
 ## Upgrade
 
