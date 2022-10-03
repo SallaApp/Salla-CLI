@@ -33,7 +33,6 @@
                     <li><a href="#usage">Usage</a></li>
                </ul>
           </li>
-          <li><a href="#contributing">Contributing</a></li>
           <li><a href="#support">Support</a></li>
           <li><a href="#security">Security</a></li>
           <li><a href="#credits">Credits</a></li>
@@ -98,6 +97,8 @@ salla <command>
 
 Available Commands:
   Command:                         Description:                                      Properties:
+  salla login                      Login to your Salla Partners account              -
+  salla version                    Show the version of Salla CLI                     -
   salla app                        Show list of commands with the binary `app`       -
   salla app create                 Create a new Salla App                            -
   salla app create-webhook         Create a new Salla App Webhook                    [event.name]
@@ -106,8 +107,11 @@ Available Commands:
   salla app info                   Show detailed app information                     -
   salla app link                   Link your local app with Salla Partners           -
   salla app serve                  Serve an existing Salla App                       [-p,-l]
-  salla login                      Login to your Salla Partners account              -
-  salla version                    Show the version of Salla CLI                     -
+  salla theme create               Create a new Salla Store Theme                    -
+  salla theme preview              Build, deploy, and preview the theme locally      -
+  salla theme list                 List all your Salla Store Themes                  -
+  salla theme delete               Delete an existing Salla Store Theme              -
+  salla theme publish              Submit Theme for publishing approval              -
 ```
 
 > Explore about Theme Commands through the [official documentation](https://docs.salla.dev/docs/twilight-themes-documentation)
