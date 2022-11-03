@@ -44,7 +44,7 @@
 
 ## Overview
 
-[The Salla Command Line Interface](https://github.com/SallaApp/Salla-CLI) (Salla CLI) is your way to create your starter Salla Apps which works with the [Salla APIs](https://docs.salla.dev/). Your App later can be published to the [Salla App Store](https://apps.salla.sa/) and be available for installation to any of Salla [Merchants Stores](https://salla.sa/).
+[The Salla Command Line Interface](https://docs.salla.dev/docs/salla-cli) (Salla CLI) is your way to create your starter Salla Apps which works with the [Salla APIs](https://docs.salla.dev/). Your App later can be published to the [Salla App Store](https://apps.salla.sa/) and be available for installation to any of Salla [Merchants Stores](https://salla.sa/).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -52,11 +52,11 @@
 
 ## Getting Started
 
-The [Salla CLI](https://github.com/SallaApp/Salla-CLI) is available via npm and is packaged to be used globally so you can access it everywhere. With the [official documentation](https://docs.salla.dev/docs/salla-cli), take the terminal experience to the next level
+The [Salla CLI](https://docs.salla.dev/docs/salla-cli) is available via npm and is packaged to be used globally so you can access it everywhere. With the [official documentation](https://docs.salla.dev/docs/salla-cli), take the terminal experience to the next level
 
-[Salla CLI](https://github.com/SallaApp/Salla-CLI) comes with an easy to use, straight-forward commands that does the complete setup to your Salla App. To be ready, you will need some prerequisites which will be listed hereafter.
+[Salla CLI](https://docs.salla.dev/docs/salla-cli) comes with an easy to use, straight-forward commands that does the complete setup to your Salla App. To be ready, you will need some prerequisites which will be listed hereafter.
 
-What can you use [Salla CLI](https://github.com/SallaApp/Salla-CLI) for?
+What can you use [Salla CLI](https://docs.salla.dev/docs/salla-cli) for?
 
 - Single-taps to create your Salla App on [Salla Partners Portal](https://salla.partners/).
 - Alternatively, use the Starter Kits to create your app.
@@ -114,7 +114,7 @@ Available Commands:
   salla theme publish              Submit Theme for publishing approval              -
 ```
 
-> Explore about Theme Commands through the [official documentation](https://docs.salla.dev/docs/twilight-themes-documentation)
+> Explore about Theme Commands through the [official documentation](https://docs.salla.dev/docs/salla-cli)
 
 ## Upgrade
 
