@@ -58,10 +58,10 @@ The [Salla CLI](https://docs.salla.dev/?nav=01HNA8QHCPJTCY5VSEZ616JCAK) is avail
 
 What can you use [Salla CLI](https://docs.salla.dev/?nav=01HNA8QHCPJTCY5VSEZ616JCAK) for?
 
-- Single-taps to create your Salla App on [Salla Partners Portal](https://salla.partners/).
-- Alternatively, use the Starter Kits to create your app.
-- Serve the local app to the public for testing purposes.
-- Publish the app to [Salla App Store](https://apps.salla.sa/).
+- Easily create your Salla Apps and Themes on the [Salla Partners Portal](https://salla.partners/).
+- Utilize the Starter Kits (ExpressJS and Laravel) to develop your apps.
+- Deploy your apps for public testing and showcase your themes on demo stores for previewing.
+- Publish your apps on the [Salla App Store](https://apps.salla.sa/) and your themes on the [Salla Theme Marketplace](https://s.salla.sa/marketplace/themes).
 
 ### Prerequisites
 
