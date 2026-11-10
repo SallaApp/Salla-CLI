@@ -136,6 +136,7 @@ If you discover any security-related issues, please email `security@salla.sa` in
 
 - [Salla](https://github.com/sallaApp)
 - [All Contributors](../../contributors)
+- [Reemal.com](https://reemal.com) - Sponsor
 
 ## License
 
